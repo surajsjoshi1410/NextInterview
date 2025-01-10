@@ -1,12 +1,15 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import styled, { ThemeProvider } from "styled-components";
+import GlobalStyle from "./theme/GlobalStyle";
+import theme from "./theme/Theme";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return <div>Next-Interview</div>;
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      Rajat
+    </ThemeProvider>
+  );
 }
 
 export default App;
