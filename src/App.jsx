@@ -13,6 +13,7 @@ import HeaderWithLogo from "./components/HeaderWithLogo/HeaderWithLogo";
 import QuestionPage1 from "./pages/Questions/Question1/Question1";
 import QuestionPage2 from "./pages/Questions/Question2/Question2";
 import QuestionPage3 from "./pages/Questions/Question3/Question3";
+import LearningModules from "./modules/admin/pages/Learning modules/Learningmodules";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
          <Route path="/question3" element={<QuestionPage3 />} />
           <Route path="/question4" element={<QuestionPage4 />} />
           <Route path="/otp" element={<Otp />} />
+          <Route path="/learning" element={<LearningModules />} />
 
           <Route path="/" element={<BaseLayout>rajat</BaseLayout>} />
         </Routes>
