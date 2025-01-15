@@ -60,14 +60,14 @@ const Otp = () => {
             style={{
               borderRadius: '10%',
               border: '1px solid grey',
-              padding: '3px',
+              padding: '8px',
             }}
           >
             <FaArrowLeft className='back-icon' />
           </BackIcon>
           <OTPMessage>OTP has been sent to your mobile number.</OTPMessage>
           <OTPInputContainer>
-            <label htmlFor="otp">Enter OTP:</label>
+            <label htmlFor="otp">Enter OTP</label>
             <div
               style={{
                 display: 'flex',

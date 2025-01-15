@@ -8,9 +8,11 @@ import {
   InputField,
   SubmitButton,
   ErrorMessage,
+  BackIcon,
   SkipButton
 } from "../PersonalInfo/PersonalInfo.styles";
 import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
+import { IoMdArrowBack } from "react-icons/io";
 
 const PersonalInfo = () => {
   const [formValues, setFormValues] = useState({
@@ -75,11 +77,32 @@ const PersonalInfo = () => {
     }
   };
 
+  const handleGoBack = () => {
+    navigate("/"); 
+  };
+
   return (
     
     <div><HeaderWithLogo />
     <Container>
       <FormContainer>
+
+        
+              <BackIcon onClick={handleGoBack}
+              style={{
+                border:'1px solid grey',
+                // padding: '2px',
+                justifyContent: 'center',
+                alignContent: 'center',
+                padding: '8px',
+                borderRadius: '4px',
+                alignItems: 'center',
+              }}
+              >
+            <IoMdArrowBack />
+            </BackIcon>
+            
+
         <Title>Enter your details</Title>
         <form onSubmit={handleSubmit}>
           <InputGroup>

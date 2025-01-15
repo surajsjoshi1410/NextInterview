@@ -6,7 +6,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-  min-height: 100vh;
+  min-height: 80vh;
   background-color: ${theme.colors.light};
 
   @media (max-width: 768px) {
@@ -14,58 +14,25 @@ export const Container = styled.div`
   }
 `;
 
-export const Header = styled.header`
-  position: absolute;
-  top: 15px;
-  width: 100%;
-  padding: 1rem 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  @media (max-width: 768px) {
-    padding: 1rem;
-  }
-`;
-
-export const Logo = styled.div`
-  img {
-    height: 50px;
-  }
-
-  @media (max-width: 768px) {
-    img {
-      height: 40px;
-    }
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-`;
-
 export const BackIcon = styled.div`
- 
-//   top: 230px; /* Adjust to place it near the top on mobile */
-//   left: 635px;
+
   cursor: pointer;
-  font-size: 24px;
-  color: #000;
+  font-size: 16px;
 
   @media (max-width: 768px) {
-    top: 200px;
-    left: 20px;
-    font-size: 28px;
+    
+    font-size: 14px;
   }
+
+  @media (max-width: 480px) {
+    
+    font-size: 12px;
 `;
 
 
 export const Title = styled.h1`
   font-size: 24px;
-//   font-weight: bold;
   color:${theme.colors.text};
-//   margin: 80px 0 20px 0;
-//   margin-right: 110px;
 
 @media (max-width: 768px) {
   font-size: 20px;

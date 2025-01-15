@@ -9,7 +9,7 @@ export const Container = styled.div`
   align-items: center; 
   justify-content: center;
 //   height: 80vh;
-height: 100vh;
+height: 80vh;
   background-color: ${theme.colors.light};
   position: relative; 
 
@@ -56,8 +56,8 @@ export const FormSection = styled.div`
 export const BackIcon = styled.div`
   /* Let the icon be placed at the top of the form */
   align-self: flex-start;  
-//   padding: 10px;
-  font-size: 24px;
+justify-content:center;
+  font-size: 16px;
   color: ${theme.colors.text};
   cursor: pointer;
   margin-bottom: 10px; 
@@ -70,33 +70,33 @@ export const BackIcon = styled.div`
 export const Title = styled.h1`
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   color: ${theme.colors.text};
 
   @media (max-width: 768px) {
     font-size: 20px;
-    margin-bottom: 18px;
+    margin-bottom: 5px;
   }
 
   @media (max-width: 480px) {
     font-size: 18px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
   }
 `;
 
 export const Subtitle = styled.p`
   font-size: 18px;
  color: ${theme.colors.text};
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 
   @media (max-width: 768px) {
     font-size: 14px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
 
   @media (max-width: 480px) {
     font-size: 12px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 `;
 
@@ -123,7 +123,7 @@ export const InputContainer = styled.div`
 
 export const Label = styled.label`
   font-size: 18px;
-  font-weight: 500;
+//   font-weight: 500;
   color:${theme.colors.text};
   margin-bottom: 5px;
   text-align: left;
@@ -150,13 +150,13 @@ export const Input = styled.input`
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 1px solid ${theme.colors.textgray};
+  border-radius: 4px;
   outline: none;
   transition: border 0.3s;
 
   &:focus {
-    border-color: #007bff;
+    border-color: ${theme.colors.textgray};
   }
 
   @media (max-width: 768px) {
