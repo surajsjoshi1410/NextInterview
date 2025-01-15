@@ -157,7 +157,7 @@ export const OptionLabel = styled.span`
 
 export const NextButton = styled.button`
   margin-top: 30px;
-  width: 400px;
+  width: 100%;
   height: 50px;
   background-color: ${(props) => (props.disabled ? "#28a745" : "#68c184")};
   color: #ffffff;
