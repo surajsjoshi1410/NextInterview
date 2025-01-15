@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -31,7 +32,11 @@ const GlobalStyle = createGlobalStyle`
         flex: 1;
         max-width: 1600px;
         margin-right: auto;
-        margin-left: auto;
+    
+         margin-left: ${(props) => (props.isExpanded ? "200px" : "60px")};
+  padding: 20px;
+  width: calc(100% - ${(props) => (props.isExpanded ? "200px" : "60px")});
+  transition: margin-left 0.3s ease, width 0.3s ease;
     }
 `;
 
