@@ -9,6 +9,7 @@ export const Container = styled.div`
   min-height: 100vh;
   background-color: #ffffff;
 
+  
   @media (max-width: 768px) {
     padding: 10px;
   }
