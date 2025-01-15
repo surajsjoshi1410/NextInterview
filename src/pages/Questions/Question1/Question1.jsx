@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import {
   Container,
-  Header,
-  Logo,
   Title,
   Option,
   OptionLabel,
   NextButton,
   CirclePointer,
   BackIcon,
+  Section,
 } from "../Question1/Question1.styles";
-import logo from "../../../assets/Logo.png";
 import { useNavigate } from "react-router";
 import { FaArrowLeft } from "react-icons/fa";
+import HeaderWithLogo from "../../../components/HeaderWithLogo/HeaderWithLogo";
 
 const QuestionPage1 = () => {
   const [selectedOption, setSelectedOption] = useState("");
@@ -27,12 +26,12 @@ const QuestionPage1 = () => {
   };
 
   return (
+    <div>
+        <HeaderWithLogo />
+   
     <Container>
-      <Header>
-        <Logo>
-          <img src={logo} alt="Next Interview Logo" />
-        </Logo>
-      </Header>
+      <Section>
+        
 
       <BackIcon onClick={handleGoBack}>
         <FaArrowLeft />
@@ -61,7 +60,11 @@ const QuestionPage1 = () => {
       </Option>
 
       <NextButton disabled={!selectedOption}>Next</NextButton>
-    </Container>
+   
+      </Section>
+
+       </Container>
+     </div>
   );
 };
 

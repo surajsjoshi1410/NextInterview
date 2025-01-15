@@ -68,7 +68,7 @@ export const BackIcon = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
   color: ${theme.colors.text};
@@ -85,7 +85,7 @@ export const Title = styled.h1`
 `;
 
 export const Subtitle = styled.p`
-  font-size: 14px;
+  font-size: 18px;
  color: ${theme.colors.text};
   margin-bottom: 20px;
 
@@ -122,7 +122,7 @@ export const InputContainer = styled.div`
 `;
 
 export const Label = styled.label`
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
   color:${theme.colors.text};
   margin-bottom: 5px;
@@ -179,7 +179,7 @@ export const Button = styled.button`
   width:auto;
   padding: 10px;
   font-size: 16px;
-  color:${theme.colors.text};
+  color:${theme.colors.light};
   background-color: ${theme.colors.primary};
   border: none;
   border-radius: 5px;

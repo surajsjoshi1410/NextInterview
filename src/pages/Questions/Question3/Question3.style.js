@@ -4,54 +4,31 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
-  min-height: 100vh;
-  background-color: #ffffff;
+height: 100vh;
+  background-color: ${theme.colors.light};
 
   @media (max-width: 768px) {
     padding: 10px;
-  }
-`;
-
-export const Header = styled.header`
-  position: absolute;
-  top: 15px;
-  width: 100%;
-  padding: 1rem 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  @media (max-width: 768px) {
-    padding: 1rem;
-  }
-`;
-
-export const Logo = styled.div`
-  img {
-    height: 50px;
+    
   }
 
-  @media (max-width: 768px) {
-    img {
-      height: 40px;
+  @media (max-width: 480px){
+    padding: 10px;
+    justify-content: unset;
     }
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
 `;
+
+
 
 export const BackIcon = styled.div`
- position: absolute;
-  top: 190px; /* Adjust to place it near the top on mobile */
-  left: 635px;
+//  position: absolute;
+//   top: 190px; /* Adjust to place it near the top on mobile */
+//   left: 635px;
+
   cursor: pointer;
   font-size: 24px;
-  color: #000;
-
+ color:${theme.colors.text};
+,,
   @media (max-width: 768px) {
     top: 200px;
     left: 20px;
@@ -63,37 +40,37 @@ export const BackIcon = styled.div`
 export const Title = styled.h1`
   font-size: 24px;
   font-weight: bold;
-  color: #000000;
-  margin: 80px 0 20px 0;
+ color:${theme.colors.text};
+//   margin: 80px 0 20px 0;
 //   margin-right: 10px;
 
   @media (max-width: 768px) {
     font-size: 20px;
-    margin: 60px 0 15px 0;
+    // margin: 60px 0 15px 0;
 //     margin-right: 130px !important;
   }
 
   @media (max-width: 480px) {
     font-size: 18px;
-    margin: 40px 0 10px 0;
+    // margin: 40px 0 10px 0;
   }
 `;
 
 export const Option = styled.div`
   display: flex;
   align-items: center;
-  width: 400px;
+  width: 100%;
   height: 50px;
   padding: 10px;
-  margin: 10px 0;
-  border: 2px solid ${(props) => (props.$isSelected ? "#00b894" : "#cccccc")};
+  margin: 10px 20px 10px 0;
+  border: 2px solid ${(props) => (props.$isSelected ? "#68c184" : "#cccccc")};
   border-radius: 8px;
   cursor: pointer;
   background-color: ${(props) => (props.$isSelected ? "#e8f5e9" : "#ffffff")};
-  transition: all 0.3s ease;
+//   transition: all 0.3s ease;
 
   &:hover {
-    border-color: #68C184;
+    border-color:${theme.colors.primary};
   }
 
   @media (max-width: 768px) {
@@ -112,9 +89,9 @@ export const CirclePointer = styled.div`
   width: 20px;
   height: 20px;
   margin-right: 20px;
-  border: 2px solid ${(props) => (props.$isSelected ? "#00b894" : "#cccccc")};
+  border: 2px solid ${(props) => (props.$isSelected ? "#68c184" : "#cccccc")};
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: ${theme.colors.light};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,7 +101,7 @@ export const CirclePointer = styled.div`
     content: "";
     width: ${(props) => (props.$isSelected ? "10px" : "0")};
     height: ${(props) => (props.$isSelected ? "10px" : "0")};
-    background-color: ${(props) => (props.$isSelected ? "#00b894" : "transparent")};
+    background-color: ${(props) => (props.$isSelected ? "#68c184" : "transparent")};
     border-radius: 50%;
     transition: all 0.3s ease;
   }
@@ -144,7 +121,7 @@ export const CirclePointer = styled.div`
 export const OptionLabel = styled.span`
   font-size: 16px;
   font-weight: ${(props) => (props.$isSelected ? "bold" : "normal")};
-  color: ${(props) => (props.$isSelected ? "#00b894" : "#000000")};
+  color: ${(props) => (props.$isSelected ? "#28a745" : "#000000")};
 
   @media (max-width: 768px) {
     font-size: 14px;
@@ -157,10 +134,10 @@ export const OptionLabel = styled.span`
 
 export const NextButton = styled.button`
   margin-top: 30px;
-  width: 400px;
+ width:100%;
   height: 50px;
-  background-color: ${(props) => (props.disabled ? "#a0cde5" : "#2290AC")};
-  color: #ffffff;
+  background-color: ${(props) => (props.disabled ? "#68c184" : "#28a745")};
+  color: ${theme.colors.light} ;
   font-size: 16px;
   font-weight: bold;
   border: none;
@@ -169,18 +146,36 @@ export const NextButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${(props) => (props.disabled ? "#cccccc" : "#01966f")};
+    background-color: ${(props) => (props.disabled ? "#f8f9fa" : "#28a745")};
   }
 
   @media (max-width: 768px) {
     width: 100%;
     height: 45px;
-    margin-top: 20px;
+    // margin-top: 20px;
     font-size: 14px;
   }
 
   @media (max-width: 480px) {
     height: 40px;
     font-size: 12px;
+    width: 100%;
+  }
+`;
+
+
+export const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;                          
+  height: 100vh;    
+
+  @media (max-width: 768px) {
+    padding: 10px;
+     }
+
+  @media (max-width: 480px) {
+    padding: 10px;
   }
 `;

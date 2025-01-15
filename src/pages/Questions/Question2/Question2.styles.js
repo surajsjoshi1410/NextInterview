@@ -7,9 +7,13 @@ export const Container = styled.div`
   justify-content: center;
   padding: 20px;
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color:${theme.colors.light};
 
   @media (max-width: 768px) {
+    padding: 10px;
+  }
+
+  @media (max-width: 480px) {
     padding: 10px;
   }
 `;
@@ -24,6 +28,9 @@ export const Header = styled.header`
   justify-content: flex-start;
 
   @media (max-width: 768px) {
+    padding: 1rem;
+  }
+    @media (max-width: 480px) {
     padding: 1rem;
   }
 `;
@@ -45,17 +52,16 @@ export const Logo = styled.div`
 `;
 
 export const BackIcon = styled.div`
- position: absolute;
-  top: 230px; /* Adjust to place it near the top on mobile */
-  left: 635px;
+//  position: absolute;
+//   top: 230px; /* Adjust to place it near the top on mobile */
+//   left: 635px;
+
   cursor: pointer;
   font-size: 24px;
-  color: #000;
+ color: ${theme.colors.text};
 
   @media (max-width: 768px) {
-    top: 200px;
-    left: 20px;
-    font-size: 28px;
+    font-size: 20px;
   }
 `;
 
@@ -63,8 +69,8 @@ export const BackIcon = styled.div`
 export const Title = styled.h1`
   font-size: 24px;
   font-weight: bold;
-  color: #000000;
-  margin: 80px 0 20px 0;
+  oolor: ${theme.colors.text};
+//   margin: 80px 0 20px 0;
 //   margin-right: 10px;
 
   @media (max-width: 768px) {
@@ -93,7 +99,7 @@ export const Option = styled.div`
   transition: all 0.3s ease;
 
   &:hover {
-    border-color: #68C184;
+    border-color: ${theme.colors.primary};
   }
 
   @media (max-width: 768px) {
@@ -114,7 +120,7 @@ export const CirclePointer = styled.div`
   margin-right: 20px;
   border: 2px solid ${(props) => (props.$isSelected ? "#00b894" : "#cccccc")};
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: ${theme.colors.light};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -157,10 +163,11 @@ export const OptionLabel = styled.span`
 
 export const NextButton = styled.button`
   margin-top: 30px;
-  width: 400px;
+//   width: 400px;
   height: 50px;
-  background-color: ${(props) => (props.disabled ? "#a0cde5" : "#2290AC")};
-  color: #ffffff;
+width: 100%;
+  background-color: ${(props) => (props.disabled ? "#68c184" : "#28a745")};
+  color: ${theme.colors.light};
   font-size: 16px;
   font-weight: bold;
   border: none;
@@ -169,7 +176,7 @@ export const NextButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${(props) => (props.disabled ? "#cccccc" : "#01966f")};
+    background-color: ${(props) => (props.disabled ? "#68c184" : "#28a745")};
   }
 
   @media (max-width: 768px) {
@@ -183,4 +190,28 @@ export const NextButton = styled.button`
     height: 40px;
     font-size: 12px;
   }
+`;
+
+
+export const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;              
+  height: 100vh;
+  background-color:${theme.colors.light};
+  font-family: Arial, sans-serif;
+  padding: 0 15px; 
+
+  @media (max-width: 480px) {
+    padding: 0 10px;
+    justify-content: unset;
+    
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 10px;
+
+  }
+  /* Added padding for better responsiveness */
 `;

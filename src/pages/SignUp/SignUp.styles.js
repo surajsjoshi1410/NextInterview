@@ -41,7 +41,7 @@ export const Signupage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f9fafa;
+background-color: ${theme.colors.light};
   
   img {
     width: 100%;
@@ -57,16 +57,14 @@ export const Signupage = styled.div`
 
 export const Heading = styled.h2`
   margin-bottom: 1rem;
-  color: #333;
+  color:${theme.colors.text};
   font-size: 1.35rem;
   font-weight: 600;
-  // text-align: ;
   padding-right: 7rem;
 
   @media (max-width: 768px) {
     font-size: 1.4rem;
     margin-bottom: 1.5rem;
-    // text-align:;
       padding-right: 3rem;
 
   }
@@ -86,7 +84,7 @@ export const Input = styled.div`
   label {
     display: block;
     margin-bottom: 0.9rem;
-    color: #555;
+   color: ${theme.colors.textgray};
     font-size: 0.9rem;
     font-weight: 500;
   }
@@ -94,7 +92,7 @@ export const Input = styled.div`
   input {
     width: 100%;
     padding: 0.6rem;
-    border: 1px solid #ccc;
+    border: 1px solid ${theme.colors.textgray};
     border-radius: 5px;
     font-size: 0.9rem;
     color: #333;
@@ -114,7 +112,7 @@ export const Input = styled.div`
 `;
 
 export const Button = styled.button`
-  background-color: #2290ac;
+  background-color: ${theme.colors.primary};
   color: white;
   border: none;
   padding: 0.8rem;
@@ -124,7 +122,7 @@ export const Button = styled.button`
   margin-top: 1rem;
 
   &:hover {
-    background-color: rgb(40, 171, 203);
+    background-color: ${theme.colors.success};
   }
 `;
 

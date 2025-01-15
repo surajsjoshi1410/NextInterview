@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import {
   Container,
-  Header,
-  Logo,
   FormContainer,
   Title,
   InputGroup,
@@ -10,8 +8,9 @@ import {
   InputField,
   SubmitButton,
   ErrorMessage,
+  SkipButton
 } from "../PersonalInfo/PersonalInfo.styles";
-import logo from "../../assets/Logo.png";
+import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
 
 const PersonalInfo = () => {
   const [formValues, setFormValues] = useState({
@@ -77,12 +76,9 @@ const PersonalInfo = () => {
   };
 
   return (
+    
+    <div><HeaderWithLogo />
     <Container>
-      <Header>
-        <Logo>
-          <img src={logo} alt="Next Interview Logo" />
-        </Logo>
-      </Header>
       <FormContainer>
         <Title>Enter your details</Title>
         <form onSubmit={handleSubmit}>
@@ -111,6 +107,9 @@ const PersonalInfo = () => {
           <InputGroup>
             <InputLabel>Phone number</InputLabel>
             <InputField
+            style={{
+                backgroundColor: "#d2d5d9",
+            }}
               type="tel"
               name="phoneNumber"
               placeholder="Enter your phone number"
@@ -120,9 +119,11 @@ const PersonalInfo = () => {
             {errors.phoneNumber && <ErrorMessage>{errors.phoneNumber}</ErrorMessage>}
           </InputGroup>
           <SubmitButton type="submit">Next</SubmitButton>
+          <SkipButton type="submit">Skip</SkipButton>
         </form>
       </FormContainer>
     </Container>
+    </div>
   );
 };
 

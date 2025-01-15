@@ -107,9 +107,9 @@ const SignUp = () => {
             <label htmlFor="rememberMe" style={{ fontSize: '0.9rem' }}>
               <input id="rememberMe" type="checkbox" /> Remember Me
             </label>
-            <a href="/forgot-password" style={{ color: '#007bff', fontSize: '0.9rem' }}>
+            <Link to="/forgot-password" style={{ color: '#007bff', fontSize: '0.9rem' }}>
               Forgot Password
-            </a>
+            </Link>
           </div>
 
           <Button type="submit">Log In</Button>
