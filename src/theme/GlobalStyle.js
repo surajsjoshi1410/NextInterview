@@ -19,6 +19,20 @@ const GlobalStyle = createGlobalStyle`
   .display-text {
     font-family: ${(props) => props.theme.fonts.display};
   }
+
+
+      .page-wrapper{
+        min-height: 100vh;
+        display: flex;
+        width: 100%;
+    }
+
+    .content-wrapper{
+        flex: 1;
+        max-width: 1600px;
+        margin-right: auto;
+        margin-left: auto;
+    }
 `;
 
 export default GlobalStyle;
