@@ -8,6 +8,13 @@ const theme = {
     info: "#17a2b8",
     light: "#f8f9fa",
     text: "#262524",
+    sidebarBgColor: "#F0F8F1",
+
+    sidebarTextColor: "#1A1C1E",
+    sidebarHoverBgColor: "#e0e0e0",
+    sidebarHoverTextColor: "#000",
+    sidebarActiveBgColor: "#d3d3d3",
+    sidebarActiveTextColor: "#000",
   },
   fonts: {
     body: "'DM Sans', sans-serif",
