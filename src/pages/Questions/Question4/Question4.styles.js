@@ -9,7 +9,7 @@ export const Container = styled.div`
   min-height: 100vh;
   background-color: #ffffff;
 
-  
+
   @media (max-width: 768px) {
     padding: 10px;
   }
@@ -135,7 +135,7 @@ export const NextButton = styled.button`
   width: 100%;
   height: 50px;
   background-color: ${(props) => (props.disabled ? `${theme.colors.primary}` : `${theme.colors.success}`)};
-  color: #ffffff;
+  color: ${theme.colors.light};
   font-size: 16px;
   font-weight: bold;
   border: none;
