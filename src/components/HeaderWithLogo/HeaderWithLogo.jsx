@@ -5,7 +5,7 @@ import {
 } from "./HeaderWithLogo.styles";
 
 import LOGO from "../../assets/LOGO.png";
-const AppHeader = () => {
+const HeaderWithLogo = () => {
   return (
     <Header>
       <LogoImage src={LOGO} alt="Logo" />
@@ -13,4 +13,4 @@ const AppHeader = () => {
   );
 };
 
-export default AppHeader;
+export default HeaderWithLogo;
