@@ -24,6 +24,9 @@ export const Container = styled.div`
 
 
 export const FormContainer = styled.div`
+display: flex;
+flex-direction: column;
+
   max-width: 500px;
   width: 100%;
   padding: 2rem;
@@ -41,7 +44,7 @@ export const FormContainer = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   text-align: left;
   margin-bottom: 2rem;
@@ -65,7 +68,7 @@ export const InputLabel = styled.label`
   display: block;
   font-size: 1rem;
   font-weight: 500;
-  color: #333;
+  color: ${theme.colors.black};
   margin-bottom: 0.5rem;
 
   @media (max-width: 480px) {
@@ -81,7 +84,7 @@ export const InputField = styled.input`
   border-radius: 4px;
   outline: none;
   &:focus {
-    border-color: #007b8f;
+    border-color: ${theme.colors.textgray};
   }
 
   @media (max-width: 480px) {
@@ -131,3 +134,17 @@ color:${theme.colors.text};
   cursor: pointer;
   transition: background-color 0.3s ease;
   `;
+
+  export const BackIcon = styled.div`
+  /* Let the icon be placed at the top of the form */
+  align-self: flex-start;  
+justify-content:center;
+  font-size: 16px;
+  color: ${theme.colors.text};
+  cursor: pointer;
+  margin-bottom: 10px; 
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+`;

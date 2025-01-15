@@ -6,7 +6,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-  min-height: 100vh;
+height: 100vh;
   background-color:${theme.colors.light};
 
   @media (max-width: 768px) {
@@ -52,16 +52,17 @@ export const Logo = styled.div`
 `;
 
 export const BackIcon = styled.div`
-//  position: absolute;
-//   top: 230px; /* Adjust to place it near the top on mobile */
-//   left: 635px;
 
   cursor: pointer;
-  font-size: 24px;
- color: ${theme.colors.text};
+  font-size: 16px;
+//  color: ${theme.colors.text};
 
   @media (max-width: 768px) {
-    font-size: 20px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 480px) {   
+    font-size: 12px;
   }
 `;
 
@@ -189,6 +190,7 @@ width: 100%;
   @media (max-width: 480px) {
     height: 40px;
     font-size: 12px;
+    width: 100%;
   }
 `;
 
@@ -198,7 +200,7 @@ export const Section = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;              
-  height: 100vh;
+  height: 80vh;
   background-color:${theme.colors.light};
   font-family: Arial, sans-serif;
   padding: 0 15px; 
@@ -211,6 +213,7 @@ export const Section = styled.div`
 
   @media (max-width: 768px) {
     padding: 0 10px;
+
 
   }
   /* Added padding for better responsiveness */

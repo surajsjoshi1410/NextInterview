@@ -5,8 +5,8 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: #ffffff;
+  height: 80vh;
+  background-color:${theme.colors.light};
   font-family: Arial, sans-serif;
   padding: 0 15px; 
   @media (max-width: 480px) {
@@ -19,21 +19,17 @@ export const Container = styled.div`
  
 export const BackIcon = styled.div`
   cursor: pointer;
-  font-size: 24px;
-  color: #000;
-  margin-bottom: 1rem; 
+  font-size: 16px;
 
 display: flex;
 justify-content: flex-start;
 
   @media (max-width: 768px) {
-    font-size: 24px;
-    margin-bottom: 0.75rem;
+    font-size: 14px;
   }
 
   @media (max-width: 480px) {
-    font-size: 20px;
-        margin: 20px auto;
+    font-size: 12px;
   }
 `;
 
@@ -42,7 +38,7 @@ justify-content: flex-start;
 
  
 export const OTPMessage = styled.p`
-  margin-top: 60px;
+//   margin-top: 60px;
   font-size: 24px;
   font-weight: bold;
   color: ${theme.colors.text};
@@ -50,7 +46,11 @@ export const OTPMessage = styled.p`
  
   @media (max-width: 768px) {
     font-size: 16px; /* Adjust font size on mobile */
-    margin-top: 40px; /* Adjust top margin on mobile */
+   
+  }
+    @media (max-width: 480px) {
+    font-size: 14px; /* Adjust font size on mobile */
+   
   }
 `;
  
@@ -64,6 +64,14 @@ export const OTPInputContainer = styled.div`
   @media (max-width: 768px) {
     gap: 8px; /* Reduce gap for smaller screens */
   }
+
+  @media (max-width: 480px) {
+    gap: 6px; /* Reduce gap for smaller screens */
+  }
+
+  @media (max-width: 320px) {
+    gap: 4px; /* Reduce gap for smaller screens */
+}
 `;
  
 export const OTPInput = styled.input`
@@ -71,13 +79,13 @@ export const OTPInput = styled.input`
   height: 50px;
   text-align: center;
   font-size: 18px;
-  border: 1px solid #ccc;
+  border: 1px solid ${theme.colors.textgray};
   border-radius: 5px;
   outline: none;
   
  
   &:focus {
-    border-color: #007bff;
+    border-color: ${theme.colors.textgray};
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   }
  
@@ -85,11 +93,19 @@ export const OTPInput = styled.input`
     width: 40px; /* Adjust width for mobile */
     height: 40px; /* Adjust height for mobile */
   }
+    @media (max-width: 480px) {
+    width: 30px; /* Adjust width for mobile */
+    height: 30px; /* Adjust height for mobile */
+  }
+    @media (max-width: 320px) {
+    width: 20px; /* Adjust width for mobile */
+    height: 20px; /* Adjust height for mobile */
+  }
 `;
  
 export const ResendMessage = styled.p`
   font-size: 14px;
-  color: #666;
+  color: ${theme.colors.textgray};
   text-align: left;
  
   span {
@@ -136,13 +152,13 @@ export const Section = styled.div`
   align-items: flex-start;
   justify-content: center;
   height: 100vh;
-  background-color: #ffffff;
+  background-color: #${theme.colors.light};
   font-family: Arial, sans-serif;
   padding: 0 15px; 
+
   @media (max-width: 480px) {
     padding: 0 10px;
     justify-content: unset;
     
   }
-  /* Added padding for better responsiveness */
 `;
