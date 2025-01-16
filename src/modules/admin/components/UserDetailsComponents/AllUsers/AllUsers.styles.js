@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import theme from "../../../../theme/Theme";
+import theme from "../../../../../theme/Theme";
+
 
 export const Section = styled.div`
   margin-bottom: ${theme.spacing(4)};
@@ -33,4 +34,23 @@ export const TableRow = styled.tr`
 export const TableCell = styled.td`
   padding: ${theme.spacing(1)};
   border-bottom: 1px solid ${theme.colors.light};
+`;
+
+export const UserCell = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${theme.spacing(1)};
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  span {
+    font-family: ${theme.fonts.body};
+    font-size: 14px;
+    color: ${theme.colors.text};
+  }
 `;
