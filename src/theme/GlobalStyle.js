@@ -38,6 +38,17 @@ const GlobalStyle = createGlobalStyle`
   width: calc(100% - ${(props) => (props.isExpanded ? "200px" : "60px")});
   transition: margin-left 0.3s ease, width 0.3s ease;
     }
+    .content-wrapper2{
+        flex: 1;
+        max-width: 100vw;
+        max-height: 100vh;
+   
+    
+        
+
+
+  transition: margin-left 0.3s ease, width 0.3s ease;
+    }
 `;
 
 export default GlobalStyle;

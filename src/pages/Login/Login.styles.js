@@ -1,17 +1,43 @@
 // Login.styles.js
 
-import styled from 'styled-components';
+import styled from "styled-components";
 import theme from "../../theme/Theme";
+
+export const Loginmobilewrapper = styled.div`
+  height: 100vh; /* Set full height of the viewport */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: ${theme.colors.light};
+  position: relative;
+  //  z-index: -1;
+  //  margin-top: -72px;
+  @media (max-width: 768px) {
+    height: 100vh;
+    padding: 20px;
+  }
+
+  @media (max-width: 480px) {
+    height: 100vh;
+    padding: 20px;
+  }
+
+  @media (max-width: 320px) {
+    height: 100vh;
+    padding: 20px;
+  }
+`;
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
-//   height: 80vh;
-height: 80vh;
+  //   height: 80vh;
+  // height: 100%;
   background-color: ${theme.colors.light};
-  position: relative; 
+  position: relative;
 
   @media (max-width: 768px) {
     height: auto;
@@ -36,31 +62,31 @@ export const FormSection = styled.div`
   justify-content: flex-start;
   max-width: 400px;
   width: 100%;
-  padding: 0;
+  // padding: 0;
 
   @media (max-width: 768px) {
     max-width: 100%;
     padding: 20px;
   }
-    @media (max-width:480px) {
-      max-width: 100%;
-      padding: 20px;
-    }
+  @media (max-width: 480px) {
+    max-width: 100%;
+    padding: 20px;
+  }
 
-    @media (max-width: 320px) {
-      max-width: 100%;
-      padding: 20px;
-    }
+  @media (max-width: 320px) {
+    max-width: 100%;
+    padding: 20px;
+  }
 `;
 
 export const BackIcon = styled.div`
   /* Let the icon be placed at the top of the form */
-  align-self: flex-start;  
-justify-content:center;
+  align-self: flex-start;
+  justify-content: center;
   font-size: 16px;
   color: ${theme.colors.text};
   cursor: pointer;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 
   @media (max-width: 768px) {
     font-size: 24px;
@@ -86,7 +112,7 @@ export const Title = styled.h1`
 
 export const Subtitle = styled.p`
   font-size: 18px;
- color: ${theme.colors.text};
+  color: ${theme.colors.text};
   margin-bottom: 50px;
 
   @media (max-width: 768px) {
@@ -101,7 +127,6 @@ export const Subtitle = styled.p`
 `;
 
 export const InputContainer = styled.div`
-
   margin-bottom: 20px;
   margin-right: 20px;
 
@@ -176,10 +201,10 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-  width:auto;
+  width: auto;
   padding: 10px;
   font-size: 16px;
-  color:${theme.colors.light};
+  color: ${theme.colors.light};
   background-color: ${theme.colors.primary};
   border: none;
   border-radius: 5px;
@@ -187,7 +212,7 @@ export const Button = styled.button`
   transition: background-color 0.3s;
 
   &:hover {
-   background-color:${theme.colors.success};
+    background-color: ${theme.colors.success};
   }
 
   @media (max-width: 768px) {
