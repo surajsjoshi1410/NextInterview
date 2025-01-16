@@ -16,7 +16,7 @@ import {
   ResendMessage,
 } from "./Otp.styles";
 
-const Otp = () => {
+const OtpEmail = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,14 +34,12 @@ const Otp = () => {
   const [otpCode, setOtpCode] = useState("");
   const [flow, setFlow] = useState(""); // "SIGN_IN" or "SIGN_UP"
   const [phoneNumber, setPhoneNumber] = useState("");
-  const[email, setEmail] = useState("");
 
   // Extract flow + phoneNumber from react-router location.state
   useEffect(() => {
     if (location?.state) {
-      setFlow(location.state.flow || "");
+      setFlow(location.state.flow || "SIGN_UP");
       setPhoneNumber(location.state.phoneNumber || "");
-      setEmail(location.state.email || "");
     }
   }, [location.state]);
 
@@ -71,9 +69,7 @@ const Otp = () => {
     }
 
     try {
-      console.log("flow", flow);
       if (flow === "SIGN_IN") {
-
         // Attempt signIn
         const result = await signIn.attemptFirstFactor({
           strategy: "phone_code",
@@ -90,31 +86,22 @@ const Otp = () => {
         }
       } else if (flow === "SIGN_UP") {
         // Attempt signUp phone verification
-        console.log("otpCode", otpCode);
-        const attempt = await signUp.attemptVerification({
-          strategy: "phone_code",
+        const attempt = await signUp.attemptEmailAddressVerification({
           code: otpCode,
         });
-        console.log("attempt", attempt);  
+        console.log("attempt", attempt);
 
         const { verifications, status, createdSessionId } = attempt;
 
         // Check if signUp is complete
         if (
-          verifications?.phoneNumber?.status === "verified"
+          verifications?.emailAddress?.status === "verified" 
+          // && status === "complete"
         ) {
           // Successfully signed up & automatically signed in
           await setSignUpActive({ session: createdSessionId });
           alert("You have successfully signed up!");
-          navigate("/otpEmail",
-            {
-              state: {
-                flow: "SIGN_UP",
-                phoneNumber: phoneNumber,
-                email: email,
-              },
-            }
-          );
+          navigate("/dashboard");
         } else {
           alert("Incorrect OTP. Please try again. one");
         }
@@ -179,4 +166,4 @@ const Otp = () => {
   );
 };
 
-export default Otp;
+export default OtpEmail;
