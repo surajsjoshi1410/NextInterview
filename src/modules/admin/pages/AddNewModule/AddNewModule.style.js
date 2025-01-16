@@ -303,6 +303,7 @@ export const PaginationContainer = styled.div`
   }
 `;
 
+
 export const PaginationItem = styled.span`
   font-size: 0.875rem;
   cursor: pointer;
