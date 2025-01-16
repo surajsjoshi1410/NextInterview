@@ -30,3 +30,10 @@ export const Container = styled.div`
     background: ${theme.colors.light};
   }
 `;
+
+export const ContentWrapper = styled.div`
+  margin-left: ${(props) => (props.isExpanded ? "200px" : "60px")};
+  padding: 20px;
+  width: calc(100% - ${(props) => (props.isExpanded ? "200px" : "60px")});
+  transition: margin-left 0.3s ease, width 0.3s ease;
+`;
