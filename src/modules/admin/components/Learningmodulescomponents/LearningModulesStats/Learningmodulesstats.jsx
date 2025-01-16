@@ -11,7 +11,7 @@ const LearningModulesStats = () => {
   return (
     <Header>
       <div style={{ display: "flex" }}>
-        <div>
+        <div style={{ marginRight: "40px" }}>
           <Stats>
             <StatCard>
               <p>Total Topics Published</p>
