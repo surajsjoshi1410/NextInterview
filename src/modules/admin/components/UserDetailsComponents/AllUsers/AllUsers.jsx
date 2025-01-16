@@ -5,6 +5,7 @@ import {
   TableHeader,
   TableRow,
   TableCell,
+  UserCell,
 } from "./AllUsers.styles";
 
 const AllUsers = ({ users }) => {
@@ -23,7 +24,12 @@ const AllUsers = ({ users }) => {
         <tbody>
           {users.map((user, index) => (
             <TableRow key={index}>
-              <TableCell>{user.name}</TableCell>
+              <TableCell>
+                <UserCell>
+                  <img src={user.image} alt={user.name} />
+                  <span>{user.name}</span>
+                </UserCell>
+              </TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.score}</TableCell>
               <TableCell>{user.feedback}</TableCell>
