@@ -12,8 +12,8 @@ export const ChartSection = styled.div`
 
   .chart-container {
     width: 100%;
-    max-width: 400px; /* Limit the bar chart width */
-    height: 250px; /* Set the bar chart height */
+    // max-width: 400px;
+    height: 350px; /* Set the bar chart height */
     margin: 0 auto; /* Center the bar chart */
   }
 `;

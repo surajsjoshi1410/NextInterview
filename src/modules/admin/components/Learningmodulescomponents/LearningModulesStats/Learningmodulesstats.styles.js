@@ -17,7 +17,7 @@ export const Header = styled.div`
   > div {
     display: flex;
     gap: ${theme.spacing(2)};
-    justify-content: space-between;
+    // justify-content: space-between;
     flex-wrap: wrap;
 
     @media (max-width: ${theme.breakpoints.tablet}) {
@@ -59,6 +59,7 @@ export const StatCard1 = styled.div`
   padding: ${theme.spacing(1)};
   border-radius: 8px;
   text-align: center;
+  // margin-left: -60px;
 
   h3 {
     color: ${theme.colors.primary};
@@ -82,6 +83,7 @@ export const StatCard2 = styled.div`
   padding: ${theme.spacing(1)};
   border-radius: 8px;
   text-align: center;
+  // margin-left: -60px;
 
   h3 {
     color: ${theme.colors.primary};
