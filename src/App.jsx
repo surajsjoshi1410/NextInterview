@@ -14,6 +14,7 @@ import QuestionPage1 from "./pages/Questions/Question1/Question1";
 import QuestionPage2 from "./pages/Questions/Question2/Question2";
 import QuestionPage3 from "./pages/Questions/Question3/Question3";
 import LearningModules from "./modules/admin/pages/Learning modules/Learningmodules";
+import Userdetails from "./modules/admin/pages/User details/Userdetails";
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
           <Route path="/question4" element={<QuestionPage4 />} />
           <Route path="/otp" element={<Otp />} />
           <Route path="/learning" element={<LearningModules />} />
+          <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
+          
 
           <Route path="/" element={<BaseLayout>rajat</BaseLayout>} />
         </Routes>
