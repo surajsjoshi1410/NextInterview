@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Sidebar from "../../../../components/Sidebar/Sidebar";
 import { ContentWrapper } from "../../../../components/Sidebar/Sidebar.styles";
-import LearningModulesStats from "../../components/LearningModulesStats/Learningmodulesstats";
-import LearningModulesListView from "../../components/LearningModulesListView/Learningmoduleslistview";
+import LearningModulesStats from "../../components/Learningmodulescomponents/LearningModulesStats/Learningmodulesstats";
+import LearningModulesListView from "../../components/Learningmodulescomponents/LearningModulesListView/Learningmoduleslistview";
 
 const LearningModules = () => {
   const [isExpanded, setIsExpanded] = useState(false);
