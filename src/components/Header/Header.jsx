@@ -17,9 +17,11 @@ import { PiLineVertical } from "react-icons/pi";
 import { BsBell } from "react-icons/bs";
 import { MdOutlineInfo } from "react-icons/md";
 
-const Header = ({ title }) => {
+const Header = ({ title,isExpanded,setIsExpanded}) => {
   return ( 
-    <HeaderContainer>
+    <HeaderContainer 
+  
+    >
       <div>
         <Title>{title} </Title> {/* Dynamic title */}
       </div>
