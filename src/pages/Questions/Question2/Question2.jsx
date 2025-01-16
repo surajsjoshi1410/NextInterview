@@ -32,7 +32,14 @@ const QuestionPage2 = () => {
             <Container>
 
                 <Section>
-                    <BackIcon onClick={handleGoBack}>
+                    <BackIcon onClick={handleGoBack}
+                    style={{
+                        borderRadius: '10%',
+                        border: '1px solid grey',
+                        padding: '8px',
+                      }}
+                    
+                    >
                         <FaArrowLeft />
                     </BackIcon>
                     <Title>Are you currently in a data/ai job?</Title>
