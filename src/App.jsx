@@ -34,11 +34,15 @@ function App() {
           <Route path="/question3" element={<QuestionPage3 />} />
           <Route path="/question4" element={<QuestionPage4 />} />
           <Route path="/otp" element={<Otp />} />
-          <Route path="/learning" element={<LearningModules />} />
-          <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
+         
           
 
-          <Route path="/" element={<BaseLayout>rajat</BaseLayout>} />
+          <Route path="/admin" element={<BaseLayout/>} >
+          <Route path="/admin/learning" element={<LearningModules />} />
+          <Route path="/admin/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
+          <Route path="/admin/uploadmodule" element={<UploadModule />} />
+          <Route path="/admin/addnewmodule" element={<AddNewModule />} />
+          </Route>
         </Routes>
 
       </Router>
