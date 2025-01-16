@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import theme from "../../../../theme/Theme";
+import theme from "../../../../../theme/Theme";
 
 export const Section = styled.div`
   margin-bottom: ${theme.spacing(4)};

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Container, ContentWrapper } from "./Userdetails.styles";
 import Sidebar from "../../../../components/Sidebar/Sidebar";
-import UserDetailStats from "../../components/UserDetailStats/Userdetailstats";
-import UserDetailBarGraph from "../../components/UserDetailBarGraph/UserDetailBarGraph";
-import UserDetailPieChart from "../../components/UserDetailPieChart/UserDetailPieChart";
-import AllUsers from "../../components/AllUsers/AllUsers";
+import UserDetailStats from "../../components/UserDetailsComponents/UserDetailStats/Userdetailstats";
+import UserDetailBarGraph from "../../components/UserDetailsComponents/UserDetailBarGraph/UserDetailBarGraph";
+import UserDetailPieChart from "../../components/UserDetailsComponents/UserDetailPieChart/UserDetailPieChart";
+import AllUsers from "../../components/UserDetailsComponents/AllUsers/AllUsers";
 
 const Userdetails = () => {
   const [isExpanded, setIsExpanded] = useState(false);
