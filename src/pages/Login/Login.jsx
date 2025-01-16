@@ -37,10 +37,6 @@ const Login = () => {
   <HeaderWithLogo />
     <Container>
       
-
-     
-            
-      
       <FormSection>
    
       <BackIcon onClick={handleGoBack}
@@ -49,8 +45,9 @@ const Login = () => {
         // padding: '2px',
         justifyContent: 'center',
         alignContent: 'center',
-        paddingTop: '4px',
-        borderRadius: '10%',
+        padding: '8px',
+        borderRadius: '4px',
+        alignItems: 'center',
       }}
       >
     <IoMdArrowBack />

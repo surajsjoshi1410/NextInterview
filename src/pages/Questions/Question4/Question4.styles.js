@@ -7,7 +7,7 @@ export const Container = styled.div`
   justify-content: center;
   padding: 20px;
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: ${theme.colors.light};
 
 
   @media (max-width: 768px) {
@@ -119,7 +119,7 @@ export const CirclePointer = styled.div`
 export const OptionLabel = styled.span`
   font-size: 16px;
   font-weight: ${(props) => (props.$isSelected ? "bold" : "normal")};
-  color: ${(props) => (props.$isSelected ? `${theme.colors.success}` : `${theme.colors.primary}`)};
+  color: ${(props) => (props.$isSelected ? `${theme.colors.success}` : `${theme.colors.black}`)};
 
   @media (max-width: 768px) {
     font-size: 14px;
@@ -167,6 +167,6 @@ export const Section = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  height: 100vh;
+  height: 80vh;
   text-align: left;
 `;
