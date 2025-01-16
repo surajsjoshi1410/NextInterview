@@ -1,11 +1,14 @@
-import React from "react";
-import { Container } from "./Userdetails.styles";
+import React, { useState } from "react";
+import { Container, ContentWrapper } from "./Userdetails.styles";
+import Sidebar from "../../../../components/Sidebar/Sidebar";
 import UserDetailStats from "../../components/UserDetailStats/Userdetailstats";
 import UserDetailBarGraph from "../../components/UserDetailBarGraph/UserDetailBarGraph";
 import UserDetailPieChart from "../../components/UserDetailPieChart/UserDetailPieChart";
 import AllUsers from "../../components/AllUsers/AllUsers";
 
 const Userdetails = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   // Data for bar chart
   const barData = {
     labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"],
@@ -68,16 +71,21 @@ const Userdetails = () => {
   ];
 
   return (
-    <Container>
-      <UserDetailStats />
-      <UserDetailBarGraph data={barData} options={barOptions} />
-      <UserDetailPieChart
-        performanceData={pieDataPerformance}
-        feedbackData={pieDataFeedback}
-        options={pieOptions}
-      />
-      <AllUsers users={users} />
-    </Container>
+    <>
+      <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+      <ContentWrapper isExpanded={isExpanded}>
+        <Container>
+          <UserDetailStats />
+          <UserDetailBarGraph data={barData} options={barOptions} />
+          <UserDetailPieChart
+            performanceData={pieDataPerformance}
+            feedbackData={pieDataFeedback}
+            options={pieOptions}
+          />
+          <AllUsers users={users} />
+        </Container>
+      </ContentWrapper>
+    </>
   );
 };
 
