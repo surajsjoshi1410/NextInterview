@@ -15,6 +15,10 @@ import QuestionPage2 from "./pages/Questions/Question2/Question2";
 import QuestionPage3 from "./pages/Questions/Question3/Question3";
 import LearningModules from "./modules/admin/pages/Learning modules/Learningmodules";
 import Userdetails from "./modules/admin/pages/User details/Userdetails";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import BacktoSignIn from "./pages/BacktoSignIn/BacktoSignIn";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import ResetSuccessful from "./pages/passwordresetsuccessful/ResetSuccessful";
 
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import OtpEmail from "./pages/OtpEmail/OtpEmail";
@@ -47,7 +51,15 @@ function App() {
 
 
           <Route path="/learning" element={<LearningModules />} />
+
           {/* <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} /> */}
+
+          <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/backtosignIn" element={<BacktoSignIn />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/resetsuccessful" element={<ResetSuccessful />} />
+
 
           {/* <Route path="/skill-assessment" element={<SkillAssessment />} /> */}
         {/* <Route path="/try-it-yourself" element={<TryItYourself />} /> */}
