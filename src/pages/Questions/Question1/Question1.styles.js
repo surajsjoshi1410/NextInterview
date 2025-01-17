@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import theme from  "../../../theme/Theme";
+
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,9 +20,7 @@ export const BackIcon = styled.div`
 
   cursor: pointer;
   font-size: 16px;
-
-  @media (max-width: 768px) {
-    
+  @media (max-width: 768px) {   
     font-size: 14px;
   }
 
