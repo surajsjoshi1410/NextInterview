@@ -15,10 +15,14 @@ import QuestionPage2 from "./pages/Questions/Question2/Question2";
 import QuestionPage3 from "./pages/Questions/Question3/Question3";
 import LearningModules from "./modules/admin/pages/Learning modules/Learningmodules";
 import Userdetails from "./modules/admin/pages/User details/Userdetails";
+
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import OtpEmail from "./pages/OtpEmail/OtpEmail";
 import UploadModule from "./modules/admin/pages/UploadModule/UploadModule";
 import AddNewModule from "./modules/admin/pages/AddNewModule/AddNewModule";
+
+import SkillAssessment from "./modules/admin/pages/Skill Assesment/SkillAssesment";
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -34,7 +38,16 @@ function App() {
           <Route path="/question3" element={<QuestionPage3 />} />
           <Route path="/question4" element={<QuestionPage4 />} />
           <Route path="/otp" element={<Otp />} />
-         
+
+
+          <Route path="/learning" element={<LearningModules />} />
+          <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
+
+          <Route path="/skill-assessment" element={<SkillAssessment />} />
+        {/* <Route path="/try-it-yourself" element={<TryItYourself />} /> */}
+        {/* <Route path="/question-bank" element={<QuestionBank />} /> */}
+        {/* <Route path="/challenges" element={<Challenges />} /> */}
+
           
 
           <Route path="/admin" element={<BaseLayout/>} >
