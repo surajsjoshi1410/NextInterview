@@ -318,6 +318,7 @@ export const PaginationItem = styled.span`
     font-size: 0.625rem;
     margin-top: ${theme.spacing(2)};
     }
+    
 
   &:hover {
     background-color: ${theme.colors.sidebarHoverBgColor};
