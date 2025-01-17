@@ -39,6 +39,16 @@ export const ModuleCard = styled.div`
     h4 {
       margin: 0;
       font-family: ${theme.fonts.accent};
+
+      a {
+        text-decoration: none;
+        color: inherit; /* Inherit the text color from the parent */
+        transition: color 0.2s ease-in-out;
+
+        &:hover {
+          color: ${theme.colors.primary}; /* Optional hover effect */
+        }
+      }
     }
 
     p {
@@ -70,19 +80,44 @@ export const SearchBar = styled.input`
   border: 1px solid ${theme.colors.sidebarHoverBgColor};
   border-radius: 4px;
   width: 200px;
+  margin-right: ${theme.spacing(2)};
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     width: 100%;
   }
 `;
 
+// export const NewUploadButton = styled.button`
+//   background: ${theme.colors.primary};
+//   color: white;
+//   padding: 8px 16px;
+//   border: none;
+//   border-radius: 4px;
+//   cursor: pointer;
+
+//   &:hover {
+//     background: ${theme.colors.sidebarHoverBgColor};
+//     color: ${theme.colors.text};
+//   }
+// `;
+
 export const NewUploadButton = styled.button`
   background: ${theme.colors.primary};
-  color: white;
+  color: ${theme.colors.light};
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  
+
+  a {
+    text-decoration: none; /* Remove text decoration */
+    color: inherit; /* Inherit color from the button */
+
+    &:hover {
+      color: inherit; /* Ensure hover color matches */
+    }
+  }
 
   &:hover {
     background: ${theme.colors.sidebarHoverBgColor};
