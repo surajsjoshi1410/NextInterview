@@ -1,6 +1,6 @@
 import React from "react";
 import { TableWrapper, Table, TableRow, TableHeader, TableCell, UserCell } from "./MetricTable.styles";
-import MetricCard from "../../MetricCard/MetricCard";
+import MetricCard from "../MetricCard/MetricCard";
 
 const MetricTable = () => {
   const data = [
