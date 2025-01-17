@@ -17,7 +17,9 @@ const LearningModulesListView = ({ modules }) => {
         <h3>Data Science Lite Modules</h3>
         <div>
           <SearchBar type="text" placeholder="Search" />
-          <NewUploadButton>New Upload</NewUploadButton>
+          <NewUploadButton>
+            <Link to={"/admin/uploadmodule"}>New Upload</Link>
+          </NewUploadButton>
         </div>
       </div>
 
