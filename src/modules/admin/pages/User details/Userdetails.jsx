@@ -75,7 +75,7 @@ const Userdetails = () => {
 
   return (
     <>
-      <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+      {/* <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} /> */}
       <ContentWrapper isExpanded={isExpanded}>
         <Container>
           <UserDetailStats />

@@ -22,6 +22,7 @@ import UploadModule from "./modules/admin/pages/UploadModule/UploadModule";
 import AddNewModule from "./modules/admin/pages/AddNewModule/AddNewModule";
 
 import SkillAssessment from "./modules/admin/pages/Skill Assesment/SkillAssesment";
+import Flashcards from "./modules/admin/pages/Flashcards/Flashcards";
 
 function App() {
   return (
@@ -41,9 +42,9 @@ function App() {
 
 
           <Route path="/learning" element={<LearningModules />} />
-          <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
+          {/* <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} /> */}
 
-          <Route path="/skill-assessment" element={<SkillAssessment />} />
+          {/* <Route path="/skill-assessment" element={<SkillAssessment />} /> */}
         {/* <Route path="/try-it-yourself" element={<TryItYourself />} /> */}
         {/* <Route path="/question-bank" element={<QuestionBank />} /> */}
         {/* <Route path="/challenges" element={<Challenges />} /> */}
@@ -53,8 +54,10 @@ function App() {
           <Route path="/admin" element={<BaseLayout/>} >
           <Route path="/admin/learning" element={<LearningModules />} />
           <Route path="/admin/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
+          <Route path="/admin/skill-assessment" element={<SkillAssessment />} />
           <Route path="/admin/uploadmodule" element={<UploadModule />} />
           <Route path="/admin/addnewmodule" element={<AddNewModule />} />
+          <Route path="/admin/Flashcards" element={<Flashcards />} />
           </Route>
         </Routes>
 

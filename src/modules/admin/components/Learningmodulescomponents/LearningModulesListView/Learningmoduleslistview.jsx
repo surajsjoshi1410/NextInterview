@@ -32,7 +32,7 @@ const LearningModulesListView = ({ modules }) => {
           />
           <div className="module-info">
             <h4>
-              <Link to={`/${module.title.replace(/\s+/g, "-")}`}>
+              <Link to={`/admin/${module.title.replace(/\s+/g, "-")}`}>
                 {module.title}
               </Link>
             </h4>

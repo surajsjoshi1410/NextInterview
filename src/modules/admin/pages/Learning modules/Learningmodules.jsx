@@ -25,7 +25,7 @@ const LearningModules = () => {
       {/* Content */}
       <ContentWrapper isExpanded={isExpanded}>
         {/* <Header/> */}
-        <h2>Learning Modules</h2>
+        {/* <h2>Learning Modules</h2> */}
         <LearningModulesStats />
         <LearningModulesListView modules={modules} />
       </ContentWrapper>
