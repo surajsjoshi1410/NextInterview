@@ -7,7 +7,7 @@ import UserDetailPieChart from "../../components/UserDetailsComponents/UserDetai
 import AllUsers from "../../components/UserDetailsComponents/AllUsers/AllUsers";
 import AssesmentsPerformance from "../../components/UserDetailsComponents/AssesmentsPerformance/AssesmentsPerformance";
 import MetricTable from "../../components/UserDetailsComponents/MetricTable/MetricTable";
-import MetricCard from "../../components/MetricCard/MetricCard";
+import MetricCard from "../../components/UserDetailsComponents/MetricCard/MetricCard";
 
 const Userdetails = () => {
   const [isExpanded, setIsExpanded] = useState(false);
