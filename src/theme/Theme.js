@@ -11,6 +11,8 @@ const theme = {
     sidebarBgColor: "#F0F8F1",
     textgray:"#c2c3c4",
     black: "#000",
+    lightgreen: "#ebfced",
+    backgray:"#e0e0e0",
 
     sidebarTextColor: "#1A1C1E",
     sidebarHoverBgColor: "#e0e0e0",
