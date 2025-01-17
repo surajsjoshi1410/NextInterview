@@ -11,7 +11,7 @@ const SkillAssessment = () => {
 
   return (
     <div>
-      <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+      {/* <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} /> */}
       <ContentWrapper isExpanded={isExpanded}>
         <SkillAssesmentStats />
         <EngagementInsights/>
