@@ -26,7 +26,8 @@ import UploadModule from "./modules/admin/pages/UploadModule/UploadModule";
 import AddNewModule from "./modules/admin/pages/AddNewModule/AddNewModule";
 
 import SkillAssessment from "./modules/admin/pages/Skill Assesment/SkillAssesment";
-
+import Challenges from "./modules/admin/pages/Challenges/Challenges";
+import Analytics from "./modules/admin/pages/ViewAnalytics/Analytics";
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -63,6 +64,8 @@ function App() {
           <Route path="/admin/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
           <Route path="/admin/uploadmodule" element={<UploadModule />} />
           <Route path="/admin/addnewmodule" element={<AddNewModule />} />
+          <Route path="/admin/challenges" element={<Challenges />} />
+         <Route path="/admin/viewanalytics" element={<Analytics />} />
           </Route>
         </Routes>
 

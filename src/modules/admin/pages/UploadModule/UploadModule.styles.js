@@ -306,3 +306,43 @@ export const AddMoreButton = styled.button`
   }
 `;
 
+
+export const PreviewImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+`;
+
+export const PreviewVideo = styled.video`
+  width: 100%;
+  max-height: 150px;
+  border-radius: 8px;
+`;
+
+export const ReplaceButton = styled.button`
+  margin-top: 10px;
+  background: none;
+  border: none;
+  color: ${theme.colors.secondary};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+
+  & svg {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 0.7rem;
+  }
+`;

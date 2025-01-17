@@ -86,7 +86,7 @@ const Sidebar = ({ isExpanded, setIsExpanded }) => {
           </li>
           <li className="menu-item">
             <NavLink
-              to="/challenges"
+              to="/admin/challenges"
               activeClassName="active"
               className="menu-link"
             >
