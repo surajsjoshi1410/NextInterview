@@ -2,7 +2,7 @@ import React from "react";
 import { SideBarwrapper } from "./Sidebar.styles";
 import Logo from "./../../assets/Logo.png";
 import { FiHome } from "react-icons/fi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { MdOutlineMenuBook } from "react-icons/md";
 import { BsFileEarmarkLock } from "react-icons/bs";
 import { TbDeviceIpadQuestion } from "react-icons/tb";
@@ -10,6 +10,17 @@ import { IoIosRepeat } from "react-icons/io";
 import { RxDashboard } from "react-icons/rx";
 
 const Sidebar = ({ isExpanded, setIsExpanded }) => {
+  const location = useLocation();
+
+  const getLearningLinkClass = ({ isActive }) => {
+    // If the normal check says it’s active
+    // OR if the path is `/uploadmodule`, mark it active
+    if (isActive || location.pathname === "/uploadmodule") {
+      return "menu-link active";
+    }
+    return "menu-link";
+  };
+
   return (
     <SideBarwrapper
       onMouseEnter={() => setIsExpanded(true)}
@@ -42,11 +53,7 @@ const Sidebar = ({ isExpanded, setIsExpanded }) => {
             </NavLink>
           </li>
           <li className="menu-item">
-            <NavLink
-              to="/learning"
-              activeClassName="active"
-              className="menu-link"
-            >
+            <NavLink to="/admin/learning" className={getLearningLinkClass}>
               <span className="menu-link-icon">
                 <MdOutlineMenuBook />
               </span>
