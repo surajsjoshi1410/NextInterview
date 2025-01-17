@@ -22,7 +22,12 @@ import UploadModule from "./modules/admin/pages/UploadModule/UploadModule";
 import AddNewModule from "./modules/admin/pages/AddNewModule/AddNewModule";
 
 import SkillAssessment from "./modules/admin/pages/Skill Assesment/SkillAssesment";
+
 import Flashcards from "./modules/admin/pages/Flashcards/Flashcards";
+
+
+import Challenges from "./modules/admin/pages/Challenges/Challenges";
+import Analytics from "./modules/admin/pages/ViewAnalytics/Analytics";
 
 function App() {
   return (
@@ -57,7 +62,12 @@ function App() {
           <Route path="/admin/skill-assessment" element={<SkillAssessment />} />
           <Route path="/admin/uploadmodule" element={<UploadModule />} />
           <Route path="/admin/addnewmodule" element={<AddNewModule />} />
+
           <Route path="/admin/Flashcards" element={<Flashcards />} />
+
+          <Route path="/admin/challenges" element={<Challenges />} />
+         <Route path="/admin/viewanalytics" element={<Analytics />} />
+
           </Route>
         </Routes>
 
