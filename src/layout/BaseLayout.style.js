@@ -8,8 +8,8 @@ export const PageWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   flex: 1;
-  margin-left: ${(props) => (props.isExpanded ? "200px" : "60px")};
-  padding: 20px;
+  margin-left: ${(props) => (props.isExpanded ? "150px" : "20px")};
+  // padding: 20px;
   transition: margin-left 0.3s ease;
   overflow-y: auto;
   background-color: #f9f9f9; /* Optional */
