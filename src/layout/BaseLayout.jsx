@@ -31,6 +31,29 @@ import Header from "../components/Header/Header";
 import NavBar from "../components/admin/Navbar/Navbar";
 
 const BaseLayout = () => {
+
+  const { getToken } = useAuth()
+  useEffect(() => {
+
+      const apiallert = async () => {
+          const token = await getToken()
+          const data = await fetch(
+'http://localhost:3000/user/getUsers',
+              {
+                  method: 'GET',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: `Bearer ${token}`,
+                      mode: 'cors',
+                  },
+              }
+
+          )
+          const user = await( await data.json())
+          console.log(user)
+      }
+      apiallert();
+  }, []);
   const [isExpanded, setIsExpanded] = useState(false);
   const [title, setTitle] = useState("");
   const location = useLocation();
