@@ -16,12 +16,13 @@ import {
 import { PiLineVertical } from "react-icons/pi";
 import { BsBell } from "react-icons/bs";
 import { MdOutlineInfo } from "react-icons/md";
+import { useSignIn, useSignUp, useAuth, useClerk, UserButton } from "@clerk/clerk-react";
 
-const Header = ({ title}) => {
-  return ( 
-    <HeaderContainer  >
-      <div>
-        <Title>{title} </Title> 
+const Header = ({ title }) => {
+  return (
+    <HeaderContainer>
+      <div style={{marginLeft:"60px"}}>
+        <Title>{title}</Title> {/* Dynamic title with fallback */}
       </div>
       <HeaderRight>
         <IconWrapper>
@@ -29,7 +30,7 @@ const Header = ({ title}) => {
             <BsBell title="Notifications" />
           </Icon>
           <Icon>
-            <PiLineVertical title="VerticalLine" />
+            <PiLineVertical title="Vertical Line" />
           </Icon>
           <Icon>
             <MdOutlineInfo title="Information" />
@@ -41,6 +42,7 @@ const Header = ({ title}) => {
             <UserEmail>Krishna@gmail.com</UserEmail>
           </UserDetails>
           <Avatar src={Logo} alt="Profile" />
+          <UserButton afterSignOutUrl="/" />
         </UserProfile>
       </HeaderRight>
     </HeaderContainer>
@@ -48,7 +50,7 @@ const Header = ({ title}) => {
 };
 
 Header.propTypes = {
-  type: PropTypes.string.isRequired, // Enforces a dynamic title
+  title: PropTypes.string.isRequired, // Enforces a dynamic title
 };
 
 export default Header;

@@ -34,12 +34,14 @@ const OtpEmail = () => {
   const [otpCode, setOtpCode] = useState("");
   const [flow, setFlow] = useState(""); // "SIGN_IN" or "SIGN_UP"
   const [phoneNumber, setPhoneNumber] = useState("");
+  const[emailAddress, setEmailAddress] = useState("");
 
   // Extract flow + phoneNumber from react-router location.state
   useEffect(() => {
     if (location?.state) {
       setFlow(location.state.flow || "SIGN_UP");
       setPhoneNumber(location.state.phoneNumber || "");
+      setEmailAddress(location.state.email || "");
     }
   }, [location.state]);
 
@@ -72,7 +74,7 @@ const OtpEmail = () => {
       if (flow === "SIGN_IN") {
         // Attempt signIn
         const result = await signIn.attemptFirstFactor({
-          strategy: "phone_code",
+          strategy: "email_code",
           code: otpCode,
         });
 
@@ -80,7 +82,7 @@ const OtpEmail = () => {
           // Successfully signed in
           await setSignInActive({ session: result.createdSessionId });
           alert("You have successfully signed in!");
-          navigate("/dashboard");
+          navigate("/signup");
         } else {
           alert("Incorrect OTP. Please try again.");
         }
@@ -101,7 +103,7 @@ const OtpEmail = () => {
           // Successfully signed up & automatically signed in
           await setSignUpActive({ session: createdSessionId });
           alert("You have successfully signed up!");
-          navigate("/dashboard");
+          navigate("/personalinfo");
         } else {
           alert("Incorrect OTP. Please try again. one");
         }
@@ -130,7 +132,7 @@ const OtpEmail = () => {
             <FaArrowLeft className="back-icon" />
           </BackIcon>
 
-          <OTPMessage>OTP has been sent to {phoneNumber}.</OTPMessage>
+          <OTPMessage>OTP has been sent to {emailAddress}.</OTPMessage>
 
           <OTPInputContainer>
             <label htmlFor="otp">Enter OTP</label>

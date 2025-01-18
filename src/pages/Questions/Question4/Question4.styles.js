@@ -20,6 +20,36 @@ export const Container = styled.div`
 `;
 
 
+export const SkipButton = styled.button`
+  margin-top: 30px;
+  width: 100%;
+  height: 50px;
+  background-color: ${(props) => (props.disabled ? `${theme.colors.primary}`:`${theme.colors.light}` )} !important;
+  // background-color:${theme.colors.light}!important;
+  color: ${theme.colors.black}; 
+  border: 1px solid ${theme.colors.black} !important;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: ${(props) => (props.disabled ? "#cccccc" : "#28a745")};
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 45px;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 480px) {
+    height: 40px;
+    font-size: 12px;
+  }`
+  ;
 
 export const BackIcon = styled.div`
 
