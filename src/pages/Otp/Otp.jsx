@@ -84,15 +84,14 @@ const Otp = () => {
           // Successfully signed in
           await setSignInActive({ session: result.createdSessionId });
           alert("You have successfully signed in!");
-          navigate("/dashboard");
+          navigate("/");
         } else {
           alert("Incorrect OTP. Please try again.");
         }
       } else if (flow === "SIGN_UP") {
         // Attempt signUp phone verification
         console.log("otpCode", otpCode);
-        const attempt = await signUp.attemptVerification({
-          strategy: "phone_code",
+        const attempt = await signUp.attemptPhoneNumberVerification({
           code: otpCode,
         });
         console.log("attempt", attempt);  

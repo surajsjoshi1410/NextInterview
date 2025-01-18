@@ -18,8 +18,7 @@ import { FaEye, FaEyeSlash, FaLinkedin, FaMobileAlt } from 'react-icons/fa';
 
 // Import the new header component
 import HeaderWithLogo from '../../components/HeaderWithLogo/HeaderWithLogo';
-import { useSignIn, useSignUp, useAuth } from "@clerk/clerk-react";
-
+import { useSignIn, useSignUp, useAuth, useClerk, UserProfile, UserButton } from "@clerk/clerk-react";
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,12 +27,16 @@ const SignUpPage = () => {
   const [username, setUsername] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const navigate = useNavigate();
+  const { openSignUp } = useClerk();
 
   const {
     isLoaded: signUpLoaded,
     signUp,
     setActive: setSignUpActive,
   } = useSignUp();
+
+  // If false, user is not authenticated
+
 
 
   /**
@@ -57,6 +60,10 @@ const SignUpPage = () => {
       alert('Please enter a valid email address.');
       return;
     }
+    console.log('Email:', email);
+    console.log('Password:', password);
+    console.log('Phone Number:', fullPhoneNumber);
+
 
     const datas = await signUp.create({
       phoneNumber: fullPhoneNumber,
@@ -67,9 +74,9 @@ const SignUpPage = () => {
       email_address: email
     });
     console.log("datas", datas);
-    // const data=await signUp.preparePhoneNumberVerification({
-    //   strategy: "phone_code",
-    // });
+    const data=await signUp.preparePhoneNumberVerification({
+      strategy: "phone_code",
+    });
     // console.log("data", data);
     const data2 = await signUp.prepareEmailAddressVerification({
       strategy: "email_code",
@@ -77,7 +84,7 @@ const SignUpPage = () => {
     console.log("data2", data2);
     alert("Sign-up OTP has been sent to your phone number.");
     // Navigate to /otp with state
-    navigate("/otpEmail", {
+    navigate("/otp", {
       state: {
         flow: "SIGN_UP",
         phoneNumber: fullPhoneNumber,
@@ -87,10 +94,39 @@ const SignUpPage = () => {
     // console.log('Email:', email);
     // console.log('Password:', password);
   };
+  const handleGoogleSignUp = async () => {
+    try {
+      await signUp.authenticateWithRedirect({
+        strategy: 'oauth_google',
+        redirectUrl: window.location.origin + '/',  // Optional
+        redirectUrlComplete: window.location.origin + '/', // Where to go after successful sign-up
+      });
+    } catch (err) {
+      console.error('Google Sign-Up Error:', err);
+    }
+  };
 
+  const handleLinkedInSignUp = async () => {
+    try {
+      //  openSignUp( {
+      //    strategy: 'oauth_linkedin_oidc',
+      //  })
+      // const popup = window.open('', 'linkedinPopup', 'width=600,height=600');
+      const data = await signUp.authenticateWithRedirect({
+        strategy: 'oauth_linkedin_oidc',
+        redirectUrl: window.location.origin + '/',
+        redirectUrlComplete: window.location.origin + '/',
+      });
+      console.log("data", data);
+    } catch (err) {
+      console.error('LinkedIn Sign-Up Error:', err);
+      alert('LinkedIn sign-up failed. Check console for details.');
+    }
+  };
   return (
     <Container>
       <HeaderWithLogo />
+      <UserButton />
       <div style={{
         display: 'flex',
         flexDirection: 'row',
@@ -98,7 +134,7 @@ const SignUpPage = () => {
         <FormSection>
           <Heading>Welcome to Next Interview</Heading>
           <Form onSubmit={handleFormSubmit}>
-            <Input>
+            {/* <Input>
               <label>User Name</label>
               <input
                 type="text"
@@ -106,7 +142,7 @@ const SignUpPage = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
-            </Input>
+            </Input> */}
             <Input>
               <label>Phone Number</label>
               <input
@@ -152,7 +188,7 @@ const SignUpPage = () => {
                 </button>
               </div>
             </Input>
-            {/* <GoogleOneTap /> */}
+
 
             <div
               style={{
@@ -170,26 +206,31 @@ const SignUpPage = () => {
               </Link>
             </div>
 
-            <Button type="submit">Log In</Button>
+            <Button type="submit">Sign Up</Button>
 
-            <AlternativeLogin>
-              <Link to="/login">
-                <button>
-                  <FaMobileAlt /> Log in with Mobile
-                </button>
-              </Link>
+
+
+          </Form>
+          <AlternativeLogin>
+            <Link to="/login">
               <button>
-                <img src={google} alt="Google Logo" style={{ height: '20px', marginRight: '10px' }} />
-                Log in with Google
+                <FaMobileAlt /> Log in with Mobile
               </button>
-            </AlternativeLogin>
+            </Link>
+          </AlternativeLogin>
+          <AlternativeLogin>
+            <button onClick={handleGoogleSignUp}>
+              <img src={google} alt="Google Logo" style={{ height: '20px', marginRight: '10px' }} />
+              SignUp in with Google
+            </button>
+
 
             <LinkedInButton>
-              <button>
-                <FaLinkedin /> Log in with LinkedIn
+              <button onClick={handleLinkedInSignUp}>
+                <FaLinkedin /> SignUp in with LinkedIn
               </button>
             </LinkedInButton>
-          </Form>
+          </AlternativeLogin>
 
           <Footer>
             By signing in, I agree to Next Interview's{' '}
