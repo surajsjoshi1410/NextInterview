@@ -6,14 +6,13 @@ import Header from "../components/Header/Header";
 
 const BaseLayout = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [title, setTitle] = useState("");
 
   return (
     <PageWrapper isExpanded={isExpanded}>
-      <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
-    
+      <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} setTitle={setTitle} />
       <ContentWrapper isExpanded={isExpanded}>
-      <Header  />
-    
+        <Header title={title} />
         <Outlet />
       </ContentWrapper>
     </PageWrapper>

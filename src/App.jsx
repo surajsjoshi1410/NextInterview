@@ -28,7 +28,8 @@ import Flashcards from "./modules/admin/pages/Flashcards/Flashcards";
 
 import Challenges from "./modules/admin/pages/Challenges/Challenges";
 import Analytics from "./modules/admin/pages/ViewAnalytics/Analytics";
-
+import Faq from "./modules/admin/pages/FAQ/Faq";
+import Notification from "./modules/admin/pages/Notification/Notification";
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -67,7 +68,9 @@ function App() {
 
           <Route path="/admin/challenges" element={<Challenges />} />
          <Route path="/admin/viewanalytics" element={<Analytics />} />
-
+<Route path="/admin/faq" element={<Faq />} />
+<Route path="/admin/notifications" element={<Notification />} />
+{/* <Route path="/admin/edit" element={<EditModal />} /> */}
           </Route>
         </Routes>
 

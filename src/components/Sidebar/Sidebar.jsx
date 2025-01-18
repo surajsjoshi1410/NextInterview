@@ -1,26 +1,32 @@
 import React from "react";
 import { SideBarwrapper } from "./Sidebar.styles";
 import Logo from "./../../assets/Logo.png";
-import { FiHome } from "react-icons/fi";
 import { NavLink, useLocation } from "react-router-dom";
+import { FiHome } from "react-icons/fi";
 import { MdOutlineMenuBook } from "react-icons/md";
 import { BsFileEarmarkLock } from "react-icons/bs";
 import { TbDeviceIpadQuestion } from "react-icons/tb";
 import { IoIosRepeat } from "react-icons/io";
 import { RxDashboard } from "react-icons/rx";
 import { CiMobile1 } from "react-icons/ci";
+import { MdOutlineLockClock } from "react-icons/md";
+import { IoIosInformationCircleOutline } from "react-icons/io";
+import { MdNotificationsNone } from "react-icons/md";
 
-const Sidebar = ({ isExpanded, setIsExpanded }) => {
+const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
   const location = useLocation();
 
-  const getLearningLinkClass = ({ isActive }) => {
-    // If the normal check says it’s active
-    // OR if the path is `/uploadmodule`, mark it active
-    if (isActive || location.pathname === "/uploadmodule") {
-      return "menu-link active";
-    }
-    return "menu-link";
-  };
+  const SidebarItem = [
+    { id: 1, name: "Dashboard", path: "/dashboard", icon: <RxDashboard /> },
+    { id: 2, name: "Home", path: "/home", icon: <FiHome /> },
+    { id: 3, name: "Learning", path: "/admin/learning", icon: <MdOutlineMenuBook /> },
+    { id: 4, name: "Flashcards", path: "/admin/flashcards", icon: <CiMobile1 /> },
+    { id: 5, name: "Quickly Revise", path: "/revise", icon: <IoIosRepeat /> },
+    { id: 6, name: "Question Bank", path: "/questions", icon: <TbDeviceIpadQuestion /> },
+    { id: 7, name: "Challenges", path: "/admin/challenges", icon: <MdOutlineLockClock /> },
+    { id: 8, name: "FAQs", path: "/admin/faq", icon: <IoIosInformationCircleOutline /> },
+    { id: 9, name: "Notifications", path: "/admin/notifications", icon: <MdNotificationsNone /> },
+  ];
 
   return (
     <SideBarwrapper
@@ -35,74 +41,92 @@ const Sidebar = ({ isExpanded, setIsExpanded }) => {
         <ul className="menu-list">
           <li className="menu-item">
             <NavLink
-              to="/dashboard"
-              activeClassName="active"
-              className="menu-link"
+              to={SidebarItem[0].path}
+              className={({ isActive }) => (isActive ? "menu-link active" : "menu-link")}
+              onClick={() => setTitle(SidebarItem[0].name)}
             >
-              <span className="menu-link-icon">
-                <RxDashboard />
-              </span>
-              <span className="menu-link-text">Dashboard</span>
-            </NavLink>
-          </li>
-          <li className="menu-item">
-            <NavLink to="/home" activeClassName="active" className="menu-link">
-              <span className="menu-link-icon">
-                <FiHome />
-              </span>
-              <span className="menu-link-text">Home</span>
-            </NavLink>
-          </li>
-          <li className="menu-item">
-            <NavLink to="/admin/learning" className={getLearningLinkClass}>
-              <span className="menu-link-icon">
-                <MdOutlineMenuBook />
-              </span>
-              <span className="menu-link-text">Learning Module</span>
-            </NavLink>
-          </li>
-          <li className="menu-item">
-            <NavLink to="/admin/Flashcards" className={getLearningLinkClass}>
-              <span className="menu-link-icon">
-                <CiMobile1 />
-              </span>
-              <span className="menu-link-text">Flashcards</span>
+              <span className="menu-link-icon">{SidebarItem[0].icon}</span>
+              <span className="menu-link-text">{SidebarItem[0].name}</span>
             </NavLink>
           </li>
           <li className="menu-item">
             <NavLink
-              to="/revise"
-              activeClassName="active"
-              className="menu-link"
+              to={SidebarItem[1].path}
+              className={({ isActive }) => (isActive ? "menu-link active" : "menu-link")}
+              onClick={() => setTitle(SidebarItem[1].name)}
             >
-              <span className="menu-link-icon">
-                <IoIosRepeat />
-              </span>
-              <span className="menu-link-text">Quickly Revise</span>
+              <span className="menu-link-icon">{SidebarItem[1].icon}</span>
+              <span className="menu-link-text">{SidebarItem[1].name}</span>
             </NavLink>
           </li>
           <li className="menu-item">
             <NavLink
-              to="/questions"
-              activeClassName="active"
-              className="menu-link"
+              to={SidebarItem[2].path}
+              className={({ isActive }) => (isActive ? "menu-link active" : "menu-link")}
+              onClick={() => setTitle(SidebarItem[2].name)}
             >
-              <span className="menu-link-icon">
-                <TbDeviceIpadQuestion />
-              </span>
-              <span className="menu-link-text">Question Bank</span>
+              <span className="menu-link-icon">{SidebarItem[2].icon}</span>
+              <span className="menu-link-text">{SidebarItem[2].name}</span>
             </NavLink>
           </li>
           <li className="menu-item">
             <NavLink
-              to="/admin/challenges"
-              activeClassName="active"
-              className="menu-link"
+              to={SidebarItem[3].path}
+              className={({ isActive }) => (isActive ? "menu-link active" : "menu-link")}
+              onClick={() => setTitle(SidebarItem[3].name)}
             >
-              <span className="menu-link-icon">
-                <BsFileEarmarkLock />
-              </span>
-              <span className="menu-link-text">Challenges</span>
+              <span className="menu-link-icon">{SidebarItem[3].icon}</span>
+              <span className="menu-link-text">{SidebarItem[3].name}</span>
+            </NavLink>
+          </li>
+          <li className="menu-item">
+            <NavLink
+              to={SidebarItem[4].path}
+              className={({ isActive }) => (isActive ? "menu-link active" : "menu-link")}
+              onClick={() => setTitle(SidebarItem[4].name)}
+            >
+              <span className="menu-link-icon">{SidebarItem[4].icon}</span>
+              <span className="menu-link-text">{SidebarItem[4].name}</span>
+            </NavLink>
+          </li>
+          <li className="menu-item">
+            <NavLink
+              to={SidebarItem[5].path}
+              className={({ isActive }) => (isActive ? "menu-link active" : "menu-link")}
+              onClick={() => setTitle(SidebarItem[5].name)}
+            >
+              <span className="menu-link-icon">{SidebarItem[5].icon}</span>
+              <span className="menu-link-text">{SidebarItem[5].name}</span>
+            </NavLink>
+          </li>
+          <li className="menu-item">
+            <NavLink
+              to={SidebarItem[6].path}
+              className={({ isActive }) => (isActive ? "menu-link active" : "menu-link")}
+              onClick={() => setTitle(SidebarItem[6].name)}
+            >
+              <span className="menu-link-icon">{SidebarItem[6].icon}</span>
+              <span className="menu-link-text">{SidebarItem[6].name}</span>
+            </NavLink>
+          </li>
+          <li className="menu-item">
+            <NavLink
+              to={SidebarItem[7].path}
+              className={({ isActive }) => (isActive ? "menu-link active" : "menu-link")}
+              onClick={() => setTitle(SidebarItem[7].name)}
+            >
+              <span className="menu-link-icon">{SidebarItem[7].icon}</span>
+              <span className="menu-link-text">{SidebarItem[7].name}</span>
+            </NavLink>
+          </li>
+          <li className="menu-item">
+            <NavLink
+              to={SidebarItem[8].path}
+              className={({ isActive }) => (isActive ? "menu-link active" : "menu-link")}
+              onClick={() => setTitle(SidebarItem[8].name)}
+            >
+              <span className="menu-link-icon">{SidebarItem[8].icon}</span>
+              <span className="menu-link-text">{SidebarItem[8].name}</span>
             </NavLink>
           </li>
         </ul>
