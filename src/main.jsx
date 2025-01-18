@@ -9,9 +9,9 @@ const clerkFrontendApi =
   // "pk_test_bWVycnktc2tpbmstMjQuY2xlcmsuYWNjb3VudHMuZGV2JA";//G@G
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  // <StrictMode>
     <ClerkProvider publishableKey={clerkFrontendApi}>
       <App />
     </ClerkProvider>
-  </StrictMode>
+  // </StrictMode>
 );

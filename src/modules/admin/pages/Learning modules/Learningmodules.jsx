@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import Sidebar from "../../../../components/Sidebar/Sidebar";
-import { ContentWrapper } from "../../../../components/Sidebar/Sidebar.styles";
+import Sidebar from "../../../../components/admin/Sidebar/Sidebar";
+import { ContentWrapper } from "../../../../components/admin/Sidebar/Sidebar.styles";
 import LearningModulesStats from "../../components/Learningmodulescomponents/LearningModulesStats/Learningmodulesstats";
 import LearningModulesListView from "../../components/Learningmodulescomponents/LearningModulesListView/Learningmoduleslistview";
-
+// import { Header } from "../../components/Learningmodulescomponents/LearningModulesStats/Learningmodulesstats.styles";
+import Header from "../../../../components/Header/Header";
+import { Outlet } from "react-router-dom";
 const LearningModules = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  //rajatgit
 
   const modules = [
     { title: "Diagnosing and Investigating Metrics", topics: 5 },
@@ -17,14 +20,16 @@ const LearningModules = () => {
   return (
     <div style={{ display: "flex" }}>
       {/* Sidebar */}
-      <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+      {/* <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} /> */}
 
       {/* Content */}
       <ContentWrapper isExpanded={isExpanded}>
-        <h2>Learning Modules</h2>
+        {/* <Header/> */}
+        {/* <h2>Learning Modules</h2> */}
         <LearningModulesStats />
         <LearningModulesListView modules={modules} />
       </ContentWrapper>
+      {/* <Outlet/> */}
     </div>
   );
 };

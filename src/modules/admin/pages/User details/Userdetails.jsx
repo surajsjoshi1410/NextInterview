@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Container, ContentWrapper } from "./Userdetails.styles";
-import Sidebar from "../../../../components/Sidebar/Sidebar";
+import Sidebar from "../../../../components/admin/Sidebar/Sidebar";
 import UserDetailStats from "../../components/UserDetailsComponents/UserDetailStats/Userdetailstats";
 import UserDetailBarGraph from "../../components/UserDetailsComponents/UserDetailBarGraph/UserDetailBarGraph";
 import UserDetailPieChart from "../../components/UserDetailsComponents/UserDetailPieChart/UserDetailPieChart";
 import AllUsers from "../../components/UserDetailsComponents/AllUsers/AllUsers";
 import AssesmentsPerformance from "../../components/UserDetailsComponents/AssesmentsPerformance/AssesmentsPerformance";
 import MetricTable from "../../components/UserDetailsComponents/MetricTable/MetricTable";
-import MetricCard from "../../components/MetricCard/MetricCard";
+import MetricCard from "../../components/UserDetailsComponents/MetricCard/MetricCard";
 
 const Userdetails = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -75,7 +75,7 @@ const Userdetails = () => {
 
   return (
     <>
-      <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+      {/* <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} /> */}
       <ContentWrapper isExpanded={isExpanded}>
         <Container>
           <UserDetailStats />
