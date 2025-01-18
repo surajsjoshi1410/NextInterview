@@ -36,6 +36,12 @@ import Faq from "./modules/admin/pages/FAQ/Faq";
 import Notification from "./modules/admin/pages/Notification/Notification";
 import SupportQuery from "./modules/admin/pages/SupportQuery/SupportQuery";
 import SupportQueryUserDetails from "./modules/admin/components/SupportQueryComponents/SupportQueryUserDetails/SupportQueryUserDetails";
+import CompaniesPlan from "./pages/Questions/CompaniesPlan/CompaniesPlan";
+import Question6 from "./pages/Questions/Question6/Question6";
+import Question7 from "./pages/Questions/Question7/Question7";
+import FinalQuestion from "./pages/Questions/FinalQuestion/FinalQuestion";
+import AccountCreated from "./pages/AcountCreated/AccountCreated";
+import ValidationPage from "./pages/validationPage/validationPage";
 
 function App() {
   return (
@@ -43,15 +49,22 @@ function App() {
       <Router>
         <GlobalStyle />
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signupPage" element={<SignUpPage />} />
+          <Route path="/loginPhone" element={<Login />} />
+          <Route path="/login" element={<SignUp />} />
+          <Route path="/signup" element={<SignUpPage />} />
           <Route path="/personalinfo" element={<PersonalInfo />} />
           <Route path="/question1" element={<QuestionPage1 />} />
           <Route path="/question2" element={<QuestionPage2 />} />
           <Route path="/question3" element={<QuestionPage3 />} />
           <Route path="/question4" element={<QuestionPage4 />} />
           <Route path="/otp" element={<Otp />} />
+          <Route path="/question5" element={<CompaniesPlan/>} />
+          <Route path="/question6" element={<Question6 />} />
+          <Route path="/question7" element={<Question7/>} />
+          <Route path="/question8" element={<FinalQuestion/>} />
+          <Route path="/profileComplete" element={<AccountCreated/>} />
+          <Route path="/otpEmail" element={<OtpEmail />} />
+          <Route path="/validation" element={<ValidationPage/>}/>
 
 
           <Route path="/learning" element={<LearningModules />} />

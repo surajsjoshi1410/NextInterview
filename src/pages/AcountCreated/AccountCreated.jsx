@@ -10,6 +10,7 @@ import { createUserProfile, getUserByClerkId } from "../../api/userApi";
 
 function AccountCreated() {
   const { isSignedIn, user, isLoaded } = useUser();
+  const navigate= useNavigate();
 
   const handleClick = async() => {
      const data = await getUserByClerkId(user.id);
@@ -19,6 +20,7 @@ function AccountCreated() {
         }
         const responseData = await createUserProfile(submissionData);
         console.log("data", responseData);
+        navigate("/user");
     
   };
   return (

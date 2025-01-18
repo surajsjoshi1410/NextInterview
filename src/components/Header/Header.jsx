@@ -16,6 +16,7 @@ import {
 import { PiLineVertical } from "react-icons/pi";
 import { BsBell } from "react-icons/bs";
 import { MdOutlineInfo } from "react-icons/md";
+import { useSignIn, useSignUp, useAuth, useClerk, UserButton } from "@clerk/clerk-react";
 
 const Header = ({ title }) => {
   return (
@@ -41,6 +42,7 @@ const Header = ({ title }) => {
             <UserEmail>Krishna@gmail.com</UserEmail>
           </UserDetails>
           <Avatar src={Logo} alt="Profile" />
+          <UserButton afterSignOutUrl="/" />
         </UserProfile>
       </HeaderRight>
     </HeaderContainer>

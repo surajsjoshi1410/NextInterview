@@ -72,29 +72,29 @@ const Login = () => {
       console.log("Sign-in error:", error);
 
       // If the user is not found, attempt sign-up
-      // try {
-      //   await signUp.create({
-      //     phoneNumber: fullPhoneNumber,
-      //   });
+      try {
+        await signUp.create({
+          phoneNumber: fullPhoneNumber,
+        });
 
-      //   // Prepare phone verification for sign-up
-      //   await signUp.preparePhoneNumberVerification({
-      //     strategy: "phone_code",
-      //   });
+        // Prepare phone verification for sign-up
+        await signUp.preparePhoneNumberVerification({
+          strategy: "phone_code",
+        });
 
-      //   alert("Sign-up OTP has been sent to your phone number.");
+        alert("Sign-up OTP has been sent to your phone number.");
 
-      //   // Navigate to /otp with state
-      //   navigate("/otp", {
-      //     state: {
-      //       flow: "SIGN_UP",
-      //       phoneNumber: fullPhoneNumber,
-      //     },
-      //   });
-      // } catch (signUpError) {
-      //   console.log("Sign-up error:", signUpError);
-      //   alert("Something went wrong while sending OTP. Please try again.");
-      // }
+        // Navigate to /otp with state
+        navigate("/otp", {
+          state: {
+            flow: "SIGN_UP",
+            phoneNumber: fullPhoneNumber,
+          },
+        });
+      } catch (signUpError) {
+        console.log("Sign-up error:", signUpError);
+        alert("Something went wrong while sending OTP. Please try again.");
+      }
     }
   };
 

@@ -13,27 +13,30 @@ import {
 } from '../SignUp/SignUp.styles';
 import signup from '../../assets/signup.png';
 import google from '../../assets/google.png';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { FaEye, FaEyeSlash, FaLinkedin, FaMobileAlt } from 'react-icons/fa';
-import { useSignIn, useSignUp, useAuth, UserProfile, UserButton } from "@clerk/clerk-react";
+import { useSignIn, useSignUp,useUser, useAuth, UserProfile, UserButton } from "@clerk/clerk-react";
 
 // Import the new header component
 import HeaderWithLogo from '../../components/HeaderWithLogo/HeaderWithLogo';
+import { getUserByClerkId } from '../../api/userApi';
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { isSignedIn, user, isLoaded } = useUser()
   const {
     isLoaded: signInLoaded,
     signIn,
-    setActive: setSignInActive,
+    setActive
   } = useSignIn();
   const {
     isLoaded: signUpLoaded,
     signUp,
     setActive: setSignUpActive,
   } = useSignUp();
+  const navigate= useNavigate();
 
   /**
    * Toggles the visibility of the password field.
@@ -63,25 +66,30 @@ const SignUp = () => {
       });
       console.log("data", data);
       if (data.status === "complete") {
+        // setActive({ sessionId: data.createdSessionId });
         // setSignInActive(data.createdSessionId);
-        // await setSignInActive({ session: result.createdSessionId }); 
+        // await setSignInActive({ session: data.createdSessionId }); 
+        console.log("user", user);
+        navigate("/validation");  
+        //   const data = await getUserByClerkId(user.id);
+        //   console.log("data", data);
+        // try {
+        //   const response = await data.prepareFirstFactor({
+        //     strategy: "email_code",
+        //   })
+        //   console.log("response", response);
 
-        try {
-          const response = await data.prepareFirstFactor({
-            strategy: "email_code",
-          })
-          console.log("response", response);
-
-          navigate("/otpEmail", {
-            state: {
-              flow: "SIGN_IN",
-              // phoneNumber: fullPhoneNumber,
-              emailAddress: email
-            },
-          });
-        } catch (error) {
-          console.log("error otp", error);
-        }
+        //   navigate("/otpEmail", {
+        //     state: {
+        //       flow: "SIGN_IN",
+        //       // phoneNumber: fullPhoneNumber,
+        //       emailAddress: email
+        //     },
+        //   });
+        // } catch (error) {
+        //   console.log("error otp", error);
+        // }
+        
       }
 
 
@@ -192,7 +200,7 @@ const SignUp = () => {
             <Button type="submit">Log In</Button>
 
             <AlternativeLogin>
-              <Link to="/login">
+              <Link to="/loginPhone">
                 <button>
                   <FaMobileAlt /> Log in with Mobile
                 </button>

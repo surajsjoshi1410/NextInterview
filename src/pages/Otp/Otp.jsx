@@ -84,7 +84,7 @@ const Otp = () => {
           // Successfully signed in
           await setSignInActive({ session: result.createdSessionId });
           alert("You have successfully signed in!");
-          navigate("/");
+          navigate("/validation");
         } else {
           alert("Incorrect OTP. Please try again.");
         }
