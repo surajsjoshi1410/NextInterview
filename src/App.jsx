@@ -22,6 +22,10 @@ import UploadModule from "./modules/admin/pages/UploadModule/UploadModule";
 import AddNewModule from "./modules/admin/pages/AddNewModule/AddNewModule";
 
 import SkillAssessment from "./modules/admin/pages/Skill Assesment/SkillAssesment";
+import Question6 from "./pages/Questions/Question6/Question6";
+import Question7 from "./pages/Questions/Question7/question7";
+import AccountCreated from "./pages/AccountCreated/AccountCreated";
+import FinalQuestion from "./pages/Questions/FinalQuestion/FinalQuestion";
 
 function App() {
   return (
@@ -37,39 +41,36 @@ function App() {
           <Route path="/question2" element={<QuestionPage2 />} />
           <Route path="/question3" element={<QuestionPage3 />} />
           <Route path="/question4" element={<QuestionPage4 />} />
+          <Route path="/question6" element={<Question6 />} />
+          <Route path="/question7" element={<Question7 />} />
+          <Route path="/Account-created" element={<AccountCreated />} />
+          <Route path="/Here-for" element={<FinalQuestion />} />
           <Route path="/otp" element={<Otp />} />
 
-
           <Route path="/learning" element={<LearningModules />} />
-          <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
+          <Route
+            path="/Diagnosing-and-Investigating-Metrics"
+            element={<Userdetails />}
+          />
 
           <Route path="/skill-assessment" element={<SkillAssessment />} />
-        {/* <Route path="/try-it-yourself" element={<TryItYourself />} /> */}
-        {/* <Route path="/question-bank" element={<QuestionBank />} /> */}
-        {/* <Route path="/challenges" element={<Challenges />} /> */}
+          {/* <Route path="/try-it-yourself" element={<TryItYourself />} /> */}
+          {/* <Route path="/question-bank" element={<QuestionBank />} /> */}
+          {/* <Route path="/challenges" element={<Challenges />} /> */}
 
-          
-
-          <Route path="/admin" element={<BaseLayout/>} >
-          <Route path="/admin/learning" element={<LearningModules />} />
-          <Route path="/admin/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
-          <Route path="/admin/uploadmodule" element={<UploadModule />} />
-          <Route path="/admin/addnewmodule" element={<AddNewModule />} />
+          <Route path="/admin" element={<BaseLayout />}>
+            <Route path="/admin/learning" element={<LearningModules />} />
+            <Route
+              path="/admin/Diagnosing-and-Investigating-Metrics"
+              element={<Userdetails />}
+            />
+            <Route path="/admin/uploadmodule" element={<UploadModule />} />
+            <Route path="/admin/addnewmodule" element={<AddNewModule />} />
           </Route>
         </Routes>
-
       </Router>
     </ThemeProvider>
   );
-
-
 }
 
 export default App;
-
-
-
-
-
-
-
