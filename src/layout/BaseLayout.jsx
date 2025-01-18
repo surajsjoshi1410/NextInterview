@@ -28,6 +28,7 @@ import Sidebar from "../components/admin/Sidebar/Sidebar";
 import SidebarUser from "../components/user/SidebarUser/SidebarUser";
 import { PageWrapper, ContentWrapper } from "./BaseLayout.style";
 import Header from "../components/Header/Header";
+import NavBar from "../components/admin/Navbar/Navbar";
 
 const BaseLayout = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -49,6 +50,7 @@ const BaseLayout = () => {
           />
           <ContentWrapper isExpanded={isExpanded}>
             <Header title={title} />
+            <NavBar />
             <Outlet />
           </ContentWrapper>
         </>

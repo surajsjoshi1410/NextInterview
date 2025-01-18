@@ -764,9 +764,9 @@ const AddNewModule = () => {
                 <Link to="/admin/uploadmodule">
                     <ActionButton>Previous</ActionButton>
                 </Link>
-                <PaginationItem>1</PaginationItem>
+                {/* <PaginationItem>1</PaginationItem>
                 <PaginationItem>2</PaginationItem>
-                <ActionButton>Next</ActionButton>
+                <ActionButton>Next</ActionButton> */}
             </PaginationContainer>
 
             {/* Delete Confirmation Modal */}
