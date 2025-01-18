@@ -11,7 +11,7 @@ import {
   TextArea,
   ButtonGroup,
   Button,
-} from "../../components/FAQAdd/FaqAdd.style";
+} from "./FaqAdd.style";
 
 const FaqAdd = ({ onClose, onSave }) => {
   const [question, setQuestion] = useState("");

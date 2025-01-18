@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, ContentWrapper } from "./Userdetails.styles";
-import Sidebar from "../../../../components/Sidebar/Sidebar";
+import Sidebar from "../../../../components/admin/Sidebar/Sidebar";
 import UserDetailStats from "../../components/UserDetailsComponents/UserDetailStats/Userdetailstats";
 import UserDetailBarGraph from "../../components/UserDetailsComponents/UserDetailBarGraph/UserDetailBarGraph";
 import UserDetailPieChart from "../../components/UserDetailsComponents/UserDetailPieChart/UserDetailPieChart";

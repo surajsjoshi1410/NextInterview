@@ -66,31 +66,32 @@ function App() {
 
 
           {/* <Route path="/skill-assessment" element={<SkillAssessment />} /> */}
-        {/* <Route path="/try-it-yourself" element={<TryItYourself />} /> */}
-        {/* <Route path="/question-bank" element={<QuestionBank />} /> */}
-        {/* <Route path="/challenges" element={<Challenges />} /> */}
-
-          
-
-          <Route path="/admin" element={<BaseLayout/>} >
-          <Route path="/admin/learning" element={<LearningModules />} />
-          <Route path="/admin/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
-          <Route path="/admin/skill-assessment" element={<SkillAssessment />} />
-          <Route path="/admin/uploadmodule" element={<UploadModule />} />
-          <Route path="/admin/addnewmodule" element={<AddNewModule />} />
-
-          <Route path="/admin/Flashcards" element={<Flashcards />} />
-
-          <Route path="/admin/challenges" element={<Challenges />} />
-         <Route path="/admin/viewanalytics" element={<Analytics />} />
-<Route path="/admin/faq" element={<Faq />} />
-<Route path="/admin/notifications" element={<Notification />} />
-{/* <Route path="/admin/edit" element={<EditModal />} /> */}
-         <Route path="/admin/SupportQuery" element={<SupportQuery />} />
-         <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
+          {/* <Route path="/try-it-yourself" element={<TryItYourself />} /> */}
+          {/* <Route path="/question-bank" element={<QuestionBank />} /> */}
+          {/* <Route path="/challenges" element={<Challenges />} /> */}
 
 
+
+          <Route path="/admin" element={<BaseLayout />} >
+            <Route path="/admin/learning" element={<LearningModules />} />
+            <Route path="/admin/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
+            <Route path="/admin/skill-assessment" element={<SkillAssessment />} />
+            <Route path="/admin/uploadmodule" element={<UploadModule />} />
+            <Route path="/admin/addnewmodule" element={<AddNewModule />} />
+
+            <Route path="/admin/Flashcards" element={<Flashcards />} />
+
+            <Route path="/admin/challenges" element={<Challenges />} />
+            <Route path="/admin/viewanalytics" element={<Analytics />} />
+            <Route path="/admin/faq" element={<Faq />} />
+            <Route path="/admin/notifications" element={<Notification />} />
+            {/* <Route path="/admin/edit" element={<EditModal />} /> */}
+            <Route path="/admin/SupportQuery" element={<SupportQuery />} />
+            <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
           </Route>
+
+          <Route path="/user" element={<BaseLayout />} >
+           </Route>
         </Routes>
 
       </Router>
