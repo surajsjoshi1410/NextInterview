@@ -10,7 +10,7 @@ import {
   AddButton,
 } from "../Notification/Notification.styles";
 import { MdEdit, MdDelete } from "react-icons/md";
-import NotificationAdd from "../../components/NotificationForm/NotificationAdd";
+import NotificationAdd from "../../components/NotificationComponent/NotificationForm/NotificationAdd";
 import DeleteModule from "../../components/DeleteModule/DeleteModule";
 
 const Notifications = () => {
@@ -90,7 +90,7 @@ const Notifications = () => {
               </>
             )}
             <p className="small-text">{notification.notificationType}</p>
-            
+
           </NotificationBody>
           <Actions>
             <ActionButton onClick={() => handleEditNotification(index)}>

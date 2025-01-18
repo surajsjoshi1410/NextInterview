@@ -1,6 +1,6 @@
 import React from "react";
 import { SideBarwrapper } from "./Sidebar.styles";
-import Logo from "./../../assets/Logo.png";
+import Logo from "../../../assets/Logo.png";
 import { NavLink, useLocation } from "react-router-dom";
 import { FiHome } from "react-icons/fi";
 import { MdOutlineMenuBook } from "react-icons/md";
@@ -27,6 +27,7 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
     { id: 7, name: "Challenges", path: "/admin/challenges", icon: <MdOutlineLockClock /> },
     { id: 8, name: "FAQs", path: "/admin/faq", icon: <IoIosInformationCircleOutline /> },
     { id: 9, name: "Notifications", path: "/admin/notifications", icon: <MdNotificationsNone /> },
+    { id: 10, name: "Support Query", path: "/admin/SupportQuery", icon: <TfiHeadphoneAlt /> },
   ];
 
   return (
@@ -90,6 +91,7 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
               <span className="menu-link-text">{SidebarItem[4].name}</span>
             </NavLink>
           </li>
+          
           <li className="menu-item">
             <NavLink
               to={SidebarItem[5].path}
@@ -100,6 +102,7 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
               <span className="menu-link-text">{SidebarItem[5].name}</span>
             </NavLink>
           </li>
+
           <li className="menu-item">
             <NavLink
               to={SidebarItem[6].path}
@@ -110,6 +113,7 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
               <span className="menu-link-text">{SidebarItem[6].name}</span>
             </NavLink>
           </li>
+
           <li className="menu-item">
             <NavLink
               to={SidebarItem[7].path}
@@ -120,6 +124,7 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
               <span className="menu-link-text">{SidebarItem[7].name}</span>
             </NavLink>
           </li>
+
           <li className="menu-item">
             <NavLink
               to={SidebarItem[8].path}
@@ -130,6 +135,19 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
               <span className="menu-link-text">{SidebarItem[8].name}</span>
             </NavLink>
           </li>
+
+          <li className="menu-item">
+            <NavLink
+              to={SidebarItem[9].path}
+              className={({ isActive }) => (isActive ? "menu-link active" : "menu-link")}
+              onClick={() => setTitle(SidebarItem[9].name)}
+            >
+              <span className="menu-link-icon">{SidebarItem[9].icon}</span>
+              <span className="menu-link-text">{SidebarItem[9].name}</span>
+            </NavLink>
+          </li>
+
+
         </ul>
       </div>
     </SideBarwrapper>

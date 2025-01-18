@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Sidebar from "../../../../components/Sidebar/Sidebar";
-import { ContentWrapper } from "../../../../components/Sidebar/Sidebar.styles";
+import Sidebar from "../../../../components/admin/Sidebar/Sidebar";
+import { ContentWrapper } from "../../../../components/admin/Sidebar/Sidebar.styles";
 import LearningModulesStats from "../../components/Learningmodulescomponents/LearningModulesStats/Learningmodulesstats";
 import LearningModulesListView from "../../components/Learningmodulescomponents/LearningModulesListView/Learningmoduleslistview";
 // import { Header } from "../../components/Learningmodulescomponents/LearningModulesStats/Learningmodulesstats.styles";

@@ -10,7 +10,7 @@ import {
   UploadButton,
   Label,
   InputContainer,
-} from "../../components/FAQEdit/FaqEdit.styles";
+} from "./FaqEdit.styles";
 
 const FaqEdit = ({ faq, onSave, onCancel }) => {
   const [editedQuestion, setEditedQuestion] = useState(faq.question);
