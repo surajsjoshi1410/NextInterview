@@ -77,7 +77,7 @@ const SignUpPage = () => {
     const data=await signUp.preparePhoneNumberVerification({
       strategy: "phone_code",
     });
-    // console.log("data", data);
+    console.log("data", data);
     const data2 = await signUp.prepareEmailAddressVerification({
       strategy: "email_code",
     });
@@ -209,12 +209,10 @@ const SignUpPage = () => {
             <Button type="submit">Sign Up</Button>
 
 
-
-          </Form>
-          <AlternativeLogin>
+            <AlternativeLogin>
             <Link to="/login">
               <button>
-                <FaMobileAlt /> Log in with Mobile
+                <FaMobileAlt /> SignUp in with Mobile
               </button>
             </Link>
           </AlternativeLogin>
@@ -231,6 +229,8 @@ const SignUpPage = () => {
               </button>
             </LinkedInButton>
           </AlternativeLogin>
+          </Form>
+         
 
           <Footer>
             By signing in, I agree to Next Interview's{' '}
