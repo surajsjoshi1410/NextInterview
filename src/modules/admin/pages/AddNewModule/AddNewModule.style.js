@@ -98,17 +98,17 @@ export const UploadManually = styled.span`
 `;
 
 export const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Ensure labels and inputs align in a column */
-  width: 100%;
-  margin-bottom: ${theme.spacing(3)};
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: ${({ theme }) => theme.spacing(1)};
+  align-items: center;
+  margin-bottom: ${({ theme }) => theme.spacing(2)};
 
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    margin-bottom: ${theme.spacing(2)};
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    grid-template-columns: 1fr;
   }
-    @media (max-width: ${theme.breakpoints.mobile}) {
-      margin-bottom: ${theme.spacing(1)};
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      grid-template-columns: 1fr;
   }
 `;
 
@@ -258,6 +258,7 @@ export const ButtonRow = styled.div`
 `;
 
 export const ActionButton = styled.button`
+
   background-color: ${(props) =>
     props.variant === "primary" ? theme.colors.secondary : theme.colors.light};
   border: 1px solid
@@ -282,7 +283,7 @@ export const ActionButton = styled.button`
   &:hover {
     background-color: ${(props) =>
       props.variant === "primary"
-        ? theme.colors.sidebarHoverBgColor
+        ? theme.colors.secondary
         : theme.colors.lightHover};
   }
 `;
@@ -323,4 +324,38 @@ export const PaginationItem = styled.span`
   &:hover {
     background-color: ${theme.colors.sidebarHoverBgColor};
   }
+`;
+
+
+export const ModalContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+export const ModalContent = styled.div`
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+`;
+
+export const ModalButton = styled.button`
+  background: ${props => props.theme.colors.primary};
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 16px;
 `;

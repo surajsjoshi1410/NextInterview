@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import theme from "../../../theme/Theme";
 
 export const Question7Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   background-color: ${(props) => props.theme.colors.light};
 
   .Container {
@@ -43,11 +44,17 @@ export const Question7Wrapper = styled.div`
   }
 
   .Label {
-    font-size: 14px;
 
-    color: ${(props) => props.theme.colors.textgray};
-    margin-bottom: 8px;
+    color: ${(props) => props.theme.colors.black};
+    margin-bottom: 10px;
     display: block;
+
+    font-family: "DM Sans";
+font-size: 15px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 153.846% */
+margin-top:24px;
   }
 
   .Dropdown {
@@ -101,6 +108,7 @@ export const Question7Wrapper = styled.div`
     font-size: 16px;
     cursor: pointer;
     margin-bottom: 12px;
+    margin-top: 12px;
   }
 
   .NextButton:hover {
@@ -109,13 +117,20 @@ export const Question7Wrapper = styled.div`
 
   .SkipButton {
     width: 100%;
-    padding: 12px;
+    // padding: 12px;
     background-color: #fff;
-    color: #555;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
+    color: ${theme.colors.black};
+    font-size: 18px;
     cursor: pointer;
+    font-weight: 500;
+
+    display: flex;
+padding: 8px 12px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+border-radius: 4px;
+border: 1px solid #BCBFC2;
   }
 
   .SkipButton:hover {
@@ -125,5 +140,35 @@ export const Question7Wrapper = styled.div`
   .image {
     border-radius: 50%;
     height: 30px;
+  }
+  .input{
+  padding:10px;
+  width:100%;
+  border:1px solid #c2c3c4;
+  border-radius:4px;
+  font-size:14px;
+  color:#555;
+  }
+  .anotherCompany {
+    width: 100%;
+    // background-color: #fff;
+    background-color: transparent;
+    margin-top: 12px;
+    color: #151E28;
+    border-radius: 4px;
+
+font-family: "DM Sans";
+font-size: 15px;
+font-style: normal;
+font-weight: 500;
+line-height: 24px; /* 160% */
+border: none;
+text-align: center!important;
+
+
+  }
+
+  .anotherCompany:hover {
+    background-color: ${(props) => props.theme.colors.secondary}!important;
   }
 `;

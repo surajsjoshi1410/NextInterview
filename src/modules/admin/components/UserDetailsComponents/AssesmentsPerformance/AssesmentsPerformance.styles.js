@@ -46,6 +46,19 @@ export const TableHeader = styled.th`
   }
 `;
 
+// export const TableCell = styled.td`
+//   padding: ${theme.spacing(1)};
+//   font-family: ${theme.fonts.body};
+//   font-size: 14px;
+//   color: ${theme.colors.text};
+//   text-align: left;
+
+//   &.highlight {
+//     color: ${theme.colors.primary};
+//     font-weight: bold;
+//   }
+// `;
+
 export const TableCell = styled.td`
   padding: ${theme.spacing(1)};
   font-family: ${theme.fonts.body};
@@ -53,9 +66,17 @@ export const TableCell = styled.td`
   color: ${theme.colors.text};
   text-align: left;
 
+  a {
+    text-decoration: none; /* Remove text decoration */
+    color: inherit; /* Inherit the text color from the parent */
+
+    &:hover {
+      color: ${theme.colors.primary}; /* Optional hover effect for better interactivity */
+    }
+  }
+
   &.highlight {
     color: ${theme.colors.primary};
     font-weight: bold;
   }
 `;
-

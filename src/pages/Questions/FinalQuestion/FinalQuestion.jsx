@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import { FinalQuestionWrapper } from "./FinalQuestion.styles";
 import HeaderWithLogo from "../../../components/HeaderWithLogo/HeaderWithLogo";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { useUser } from '@clerk/clerk-react'
+import { getJobById, getJobs } from "../../../api/jobApi";
+import { createUserProfile, getUserByClerkId } from "../../../api/userApi";
+import { useNavigate } from "react-router-dom";
 
 function FinalQuestion() {
   const [selectedOption, setSelectedOption] = useState("");
+  const { isSignedIn, user, isLoaded } = useUser();
+  const navigate = useNavigate();
 
   const handleGoBack = () => {
     navigate("/question2"); // to:do
@@ -13,7 +19,27 @@ function FinalQuestion() {
   const handleOptionChange = (option) => {
     setSelectedOption(option);
   };
-
+  const handleNext = async () => {
+    const data = await getUserByClerkId(user.id);
+    const submissionData = {
+      user_id: data.data._id,
+      data_motive_response: selectedOption,
+      profile_status:true
+    }
+    const responseData = await createUserProfile(submissionData);
+    console.log("data", responseData);
+    navigate("/profileComplete");
+  }
+  const handleSkip= async () => {
+    const data = await getUserByClerkId(user.id);
+    const submissionData = {
+      user_id: data.data._id,
+      profile_status:true
+    }
+    const responseData = await createUserProfile(submissionData);
+    console.log("data", responseData);
+    navigate("/profileComplete");
+  }
   return (
     <FinalQuestionWrapper>
       <HeaderWithLogo />
@@ -45,8 +71,8 @@ function FinalQuestion() {
             </label>
           ))}
         </div>
-        <button className="NextButton">Next</button>
-        <button className="SkipButton">Skip</button>
+        <button className="NextButton" onClick={handleNext} >Next</button>
+        <button className="SkipButton" onClick={handleSkip}>Skip</button>
       </div>
     </FinalQuestionWrapper>
   );
