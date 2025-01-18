@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-left: 30px;
+  margin-left: 40px;
   padding: ${theme.spacing(2)};
   background-color: ${theme.colors.light};
   font-family: ${theme.fonts.body};

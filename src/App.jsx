@@ -32,6 +32,8 @@ import Flashcards from "./modules/admin/pages/Flashcards/Flashcards";
 
 import Challenges from "./modules/admin/pages/Challenges/Challenges";
 import Analytics from "./modules/admin/pages/ViewAnalytics/Analytics";
+import Faq from "./modules/admin/pages/FAQ/Faq";
+import Notification from "./modules/admin/pages/Notification/Notification";
 import SupportQuery from "./modules/admin/pages/SupportQuery/SupportQuery";
 import SupportQueryUserDetails from "./modules/admin/components/SupportQueryComponents/SupportQueryUserDetails/SupportQueryUserDetails";
 
@@ -81,8 +83,12 @@ function App() {
 
           <Route path="/admin/challenges" element={<Challenges />} />
          <Route path="/admin/viewanalytics" element={<Analytics />} />
+<Route path="/admin/faq" element={<Faq />} />
+<Route path="/admin/notifications" element={<Notification />} />
+{/* <Route path="/admin/edit" element={<EditModal />} /> */}
          <Route path="/admin/SupportQuery" element={<SupportQuery />} />
          <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
+
 
           </Route>
         </Routes>
