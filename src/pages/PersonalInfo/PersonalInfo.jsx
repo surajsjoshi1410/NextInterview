@@ -13,6 +13,9 @@ import {
 } from "../PersonalInfo/PersonalInfo.styles";
 import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
 import { IoMdArrowBack } from "react-icons/io";
+import { useUser } from '@clerk/clerk-react'
+import { createUserProfile, getUserByClerkId } from "../../api/userApi";
+import { useNavigate } from "react-router-dom";
 
 const PersonalInfo = () => {
   const [formValues, setFormValues] = useState({
@@ -26,6 +29,8 @@ const PersonalInfo = () => {
     linkedIn: "",
     phoneNumber: "",
   });
+  const { isSignedIn, user, isLoaded } = useUser()
+  const navigate=useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -58,76 +63,87 @@ const PersonalInfo = () => {
     }
 
     // Validate phone number
-    const phoneRegex = /^[0-9]{10}$/;
-    if (!formValues.phoneNumber) {
-      newErrors.phoneNumber = "Phone number is required.";
-    } else if (!phoneRegex.test(formValues.phoneNumber)) {
-      newErrors.phoneNumber = "Please enter a valid 10-digit phone number.";
-    }
+    // const phoneRegex = /^[0-9]{10}$/;
+    // if (!formValues.phoneNumber) {
+    //   newErrors.phoneNumber = "Phone number is required.";
+    // } else if (!phoneRegex.test(formValues.phoneNumber)) {
+    //   newErrors.phoneNumber = "Please enter a valid 10-digit phone number.";
+    // }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0; // No errors
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("user", user);
+
     if (validateForm()) {
+      const data = await getUserByClerkId(user.id);
+      console.log("data", data);
+      const submissionData = {
+        user_id: data.data._id,
+        user_name: formValues.userName,
+        user_linkedin_profile_link: formValues.linkedIn,
+      }
+      // console.log("submissionData", submissionData);
+      await createUserProfile(submissionData);
       console.log("Form submitted successfully:", formValues);
-      // Proceed to the next step or handle the form data
+      navigate("/question1");
     }
   };
 
   const handleGoBack = () => {
-    navigate("/"); 
+    navigate("/");
   };
 
   return (
-    
+
     <div><HeaderWithLogo />
-    <Container>
-      <FormContainer>
+      <Container>
+        <FormContainer>
 
-        
-              <BackIcon onClick={handleGoBack}
-              style={{
-                border:'1px solid grey',
-                // padding: '2px',
-                justifyContent: 'center',
-                alignContent: 'center',
-                padding: '8px',
-                borderRadius: '4px',
-                alignItems: 'center',
-              }}
-              >
+{/* 
+          <BackIcon onClick={handleGoBack}
+            style={{
+              border: '1px solid grey',
+              // padding: '2px',
+              justifyContent: 'center',
+              alignContent: 'center',
+              padding: '8px',
+              borderRadius: '4px',
+              alignItems: 'center',
+            }}
+          >
             <IoMdArrowBack />
-            </BackIcon>
-            
+          </BackIcon> */}
 
-        <Title>Enter your details</Title>
-        <form onSubmit={handleSubmit}>
-          <InputGroup>
-            <InputLabel>User name</InputLabel>
-            <InputField
-              type="text"
-              name="userName"
-              placeholder="Enter your name"
-              value={formValues.userName}
-              onChange={handleInputChange}
-            />
-            {errors.userName && <ErrorMessage>{errors.userName}</ErrorMessage>}
-          </InputGroup>
-          <InputGroup>
-            <InputLabel>LinkedIn profile link</InputLabel>
-            <InputField
-              type="text"
-              name="linkedIn"
-              placeholder="Enter your profile link"
-              value={formValues.linkedIn}
-              onChange={handleInputChange}
-            />
-            {errors.linkedIn && <ErrorMessage>{errors.linkedIn}</ErrorMessage>}
-          </InputGroup>
-          <InputGroup>
+
+          <Title>Enter your details</Title>
+          <form onSubmit={handleSubmit}>
+            <InputGroup>
+              <InputLabel>User name</InputLabel>
+              <InputField
+                type="text"
+                name="userName"
+                placeholder="Enter your name"
+                value={formValues.userName}
+                onChange={handleInputChange}
+              />
+              {errors.userName && <ErrorMessage>{errors.userName}</ErrorMessage>}
+            </InputGroup>
+            <InputGroup>
+              <InputLabel>LinkedIn profile link</InputLabel>
+              <InputField
+                type="text"
+                name="linkedIn"
+                placeholder="Enter your profile link"
+                value={formValues.linkedIn}
+                onChange={handleInputChange}
+              />
+              {errors.linkedIn && <ErrorMessage>{errors.linkedIn}</ErrorMessage>}
+            </InputGroup>
+            {/* <InputGroup>
             <InputLabel>Phone number</InputLabel>
             <InputField
             style={{
@@ -140,12 +156,12 @@ const PersonalInfo = () => {
               onChange={handleInputChange}
             />
             {errors.phoneNumber && <ErrorMessage>{errors.phoneNumber}</ErrorMessage>}
-          </InputGroup>
-          <SubmitButton type="submit">Next</SubmitButton>
-          <SkipButton type="submit">Skip</SkipButton>
-        </form>
-      </FormContainer>
-    </Container>
+          </InputGroup> */}
+            <SubmitButton type="submit">Next</SubmitButton>
+            <SkipButton type="submit" onClick={(e) =>{e.preventDefault(); navigate("/question1")}}>Skip</SkipButton>
+          </form>
+        </FormContainer>
+      </Container>
     </div>
   );
 };
