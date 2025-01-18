@@ -32,6 +32,8 @@ import Flashcards from "./modules/admin/pages/Flashcards/Flashcards";
 
 import Challenges from "./modules/admin/pages/Challenges/Challenges";
 import Analytics from "./modules/admin/pages/ViewAnalytics/Analytics";
+import SupportQuery from "./modules/admin/pages/SupportQuery/SupportQuery";
+import SupportQueryUserDetails from "./modules/admin/components/SupportQueryComponents/SupportQueryUserDetails/SupportQueryUserDetails";
 
 function App() {
   return (
@@ -79,6 +81,8 @@ function App() {
 
           <Route path="/admin/challenges" element={<Challenges />} />
          <Route path="/admin/viewanalytics" element={<Analytics />} />
+         <Route path="/admin/SupportQuery" element={<SupportQuery />} />
+         <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
 
           </Route>
         </Routes>

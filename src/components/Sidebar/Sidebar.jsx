@@ -9,6 +9,7 @@ import { TbDeviceIpadQuestion } from "react-icons/tb";
 import { IoIosRepeat } from "react-icons/io";
 import { RxDashboard } from "react-icons/rx";
 import { CiMobile1 } from "react-icons/ci";
+import { TfiHeadphoneAlt } from "react-icons/tfi";
 
 const Sidebar = ({ isExpanded, setIsExpanded }) => {
   const location = useLocation();
@@ -59,6 +60,14 @@ const Sidebar = ({ isExpanded, setIsExpanded }) => {
                 <MdOutlineMenuBook />
               </span>
               <span className="menu-link-text">Learning Module</span>
+            </NavLink>
+          </li>
+          <li className="menu-item">
+            <NavLink to="/admin/SupportQuery" className={getLearningLinkClass}>
+              <span className="menu-link-icon">
+                <TfiHeadphoneAlt />
+              </span>
+              <span className="menu-link-text">Support Query</span>
             </NavLink>
           </li>
           <li className="menu-item">
