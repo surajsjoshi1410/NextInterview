@@ -82,7 +82,7 @@ function App() {
           <Route path="/admin/challenges" element={<Challenges />} />
          <Route path="/admin/viewanalytics" element={<Analytics />} />
          <Route path="/admin/SupportQuery" element={<SupportQuery />} />
-         <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
+         <Route path="/admin/SupportQuery/UserDetails" element={<SupportQueryUserDetails />} />
 
           </Route>
         </Routes>

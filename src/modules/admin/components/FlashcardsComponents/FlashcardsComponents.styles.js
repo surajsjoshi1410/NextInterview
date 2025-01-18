@@ -7,7 +7,6 @@ export const FlashcardContainer = styled.div`
   gap: ${theme.spacing(2)};
   padding: ${theme.spacing(2)};
   margin: auto;
-  width: 95%;
   background-color: ${theme.colors.light};
   margin-left: ${theme.spacing(5)};
 
@@ -27,7 +26,7 @@ export const FlashcardContainer = styled.div`
 
 export const Header = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: ${theme.spacing(2)};
   align-items: center;
   margin-bottom: ${theme.spacing(2)};
@@ -65,14 +64,20 @@ export const Flashcard = styled.div`
   border: 1px solid ${theme.colors.sidebarHoverBgColor};
   border-radius: 8px;
   padding: ${theme.spacing(2)};
-  background-color: ${theme.colors.light};
+  background-color: ${theme.colors.white};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 
-  h3 {
+  h4 {
     font-family: ${theme.fonts.heading};
     margin-bottom: ${theme.spacing(1)};
+    background-color: ${theme.colors.sidebarBgColor};
+    border: 1px solid ${theme.colors.sidebarHoverBgColor};
+    width: fit-content;
+    padding: ${theme.spacing(0.5)};
+    border-radius: 4px;
+    color: ${theme.colors.bluetext};
   }
 
   p {
@@ -85,6 +90,7 @@ export const Flashcard = styled.div`
     display: flex;
     gap: ${theme.spacing(1)};
     margin-top: ${theme.spacing(2)};
+    justify-content: flex-end;
   }
 
   @media (max-width: ${theme.breakpoints.tablet}) {
@@ -107,6 +113,7 @@ export const InteractionStats = styled.div`
   font-family: ${theme.fonts.body};
   font-size: 14px;
   display: flex;
+  flex-wrap: wrap;
   gap: ${theme.spacing(2)};
 
   div {
@@ -139,17 +146,22 @@ export const InteractionStats = styled.div`
 
 export const ActionButton = styled.button`
   background-color: ${(props) =>
-    props.delete ? theme.colors.error : theme.colors.primary};
-  color: white;
+    props.delete ? theme.colors.lightpink : theme.colors.sidebarBgColor};
+  color: ${(props) =>
+    props.delete ? theme.colors.darkred : theme.colors.sidebarTextColor};
   border: none;
-  border-radius: 4px;
+  border-radius: 50%;
   padding: ${theme.spacing(0.5)} ${theme.spacing(1)};
   font-family: ${theme.fonts.body};
   font-size: 14px;
   cursor: pointer;
+  float: right;
   display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 
   &:hover {
     opacity: 0.9;
@@ -162,7 +174,7 @@ export const ActionButton = styled.button`
 `;
 
 export const AddButton = styled.button`
-  background-color: ${theme.colors.primary};
+  background-color: ${theme.colors.info};
   color: white;
   border: none;
   border-radius: 4px;

@@ -18,13 +18,13 @@ const SupportQueryListViewFilter = ({ onApplyFilters, onClose }) => {
   const [categories, setCategories] = useState({
     Technical: false,
     "Content-Related": false,
-    Billing: true,
-    General: true,
+    Billing: false,
+    General: false,
   });
   const [dateRange, setDateRange] = useState({
     Today: false,
     "Last 7 days": false,
-    "Last 30 days": true,
+    "Last 30 days": false,
   });
 
   const handleStatusChange = (event) => {
