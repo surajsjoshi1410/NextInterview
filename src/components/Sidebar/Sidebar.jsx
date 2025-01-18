@@ -12,6 +12,7 @@ import { CiMobile1 } from "react-icons/ci";
 import { MdOutlineLockClock } from "react-icons/md";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { MdNotificationsNone } from "react-icons/md";
+import { TfiHeadphoneAlt } from "react-icons/tfi";
 
 const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
   const location = useLocation();
