@@ -15,6 +15,10 @@ import QuestionPage2 from "./pages/Questions/Question2/Question2";
 import QuestionPage3 from "./pages/Questions/Question3/Question3";
 import LearningModules from "./modules/admin/pages/Learning modules/Learningmodules";
 import Userdetails from "./modules/admin/pages/User details/Userdetails";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import BacktoSignIn from "./pages/BacktoSignIn/BacktoSignIn";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import ResetSuccessful from "./pages/passwordresetsuccessful/ResetSuccessful";
 
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import OtpEmail from "./pages/OtpEmail/OtpEmail";
@@ -28,6 +32,8 @@ import Flashcards from "./modules/admin/pages/Flashcards/Flashcards";
 
 import Challenges from "./modules/admin/pages/Challenges/Challenges";
 import Analytics from "./modules/admin/pages/ViewAnalytics/Analytics";
+import SupportQuery from "./modules/admin/pages/SupportQuery/SupportQuery";
+import SupportQueryUserDetails from "./modules/admin/components/SupportQueryComponents/SupportQueryUserDetails/SupportQueryUserDetails";
 
 function App() {
   return (
@@ -47,7 +53,15 @@ function App() {
 
 
           <Route path="/learning" element={<LearningModules />} />
+
           {/* <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} /> */}
+
+          <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/backtosignIn" element={<BacktoSignIn />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/resetsuccessful" element={<ResetSuccessful />} />
+
 
           {/* <Route path="/skill-assessment" element={<SkillAssessment />} /> */}
         {/* <Route path="/try-it-yourself" element={<TryItYourself />} /> */}
@@ -67,6 +81,8 @@ function App() {
 
           <Route path="/admin/challenges" element={<Challenges />} />
          <Route path="/admin/viewanalytics" element={<Analytics />} />
+         <Route path="/admin/SupportQuery" element={<SupportQuery />} />
+         <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
 
           </Route>
         </Routes>
