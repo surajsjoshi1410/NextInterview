@@ -77,7 +77,8 @@ function App() {
           />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/backtosignIn" element={<BacktoSignIn />} />
-          <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/resetpassword" element={<ResetP
+          assword />} />
           <Route path="/resetsuccessful" element={<ResetSuccessful />} />
 
           {/* <Route path="/skill-assessment" element={<SkillAssessment />} /> */}

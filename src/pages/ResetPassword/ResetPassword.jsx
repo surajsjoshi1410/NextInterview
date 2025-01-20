@@ -18,6 +18,7 @@ import {
   ValidationIcon,
 } from './ResetPassword.styles';
 import HeaderWithLogo from '../../components/HeaderWithLogo/HeaderWithLogo';
+import { useSignIn,SignedOut } from '@clerk/clerk-react';
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -26,7 +27,9 @@ const ResetPassword = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const { isLoaded, signIn,user, setActive } = useSignIn()
 
   const handleGoBack = () => {
     navigate('/forgotpassword');
@@ -40,7 +43,7 @@ const ResetPassword = () => {
     setShowConfirmPassword((prev) => !prev);
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     if (!password || !confirmPassword) {
@@ -60,9 +63,45 @@ const ResetPassword = () => {
       setIsSuccess(false);
       return;
     }
+    try {
+      await signIn
+        ?.attemptFirstFactor({
+          strategy: 'reset_password_email_code',
+          code: verificationCode,
+          password: password,
+        })
+        .then((result) => {
+          // Check if 2FA is required
+          console.log("result", result);
+          if (result.status === 'needs_second_factor') {
+            setSecondFactor(true)
+            setError('')
+          } else if (result.status === 'complete') {
+            // Set the active session to
+            // the newly created session (user is now signed in)
+            setActive({ session: result.createdSessionId });
+            console.log("user",user)
+            setFeedbackMessage('Password reset successfully.');
+            setIsSuccess(true);
+            navigate('/resetsuccessful')
 
-    setFeedbackMessage('Password reset successfully.');
-    setIsSuccess(true);
+            // setError('')
+          } else {
+            console.log(result)
+          }
+        })
+        .catch((err) => {
+          console.error('error', err.errors[0].longMessage)
+          setError(err.errors[0].longMessage)
+        })
+
+    } catch (error) {
+      setFeedbackMessage('An error occurred during password reset.');
+      setIsSuccess(false);
+      return;
+    }
+
+
 
     // Log or handle the successful reset
     console.log('Password reset successfully:', password);
@@ -80,7 +119,21 @@ const ResetPassword = () => {
           </BackIcon>
           <Title>Reset Password</Title>
           <Subtitle>Password must be alphanumeric and contain at least 8 characters.</Subtitle>
-          <form onSubmit={handleFormSubmit}>
+          {/* <form onSubmit={handleFormSubmit}> */}
+          <form>
+            <InputContainer>
+              <Label>Email verification code</Label>
+              <div style={{ position: 'relative' }}>
+                <Input
+                  type={"text"}
+                  placeholder="Enter your new verification code"
+                  value={verificationCode}
+                  onChange={(e) => setVerificationCode(e.target.value)}
+                />
+
+
+              </div>
+            </InputContainer>
             <InputContainer>
               <Label>New Password</Label>
               <div style={{ position: 'relative' }}>
@@ -148,11 +201,11 @@ const ResetPassword = () => {
                     )}
                   </ValidationIcon>
                 )}
-               
+
               </div>
               {!passwordsMatch && confirmPassword && (
-                  <Error>Passwords do not match.</Error>
-                )}
+                <Error>Passwords do not match.</Error>
+              )}
             </InputContainer>
 
             {feedbackMessage && (
@@ -163,7 +216,7 @@ const ResetPassword = () => {
               )
             )}
 
-            <Button type="submit">Reset Password</Button>
+            <Button type="submit" onClick={handleFormSubmit}>Reset Password</Button>
           </form>
         </FormSection>
       </Container>
