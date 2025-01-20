@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import theme from "../../theme/Theme";
 export const Container = styled.div`
   display: flex;
   height: 100vh;
   background-color: ${theme.colors.light};
   flex-direction: column;
-  
+
   @media (min-width: 768px) {
     flex-direction: column;
   }
@@ -13,9 +13,9 @@ export const Container = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
   }
-    @media (max-width: 480px) {
-      flex-direction: column;
-    }
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
 `;
 
 export const FormSection = styled.div`
@@ -26,7 +26,7 @@ export const FormSection = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
-  
+
   @media (min-width: 768px) {
     margin-top: 20;
   }
@@ -41,15 +41,15 @@ export const Signupage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-background-color: ${theme.colors.light};
-  
+  background-color: ${theme.colors.light};
+
   img {
     width: 100%;
     max-width: 700px;
     height: auto;
     object-fit: cover;
   }
-  
+
   @media (max-width: 768px) {
     display: none;
   }
@@ -57,7 +57,7 @@ background-color: ${theme.colors.light};
 
 export const Heading = styled.h2`
   margin-bottom: 1rem;
-  color:${theme.colors.text};
+  color: ${theme.colors.text};
   font-size: 1.35rem;
   font-weight: 600;
   padding-right: 7rem;
@@ -65,8 +65,7 @@ export const Heading = styled.h2`
   @media (max-width: 768px) {
     font-size: 1.4rem;
     margin-bottom: 1.5rem;
-      padding-right: 3rem;
-
+    padding-right: 3rem;
   }
 `;
 
@@ -84,31 +83,29 @@ export const Input = styled.div`
   label {
     display: block;
     margin-bottom: 0.9rem;
-   color: ${theme.colors.textgray};
+    color: ${theme.colors.textgray};
     font-size: 0.9rem;
     font-weight: 500;
   }
 
-  input {
-    width: 100%;
+  .input {
     padding: 0.6rem;
     border: 1px solid ${theme.colors.textgray};
     border-radius: 5px;
     font-size: 0.9rem;
     color: #333;
   }
-    @media (max-width: 768px) {
-      margin-bottom: 2rem;
-
+  @media (max-width: 768px) {
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 480px) {
+    label {
+      font-size: 1.1rem;
     }
-      @media (max-width: 480px) {
-      label {
-        font-size: 1.1rem;
-      }
-        input {
-          font-size: 1rem;
-        }
-      }
+    .input {
+      font-size: 1rem;
+    }
+  }
 `;
 
 export const Button = styled.button`
@@ -171,7 +168,7 @@ export const AlternativeLogin = styled.div`
 
 export const LinkedInButton = styled.div`
   margin-top: 2.8rem;
-  
+
   button {
     display: flex;
     align-items: center;
@@ -188,7 +185,7 @@ export const LinkedInButton = styled.div`
     &:hover {
       background: #f4f4f4;
     }
-    
+
     svg {
       margin-right: 0.5rem;
       font-size: 1.2rem;

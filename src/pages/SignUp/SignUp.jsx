@@ -200,7 +200,7 @@ const SignUp = () => {
             <Button type="submit">Log In</Button>
 
             <AlternativeLogin>
-              <Link to="/loginPhone">
+              <Link to="/loginPhone" state={{flow: "SIGN_IN"}}>
                 <button>
                   <FaMobileAlt /> Log in with Mobile
                 </button>

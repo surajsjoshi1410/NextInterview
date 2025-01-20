@@ -4,18 +4,17 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-height: 100vh;
+  height: 100vh;
   background-color: ${theme.colors.light};
 
   @media (max-width: 768px) {
     padding: 10px;
-    
   }
 
-  @media (max-width: 480px){
+  @media (max-width: 480px) {
     padding: 10px;
     justify-content: unset;
-    }
+  }
 `;
 
 export const SkipButton = styled.button`
@@ -50,14 +49,14 @@ export const SkipButton = styled.button`
   ;
 
 export const BackIcon = styled.div`
-//  position: absolute;
-//   top: 190px; /* Adjust to place it near the top on mobile */
-//   left: 635px;
+  //  position: absolute;
+  //   top: 190px; /* Adjust to place it near the top on mobile */
+  //   left: 635px;
 
   cursor: pointer;
   font-size: 24px;
- color:${theme.colors.text};
-,,
+  color: ${theme.colors.text};
+
   @media (max-width: 768px) {
     top: 200px;
     left: 20px;
@@ -65,18 +64,17 @@ export const BackIcon = styled.div`
   }
 `;
 
-
 export const Title = styled.h1`
   font-size: 24px;
   font-weight: bold;
- color:${theme.colors.text};
-//   margin: 80px 0 20px 0;
-//   margin-right: 10px;
+  color: ${theme.colors.text};
+  //   margin: 80px 0 20px 0;
+  //   margin-right: 10px;
 
   @media (max-width: 768px) {
     font-size: 20px;
     // margin: 60px 0 15px 0;
-//     margin-right: 130px !important;
+    //     margin-right: 130px !important;
   }
 
   @media (max-width: 480px) {
@@ -96,10 +94,10 @@ export const Option = styled.div`
   border-radius: 8px;
   cursor: pointer;
   background-color: ${(props) => (props.$isSelected ? "#e8f5e9" : "#ffffff")};
-//   transition: all 0.3s ease;
+  //   transition: all 0.3s ease;
 
   &:hover {
-    border-color:${theme.colors.primary};
+    border-color: ${theme.colors.primary};
   }
 
   @media (max-width: 768px) {
@@ -130,7 +128,8 @@ export const CirclePointer = styled.div`
     content: "";
     width: ${(props) => (props.$isSelected ? "10px" : "0")};
     height: ${(props) => (props.$isSelected ? "10px" : "0")};
-    background-color: ${(props) => (props.$isSelected ? "#68c184" : "transparent")};
+    background-color: ${(props) =>
+      props.$isSelected ? "#68c184" : "transparent"};
     border-radius: 50%;
     transition: all 0.3s ease;
   }
@@ -163,10 +162,10 @@ export const OptionLabel = styled.span`
 
 export const NextButton = styled.button`
   margin-top: 30px;
- width:100%;
+  width: 100%;
   height: 50px;
   background-color: ${(props) => (props.disabled ? "#68c184" : "#28a745")};
-  color: ${theme.colors.light} ;
+  color: ${theme.colors.light};
   font-size: 16px;
   font-weight: bold;
   border: none;
@@ -192,17 +191,16 @@ export const NextButton = styled.button`
   }
 `;
 
-
 export const Section = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;                          
-  height: 100vh;    
+  justify-content: center;
+  height: 100vh;
 
   @media (max-width: 768px) {
     padding: 10px;
-     }
+  }
 
   @media (max-width: 480px) {
     padding: 10px;

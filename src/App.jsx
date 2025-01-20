@@ -29,7 +29,6 @@ import SkillAssessment from "./modules/admin/pages/Skill Assesment/SkillAssesmen
 
 import Flashcards from "./modules/admin/pages/Flashcards/Flashcards";
 
-
 import Challenges from "./modules/admin/pages/Challenges/Challenges";
 import Analytics from "./modules/admin/pages/ViewAnalytics/Analytics";
 import Faq from "./modules/admin/pages/FAQ/Faq";
@@ -60,37 +59,42 @@ function App() {
           <Route path="/question3" element={<QuestionPage3 />} />
           <Route path="/question4" element={<QuestionPage4 />} />
           <Route path="/otp" element={<Otp />} />
-          <Route path="/question5" element={<CompaniesPlan/>} />
+          <Route path="/question5" element={<CompaniesPlan />} />
           <Route path="/question6" element={<Question6 />} />
-          <Route path="/question7" element={<Question7/>} />
-          <Route path="/question8" element={<FinalQuestion/>} />
-          <Route path="/profileComplete" element={<AccountCreated/>} />
+          <Route path="/question7" element={<Question7 />} />
+          <Route path="/question8" element={<FinalQuestion />} />
+          <Route path="/profileComplete" element={<AccountCreated />} />
           <Route path="/otpEmail" element={<OtpEmail />} />
-          <Route path="/validation" element={<ValidationPage/>}/>
-
+          <Route path="/validation" element={<ValidationPage />} />
 
           <Route path="/learning" element={<LearningModules />} />
 
           {/* <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} /> */}
 
-          <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
+          <Route
+            path="/Diagnosing-and-Investigating-Metrics"
+            element={<Userdetails />}
+          />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/backtosignIn" element={<BacktoSignIn />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="/resetsuccessful" element={<ResetSuccessful />} />
-
 
           {/* <Route path="/skill-assessment" element={<SkillAssessment />} /> */}
           {/* <Route path="/try-it-yourself" element={<TryItYourself />} /> */}
           {/* <Route path="/question-bank" element={<QuestionBank />} /> */}
           {/* <Route path="/challenges" element={<Challenges />} /> */}
 
-
-
-          <Route path="/admin" element={<BaseLayout />} >
+          <Route path="/admin" element={<BaseLayout />}>
             <Route path="/admin/learning" element={<LearningModules />} />
-            <Route path="/admin/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
-            <Route path="/admin/skill-assessment" element={<SkillAssessment />} />
+            <Route
+              path="/admin/Diagnosing-and-Investigating-Metrics"
+              element={<Userdetails />}
+            />
+            <Route
+              path="/admin/skill-assessment"
+              element={<SkillAssessment />}
+            />
             <Route path="/admin/uploadmodule" element={<UploadModule />} />
             <Route path="/admin/addnewmodule" element={<AddNewModule />} />
 
@@ -112,24 +116,17 @@ function App() {
             <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
          <Route path="/admin/settings" element={<Settings />} />
          <Route path="/admin/users" element = {<Users />} />
+            <Route
+              path="/admin/SupportQuery/1234"
+              element={<SupportQueryUserDetails />}
+            />
           </Route>
 
-          <Route path="/user" element={<BaseLayout />} >
-           </Route>
+          <Route path="/user" element={<BaseLayout />}></Route>
         </Routes>
-
       </Router>
     </ThemeProvider>
   );
-
-
 }
 
 export default App;
-
-
-
-
-
-
-
