@@ -31,7 +31,9 @@ const AddFlashCard = ({ onClose, onSave, flashcardCount }) => {
       </Header>
       <ContentWrapper>
         <FlashcardLabel>
+        <div style={{marginBottom: "10px"}}>  
           Add flash card content
+         </div>
           <FlashcardNumber>Flash Card - {flashcardCount + 1}</FlashcardNumber>
         </FlashcardLabel>
         <TextArea
@@ -40,8 +42,8 @@ const AddFlashCard = ({ onClose, onSave, flashcardCount }) => {
           onChange={(e) => setContent(e.target.value)}
           maxLength={50}
         />
-        <span>{content.length}/50</span>
       </ContentWrapper>
+        <span style={{marginLeft: "160px"}}>{content.length}/50</span>
       <Footer>
         <UploadButton onClick={handleSave}>Upload</UploadButton>
       </Footer>

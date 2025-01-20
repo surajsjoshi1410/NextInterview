@@ -6,17 +6,24 @@ import {
   ModuleActions,
   SearchBar,
   NewUploadButton,
+  SearchBarWrapper,
 } from "./Learningmoduleslistview.styles";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { CiEdit } from "react-icons/ci";
+import { IoSearch } from "react-icons/io5"; // Importing Search Icon
 
 const LearningModulesListView = ({ modules }) => {
   return (
     <ModulesSection>
       <div className="module-header">
         <h3>Data Science Lite Modules</h3>
-        <div>
-          <SearchBar type="text" placeholder="Search" />
+        <div style={{ display: "flex" , gap: "10px"}}>
+          {/* <SearchBar type="text" placeholder="Search" /> */}
+          <SearchBarWrapper>
+            <IoSearch size={20} />
+            <SearchBar type="text" placeholder="Search" />
+          </SearchBarWrapper>
+
           <NewUploadButton>
             <Link to={"/admin/uploadmodule"}>New Upload</Link>
           </NewUploadButton>
