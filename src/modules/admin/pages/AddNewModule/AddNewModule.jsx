@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FiUpload } from "react-icons/fi";
+// import theme from "../../../../theme/Theme";
+import styled from "styled-components";
 import {
     AddContainer,
     Heading,
@@ -31,29 +33,79 @@ const AddNewModule = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [deleteType, setDeleteType] = useState(null); // 'topic' or 'subtopic'
     const [deleteIndices, setDeleteIndices] = useState({ topicIndex: null, subIndex: null });
-    const [topics, setTopics] = useState([
-        {
-            topicName: "",
-            skillAssessmentFile: null,
-            subtopics: [
-                {
-                    subtopicName: "",
-                    subtopicContent: "",
-                    subtopicSummary: "",
-                    quickRevisePoints: "",
-                    cheatSheet: null,
-                    isInterviewFavorite: false,
-                    conceptClarifier: {
+    // const [topics, setTopics] = useState([
+    //     {
+    //         topicName: "",
+    //         skillAssessmentFile: null,
+    //         subtopics: [
+    //             {
+    //                 subtopicName: "",
+    //                 subtopicContent: "",
+    //                 subtopicSummary: "",
+    //                 quickRevisePoints: "",
+    //                 cheatSheet: null,
+    //                 isInterviewFavorite: false,
+    //                 conceptClarifier: {
+    //                     clarifierWordOrPhrase: "",
+    //                     explanationOnHover: "",
+    //                     moreExplanation: "",
+    //                 },
+    //                 questionBankFile: null,
+    //                 tryItYourselfFile: null,
+    //             },
+    //         ],
+    //     },
+    // ]);
+
+    // Update the initial state for subtopics
+const [topics, setTopics] = useState([
+    {
+        topicName: "",
+        skillAssessmentFile: null,
+        subtopics: [
+            {
+                subtopicName: "",
+                subtopicContent: "",
+                subtopicSummary: "",
+                quickRevisePoints: "",
+                cheatSheet: null,
+                isInterviewFavorite: false,
+                conceptClarifiers: [ // Now an array to allow multiple concept clarifiers
+                    {
                         clarifierWordOrPhrase: "",
                         explanationOnHover: "",
                         moreExplanation: "",
                     },
-                    questionBankFile: null,
-                    tryItYourselfFile: null,
-                },
-            ],
-        },
-    ]);
+                ],
+                questionBankFile: null,
+                tryItYourselfFile: null,
+            },
+        ],
+    },
+]);
+
+// Handler to add a new concept clarifier
+const handleAddConceptClarifier = (topicIndex, subIndex) => {
+    setTopics((prevTopics) => {
+        const updated = [...prevTopics];
+        updated[topicIndex].subtopics[subIndex].conceptClarifiers.push({
+            clarifierWordOrPhrase: "",
+            explanationOnHover: "",
+            moreExplanation: "",
+        });
+        return updated;
+    });
+};
+
+// Handler to update a specific concept clarifier
+const handleConceptClarifierChange = (e, topicIndex, subIndex, clarifierIndex, clarifierField) => {
+    const { value } = e.target;
+    setTopics((prevTopics) => {
+        const updated = [...prevTopics];
+        updated[topicIndex].subtopics[subIndex].conceptClarifiers[clarifierIndex][clarifierField] = value;
+        return updated;
+    });
+};
 
     // Refs for Skill Assessment Upload Inputs
     const skillAssessmentRefs = useRef([]);
@@ -146,20 +198,20 @@ const AddNewModule = () => {
     };
 
     // Handle concept clarifier changes
-    const handleConceptClarifierChange = (
-        e,
-        topicIndex,
-        subIndex,
-        clarifierField
-    ) => {
-        const { value } = e.target;
-        setTopics((prevTopics) => {
-            const updated = [...prevTopics];
-            updated[topicIndex].subtopics[subIndex].conceptClarifier[clarifierField] =
-                value;
-            return updated;
-        });
-    };
+    // const handleConceptClarifierChange = (
+    //     e,
+    //     topicIndex,
+    //     subIndex,
+    //     clarifierField
+    // ) => {
+    //     const { value } = e.target;
+    //     setTopics((prevTopics) => {
+    //         const updated = [...prevTopics];
+    //         updated[topicIndex].subtopics[subIndex].conceptClarifier[clarifierField] =
+    //             value;
+    //         return updated;
+    //     });
+    // };
 
     // Handle Cheat Sheet upload
     const handleCheatSheetUpload = (e, topicIndex, subIndex) => {
@@ -537,7 +589,7 @@ const AddNewModule = () => {
                                 </label>
                             </CheckboxContainer>
 
-                            <ConceptClarifierContainer>
+                            {/* <ConceptClarifierContainer>
                                 <ClarifierHeading>Concept Clarifier</ClarifierHeading>
 
                                 <FormGroup>
@@ -601,7 +653,91 @@ const AddNewModule = () => {
                                         style={{ backgroundColor: theme.colors.backgray }}
                                     />
                                 </FormGroup>
-                            </ConceptClarifierContainer>
+                            </ConceptClarifierContainer> */}
+
+
+
+<ConceptClarifierContainer>
+    <ClarifierHeading>Concept Clarifier</ClarifierHeading>
+
+    {subtopic.conceptClarifiers.map((clarifier, clarifierIndex) => (
+        <div key={clarifierIndex} style={{ marginBottom: "10px" }}>
+            <FormGroup>
+                <Label
+                    htmlFor={`clarifierWordOrPhrase-${topicIndex}-${subIndex}-${clarifierIndex}`}
+                >
+                    Concept Clarifier (Enter a Word or Phrase)
+                </Label>
+                <TextInput
+                    id={`clarifierWordOrPhrase-${topicIndex}-${subIndex}-${clarifierIndex}`}
+                    value={clarifier.clarifierWordOrPhrase}
+                    onChange={(e) =>
+                        handleConceptClarifierChange(
+                            e,
+                            topicIndex,
+                            subIndex,
+                            clarifierIndex,
+                            "clarifierWordOrPhrase"
+                        )
+                    }
+                    style={{ backgroundColor: theme.colors.backgray }}
+                />
+            </FormGroup>
+
+            <FormGroup>
+                <Label
+                    htmlFor={`explanationOnHover-${topicIndex}-${subIndex}-${clarifierIndex}`}
+                >
+                    Explanation on Hover
+                </Label>
+                <TextInput
+                    id={`explanationOnHover-${topicIndex}-${subIndex}-${clarifierIndex}`}
+                    value={clarifier.explanationOnHover}
+                    onChange={(e) =>
+                        handleConceptClarifierChange(
+                            e,
+                            topicIndex,
+                            subIndex,
+                            clarifierIndex,
+                            "explanationOnHover"
+                        )
+                    }
+                    style={{ backgroundColor: theme.colors.backgray }}
+                />
+            </FormGroup>
+
+            <FormGroup>
+                <Label htmlFor={`moreExplanation-${topicIndex}-${subIndex}-${clarifierIndex}`}>
+                    More Explanation on Popup
+                </Label>
+                <TextArea
+                    id={`moreExplanation-${topicIndex}-${subIndex}-${clarifierIndex}`}
+                    rows="3"
+                    value={clarifier.moreExplanation}
+                    onChange={(e) =>
+                        handleConceptClarifierChange(
+                            e,
+                            topicIndex,
+                            subIndex,
+                            clarifierIndex,
+                            "moreExplanation"
+                        )
+                    }
+                    style={{ backgroundColor: theme.colors.backgray }}
+                />
+            </FormGroup>
+        </div>
+    ))}
+
+    <ButtonRow>
+        <ActionButton
+            style={{ border: "1px solid #2390ac", color: "#2390ac", backgroundColor: "transparent" }}
+            onClick={() => handleAddConceptClarifier(topicIndex, subIndex)}
+        >
+            + Add More 
+        </ActionButton>
+    </ButtonRow>
+</ConceptClarifierContainer>
 
                             {/* Question Bank Upload Section */}
                             <SectionHeader>
