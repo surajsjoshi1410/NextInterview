@@ -94,13 +94,16 @@ const SignUpPage = () => {
     // console.log('Email:', email);
     // console.log('Password:', password);
   };
-  const handleGoogleSignUp = async () => {
+  const handleGoogleSignUp = async (e) => {
+    e.preventDefault();
     try {
-      await signUp.authenticateWithRedirect({
+      // console.log("handleGoogleSignUp");
+      const data= await signUp.authenticateWithRedirect({
         strategy: 'oauth_google',
-        redirectUrl: window.location.origin + '/',  // Optional
-        redirectUrlComplete: window.location.origin + '/', // Where to go after successful sign-up
+        redirectUrl: window.location.origin + '/signup',  // Optional
+        redirectUrlComplete: window.location.origin + '/verification', // Where to go after successful sign-up
       });
+      console.log("data", data);
     } catch (err) {
       console.error('Google Sign-Up Error:', err);
     }
@@ -114,8 +117,8 @@ const SignUpPage = () => {
       // const popup = window.open('', 'linkedinPopup', 'width=600,height=600');
       const data = await signUp.authenticateWithRedirect({
         strategy: 'oauth_linkedin_oidc',
-        redirectUrl: window.location.origin + '/',
-        redirectUrlComplete: window.location.origin + '/',
+        redirectUrl: window.location.origin + '/signup',
+        redirectUrlComplete: window.location.origin + '/verification',
       });
       console.log("data", data);
     } catch (err) {
@@ -210,11 +213,11 @@ const SignUpPage = () => {
 
 
             <AlternativeLogin>
-            <Link to="/loginPhone" state={{flow: "SIGN_UP"}}>
+            {/* <Link to="/loginPhone" state={{flow: "SIGN_UP"}}>
               <button>
                 <FaMobileAlt /> SignUp in with Mobile
               </button>
-            </Link>
+            </Link> */}
           </AlternativeLogin>
           <AlternativeLogin>
             <button onClick={handleGoogleSignUp}>

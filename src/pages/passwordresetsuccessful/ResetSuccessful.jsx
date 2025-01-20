@@ -3,13 +3,16 @@ import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
 import { Container, Image, Message, Button } from "./ResetSuccessful.styles";
 import succes from "../../assets/succes.png"; 
 import { useNavigate } from 'react-router-dom';
+import { useUser,SignIn,SignedOut,useClerk } from '@clerk/clerk-react';
 
 
 const ResetSuccessful = () => {
+  const { signOut } = useClerk()
 
   const navigate = useNavigate();
   const handleBackToLogIn = () => {
-    navigate("/login"); 
+    signOut({ redirectUrl: '/login' })
+    
   };
   return (
       <div>

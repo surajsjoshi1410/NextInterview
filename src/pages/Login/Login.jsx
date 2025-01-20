@@ -97,9 +97,6 @@ const Login = () => {
         });
       } catch (error) {
         console.log("Sign-in error:", error);
-
-       
-
       }
     }
 

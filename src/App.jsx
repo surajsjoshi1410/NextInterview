@@ -74,7 +74,8 @@ function App() {
           <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/backtosignIn" element={<BacktoSignIn />} />
-          <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/resetpassword" element={<ResetP
+          assword />} />
           <Route path="/resetsuccessful" element={<ResetSuccessful />} />
 
 
