@@ -15,15 +15,15 @@ const LearningModulesStats = () => {
           <Stats>
             <StatCard>
               <p>Total Topics Published</p>
-              <h3>35</h3>
+              <h1>35</h1>
             </StatCard>
             <StatCard>
               <p>Avg. Completion Rate</p>
-              <h3>75%</h3>
+              <h1>75%</h1>
             </StatCard>
             <StatCard>
               <p>Avg. Quiz Score</p>
-              <h3>78%</h3>
+              <h1>78%</h1>
             </StatCard>
           </Stats>
         </div>
@@ -31,11 +31,15 @@ const LearningModulesStats = () => {
         <div>
           <StatCard1>
             <p>Most Viewed</p>
-            <strong>AI Basics – (1,245 views)</strong>
+            <div>
+              Ai Basics <strong> - (1,245 views)</strong>
+            </div>
           </StatCard1>
           <StatCard2>
             <p>Least Viewed</p>
-            <strong>Data Science Basics & Advanced – (1,245 views)</strong>
+            <div>
+              Data Science Basics & Advanced  <strong> - (1,245 views)</strong>
+            </div>
           </StatCard2>
         </div>
       </div>
