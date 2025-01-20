@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Container,
   FormSection,
@@ -10,22 +10,29 @@ import {
   LinkedInButton,
   Footer,
   Signupage,
-} from '../SignUp/SignUp.styles';
-import signup from '../../assets/signup.png';
-import google from '../../assets/google.png';
-import { Link, useNavigate } from 'react-router';
-import { FaEye, FaEyeSlash, FaLinkedin, FaMobileAlt } from 'react-icons/fa';
+} from "../SignUp/SignUp.styles";
+import signup from "../../assets/signup.png";
+import google from "../../assets/google.png";
+import { Link, useNavigate } from "react-router";
+import { FaEye, FaEyeSlash, FaLinkedin, FaMobileAlt } from "react-icons/fa";
 
 // Import the new header component
-import HeaderWithLogo from '../../components/HeaderWithLogo/HeaderWithLogo';
-import { useSignIn, useSignUp, useAuth, useClerk, UserProfile, UserButton } from "@clerk/clerk-react";
+import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
+import {
+  useSignIn,
+  useSignUp,
+  useAuth,
+  useClerk,
+  UserProfile,
+  UserButton,
+} from "@clerk/clerk-react";
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const navigate = useNavigate();
   const { openSignUp } = useClerk();
 
@@ -36,8 +43,6 @@ const SignUpPage = () => {
   } = useSignUp();
 
   // If false, user is not authenticated
-
-
 
   /**
    * Toggles the visibility of the password field.
@@ -52,18 +57,17 @@ const SignUpPage = () => {
     const fullPhoneNumber = `+91${phoneNumber.trim()}`;
 
     if (!email || !password) {
-      alert('Please fill in all fields.');
+      alert("Please fill in all fields.");
       return;
     }
 
     if (!/^\S+@\S+\.\S+$/.test(email)) {
-      alert('Please enter a valid email address.');
+      alert("Please enter a valid email address.");
       return;
     }
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Phone Number:', fullPhoneNumber);
-
+    console.log("Email:", email);
+    console.log("Password:", password);
+    console.log("Phone Number:", fullPhoneNumber);
 
     const datas = await signUp.create({
       phoneNumber: fullPhoneNumber,
@@ -71,10 +75,10 @@ const SignUpPage = () => {
       emailAddress: email,
       phone_number: fullPhoneNumber,
       // username: username,
-      email_address: email
+      email_address: email,
     });
     console.log("datas", datas);
-    const data=await signUp.preparePhoneNumberVerification({
+    const data = await signUp.preparePhoneNumberVerification({
       strategy: "phone_code",
     });
     console.log("data", data);
@@ -105,7 +109,7 @@ const SignUpPage = () => {
       });
       console.log("data", data);
     } catch (err) {
-      console.error('Google Sign-Up Error:', err);
+      console.error("Google Sign-Up Error:", err);
     }
   };
 
@@ -122,18 +126,20 @@ const SignUpPage = () => {
       });
       console.log("data", data);
     } catch (err) {
-      console.error('LinkedIn Sign-Up Error:', err);
-      alert('LinkedIn sign-up failed. Check console for details.');
+      console.error("LinkedIn Sign-Up Error:", err);
+      alert("LinkedIn sign-up failed. Check console for details.");
     }
   };
   return (
     <Container>
       <HeaderWithLogo />
       <UserButton />
-      <div style={{
-        display: 'flex',
-        flexDirection: 'row',
-      }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
         <FormSection>
           <Heading>Welcome to Next Interview</Heading>
           <Form onSubmit={handleFormSubmit}>
@@ -150,6 +156,7 @@ const SignUpPage = () => {
               <label>Phone Number</label>
               <input
                 type="tel"
+                style={{ width: "93%" }}
                 placeholder="Enter your Phone Number"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
@@ -158,6 +165,7 @@ const SignUpPage = () => {
             <Input>
               <label>Email ID</label>
               <input
+                style={{ width: "93%" }}
                 type="email"
                 placeholder="Enter your email"
                 value={email}
@@ -166,9 +174,10 @@ const SignUpPage = () => {
             </Input>
             <Input>
               <label>Password</label>
-              <div style={{ position: 'relative' }}>
+              <div style={{ position: "relative" }}>
                 <input
-                  type={showPassword ? 'text' : 'password'}
+                  style={{ width: "93%" }}
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -176,15 +185,15 @@ const SignUpPage = () => {
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                   style={{
-                    position: 'absolute',
-                    right: '10px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
                   }}
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -192,25 +201,26 @@ const SignUpPage = () => {
               </div>
             </Input>
 
-
             <div
               style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '1rem',
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "1rem",
               }}
             >
-              <label htmlFor="rememberMe" style={{ fontSize: '0.9rem' }}>
+              <label htmlFor="rememberMe" style={{ fontSize: "0.9rem" }}>
                 <input id="rememberMe" type="checkbox" /> Remember Me
               </label>
-              <Link to="/forgot-password" style={{ color: '#007bff', fontSize: '0.9rem' }}>
+              <Link
+                to="/forgot-password"
+                style={{ color: "#007bff", fontSize: "0.9rem" }}
+              >
                 Forgot Password
               </Link>
             </div>
 
             <Button type="submit">Sign Up</Button>
-
 
             <AlternativeLogin>
             {/* <Link to="/loginPhone" state={{flow: "SIGN_UP"}}>
@@ -226,23 +236,21 @@ const SignUpPage = () => {
             </button>
 
 
-            <LinkedInButton>
-              <button onClick={handleLinkedInSignUp}>
-                <FaLinkedin /> SignUp in with LinkedIn
-              </button>
-            </LinkedInButton>
-          </AlternativeLogin>
+              <LinkedInButton>
+                <button onClick={handleLinkedInSignUp}>
+                  <FaLinkedin /> SignUp in with LinkedIn
+                </button>
+              </LinkedInButton>
+            </AlternativeLogin>
           </Form>
-         
 
           <Footer>
-            By signing in, I agree to Next Interview's{' '}
+            By signing in, I agree to Next Interview's{" "}
             <a href="/privacy-policy">Privacy Policy</a>
             <br />
             and <a href="/terms">Terms of Service</a>.
           </Footer>
         </FormSection>
-
 
         <Signupage>
           <img src={signup} alt="Sign Up Illustration" />

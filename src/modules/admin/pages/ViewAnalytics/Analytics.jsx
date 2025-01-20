@@ -78,7 +78,7 @@ const Analytics = () => {
     <Container>
       {data.map((item, index) => (
         <Card key={index}>
-          <Date>{item.date}</Date>
+          <Date style={{backgroundColor: "#F0F8F1"}}>{item.date}</Date>
           <Title>{item.title}</Title>
           <Description>{item.description}</Description>
           <Topics>
@@ -89,21 +89,22 @@ const Analytics = () => {
           <Stats>
           <Attendees>No. of people attended - {item.attendees}</Attendees>
 
-            <Stat>
+            <Stat style={{  backgroundColor: "#F0F8F1"  }}>
               <StatLabel>Success rate</StatLabel>
-              <StatValue style={{ color: "#28a745" }}>{item.stats.successRate}%</StatValue>
+              <StatValue style={{ color: "#68C184" }}>- {item.stats.successRate}%</StatValue>
             </Stat>
-            <Stat>
+            <Stat style={{  backgroundColor: "#2290AC1A"  }}>
               <StatLabel>Drop off</StatLabel>
-              <StatValue style={{ color: "#ffc107" }}>{item.stats.dropOff}%</StatValue>
+              <StatValue style={{ color: "#2290AC" }}>- {item.stats.dropOff}%</StatValue>
             </Stat>
-            <Stat>
+            <Stat style={{  backgroundColor: "#FFEBEB"  }}>
               <StatLabel>Failure</StatLabel>
-              <StatValue style={{ color: "#dc3545" }}>{item.stats.failure}%</StatValue>
+              <StatValue style={{ color: "#843838" }}>- {item.stats.failure}%</StatValue>
             </Stat>
           </Stats>
           <PreviouslyAskedIn>
-            Previously Asked In:
+            <div style={{marginRight: "10px"}}> Previously Asked In :  </div>
+            
             {item.icons.map((icon, idx) => (
               <IconContainer key={idx}>
                 <img src={icon} alt={`icon-${idx}`} />

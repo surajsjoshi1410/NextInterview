@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSignIn, useSignUp, useAuth } from "@clerk/clerk-react";
-import { IoMdArrowBack } from "react-icons/io";
+import { IoIosArrowRoundBack, IoMdArrowBack } from "react-icons/io";
 import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
+// import { IoIosArrowRoundBack } from "react-icons/io";
 
 // import your styled components
 import {
   Loginmobilewrapper,
-  FormSection,
-  BackIcon,
-  Title,
   Subtitle,
   InputContainer,
   Label,
-  Input,
   Button,
 } from "./Login.styles";
+import { Input } from "antd";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -113,27 +111,20 @@ const Login = () => {
 
   return (
     <>
-      <HeaderWithLogo />
-
       <Loginmobilewrapper>
-        <FormSection>
-          <BackIcon
-            onClick={handleGoBack}
-            style={{
-              border: "1px solid grey",
-              padding: "8px",
-              borderRadius: "4px",
-            }}
-          >
-            <IoMdArrowBack />
-          </BackIcon>
+        <HeaderWithLogo />
+        <div className="Container">
+          <div className="BackIcon" onClick={handleGoBack}>
+            <IoIosArrowRoundBack />
+          </div>
 
-          <Title>Login with Mobile number</Title>
+          <div className="Title">Login with Mobile number</div>
           <Subtitle>OTP will be sent to your mobile number.</Subtitle>
+          <div className="Form">
+            <Label className="Label">Mobile Number</Label>
 
-          <InputContainer>
-            <Label>Mobile Number</Label>
             <Input
+              className="Input"
               type="tel"
               value={phoneNumber}
               placeholder="Enter your Mobile Number"
@@ -146,10 +137,12 @@ const Login = () => {
                 }
               }}
             />
-          </InputContainer>
+          </div>
 
-          <Button onClick={handleSendOTP}>Send OTP</Button>
-        </FormSection>
+          <Button className="Button" onClick={handleSendOTP}>
+            Send OTP
+          </Button>
+        </div>
       </Loginmobilewrapper>
     </>
   );

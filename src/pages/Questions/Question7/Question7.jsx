@@ -3,24 +3,26 @@ import HeaderWithLogo from "../../../components/HeaderWithLogo/HeaderWithLogo";
 import { Question7Wrapper } from "./Question7.styles";
 import { useNavigate } from "react-router";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import { useUser } from '@clerk/clerk-react'
-import { getCompanies } from '../../../api/comapniesApi';
-import { getDesignations } from '../../../api/designationApi';
+import { useUser } from "@clerk/clerk-react";
+import { getCompanies } from "../../../api/comapniesApi";
+import { getDesignations } from "../../../api/designationApi";
 import { getTopics } from "../../../api/topicApi";
 import { createUserProfile, getUserByClerkId } from "../../../api/userApi";
-import Select from 'react-select';
+import Select from "react-select";
 
 function Question7() {
   const [companyData, setCompanyData] = useState([]);
   const [designationData, setDesignationData] = useState([]);
   const [topicData, setTopicData] = useState([]);
-  const [companiesDetails, setCompaniesDetails] = useState([{
-    selectedCompany: '',
-    selectedDesignation: '',
-    whatWentWell: '',
-    whatWentWrong: '',
-    selectedTopics: [],
-  }]);
+  const [companiesDetails, setCompaniesDetails] = useState([
+    {
+      selectedCompany: "",
+      selectedDesignation: "",
+      whatWentWell: "",
+      whatWentWrong: "",
+      selectedTopics: [],
+    },
+  ]);
   const { isSignedIn, user, isLoaded } = useUser();
 
   useEffect(() => {
@@ -54,7 +56,9 @@ function Question7() {
 
   const handleTopicSelect = (topics, index) => {
     const updatedCompaniesDetails = [...companiesDetails];
-    updatedCompaniesDetails[index].selectedTopics = topics.map(topic => topic.value);
+    updatedCompaniesDetails[index].selectedTopics = topics.map(
+      (topic) => topic.value
+    );
     setCompaniesDetails(updatedCompaniesDetails);
   };
 
@@ -62,57 +66,59 @@ function Question7() {
     setCompaniesDetails([
       ...companiesDetails,
       {
-        selectedCompany: '',
-        selectedDesignation: '',
-        whatWentWell: '',
-        whatWentWrong: '',
+        selectedCompany: "",
+        selectedDesignation: "",
+        whatWentWell: "",
+        whatWentWrong: "",
         selectedTopics: [],
-      }
+      },
     ]);
   };
 
-  const companyOptions = companyData.map(company => ({
+  const companyOptions = companyData.map((company) => ({
     value: company._id,
     label: (
-      <div style={{ display: 'flex', alignItems: 'center', color: 'black' }}>
-        <img src={company.company_image_url} alt={company.company_name} style={{ width: 20, height: 20, marginRight: 10 }} />
+      <div style={{ display: "flex", alignItems: "center", color: "black" }}>
+        <img
+          src={company.company_image_url}
+          alt={company.company_name}
+          style={{ width: 20, height: 20, marginRight: 10 }}
+        />
         {company.company_name}
       </div>
     ),
   }));
 
-  const designationOptions = designationData.map(desgnation => ({
+  const designationOptions = designationData.map((desgnation) => ({
     value: desgnation._id,
     label: desgnation.designation_name,
   }));
 
-  const topicOptions = topicData.map(topic => ({
+  const topicOptions = topicData.map((topic) => ({
     value: topic._id,
     label: topic.topic_name,
   }));
 
   const handleNext = async () => {
     const data = await getUserByClerkId(user.id);
-    const pastData=companiesDetails.map((companyDetail) => {
-        return({
-            company_Name:companyDetail.selectedCompany,
-            designation:companyDetail.selectedDesignation,
-            what_went_well:companyDetail.whatWentWell,
-            what_went_bad:companyDetail.whatWentWrong,
-            topics:companyDetail.selectedTopics,
-        })
-    })
+    const pastData = companiesDetails.map((companyDetail) => {
+      return {
+        company_Name: companyDetail.selectedCompany,
+        designation: companyDetail.selectedDesignation,
+        what_went_well: companyDetail.whatWentWell,
+        what_went_bad: companyDetail.whatWentWrong,
+        topics: companyDetail.selectedTopics,
+      };
+    });
     console.log("pastData", pastData);
     const submissionData = {
       user_id: data.data._id,
-      data_past_interview_response:  pastData,
+      data_past_interview_response: pastData,
     };
-
-    
 
     const responseData = await createUserProfile(submissionData);
     console.log("data", responseData);
-    navigate("/question8",{state:{backLink:"/question7"}});
+    navigate("/question8", { state: { backLink: "/question7" } });
   };
 
   return (
@@ -122,9 +128,7 @@ function Question7() {
         <div className="BackIcon" onClick={handleGoBack}>
           <IoIosArrowRoundBack />
         </div>
-        <div className="Title">
-          Tell me about past interview experience
-        </div>
+        <div className="Title">Tell me about past interview experience</div>
 
         {companiesDetails.map((companyDetail, index) => (
           <div className="Form" key={index}>
@@ -133,23 +137,25 @@ function Question7() {
               options={companyOptions}
               onChange={(company) => handleCompanySelect(company, index)}
               placeholder="Select Company Name"
-              value={companyOptions.find(option => option.value === companyDetail.selectedCompany)}
+              value={companyOptions.find(
+                (option) => option.value === companyDetail.selectedCompany
+              )}
               styles={{
                 control: (base) => ({
                   ...base,
-                  backgroundColor: 'white',
-                  borderColor: '#ccc',
-                  borderRadius: '4px',
+                  backgroundColor: "white",
+                  borderColor: "#ccc",
+                  borderRadius: "4px",
                 }),
                 singleValue: (base) => ({
                   ...base,
-                  color: 'black', 
+                  color: "black",
                 }),
                 option: (base, state) => ({
                   ...base,
-                  backgroundColor: state.isSelected ? '#3399cc' : 'white',
-                  color: state.isSelected ? 'white' : 'black', 
-                  padding: '10px',
+                  backgroundColor: state.isSelected ? "#3399cc" : "white",
+                  color: state.isSelected ? "white" : "black",
+                  padding: "10px",
                 }),
                 menu: (base) => ({
                   ...base,
@@ -161,25 +167,29 @@ function Question7() {
             <label className="Label">Role</label>
             <Select
               options={designationOptions}
-              onChange={(designation) => handleDesignationSelect(designation, index)}
+              onChange={(designation) =>
+                handleDesignationSelect(designation, index)
+              }
               placeholder="Select Role"
-              value={designationOptions.find(option => option.value === companyDetail.selectedDesignation)}
+              value={designationOptions.find(
+                (option) => option.value === companyDetail.selectedDesignation
+              )}
               styles={{
                 control: (base) => ({
                   ...base,
-                  backgroundColor: 'white',
-                  borderColor: '#ccc',
-                  borderRadius: '4px',
+                  backgroundColor: "white",
+                  borderColor: "#ccc",
+                  borderRadius: "4px",
                 }),
                 singleValue: (base) => ({
                   ...base,
-                  color: 'black', 
+                  color: "black",
                 }),
                 option: (base, state) => ({
                   ...base,
-                  backgroundColor: state.isSelected ? '#3399cc' : 'white',
-                  color: state.isSelected ? 'white' : 'black', 
-                  padding: '10px',
+                  backgroundColor: state.isSelected ? "#3399cc" : "white",
+                  color: state.isSelected ? "white" : "black",
+                  padding: "10px",
                 }),
                 menu: (base) => ({
                   ...base,
@@ -219,23 +229,25 @@ function Question7() {
               options={topicOptions}
               onChange={(topics) => handleTopicSelect(topics, index)}
               placeholder="Select Topic"
-              value={topicOptions.filter(option => companyDetail.selectedTopics.includes(option.value))}
+              value={topicOptions.filter((option) =>
+                companyDetail.selectedTopics.includes(option.value)
+              )}
               styles={{
                 control: (base) => ({
                   ...base,
-                  backgroundColor: 'white',
-                  borderColor: '#ccc',
-                  borderRadius: '4px',
+                  backgroundColor: "white",
+                  borderColor: "#ccc",
+                  borderRadius: "4px",
                 }),
                 singleValue: (base) => ({
                   ...base,
-                  color: 'black', 
+                  color: "black",
                 }),
                 option: (base, state) => ({
                   ...base,
-                  backgroundColor: state.isSelected ? '#3399cc' : 'white',
-                  color: state.isSelected ? 'white' : 'black', 
-                  padding: '10px',
+                  backgroundColor: state.isSelected ? "#3399cc" : "white",
+                  color: state.isSelected ? "white" : "black",
+                  padding: "10px",
                 }),
                 menu: (base) => ({
                   ...base,
@@ -247,9 +259,15 @@ function Question7() {
           </div>
         ))}
 
-        <button className="NextButton" onClick={handleNext}>Next</button>
-        <button className="SkipButton" onClick={()=>{}}>skip</button>
-        <button className="anotherCompany" onClick={handleAddAnotherCompany}>Add Another Company</button>
+        <button className="NextButton" onClick={handleNext}>
+          Next
+        </button>
+        <button className="SkipButton" onClick={() => {}}>
+          skip
+        </button>
+        <button className="anotherCompany" onClick={handleAddAnotherCompany}>
+          Add Another Company
+        </button>
       </div>
     </Question7Wrapper>
   );

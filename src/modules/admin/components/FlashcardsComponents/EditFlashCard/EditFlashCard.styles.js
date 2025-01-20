@@ -2,108 +2,106 @@ import styled from "styled-components";
 import theme from "../../../../../theme/Theme";
 
 export const ModalContainer = styled.div`
-  background-color: ${theme.colors.light};
-  border: 1px solid ${theme.colors.sidebarHoverBgColor};
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  width: 500px;
-  margin: auto;
+  width: 700px;
   padding: ${theme.spacing(4)};
+  background-color: ${theme.colors.white};
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: ${theme.fonts.body};
   position: fixed;
-  top: 20%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -20%);
+  transform: translate(-50%, -50%);
   z-index: 1000;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    width: 90%;
+    padding: ${theme.spacing(2)};
+  }
 `;
 
-export const ModalHeader = styled.div`
+export const Header = styled.div`
+  font-size: 1.5rem;
+  font-family: ${theme.fonts.heading};
+  color: ${theme.colors.text};
+  margin-bottom: ${theme.spacing(3)};
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: ${theme.spacing(2)};
 
-  h3 {
-    font-family: ${theme.fonts.heading};
-    color: ${theme.colors.text};
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: 1.2rem;
   }
-`;
-
-export const ModalBody = styled.div`
-  margin-bottom: ${theme.spacing(2)};
-
-  label {
-    font-family: ${theme.fonts.body};
-    font-size: 14px;
-    color: ${theme.colors.text};
-    margin-bottom: ${theme.spacing(1)};
-    display: block;
-  }
-
-  div {
-    font-family: ${theme.fonts.body};
-    font-size: 12px;
-    color: ${theme.colors.text};
-    text-align: right;
-    margin-top: ${theme.spacing(1)};
-  }
-`;
-
-export const ModalFooter = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: ${theme.spacing(2)};
 `;
 
 export const CloseButton = styled.button`
-  background-color: ${theme.colors.error};
-  color: ${theme.colors.light};
+  background: none;
   border: none;
-  border-radius: 4px;
-  padding: ${theme.spacing(1)} ${theme.spacing(2)};
-  font-family: ${theme.fonts.body};
+  font-size: 1.5rem;
+  color: ${theme.colors.text};
   cursor: pointer;
 
   &:hover {
-    opacity: 0.9;
+    color: ${theme.colors.error};
   }
 `;
 
-export const SaveButton = styled.button`
-  background-color: ${theme.colors.primary};
-  color: ${theme.colors.light};
-  border: none;
-  border-radius: 4px;
-  padding: ${theme.spacing(1)} ${theme.spacing(2)};
-  font-family: ${theme.fonts.body};
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.9;
-  }
+export const ContentWrapper = styled.div`
+  display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  gap: ${theme.spacing(2)};
 `;
 
 export const FlashcardLabel = styled.div`
-  background-color: ${theme.colors.primary};
-  color: ${theme.colors.light};
-  font-family: ${theme.fonts.body};
-  font-size: 14px;
-  border-radius: 4px;
+  font-size: 1rem;
+  color: ${theme.colors.info};
+  background-color: #e7f6e9;
   padding: ${theme.spacing(0.5)} ${theme.spacing(1)};
-  margin-bottom: ${theme.spacing(2)};
-  display: inline-block;
+  border-radius: 4px;
+  margin-top: ${theme.spacing(1)};
 `;
 
 export const TextArea = styled.textarea`
   width: 100%;
   height: 100px;
   padding: ${theme.spacing(2)};
-  font-family: ${theme.fonts.body};
   border: 1px solid ${theme.colors.sidebarHoverBgColor};
   border-radius: 4px;
+  font-family: ${theme.fonts.body};
+  font-size: 1rem;
   resize: none;
 
   &:focus {
     outline: none;
     border-color: ${theme.colors.primary};
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: 0.9rem;
+  }
+`;
+
+export const Footer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: ${theme.spacing(3)};
+`;
+
+export const SaveButton = styled.button`
+  background-color: ${theme.colors.secondary};
+  color: ${theme.colors.light};
+  padding: ${theme.spacing(1)} ${theme.spacing(3)};
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${theme.colors.secondary};
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: 0.9rem;
   }
 `;

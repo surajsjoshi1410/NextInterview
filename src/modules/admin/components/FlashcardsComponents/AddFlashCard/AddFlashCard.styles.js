@@ -2,9 +2,9 @@ import styled from "styled-components";
 import theme from "../../../../../theme/Theme";
 
 export const Container = styled.div`
-  width: 500px;
+  width: 700px;
   padding: ${theme.spacing(4)};
-  background-color: ${theme.colors.light};
+  background-color: ${theme.colors.white};
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: ${theme.fonts.body};
@@ -48,21 +48,24 @@ export const CloseButton = styled.button`
 
 export const ContentWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
+  // align-items: center;
   gap: ${theme.spacing(2)};
+  width: 700px;
 `;
 
 export const FlashcardLabel = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
   font-size: 1rem;
   color: ${theme.colors.text};
+  margin-right: ${theme.spacing(2)};
 `;
 
 export const FlashcardNumber = styled.span`
   font-size: 0.9rem;
-  color: ${theme.colors.primary};
+  color: ${theme.colors.info};
   background-color: #e7f6e9;
   padding: ${theme.spacing(0.5)} ${theme.spacing(1)};
   border-radius: 4px;
@@ -95,7 +98,7 @@ export const Footer = styled.div`
 `;
 
 export const UploadButton = styled.button`
-  background-color: ${theme.colors.primary};
+  background-color: ${theme.colors.secondary};
   color: ${theme.colors.light};
   padding: ${theme.spacing(1)} ${theme.spacing(3)};
   border: none;
