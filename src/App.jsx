@@ -42,6 +42,8 @@ import Question7 from "./pages/Questions/Question7/Question7";
 import FinalQuestion from "./pages/Questions/FinalQuestion/FinalQuestion";
 import AccountCreated from "./pages/AcountCreated/AccountCreated";
 import ValidationPage from "./pages/validationPage/validationPage";
+import Settings from "./modules/admin/pages/Settings/Settings";
+import Users from "./modules/admin/pages/Users/Users";
 
 function App() {
   return (
@@ -108,6 +110,8 @@ function App() {
             {/* <Route path="/admin/edit" element={<EditModal />} /> */}
             <Route path="/admin/SupportQuery" element={<SupportQuery />} />
             <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
+         <Route path="/admin/settings" element={<Settings />} />
+         <Route path="/admin/users" element = {<Users />} />
           </Route>
 
           <Route path="/user" element={<BaseLayout />} >
