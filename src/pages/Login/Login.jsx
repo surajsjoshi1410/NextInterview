@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSignIn, useSignUp, useAuth } from "@clerk/clerk-react";
 import { IoMdArrowBack } from "react-icons/io";
 import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
@@ -19,6 +19,7 @@ import {
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Clerk hooks
   const {
@@ -50,28 +51,8 @@ const Login = () => {
 
     // Format with +91 for India
     const fullPhoneNumber = `+91${phoneNumber.trim()}`;
-
-    try {
-      // 1) Try Sign In first
-      await signIn.create({
-        identifier: fullPhoneNumber,
-        strategy: "phone_code",
-      });
-
-      // If we're here, user is found → flow = SIGN_IN
-      alert("Sign-in OTP has been sent to your phone number.");
-
-      // Navigate to /otp with state
-      navigate("/otp", {
-        state: {
-          flow: "SIGN_IN",
-          phoneNumber: fullPhoneNumber,
-        },
-      });
-    } catch (error) {
-      console.log("Sign-in error:", error);
-
-      // If the user is not found, attempt sign-up
+    if (location.state.flow === "SIGN_UP") {
+      console.log("flow", location.state.flow);
       try {
         await signUp.create({
           phoneNumber: fullPhoneNumber,
@@ -95,11 +76,42 @@ const Login = () => {
         console.log("Sign-up error:", signUpError);
         alert("Something went wrong while sending OTP. Please try again.");
       }
+    } else if (location.state.flow === "SIGN_IN") {
+      console.log("flow", location.state.flow);
+      try {
+        // 1) Try Sign In first
+        await signIn.create({
+          identifier: fullPhoneNumber,
+          strategy: "phone_code",
+        });
+
+        // If we're here, user is found → flow = SIGN_IN
+        alert("Sign-in OTP has been sent to your phone number.");
+
+        // Navigate to /otp with state
+        navigate("/otp", {
+          state: {
+            flow: "SIGN_IN",
+            phoneNumber: fullPhoneNumber,
+          },
+        });
+      } catch (error) {
+        console.log("Sign-in error:", error);
+
+       
+
+      }
     }
+
+
   };
 
   const handleGoBack = () => {
-    navigate("/");
+    if (location.state.flow === "SIGN_UP") {
+      navigate("/signup");
+    } else if (location.state.flow === "SIGN_IN") {
+      navigate("/login");
+    }
   };
 
   return (

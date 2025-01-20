@@ -210,7 +210,7 @@ const SignUpPage = () => {
 
 
             <AlternativeLogin>
-            <Link to="/login">
+            <Link to="/loginPhone" state={{flow: "SIGN_UP"}}>
               <button>
                 <FaMobileAlt /> SignUp in with Mobile
               </button>
