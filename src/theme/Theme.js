@@ -13,6 +13,15 @@ const theme = {
     black: "#000",
     lightgreen: "#ebfced",
     backgray:"#e0e0e0",
+    lightpink: "#FFEBEB",
+    darkred: "#843838",
+    lightbrown: "#FFFAE1",
+    borderbrown: "#CFC079",
+    lightblue: "#EDEDED",
+    borderblue: "#B6B6B6" ,
+    bluetext:"#2290AC",
+    white:"#fff",
+
 
     sidebarTextColor: "#1A1C1E",
     sidebarHoverBgColor: "#e0e0e0",

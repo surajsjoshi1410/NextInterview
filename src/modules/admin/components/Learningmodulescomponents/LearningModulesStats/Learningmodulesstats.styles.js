@@ -68,11 +68,11 @@ export const StatCard1 = styled.div`
 
   p {
     margin: 0;
-    border: 2px solid ${theme.colors.error};
+    border: 2px solid ${theme.colors.borderbrown};
     border-radius: 8px;
     padding: 2px;
     font-size: 12px;
-    background: ${theme.colors.warning};
+    background: ${theme.colors.lightbrown};
   }
 `;
 
@@ -92,10 +92,10 @@ export const StatCard2 = styled.div`
 
   p {
     margin: 0;
-    border: 2px solid ${theme.colors.secondary};
+    border: 2px solid ${theme.colors.borderblue};
     border-radius: 8px;
     padding: 2px;
     font-size: 12px;
-    background: ${theme.colors.info};
+    background: ${theme.colors.lightblue};
   }
 `;

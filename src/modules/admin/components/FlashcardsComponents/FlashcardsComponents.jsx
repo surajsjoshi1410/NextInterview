@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import React, { useState } from "react";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import AddFlashCard from "./AddFlashCard/AddFlashCard";
+import EditFlashCard from "./EditFlashCard/EditFlashCard";
+import { RiDeleteBin6Line } from "react-icons/ri";
+
 import {
   FlashcardContainer,
   Flashcard,
@@ -8,34 +12,43 @@ import {
   AddButton,
   SearchBar,
   Header,
-} from './FlashcardsComponents.styles';
+} from "./FlashcardsComponents.styles";
 
 const FlashcardsComponents = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [flashcards, setFlashcards] = useState([
-    { id: 1, text: 'You are given a dataset from a subscription-based business that includes customer demographics, subscription details, usage patterns, and past customer interactions.', know: 0, dontKnow: 0 },
-    { id: 2, text: 'You are given a dataset from a subscription-based business that includes customer demographics, subscription details, usage patterns, and past customer interactions.', know: 95, dontKnow: 5 },
-    { id: 3, text: 'You are given a dataset from a subscription-based business that includes customer demographics, subscription details, usage patterns, and past customer interactions.', know: 95, dontKnow: 5 },
-    { id: 4, text: 'You are given a dataset from a subscription-based business that includes customer demographics, subscription details, usage patterns, and past customer interactions.', know: 95, dontKnow: 5 },
-    { id: 5, text: 'You are given a dataset from a subscription-based business that includes customer demographics, subscription details, usage patterns, and past customer interactions.', know: 95, dontKnow: 5 },
+    { id: 1, text: "You are given a dataset from a subscription-based business that includes customer demographics, subscription details, usage patterns, and past customer interactions", know: 0, dontKnow: 0 },
+    { id: 2, text: "Flashcard 2 Content", know: 95, dontKnow: 5 },
+    { id: 3, text: "Flashcard 3 Content", know: 95, dontKnow: 5 },
   ]);
 
+  const [isAdding, setIsAdding] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentCard, setCurrentCard] = useState(null);
+
   const handleEdit = (id) => {
-    alert(`Edit flashcard ${id}`);
+    const cardToEdit = flashcards.find((card) => card.id === id);
+    setCurrentCard(cardToEdit);
+    setIsEditing(true);
   };
 
   const handleDelete = (id) => {
     setFlashcards(flashcards.filter((card) => card.id !== id));
   };
 
-  const handleAddFlashcard = () => {
-    const newFlashcard = {
-      id: flashcards.length + 1,
-      text: 'New Flashcard Text',
-      know: 0,
-      dontKnow: 0,
-    };
+  const handleAddFlashcard = (newFlashcard) => {
     setFlashcards([...flashcards, newFlashcard]);
+    setIsAdding(false);
+  };
+
+  const handleSaveEdit = (updatedCard) => {
+    setFlashcards(
+      flashcards.map((card) =>
+        card.id === updatedCard.id ? updatedCard : card
+      )
+    );
+    setIsEditing(false);
+    setCurrentCard(null);
   };
 
   const handleSearch = (e) => {
@@ -55,30 +68,65 @@ const FlashcardsComponents = () => {
           value={searchTerm}
           onChange={handleSearch}
         />
-        <AddButton onClick={handleAddFlashcard}>Add flashcard</AddButton>
+        <AddButton onClick={() => setIsAdding(true)}>Add flashcard</AddButton>
       </Header>
+
+      {isAdding && (
+        <AddFlashCard
+          onClose={() => setIsAdding(false)}
+          onSave={handleAddFlashcard}
+          flashcardCount={flashcards.length}
+        />
+      )}
+
+      {isEditing && currentCard && (
+        <EditFlashCard
+          card={currentCard}
+          onClose={() => setIsEditing(false)}
+          onSave={handleSaveEdit}
+        />
+      )}
+
       {filteredFlashcards.map((card) => (
         <Flashcard key={card.id}>
-          <h3>Flash Card - {card.id}</h3>
-          <p>{card.text}</p>
+          <h4>Flash Card - {card.id}</h4>
+          <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+            <p>{card.text}</p>
+            <div className="actions">
+              <ActionButton onClick={() => handleEdit(card.id)}>
+                <FaEdit />
+              </ActionButton>
+              <ActionButton onClick={() => handleDelete(card.id)} delete>
+                {/* <FaTrash /> */}
+                <RiDeleteBin6Line/>
+              </ActionButton>
+            </div>
+          </div>
           <InteractionStats>
             <span>Shared with - 1589 people</span>
             <span>No. of people interacted - {card.know}</span>
             <div>
-              <span style={{ color: 'green', fontWeight: 'bold' , backgroundColor: 'lightgreen'}}>I know - {card.know}%</span>
-              <span style={{ color: '#dc3545', fontWeight: 'bold', marginLeft: '10px' , backgroundColor: 'lightcoral'}}>
+              <span
+                style={{
+                  color: "green",
+                  fontWeight: "bold",
+                  backgroundColor: "lightgreen",
+                }}
+              >
+                I know - {card.know}%
+              </span>
+              <span
+                style={{
+                  color: "#dc3545",
+                  fontWeight: "bold",
+                  marginLeft: "10px",
+                  backgroundColor: "lightcoral",
+                }}
+              >
                 I don't know - {card.dontKnow}%
               </span>
             </div>
           </InteractionStats>
-          <div className="actions">
-            <ActionButton onClick={() => handleEdit(card.id)}>
-              <FaEdit /> Edit
-            </ActionButton>
-            <ActionButton onClick={() => handleDelete(card.id)} delete>
-              <FaTrash /> Delete
-            </ActionButton>
-          </div>
         </Flashcard>
       ))}
     </FlashcardContainer>

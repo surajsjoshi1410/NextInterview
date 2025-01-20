@@ -20,7 +20,7 @@ import SupportQueryListViewFilter from "../SupportQueryListViewFilter/SupportQue
 
 const queries = [
   {
-    id: "1234",
+    id: "UserDetails",
     name: "Olivia Rhye",
     email: "olivia@gmail.com",
     profileImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIfmxwFxAtJORIF7Wzj5M-9BCu0hB9uWBXAg&s",
