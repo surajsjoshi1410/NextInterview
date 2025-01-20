@@ -52,7 +52,7 @@ const Otp = () => {
 
   const handleGoBack = () => {
     // If user wants to change phone number, navigate back
-    navigate("/login");
+    navigate("/loginPhone");
   };
 
   // Only allow digits in the OTP field

@@ -220,21 +220,18 @@ const SignUpPage = () => {
             <Button type="submit">Sign Up</Button>
 
             <AlternativeLogin>
-              <Link to="/login">
-                <button>
-                  <FaMobileAlt /> SignUp in with Mobile
-                </button>
-              </Link>
-            </AlternativeLogin>
-            <AlternativeLogin>
-              <button onClick={handleGoogleSignUp}>
-                <img
-                  src={google}
-                  alt="Google Logo"
-                  style={{ height: "20px", marginRight: "10px" }}
-                />
-                SignUp in with Google
+            <Link to="/loginPhone" state={{flow: "SIGN_UP"}}>
+              <button>
+                <FaMobileAlt /> SignUp in with Mobile
               </button>
+            </Link>
+          </AlternativeLogin>
+          <AlternativeLogin>
+            <button onClick={handleGoogleSignUp}>
+              <img src={google} alt="Google Logo" style={{ height: '20px', marginRight: '10px' }} />
+              SignUp in with Google
+            </button>
+
 
               <LinkedInButton>
                 <button onClick={handleLinkedInSignUp}>

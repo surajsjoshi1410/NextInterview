@@ -96,7 +96,14 @@ function App() {
             <Route path="/admin/uploadmodule" element={<UploadModule />} />
             <Route path="/admin/addnewmodule" element={<AddNewModule />} />
 
+
+          <Route path="/admin/challenges" element={<Challenges />} />
+         <Route path="/admin/viewanalytics" element={<Analytics />} />
+         <Route path="/admin/SupportQuery" element={<SupportQuery />} />
+         <Route path="/admin/SupportQuery/UserDetails" element={<SupportQueryUserDetails />} />
+
             <Route path="/admin/Flashcards" element={<Flashcards />} />
+
 
             <Route path="/admin/challenges" element={<Challenges />} />
             <Route path="/admin/viewanalytics" element={<Analytics />} />
