@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaBell, FaBan } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const TableContainer = styled.div`
@@ -29,7 +30,7 @@ const Tr = styled.tr`
 
   &:nth-child(even) {
     background-color: ${({ isSelected, theme }) =>
-      isSelected ? theme.colors.lightgreen : theme.colors.lightblue};
+    isSelected ? theme.colors.lightgreen : theme.colors.lightblue};
   }
 `;
 
@@ -109,72 +110,78 @@ const ActiveHours = styled.div`
 `;
 
 const UserTable = ({ users, selectedRows, onRowSelectionChange }) => {
-//   const [selectedRows, setSelectedRows] = useState([]);
+  //   const [selectedRows, setSelectedRows] = useState([]);
 
-//   const toggleRowSelection = (index) => {
-//     setSelectedRows((prevSelectedRows) =>
-//       prevSelectedRows.includes(index)
-//         ? prevSelectedRows.filter((row) => row !== index)
-//         : [...prevSelectedRows, index]
-//     );
-//   };
+  //   const toggleRowSelection = (index) => {
+  //     setSelectedRows((prevSelectedRows) =>
+  //       prevSelectedRows.includes(index)
+  //         ? prevSelectedRows.filter((row) => row !== index)
+  //         : [...prevSelectedRows, index]
+  //     );
+  //   };
 
-  
-    return (
-      <TableContainer>
-        <Table>
-          <thead>
-            <tr>
-              <Th></Th>
-              <Th>Name</Th>
-              <Th>Role</Th>
-              <Th>Topics Completed</Th>
-              <Th>Avg. Active Hours</Th>
-              <Th>Last Active</Th>
-              <Th></Th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <Tr
-                key={index}
-                isSelected={selectedRows.includes(index)}
-                onClick={() => onRowSelectionChange(index)}
-              >
-                <Td>
-                  <Checkbox
-                    checked={selectedRows.includes(index)}
-                    onChange={(e) => e.stopPropagation()} // Prevent click conflict
-                  />
-                </Td>
-                <Td>
-                  <UserCell>
-                    <Avatar>{user.name[0]}</Avatar>
-                    <UserInfo>
-                      <Name>{user.name}</Name>
-                      <Email>{user.email}</Email>
-                    </UserInfo>
-                  </UserCell>
-                </Td>
-                <Td>{user.role}</Td>
-                <Td>{user.topicsCompleted}</Td>
-                <Td>
-                  <ActiveHours
-                    color={user.activeHours.includes("18h") ? "success" : "warning"}
-                  >
-                    {user.activeHours}
-                  </ActiveHours>
-                </Td>
-                <Td>{user.lastActive}</Td>
-                <Td>
-                  {user.bellIcon ? <FaBell /> : <FaBan color="#dc3545" />}
-                </Td>
-              </Tr>
-            ))}
-          </tbody>
-        </Table>
-      </TableContainer>
-    );
-  };
 
-  export default UserTable;
+  return (
+    <TableContainer>
+      <Table>
+        <thead>
+          <tr>
+            <Th></Th>
+            <Th>Name</Th>
+            <Th>Role</Th>
+            <Th>Topics Completed</Th>
+            <Th>Avg. Active Hours</Th>
+            <Th>Last Active</Th>
+            <Th></Th>
+            <Th></Th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user, index) => (
+            <Tr
+              key={index}
+              isSelected={selectedRows.includes(index)}
+              onClick={() => onRowSelectionChange(index)}
+            >
+              <Td>
+                <Checkbox
+                  checked={selectedRows.includes(index)}
+                  onChange={(e) => e.stopPropagation()} // Prevent click conflict
+                />
+              </Td>
+              <Td>
+                <UserCell>
+                  <Avatar>{user.name[0]}</Avatar>
+                  <UserInfo>
+                    <Name>{user.name}</Name>
+                    <Email>{user.email}</Email>
+                  </UserInfo>
+                </UserCell>
+              </Td>
+              <Td>{user.role}</Td>
+              <Td>{user.topicsCompleted}</Td>
+              <Td>
+                <ActiveHours
+                  color={user.activeHours.includes("18h") ? "success" : "warning"}
+                >
+                  {user.activeHours}
+                </ActiveHours>
+              </Td>
+              <Td>{user.lastActive}</Td>
+              <Td>
+                {user.bellIcon ? <FaBell /> : <FaBan color="#dc3545" />}
+              </Td>
+              <Td>
+                <Link to={`/admin/userProfile`} style={{ textDecoration: 'none' }}>
+                  view
+                </Link>
+              </Td>
+            </Tr>
+          ))}
+        </tbody>
+      </Table>
+    </TableContainer>
+  );
+};
+
+export default UserTable;

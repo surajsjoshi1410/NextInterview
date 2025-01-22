@@ -1,0 +1,66 @@
+// FeedbackAnalytics.jsx
+import React from "react";
+import { PieChart } from "react-minimal-pie-chart";
+import { FeedbackAnalyticsWrap } from "./FeedbackAnalytics.styles";
+
+const FeedbackAnalytics = () => {
+    // Example data
+    const feedbackData = [
+        { label: "Positive", value: 51, color: "#20c997" }, // or teal/green
+        { label: "Neutral", value: 20, color: "#007bff" }, // or blue
+        { label: "Negative", value: 30, color: "#ffc107" }, // or yellow
+    ];
+
+    // Combined total if needed (should be 100 in this example)
+    const totalFeedback = feedbackData.reduce((sum, item) => sum + item.value, 0);
+
+    // For "Last week" metric
+    const lastWeekChange = "+11.2%";
+
+    return (
+        <FeedbackAnalyticsWrap>
+            <div className="feedbackContainer">
+                {/* Left side: legend */}
+                <div className="legendArea">
+                    {feedbackData.map((item) => (
+                        <div key={item.label} className="legendItem">
+                            <span
+                                className="legendDot"
+                                style={{ backgroundColor: item.color }}
+                            />
+                            {item.label} – {item.value}%
+                        </div>
+                    ))}
+
+                    <div className="lastWeekBadge">
+                        Last week{" "}
+                        <span className="changeValue">
+                            {lastWeekChange} <span className="trendIcon">📈</span>
+                        </span>
+                    </div>
+                </div>
+
+                {/* Right side: pie chart */}
+                <div className="chartArea">
+                    <PieChart
+                        data={feedbackData.map(({ label, value, color }) => ({
+                            title: label,
+                            value,
+                            color,
+                        }))}
+                        // Custom styling
+                        style={{ height: "180px", width: "180px" }}
+                        lineWidth={100}
+                        paddingAngle={4}
+                        rounded={false}
+                        animate={true}
+                        
+                       
+                    />
+                </div>
+            </div>
+        </FeedbackAnalyticsWrap>
+    );
+};
+
+export default FeedbackAnalytics;

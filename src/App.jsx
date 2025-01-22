@@ -43,6 +43,7 @@ import AccountCreated from "./pages/AcountCreated/AccountCreated";
 import ValidationPage from "./pages/validationPage/validationPage";
 import Settings from "./modules/admin/pages/Settings/Settings";
 import Users from "./modules/admin/pages/Users/Users";
+import UserProfile from "./modules/admin/pages/UserProfile/UserProfile";
 
 function App() {
   return (
@@ -77,8 +78,7 @@ function App() {
           />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/backtosignIn" element={<BacktoSignIn />} />
-          <Route path="/resetpassword" element={<ResetP
-          assword />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="/resetsuccessful" element={<ResetSuccessful />} />
 
           {/* <Route path="/skill-assessment" element={<SkillAssessment />} /> */}
@@ -100,10 +100,10 @@ function App() {
             <Route path="/admin/addnewmodule" element={<AddNewModule />} />
 
 
-          <Route path="/admin/challenges" element={<Challenges />} />
-         <Route path="/admin/viewanalytics" element={<Analytics />} />
-         <Route path="/admin/SupportQuery" element={<SupportQuery />} />
-         <Route path="/admin/SupportQuery/UserDetails" element={<SupportQueryUserDetails />} />
+            <Route path="/admin/challenges" element={<Challenges />} />
+            <Route path="/admin/viewanalytics" element={<Analytics />} />
+            <Route path="/admin/SupportQuery" element={<SupportQuery />} />
+            <Route path="/admin/SupportQuery/UserDetails" element={<SupportQueryUserDetails />} />
 
             <Route path="/admin/Flashcards" element={<Flashcards />} />
 
@@ -115,12 +115,13 @@ function App() {
             {/* <Route path="/admin/edit" element={<EditModal />} /> */}
             <Route path="/admin/SupportQuery" element={<SupportQuery />} />
             <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
-         <Route path="/admin/settings" element={<Settings />} />
-         <Route path="/admin/users" element = {<Users />} />
+            <Route path="/admin/settings" element={<Settings />} />
+            <Route path="/admin/users" element={<Users />} />
             <Route
               path="/admin/SupportQuery/1234"
               element={<SupportQueryUserDetails />}
             />
+            <Route path="/admin/userProfile" element={<UserProfile />} />
           </Route>
 
           <Route path="/user" element={<BaseLayout />}></Route>
