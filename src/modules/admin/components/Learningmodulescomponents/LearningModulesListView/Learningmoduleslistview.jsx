@@ -13,6 +13,7 @@ import { CiEdit } from "react-icons/ci";
 import { IoSearch } from "react-icons/io5"; // Importing Search Icon
 
 const LearningModulesListView = ({ modules }) => {
+  console.log("mm1",modules)
   return (
     <ModulesSection>
       <div className="module-header">
@@ -39,7 +40,8 @@ const LearningModulesListView = ({ modules }) => {
           />
           <div className="module-info">
             <h4>
-              <Link to={`/admin/${module.title.replace(/\s+/g, "-")}`}>
+              {/* <Link to={`/admin/${module.title.replace(/\s+/g, "-")}`}> */}
+              <Link to={`/admin/Diagnosing-and-Investigating-Metrics`}>
                 {module.title}
               </Link>
             </h4>
