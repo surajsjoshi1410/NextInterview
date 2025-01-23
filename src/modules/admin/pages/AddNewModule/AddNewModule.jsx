@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FiUpload } from "react-icons/fi";
 import styled from "styled-components";
 import {
@@ -26,6 +26,8 @@ import {
 } from "./AddNewModule.style";
 import theme from "../../../../theme/Theme";
 import DeleteModule from "../../../admin/components/DeleteModule/DeleteModule";
+import { uploadFileToFirebase, uploadVideoToFirebase } from "../../../../utils/uploadFileToFirebase";
+import { addNewModule } from "../../../../api/addNewModuleApi";
 
 // Styled icon/button if you want to show a delete icon
 const DeleteIconWrapper = styled.span`
@@ -44,6 +46,8 @@ const AddNewModule = () => {
 
   // 'topic', 'subtopic', 'layman', or 'clarifier'
   const [deleteType, setDeleteType] = useState(null);
+  const location = useLocation();
+  const videoInputRef = useRef(null);
 
   // Store indices for whichever item we are deleting
   const [deleteIndices, setDeleteIndices] = useState({
@@ -58,6 +62,7 @@ const AddNewModule = () => {
     {
       topicName: "",
       skillAssessmentFile: null,
+      skillAssessmentFileUrl: null,
       subtopics: [
         {
           subtopicName: "",
@@ -80,7 +85,9 @@ const AddNewModule = () => {
             },
           ],
           questionBankFile: null,
+          questionBankFileUrl: null,
           tryItYourselfFile: null,
+          tryItYourselfFileUrl: null,
         },
       ],
     },
@@ -98,6 +105,7 @@ const AddNewModule = () => {
       {
         topicName: "",
         skillAssessmentFile: null,
+        skillAssessmentFileUrl: null,
         subtopics: [
           {
             subtopicName: "",
@@ -120,7 +128,9 @@ const AddNewModule = () => {
               },
             ],
             questionBankFile: null,
+            questionBankFileUrl: null,
             tryItYourselfFile: null,
+            tryItYourselfFileUrl: null,
           },
         ],
       },
@@ -151,7 +161,9 @@ const AddNewModule = () => {
           },
         ],
         questionBankFile: null,
+        questionBankFileUrl: null,
         tryItYourselfFile: null,
+        tryItYourselfFileUrl: null,
       });
       return updated;
     });
@@ -247,15 +259,17 @@ const AddNewModule = () => {
   };
 
   // ----------------------------- FILE UPLOAD HANDLERS -----------------------------
-  const handleCheatSheetUpload = (e, topicIndex, subIndex) => {
+  const handleCheatSheetUpload = async (e, topicIndex, subIndex) => {
     const file = e.target.files[0];
     if (file) {
       const previewURL = URL.createObjectURL(file);
+      const dataUrl = await uploadVideoToFirebase(file, "cheatSheet");
       setTopics((prevTopics) => {
         const updated = [...prevTopics];
         updated[topicIndex].subtopics[subIndex].cheatSheet = {
           file,
           previewURL,
+          dataUrl
         };
         return updated;
       });
@@ -270,12 +284,14 @@ const AddNewModule = () => {
     });
   };
 
-  const handleSkillAssessmentUpload = (e, topicIndex) => {
+  const handleSkillAssessmentUpload = async (e, topicIndex) => {
     const file = e.target.files[0];
     if (file) {
+      const dataUrl = await uploadFileToFirebase(file, "skillAssessment");
       setTopics((prevTopics) => {
         const updated = [...prevTopics];
         updated[topicIndex].skillAssessmentFile = file;
+        updated[topicIndex].skillAssessmentFileUrl = dataUrl;
         return updated;
       });
     }
@@ -285,16 +301,19 @@ const AddNewModule = () => {
     setTopics((prevTopics) => {
       const updated = [...prevTopics];
       updated[topicIndex].skillAssessmentFile = null;
+      updated[topicIndex].skillAssessmentFileUrl = null;
       return updated;
     });
   };
 
-  const handleQuestionBankUpload = (e, topicIndex, subIndex) => {
+  const handleQuestionBankUpload = async (e, topicIndex, subIndex) => {
     const file = e.target.files[0];
     if (file) {
+      const dataUrl = await uploadFileToFirebase(file, "questionBank");
       setTopics((prevTopics) => {
         const updated = [...prevTopics];
         updated[topicIndex].subtopics[subIndex].questionBankFile = file;
+        updated[topicIndex].subtopics[subIndex].questionBankFileUrl = dataUrl;
         return updated;
       });
     }
@@ -304,33 +323,90 @@ const AddNewModule = () => {
     setTopics((prevTopics) => {
       const updated = [...prevTopics];
       updated[topicIndex].subtopics[subIndex].questionBankFile = null;
+      updated[topicIndex].subtopics[subIndex].questionBankFileUrl = null;
       return updated;
     });
   };
 
-  const handleTryItYourselfUpload = (e, topicIndex, subIndex) => {
+  const handleTryItYourselfUpload = async (e, topicIndex, subIndex) => {
     const file = e.target.files[0];
     if (file) {
+      const dataUrl = await uploadFileToFirebase(file, "tryItYourself");
       setTopics((prevTopics) => {
         const updated = [...prevTopics];
         updated[topicIndex].subtopics[subIndex].tryItYourselfFile = file;
+        updated[topicIndex].subtopics[subIndex].tryItYourselfFileUrl = dataUrl;
         return updated;
       });
     }
   };
 
-  const handleRemoveTryItYourself = (topicIndex, subIndex) => {
+  const handleRemoveTryItYourself = async (topicIndex, subIndex) => {
     setTopics((prevTopics) => {
       const updated = [...prevTopics];
       updated[topicIndex].subtopics[subIndex].tryItYourselfFile = null;
+      updated[topicIndex].subtopics[subIndex].tryItYourselfFileUrl = null;
       return updated;
     });
   };
 
   // ----------------------------- DONE BUTTON -----------------------------
-  const handleDone = () => {
+  const handleDone = async() => {
     console.log("All topics data:", topics);
+    const topicData = topics.map((topic) => {
+      return ({
+        topicName: topic.topicName,
+        skillAssessmentQuestionsURL: topic.skillAssessmentFileUrl,
+        subtopicData: topic.subtopics.map((sub) => {
+          return (
+            {
+              subtopicName: sub.subtopicName,
+              subtopicContent: sub.subtopicContent,
+              subtopicSummary: sub.subtopicSummary,
+              revisionPoints: sub.quickRevisePoints,
+              cheatSheetURL: sub.cheatSheet.dataUrl,
+              interviewFavorite: sub.isInterviewFavorite,
+              conceptClarifier: sub.conceptClarifiers.map((concept)=>{
+               return (
+                {
+                  conceptClarifier: concept.clarifierWordOrPhrase,
+                  hoverExplanation: concept.explanationOnHover,
+                  popupExplanation: concept.moreExplanation,
+                }
+               ) 
+              }),
+              laymanTerms: sub.laymanExplanations.map((laymn) => {
+                return (
+                  {
+                    topicTitle: laymn.laymanTitle,
+                    topicInfo: laymn.laymanInfo
+                  }
+                )
+              }),
+              
+              questionBankURL: sub.questionBankFileUrl,
+              tiyQuestionsURL: sub.tryItYourselfFileUrl,
+            }
+          )
+        })
+
+      })
+    })
     // Reset form
+
+    const submissionData = {
+      imageURL: location.state.data.imageURL,
+      moduleName: location.state.data.moduleName,
+      description: location.state.data.description,
+      approxTimeTaken: location.state.data.approxTimeTaken,
+      interviewSampleURL: location.state.data.interviewSampleURL,
+      courseOverview: location.state.data.courseOverview,
+      userLearntData: location.state.data.userLearntData,
+      topicData:topicData ,
+    }
+
+    console.log("sub",submissionData);
+    const response= await addNewModule(submissionData);
     setTopics([
       {
         topicName: "",
@@ -612,11 +688,12 @@ const AddNewModule = () => {
                     <>
                       <UploadButton>
                         <FiUpload />
-                        <label style={{ cursor: "pointer" }}>Upload Video</label>
+                        <label style={{ cursor: "pointer" }} onClick={() => videoInputRef.current.click()}>Upload Video</label>
                       </UploadButton>
                       <input
                         type="file"
                         accept="video/*"
+                        ref={videoInputRef}
                         style={{ display: "none" }}
                         onChange={(e) => handleCheatSheetUpload(e, topicIndex, subIndex)}
                       />
@@ -669,10 +746,10 @@ const AddNewModule = () => {
               {/* +ADD LAYMAN BUTTON */}
               <ButtonRow>
                 <ActionButton
-                  style={{ 
-                    border:"1px solid #2390ac",
-                    color:"#2390ac"
-                   }}
+                  style={{
+                    border: "1px solid #2390ac",
+                    color: "#2390ac"
+                  }}
                   onClick={() => handleAddLaymanExplanation(topicIndex, subIndex)}
                 >
                   + Add Layman
@@ -727,10 +804,10 @@ const AddNewModule = () => {
                   <ButtonRow>
                     <ActionButton
 
-style={{ 
-    border:"1px solid #2390ac",
-    color:"#2390ac"
-   }}
+                      style={{
+                        border: "1px solid #2390ac",
+                        color: "#2390ac"
+                      }}
                       variant="danger"
                       onClick={() =>
                         openDeleteModal("layman", topicIndex, subIndex, laymanIndex)
@@ -803,14 +880,15 @@ style={{
                     <ButtonRow>
                       <ActionButton
                         variant="danger"
-                        style={{ marginLeft: "0px",
+                        style={{
+                          marginLeft: "0px",
 
-                         
-                                border:"1px solid #2390ac",
-                                color:"#2390ac",
-                                backgroundColor:"transparent"
-                              
-                         }}
+
+                          border: "1px solid #2390ac",
+                          color: "#2390ac",
+                          backgroundColor: "transparent"
+
+                        }}
                         onClick={() =>
                           openDeleteModal(
                             "clarifier",
@@ -981,11 +1059,11 @@ style={{
               <ButtonRow>
                 <ActionButton
 
-                style={{
-                    border:"1px solid #2390ac",
-                    color:"#2390ac",
-                    backgroundColor:"transparent"
-                }}
+                  style={{
+                    border: "1px solid #2390ac",
+                    color: "#2390ac",
+                    backgroundColor: "transparent"
+                  }}
                   variant="danger"
                   onClick={() => openDeleteModal("subtopic", topicIndex, subIndex)}
                 >
@@ -999,11 +1077,11 @@ style={{
           <ButtonRow>
             <ActionButton
 
-            style={{
-                border:"1px solid #2390ac",
-                color:"#2390ac",
-                backgroundColor:"transparent"
-            }}
+              style={{
+                border: "1px solid #2390ac",
+                color: "#2390ac",
+                backgroundColor: "transparent"
+              }}
               variant="danger"
               onClick={() => openDeleteModal("topic", topicIndex)}
             >
@@ -1014,11 +1092,11 @@ style={{
           {/* ADD SUBTOPIC BUTTON */}
           <ButtonRow>
             <ActionButton
-              style={{ 
-                border:"1px solid #2390ac",
-                color:"#2390ac",
-                backgroundColor:"transparent"
-               }}
+              style={{
+                border: "1px solid #2390ac",
+                color: "#2390ac",
+                backgroundColor: "transparent"
+              }}
               onClick={() => handleAddSubtopic(topicIndex)}
             >
               + Add Subtopic
@@ -1029,13 +1107,13 @@ style={{
 
       {/* ADD TOPIC & DONE BUTTONS */}
       <ButtonRow>
-        <ActionButton 
-        style={{
-            border:"1px solid #2390ac",
-            color:"#2390ac",
-            backgroundColor:"transparent"
-        }}
-        onClick={handleAddTopic}>+ Add Topic</ActionButton>
+        <ActionButton
+          style={{
+            border: "1px solid #2390ac",
+            color: "#2390ac",
+            backgroundColor: "transparent"
+          }}
+          onClick={handleAddTopic}>+ Add Topic</ActionButton>
         <ActionButton variant="primary" style={{ width: "100px" }} onClick={handleDone}>
           Done
         </ActionButton>
@@ -1057,10 +1135,10 @@ style={{
             deleteType === "topic"
               ? "Are you sure you want to delete this entire topic?"
               : deleteType === "subtopic"
-              ? "Are you sure you want to delete this subtopic?"
-              : deleteType === "layman"
-              ? "Are you sure you want to delete this Layman explanation?"
-              : "Are you sure you want to delete this Concept Clarifier?"
+                ? "Are you sure you want to delete this subtopic?"
+                : deleteType === "layman"
+                  ? "Are you sure you want to delete this Layman explanation?"
+                  : "Are you sure you want to delete this Concept Clarifier?"
           }
         />
       )}
