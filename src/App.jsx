@@ -45,6 +45,7 @@ import Settings from "./modules/admin/pages/Settings/Settings";
 import Users from "./modules/admin/pages/Users/Users";
 import AdminDashboard from "./modules/admin/pages/AdminDashboard/AdminDashboard";
 import UserProfile from "./modules/admin/pages/UserProfile/UserProfile";
+import Ckeditor from "./modules/admin/pages/Ckeditor/Ckeditor";
 
 function App() {
   return (
@@ -68,7 +69,7 @@ function App() {
           <Route path="/profileComplete" element={<AccountCreated />} />
           <Route path="/otpEmail" element={<OtpEmail />} />
           <Route path="/validation" element={<ValidationPage />} />
-
+          <Route path="/testing" element={<Ckeditor />} />
           <Route path="/learning" element={<LearningModules />} />
 
           {/* <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} /> */}
