@@ -186,7 +186,7 @@ export const UploadButton = styled.button`
 export const ButtonRow = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: right;
   margin-top: ${({ theme }) => theme.spacing(4)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
