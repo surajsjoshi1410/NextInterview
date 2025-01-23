@@ -49,7 +49,7 @@ const FeedbackAnalytics = () => {
                             color,
                         }))}
                         // Custom styling
-                        style={{ height: "180px", width: "180px" }}
+                        style={{ height: "150px", width: "180px" }}
                         lineWidth={100}
                         paddingAngle={4}
                         rounded={false}

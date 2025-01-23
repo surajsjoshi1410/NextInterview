@@ -5,7 +5,7 @@ import theme from '../../../../theme/Theme';
 
 // Styled Components
 const Wrapper = styled.div`
-  width: 100%;
+//   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -20,11 +20,12 @@ const Title = styled.h2`
 `;
 
 const Container = styled.div`
-  width: 55%;
+  width: 100%;
+
   margin-bottom:${({ theme }) => theme.spacing(2)};
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing(2)};
+//   gap: ${({ theme }) => theme.spacing(2)};
 `;
 
 const Item = styled.div`
@@ -41,6 +42,7 @@ const Section = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  padding: ${({ theme }) => theme.spacing(2)} ;
   gap: ${({ theme }) => theme.spacing(1)};
 `;
 
