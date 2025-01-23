@@ -12,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const Card = styled.div`
-  background-color: ${theme.colors.light};
+  background-color: ${theme.colors.white};
   border: 1px solid ${theme.colors.sidebarHoverBgColor};
   border-radius: 8px;
   padding: ${theme.spacing(2)};
@@ -23,6 +23,10 @@ export const Date = styled.div`
   font-size: 0.9rem;
   color: ${theme.colors.info};
   font-weight: bold;
+  // backgroundColor: ${theme.colors.error};
+ border : 1px solid ${theme.colors.sidebarHoverBgColor};
+  width: 90px;
+  padding: 4px;
 `;
 
 export const Title = styled.h3`
@@ -42,6 +46,7 @@ export const Topics = styled.div`
   display: flex;
   gap: 8px;
   margin: ${theme.spacing(1)} 0;
+  // background-color: #F5F5F5;
 `;
 
 export const Topic = styled.div`
@@ -61,16 +66,17 @@ export const Attendees = styled.div`
 export const Stats = styled.div`
   display: flex;
   gap: 16px;
-  margin-top: ${theme.spacing(1)};
+  margin-top: ${theme.spacing(5)};
 `;
 
 export const Stat = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
+  display: flex;
+  align-items: center;
   border: 1px solid ${theme.colors.sidebarHoverBgColor};
-padding: ${theme.spacing(0.5)};
-border-radius: 14px;
+  padding: ${theme.spacing(0.5)};
+  border-radius: 14px;
+  gap: 8px;
+  font-size: 12px;
 `;
 
 export const StatLabel = styled.div`
@@ -90,7 +96,7 @@ export const PreviouslyAskedIn = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 8px;
+  // gap: 8px;
 `;
 
 export const IconContainer = styled.div`

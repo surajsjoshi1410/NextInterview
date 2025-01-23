@@ -44,6 +44,7 @@ import ValidationPage from "./pages/validationPage/validationPage";
 import Settings from "./modules/admin/pages/Settings/Settings";
 import Users from "./modules/admin/pages/Users/Users";
 import AdminDashboard from "./modules/admin/pages/AdminDashboard/AdminDashboard";
+import UserProfile from "./modules/admin/pages/UserProfile/UserProfile";
 
 function App() {
   return (
@@ -101,10 +102,10 @@ function App() {
             <Route path="/admin/addnewmodule" element={<AddNewModule />} />
 
 
-          <Route path="/admin/challenges" element={<Challenges />} />
-         <Route path="/admin/viewanalytics" element={<Analytics />} />
-         <Route path="/admin/SupportQuery" element={<SupportQuery />} />
-         <Route path="/admin/SupportQuery/UserDetails" element={<SupportQueryUserDetails />} />
+            <Route path="/admin/challenges" element={<Challenges />} />
+            <Route path="/admin/viewanalytics" element={<Analytics />} />
+            <Route path="/admin/SupportQuery" element={<SupportQuery />} />
+            <Route path="/admin/SupportQuery/UserDetails" element={<SupportQueryUserDetails />} />
 
             <Route path="/admin/Flashcards" element={<Flashcards />} />
 
@@ -116,12 +117,13 @@ function App() {
             {/* <Route path="/admin/edit" element={<EditModal />} /> */}
             <Route path="/admin/SupportQuery" element={<SupportQuery />} />
             <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
-         <Route path="/admin/settings" element={<Settings />} />
-         <Route path="/admin/users" element = {<Users />} />
+            <Route path="/admin/settings" element={<Settings />} />
+            <Route path="/admin/users" element={<Users />} />
             <Route
               path="/admin/SupportQuery/1234"
               element={<SupportQueryUserDetails />}
             />
+            <Route path="/admin/userProfile" element={<UserProfile />} />
           </Route>
 
           <Route path="/user" element={<BaseLayout />}></Route>

@@ -35,20 +35,18 @@ export const Stats = styled.div`
     flex-direction: column;
   }
 `;
-
 export const StatCard = styled.div`
   background: ${theme.colors.light};
   padding: ${theme.spacing(1)};
   border-radius: 8px;
-  text-align: center;
 
-  h3 {
-    color: ${theme.colors.primary};
+  h1 {
     font-family: ${theme.fonts.heading};
-  }
+    }
 
   p {
     margin: 0;
+    color: ${theme.colors.textgray};
   }
 `;
 
@@ -69,7 +67,7 @@ export const StatCard1 = styled.div`
   p {
     margin: 0;
     border: 2px solid ${theme.colors.borderbrown};
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 2px;
     font-size: 12px;
     background: ${theme.colors.lightbrown};
@@ -93,7 +91,7 @@ export const StatCard2 = styled.div`
   p {
     margin: 0;
     border: 2px solid ${theme.colors.borderblue};
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 2px;
     font-size: 12px;
     background: ${theme.colors.lightblue};

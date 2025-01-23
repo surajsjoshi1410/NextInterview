@@ -1,44 +1,51 @@
 import React, { useState } from "react";
 import {
   ModalContainer,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  CloseButton,
-  SaveButton,
+  Header,
+  ContentWrapper,
   FlashcardLabel,
   TextArea,
+  Footer,
+  SaveButton,
+  CloseButton,
 } from "./EditFlashCard.styles";
 
 const EditFlashCard = ({ card, onClose, onSave }) => {
   const [text, setText] = useState(card.text);
 
   const handleSave = () => {
-    if (text.trim().length > 0) {
-      onSave({ ...card, text });
+    if (text.trim() === "") {
+      alert("Flashcard content cannot be empty");
+      return;
     }
+    onSave({ ...card, text });
+    onClose();
   };
 
   return (
     <ModalContainer>
-      <ModalHeader>
-        <h3>Edit Flash Card</h3>
-        <CloseButton onClick={onClose}>×</CloseButton>
-      </ModalHeader>
-      <ModalBody>
+      <Header>
+        Edit Flash Card
+        <CloseButton onClick={onClose}>&times;</CloseButton>
+      </Header>
+      <ContentWrapper>
+        <div>
+        <div>
+        Add flash card content
+        </div>
         <FlashcardLabel>Flash Card - {card.id}</FlashcardLabel>
-        <label htmlFor="flashcardText">Add flash card content</label>
+        </div>
         <TextArea
-          id="flashcardText"
+          placeholder="Edit flash card content"
           value={text}
-          maxLength="50"
           onChange={(e) => setText(e.target.value)}
+          maxLength={50}
         />
-        <div>{`${text.length}/50`}</div>
-      </ModalBody>
-      <ModalFooter>
+      </ContentWrapper>
+        <div style={{ textAlign: "right" }}>{text.length}/50</div>
+      <Footer>
         <SaveButton onClick={handleSave}>Save</SaveButton>
-      </ModalFooter>
+      </Footer>
     </ModalContainer>
   );
 };
