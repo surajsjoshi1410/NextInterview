@@ -43,6 +43,7 @@ import AccountCreated from "./pages/AcountCreated/AccountCreated";
 import ValidationPage from "./pages/validationPage/validationPage";
 import Settings from "./modules/admin/pages/Settings/Settings";
 import Users from "./modules/admin/pages/Users/Users";
+import AdminDashboard from "./modules/admin/pages/AdminDashboard/AdminDashboard";
 import UserProfile from "./modules/admin/pages/UserProfile/UserProfile";
 
 function App() {
@@ -87,6 +88,7 @@ function App() {
           {/* <Route path="/challenges" element={<Challenges />} /> */}
 
           <Route path="/admin" element={<BaseLayout />}>
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/learning" element={<LearningModules />} />
             <Route
               path="/admin/Diagnosing-and-Investigating-Metrics"

@@ -21,6 +21,7 @@ const theme = {
     borderblue: "#B6B6B6" ,
     bluetext:"#2290AC",
     white:"#fff",
+    lightyellow:"#f5ebbf",
 
 
     sidebarTextColor: "#1A1C1E",
