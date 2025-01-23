@@ -14,7 +14,7 @@ border: 1px solid #F5F5F5;
   padding: 1rem;
   max-width: 100%;
   margin: 1rem auto;
-  height:250px;
+  // height:250px;
   font-family: "Helvetica", sans-serif;
 }
 
