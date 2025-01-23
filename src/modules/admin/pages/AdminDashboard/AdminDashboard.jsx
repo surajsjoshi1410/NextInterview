@@ -7,6 +7,8 @@ import {DashboardContainer,
 import UserActivity from "../../components/DashboardComponents/UserActivity";
 import LearningPattern from "../../components/DashboardComponents/LearningPattern";
 import TopicPerformance from "../../components/DashboardComponents/TopicPerformance";
+import FeedbackAnalytics from "../../components/FeedbackAnalytics/FeedbackAnalytics";
+import theme from "../../../../theme/Theme";
 const AdminDashboard = () => {
     return <div>
         <DashboardContainer>
@@ -24,7 +26,33 @@ const AdminDashboard = () => {
             <UserActivity />
         <LearningPattern />
         </div>
+        <div
+        style={{
+            display: "flex",
+            flexDirection: "row",
+            // justifyContent: "space-between",
+            gap: "40px",
+            padding:"20px"
+        }}
+        >
         <TopicPerformance />
+      <div>
+        <div style={{ height:"200px",
+        width:"100%"
+         }}>
+      <Title
+      style={{
+        
+        fontFamily:`${theme.fonts.body}`,
+        color:`${theme.colors.text}`,
+        fontSize:`${theme.spacing(3)}`,
+        fontWeight:600
+      }}
+      >Feedback Analytics</Title>
+      <FeedbackAnalytics />
+        </div>
+      </div>
+        </div>
     
         </DashboardContainer>
         
