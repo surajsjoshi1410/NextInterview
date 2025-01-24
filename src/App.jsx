@@ -40,7 +40,7 @@ import Question6 from "./pages/Questions/Question6/Question6";
 import Question7 from "./pages/Questions/Question7/Question7";
 import FinalQuestion from "./pages/Questions/FinalQuestion/FinalQuestion";
 import AccountCreated from "./pages/AcountCreated/AccountCreated";
-import ValidationPage from "./pages/validationPage/validationPage";
+import ValidationPage from "./pages/validationPage/ValidationPage";
 import Settings from "./modules/admin/pages/Settings/Settings";
 import Users from "./modules/admin/pages/Users/Users";
 import AdminDashboard from "./modules/admin/pages/AdminDashboard/AdminDashboard";
