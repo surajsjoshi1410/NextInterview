@@ -1,7 +1,7 @@
 // FeedbackAnalytics.jsx
 import React from "react";
 import { PieChart } from "react-minimal-pie-chart";
-import { FeedbackAnalyticsWrap } from "./FeedbackAnalytics.styles";
+import { FeedbackAnalyticsWrap, Title } from "./FeedbackAnalytics.styles";
 
 const FeedbackAnalytics = () => {
     // Example data
@@ -19,6 +19,15 @@ const FeedbackAnalytics = () => {
 
     return (
         <FeedbackAnalyticsWrap>
+                <Title
+    //   style={{
+        
+    //     fontFamily:`${theme.fonts.body}`,
+    //     color:`${theme.colors.text}`,
+    //     fontSize:`${theme.spacing(3)}`,
+    //     fontWeight:600
+    //   }}
+      >Feedback Analytics</Title>
             <div className="feedbackContainer">
                 {/* Left side: legend */}
                 <div className="legendArea">
@@ -28,7 +37,7 @@ const FeedbackAnalytics = () => {
                                 className="legendDot"
                                 style={{ backgroundColor: item.color }}
                             />
-                            {item.label} – {item.value}%
+                            <b style={{fontSize:"1.1rem"}}>{item.label}</b> – {item.value}%
                         </div>
                     ))}
 

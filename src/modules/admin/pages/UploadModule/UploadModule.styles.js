@@ -6,8 +6,7 @@ export const Container = styled.div`
   padding: ${({ theme }) => theme.spacing(4)};
   color: ${({ theme }) => theme.colors.text};
   font-family: ${({ theme }) => theme.fonts.body};
-
-margin-left: 30px;
+  margin-left: 30px;
   display: flex;
   flex-direction: column;
 
@@ -15,10 +14,9 @@ margin-left: 30px;
     padding: ${({ theme }) => theme.spacing(2)};
   }
 
-  @max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: ${({ theme }) => theme.spacing(1)};
   }
-    
 `;
 
 export const Title = styled.h1`
@@ -38,7 +36,6 @@ export const Title = styled.h1`
 
 export const FormWrapper = styled.div`
   display: grid;
-//   grid-template-rows: 300px 1fr;
   gap: ${({ theme }) => theme.spacing(4)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -53,7 +50,7 @@ export const FormWrapper = styled.div`
 export const ImageUploadContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.lightgreen};
   border-radius: 8px;
-  width:300px;
+  width: 300px;
   height: 200px;
   display: flex;
   flex-direction: column;
@@ -63,16 +60,18 @@ export const ImageUploadContainer = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     width: 100%;
   }
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      width: 100%;
-    }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 100%;
+  }
 `;
 
 export const UploadIcon = styled.div`
   font-size: 48px;
   color: ${({ theme }) => theme.colors.success};
+
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-      font-size:36px;
+    font-size: 36px;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -88,10 +87,10 @@ export const UploadText = styled.span`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: 0.8rem;
   }
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      font-size: 0.7rem;
-    }
 
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 0.7rem;
+  }
 `;
 
 export const RightSideWrapper = styled.div`
@@ -102,8 +101,9 @@ export const RightSideWrapper = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     gap: ${({ theme }) => theme.spacing(2)};
   }
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      gap: ${({ theme }) => theme.spacing(1)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    gap: ${({ theme }) => theme.spacing(1)};
   }
 `;
 
@@ -111,14 +111,15 @@ export const FormGroup = styled.div`
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: ${({ theme }) => theme.spacing(1)};
-  align-items: center;
+  align-items: start; /* important for top-aligning the second column */
   margin-bottom: ${({ theme }) => theme.spacing(2)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     grid-template-columns: 1fr;
   }
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      grid-template-columns: 1fr;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -130,9 +131,10 @@ export const Label = styled.label`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: 0.8rem;
   }
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      font-size: 0.7rem;
-    }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 0.7rem;
+  }
 `;
 
 export const Input = styled.input`
@@ -145,11 +147,12 @@ export const Input = styled.input`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: 0.8rem;
-    width:95%;
+    width: 95%;
   }
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      font-size: 0.7rem;
-      width:95%;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 0.7rem;
+    width: 95%;
   }
 
   &:focus {
@@ -157,8 +160,6 @@ export const Input = styled.input`
     border-color: ${({ theme }) => theme.colors.primary};
   }
 `;
-
-
 
 export const UploadButton = styled.button`
   width: fit-content;
@@ -169,12 +170,14 @@ export const UploadButton = styled.button`
   border-radius: 4px;
   font-family: ${({ theme }) => theme.fonts.body};
   cursor: pointer;
+  font-size: 0.9rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: 0.8rem;
   }
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      font-size: 0.7rem;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 0.7rem;
   }
 
   &:hover {
@@ -192,8 +195,9 @@ export const ButtonRow = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-top: ${({ theme }) => theme.spacing(2)};
   }
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      margin-top: ${({ theme }) => theme.spacing(1)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-top: ${({ theme }) => theme.spacing(1)};
   }
 `;
 
@@ -206,7 +210,7 @@ export const ButtonGroup = styled.div`
     gap: ${({ theme }) => theme.spacing(1)};
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {  
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     gap: ${({ theme }) => theme.spacing(1)};
   }
 `;
@@ -218,8 +222,9 @@ export const Pagination = styled.span`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: 0.8rem;
   }
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      font-size: 0.7rem;    
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 0.7rem;
   }
 `;
 
@@ -232,31 +237,31 @@ export const NavButton = styled.button`
   cursor: pointer;
 
   ${({ variant, theme }) => {
-        if (variant === "primary") {
-            return `
+    if (variant === "primary") {
+      return `
         background-color: ${theme.colors.light};
         color: ${theme.colors.secondary};
       `;
-        }
-        return `
+    }
+    return `
       background-color: ${theme.colors.light};
       color: ${theme.colors.secondary};
       border: 1px solid ${theme.colors.textgray};
     `;
-    }}
+  }}
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-      font-size: 0.8rem;
-    }
-      @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-        font-size: 0.7rem;
-    }
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 0.7rem;
+  }
 
   &:hover {
     opacity: 0.8;
   }
 `;
-
 
 export const TextAreaContainer = styled.div`
   position: relative;
@@ -267,15 +272,15 @@ export const TextAreaContainer = styled.div`
     margin-top: 4px;
     width: 95%;
   }
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      margin-top: 2px;
-      width: 95%;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-top: 2px;
+    width: 95%;
   }
 `;
 
 export const TextArea = styled.textarea`
-
-    padding: ${({ theme }) => theme.spacing(1)};
+  padding: ${({ theme }) => theme.spacing(1)};
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 4px;
   font-family: ${({ theme }) => theme.fonts.body};
@@ -288,24 +293,6 @@ export const TextArea = styled.textarea`
     border-color: ${({ theme }) => theme.colors.primary};
   }
 `;
-
-export const AddMoreButton = styled.button`
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  padding: 4px 8px;
-  background-color: ${theme.colors.light};
-  color:${theme.colors.secondary} ;
-  border: 1px solid ${theme.colors.secondary};
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-
-  &:hover {
-    background-color: ${theme.colors.textgray};
-  }
-`;
-
 
 export const PreviewImage = styled.img`
   width: 100%;
@@ -330,7 +317,7 @@ export const ReplaceButton = styled.button`
   align-items: center;
   font-size: 0.9rem;
 
-  & svg {
+  svg {
     margin-right: 5px;
   }
 
@@ -340,6 +327,24 @@ export const ReplaceButton = styled.button`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: 0.8rem;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 0.7rem;
+  }
+`;
+
+/**
+ * Error message styled component.
+ * Ensures the error text is shown directly below the input/textarea in the same column.
+ */
+export const ErrorMessage = styled.p`
+  color: red;
+  margin-top: 4px;
+  font-size: 0.8rem;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 0.75rem;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {

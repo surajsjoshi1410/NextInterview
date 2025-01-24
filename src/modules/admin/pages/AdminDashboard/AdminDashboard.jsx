@@ -15,43 +15,20 @@ const AdminDashboard = () => {
         <GradientBar />
         <AdminMetrics />
         <div
-        style={{
-            // height: "350px",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            gap: "20px",
-            marginTop: "150px",
-        }}>
+       
+          className="user-activity">
             <UserActivity />
         <LearningPattern />
         </div>
-        <div
+        <div className="topic-performance"
         style={{
-            display: "flex",
-            flexDirection: "row",
-            // justifyContent: "space-between",
-            gap: "40px",
-            padding:"20px"
-        }}
-        >
+          padding: theme.spacing(2),
+        }} >
         <TopicPerformance />
-      <div>
-        <div style={{ height:"200px",
-        width:"100%"
-         }}>
-      <Title
-      style={{
-        
-        fontFamily:`${theme.fonts.body}`,
-        color:`${theme.colors.text}`,
-        fontSize:`${theme.spacing(3)}`,
-        fontWeight:600
-      }}
-      >Feedback Analytics</Title>
-      <FeedbackAnalytics />
-        </div>
-      </div>
+
+          <FeedbackAnalytics />
+        {/* </div> */}
+
         </div>
     
         </DashboardContainer>

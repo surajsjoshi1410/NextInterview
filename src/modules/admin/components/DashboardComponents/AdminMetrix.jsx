@@ -15,10 +15,13 @@ z-index: 12;
   padding: ${(props) => props.theme.spacing(3)};
   border-radius: ${(props) => props.theme.spacing(1)};
   box-shadow: 0 4px 6px ${(props) => props.theme.colors.borderblue};
+
+  @media (max-width: 768px) {
+  width: 70%;
 `;
 
 const MetricCard = styled.div`
-  text-align: center;
+  text-align: left;
   flex: 1;
   padding: ${(props) => props.theme.spacing(2)};
   &:not(:last-child) {

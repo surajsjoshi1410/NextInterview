@@ -26,14 +26,13 @@ import {
 } from "./AddNewModule.style";
 import theme from "../../../../theme/Theme";
 import DeleteModule from "../../../admin/components/DeleteModule/DeleteModule";
-import { uploadFileToFirebase, uploadVideoToFirebase } from "../../../../utils/uploadFileToFirebase";
-import { addNewModule } from "../../../../api/addNewModuleApi";
-import CKEditorDemo from "../../components/CKEditorDemo/CKEditorDemo";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
-  ClassicEditor,
-}
-  from 'ckeditor5';
+  uploadFileToFirebase,
+  uploadVideoToFirebase,
+} from "../../../../utils/uploadFileToFirebase";
+import { addNewModule } from "../../../../api/addNewModuleApi";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import {ClassicEditor} from "ckeditor5";
 import { editorConfig } from "../../../../config/ckEditorConfig";
 
 // Styled icon/button if you want to show a delete icon
@@ -85,8 +84,12 @@ const AddNewModule = () => {
               moreExplanation: "",
             },
           ],
+          // -----------------------------------------------------------------
+          // ADD the laymanScale field to our initial layman object (default scale=1)
+          // -----------------------------------------------------------------
           laymanExplanations: [
             {
+              laymanScale: 1,
               laymanTitle: "",
               laymanInfo: "",
             },
@@ -130,6 +133,7 @@ const AddNewModule = () => {
             ],
             laymanExplanations: [
               {
+                laymanScale: 1,
                 laymanTitle: "",
                 laymanInfo: "",
               },
@@ -163,6 +167,7 @@ const AddNewModule = () => {
         ],
         laymanExplanations: [
           {
+            laymanScale: 1,
             laymanTitle: "",
             laymanInfo: "",
           },
@@ -181,10 +186,25 @@ const AddNewModule = () => {
   const handleAddLaymanExplanation = (topicIndex, subIndex) => {
     setTopics((prevTopics) => {
       const updated = [...prevTopics];
-      updated[topicIndex].subtopics[subIndex].laymanExplanations.push({
+      const laymans = updated[topicIndex].subtopics[subIndex].laymanExplanations;
+
+      // -----------------------------------------------------------------
+      // Enforce a limit of 5 Layman items
+      // -----------------------------------------------------------------
+      if (laymans.length >= 5) {
+        alert("You can only add up to 5 layman explanations (scales).");
+        return updated;
+      }
+
+      // The new scale is the next number
+      const newScale = laymans.length + 1;
+
+      laymans.push({
+        laymanScale: newScale,
         laymanTitle: "",
         laymanInfo: "",
       });
+
       return updated;
     });
   };
@@ -198,14 +218,13 @@ const AddNewModule = () => {
     laymanIndex,
     field
   ) => {
-    // const { value } = e.target;
-    // const value = e.getData();
     let value;
     if (e != null) {
       value = e.target.value;
     } else {
       value = event.getData();
     }
+
     setTopics((prevTopics) => {
       const updated = [...prevTopics];
       updated[topicIndex].subtopics[subIndex].laymanExplanations[laymanIndex][
@@ -236,14 +255,13 @@ const AddNewModule = () => {
     clarifierIndex,
     clarifierField
   ) => {
-    // const { value } = e.target;
-    // const value = e.getData();
     let value;
     if (e != null) {
       value = e.target.value;
     } else {
       value = editor.getData();
     }
+
     setTopics((prevTopics) => {
       const updated = [...prevTopics];
       updated[topicIndex].subtopics[subIndex].conceptClarifiers[clarifierIndex][
@@ -264,8 +282,6 @@ const AddNewModule = () => {
   };
 
   const handleSubtopicChange = (e, event, topicIndex, subIndex, field) => {
-    // const { value } = e.target;
-    // const value = event.getData();
     let value;
     if (e != null) {
       value = e.target.value;
@@ -299,7 +315,7 @@ const AddNewModule = () => {
         updated[topicIndex].subtopics[subIndex].cheatSheet = {
           file,
           previewURL,
-          dataUrl
+          dataUrl,
         };
         return updated;
       });
@@ -382,48 +398,67 @@ const AddNewModule = () => {
 
   // ----------------------------- DONE BUTTON -----------------------------
   const handleDone = async () => {
+    // -----------------------------------------------------------------
+    // Ensure each subtopic has 5 layman explanations
+    // -----------------------------------------------------------------
+    for (let tIndex = 0; tIndex < topics.length; tIndex++) {
+      for (
+        let sIndex = 0;
+        sIndex < topics[tIndex].subtopics.length;
+        sIndex++
+      ) {
+        const laymanCount =
+          topics[tIndex].subtopics[sIndex].laymanExplanations.length;
+        if (laymanCount < 5) {
+          alert(
+            `Subtopic ${
+              sIndex + 1
+            } of Topic ${tIndex + 1} must have 5 layman explanations. Currently: ${laymanCount}`
+          );
+          return;
+        }
+      }
+    }
+
     console.log("All topics data:", topics);
+
     const topicData = topics.map((topic) => {
-      return ({
+      return {
         topicName: topic.topicName,
         skillAssessmentQuestionsURL: topic.skillAssessmentFileUrl,
         subtopicData: topic.subtopics.map((sub) => {
-          return (
-            {
-              subtopicName: sub.subtopicName,
-              subtopicContent: sub.subtopicContent,
-              subtopicSummary: sub.subtopicSummary,
-              revisionPoints: sub.quickRevisePoints,
-              cheatSheetURL: sub.cheatSheet.dataUrl,
-              interviewFavorite: sub.isInterviewFavorite,
-              conceptClarifier: sub.conceptClarifiers.map((concept) => {
-                return (
-                  {
-                    conceptClarifier: concept.clarifierWordOrPhrase,
-                    hoverExplanation: concept.explanationOnHover,
-                    popupExplanation: concept.moreExplanation,
-                  }
-                )
-              }),
-              laymanTerms: sub.laymanExplanations.map((laymn) => {
-                return (
-                  {
-                    topicTitle: laymn.laymanTitle,
-                    topicInfo: laymn.laymanInfo
-                  }
-                )
-              }),
+          return {
+            subtopicName: sub.subtopicName,
+            subtopicContent: sub.subtopicContent,
+            subtopicSummary: sub.subtopicSummary,
+            revisionPoints: sub.quickRevisePoints,
+            cheatSheetURL: sub.cheatSheet?.dataUrl,
+            interviewFavorite: sub.isInterviewFavorite,
+            conceptClarifier: sub.conceptClarifiers.map((concept) => {
+              return {
+                conceptClarifier: concept.clarifierWordOrPhrase,
+                hoverExplanation: concept.explanationOnHover,
+                popupExplanation: concept.moreExplanation,
+              };
+            }),
+            laymanTerms: sub.laymanExplanations.map((laymn) => {
+              return {
+                // -----------------------------------------------------------------
+                // Include the laymanScale in final submission
+                // -----------------------------------------------------------------
+                scale: laymn.laymanScale,
+                topicTitle: laymn.laymanTitle,
+                topicInfo: laymn.laymanInfo,
+              };
+            }),
+            questionBankURL: sub.questionBankFileUrl,
+            tiyQuestionsURL: sub.tryItYourselfFileUrl,
+          };
+        }),
+      };
+    });
 
-              questionBankURL: sub.questionBankFileUrl,
-              tiyQuestionsURL: sub.tryItYourselfFileUrl,
-            }
-          )
-        })
-
-      })
-    })
-    // Reset form
-
+    // Prepare final submission payload
     const submissionData = {
       imageURL: location.state.data.imageURL,
       moduleName: location.state.data.moduleName,
@@ -433,10 +468,12 @@ const AddNewModule = () => {
       courseOverview: location.state.data.courseOverview,
       userLearntData: location.state.data.userLearntData,
       topicData: topicData,
-    }
+    };
 
     console.log("sub", submissionData);
     const response = await addNewModule(submissionData);
+
+    // Reset form
     setTopics([
       {
         topicName: "",
@@ -456,8 +493,10 @@ const AddNewModule = () => {
                 moreExplanation: "",
               },
             ],
+            // Start again with 1 layman explanation
             laymanExplanations: [
               {
+                laymanScale: 1,
                 laymanTitle: "",
                 laymanInfo: "",
               },
@@ -479,9 +518,9 @@ const AddNewModule = () => {
     laymanIndex = null,
     clarifierIndex = null
   ) => {
-    /** 
-     * 1) Check if it's the ONLY item. If yes, do not allow delete. 
-    */
+    /**
+     * 1) Check if it's the ONLY item. If yes, do not allow delete.
+     */
     if (type === "topic") {
       // If there's only 1 topic, do not allow delete.
       if (topics.length <= 1) {
@@ -496,7 +535,9 @@ const AddNewModule = () => {
       }
     } else if (type === "layman") {
       // If there's only 1 layman explanation in that subtopic, do not allow delete.
-      if (topics[topicIndex].subtopics[subIndex].laymanExplanations.length <= 1) {
+      if (
+        topics[topicIndex].subtopics[subIndex].laymanExplanations.length <= 1
+      ) {
         alert("Cannot delete the default layman explanation!");
         return;
       }
@@ -520,7 +561,9 @@ const AddNewModule = () => {
 
     if (deleteType === "topic") {
       // remove entire topic
-      setTopics((prevTopics) => prevTopics.filter((_, idx) => idx !== topicIndex));
+      setTopics((prevTopics) =>
+        prevTopics.filter((_, idx) => idx !== topicIndex)
+      );
     } else if (deleteType === "subtopic") {
       // remove single subtopic
       setTopics((prevTopics) => {
@@ -626,7 +669,8 @@ const AddNewModule = () => {
                     alignItems: "center",
                   }}
                 >
-                  <strong>Uploaded File:</strong> {topic.skillAssessmentFile.name}
+                  <strong>Uploaded File:</strong>{" "}
+                  {topic.skillAssessmentFile.name}
                   <ActionButton
                     variant="danger"
                     onClick={() => handleRemoveSkillAssessment(topicIndex)}
@@ -663,7 +707,13 @@ const AddNewModule = () => {
                 <TextInput
                   value={subtopic.subtopicName}
                   onChange={(e) =>
-                    handleSubtopicChange(e, null, topicIndex, subIndex, "subtopicName")
+                    handleSubtopicChange(
+                      e,
+                      null,
+                      topicIndex,
+                      subIndex,
+                      "subtopicName"
+                    )
                   }
                 />
               </FormGroup>
@@ -675,18 +725,16 @@ const AddNewModule = () => {
                   editor={ClassicEditor}
                   data={subtopic.subtopicContent}
                   config={editorConfig}
-                  onChange={
-                    (event, editor) => {
-                      handleSubtopicChange(null, editor, topicIndex, subIndex, "subtopicContent")
-                    }
-                  } />
-                {/* <TextArea
-                  rows="6"
-                  value={subtopic.subtopicContent}
-                  onChange={(e) =>
-                    handleSubtopicChange(e, topicIndex, subIndex, "subtopicContent")
-                  }
-                /> */}
+                  onChange={(event, editor) => {
+                    handleSubtopicChange(
+                      null,
+                      editor,
+                      topicIndex,
+                      subIndex,
+                      "subtopicContent"
+                    );
+                  }}
+                />
               </FormGroup>
 
               {/* SUBTOPIC SUMMARY */}
@@ -696,18 +744,16 @@ const AddNewModule = () => {
                   editor={ClassicEditor}
                   data={subtopic.subtopicSummary}
                   config={editorConfig}
-                  onChange={
-                    (event, editor) => {
-                      handleSubtopicChange(null, editor, topicIndex, subIndex, "subtopicSummary")
-                    }
-                  } />
-                {/* <TextArea
-                  rows="4"
-                  value={subtopic.subtopicSummary}
-                  onChange={(e) =>
-                    handleSubtopicChange(e, topicIndex, subIndex, "subtopicSummary")
-                  }
-                /> */}
+                  onChange={(event, editor) => {
+                    handleSubtopicChange(
+                      null,
+                      editor,
+                      topicIndex,
+                      subIndex,
+                      "subtopicSummary"
+                    );
+                  }}
+                />
               </FormGroup>
 
               {/* QUICK REVISE POINTS */}
@@ -717,18 +763,16 @@ const AddNewModule = () => {
                   editor={ClassicEditor}
                   data={subtopic.quickRevisePoints}
                   config={editorConfig}
-                  onChange={
-                    (event, editor) => {
-                      handleSubtopicChange(null, editor, topicIndex, subIndex, "quickRevisePoints")
-                    }
-                  } />
-                {/* <TextArea
-                  rows="4"
-                  value={subtopic.quickRevisePoints}
-                  onChange={(e) =>
-                    handleSubtopicChange(e, topicIndex, subIndex, "quickRevisePoints")
-                  }
-                /> */}
+                  onChange={(event, editor) => {
+                    handleSubtopicChange(
+                      null,
+                      editor,
+                      topicIndex,
+                      subIndex,
+                      "quickRevisePoints"
+                    );
+                  }}
+                />
               </FormGroup>
 
               {/* CHEAT SHEET VIDEO */}
@@ -745,14 +789,21 @@ const AddNewModule = () => {
                     <>
                       <UploadButton>
                         <FiUpload />
-                        <label style={{ cursor: "pointer" }} onClick={() => videoInputRef.current.click()}>Upload Video</label>
+                        <label
+                          style={{ cursor: "pointer" }}
+                          onClick={() => videoInputRef.current.click()}
+                        >
+                          Upload Video
+                        </label>
                       </UploadButton>
                       <input
                         type="file"
                         accept="video/*"
                         ref={videoInputRef}
                         style={{ display: "none" }}
-                        onChange={(e) => handleCheatSheetUpload(e, topicIndex, subIndex)}
+                        onChange={(e) =>
+                          handleCheatSheetUpload(e, topicIndex, subIndex)
+                        }
                       />
                     </>
                   ) : (
@@ -776,7 +827,9 @@ const AddNewModule = () => {
                       <ButtonRow>
                         <ActionButton
                           variant="danger"
-                          onClick={() => handleRemoveCheatSheet(topicIndex, subIndex)}
+                          onClick={() =>
+                            handleRemoveCheatSheet(topicIndex, subIndex)
+                          }
                           style={{
                             border: "none",
                             color: `${theme.colors.secondary}`,
@@ -802,12 +855,14 @@ const AddNewModule = () => {
 
               {/* +ADD LAYMAN BUTTON */}
               <ButtonRow>
+                {/* Limit to 5 layman. If already 5, we can hide or disable the button */}
                 <ActionButton
                   style={{
                     border: "1px solid #2390ac",
-                    color: "#2390ac"
+                    color: "#2390ac",
                   }}
                   onClick={() => handleAddLaymanExplanation(topicIndex, subIndex)}
+                  disabled={subtopic.laymanExplanations.length >= 5}
                 >
                   + Add Layman
                 </ActionButton>
@@ -825,6 +880,17 @@ const AddNewModule = () => {
                     backgroundColor: "#f9f9f9",
                   }}
                 >
+                  {/* Display the layman scale */}
+                  <FormGroup>
+                    <Label>Layman Scale</Label>
+                    <TextInput
+                      type="number"
+                      readOnly
+                      value={layman.laymanScale}
+                      style={{ backgroundColor: theme.colors.backgray }}
+                    />
+                  </FormGroup>
+
                   <FormGroup>
                     <Label>Layman Title</Label>
                     <TextInput
@@ -847,40 +913,25 @@ const AddNewModule = () => {
                       editor={ClassicEditor}
                       data={layman.laymanInfo}
                       config={editorConfig}
-                      onChange={
-                        (event, editor) => {
-                          handleLaymanExplanationChange(
-                            null,
-                            editor,
-                            topicIndex,
-                            subIndex,
-                            laymanIndex,
-                            "laymanInfo"
-                          )
-                        }
-                      } />
-                    {/* <TextArea
-                      rows="3"
-                      value={layman.laymanInfo}
-                      onChange={(e) =>
+                      onChange={(event, editor) => {
                         handleLaymanExplanationChange(
-                          e,
+                          null,
+                          editor,
                           topicIndex,
                           subIndex,
                           laymanIndex,
                           "laymanInfo"
-                        )
-                      }
-                    /> */}
+                        );
+                      }}
+                    />
                   </FormGroup>
 
                   {/* DELETE LAYMAN ICON/BUTTON */}
                   <ButtonRow>
                     <ActionButton
-
                       style={{
                         border: "1px solid #2390ac",
-                        color: "#2390ac"
+                        color: "#2390ac",
                       }}
                       variant="danger"
                       onClick={() =>
@@ -922,31 +973,17 @@ const AddNewModule = () => {
                         editor={ClassicEditor}
                         data={clarifier.explanationOnHover}
                         config={editorConfig}
-                        onChange={
-                          (event, editor) => {
-                            handleConceptClarifierChange(
-                              null,
-                              editor,
-                              topicIndex,
-                              subIndex,
-                              clarifierIndex,
-                              "explanationOnHover"
-                            )
-                          }
-                        } />
-                      {/* <TextInput
-                        value={clarifier.explanationOnHover}
-                        onChange={(e) =>
+                        onChange={(event, editor) => {
                           handleConceptClarifierChange(
-                            e,
+                            null,
+                            editor,
                             topicIndex,
                             subIndex,
                             clarifierIndex,
                             "explanationOnHover"
-                          )
-                        }
-                        style={{ backgroundColor: theme.colors.backgray }}
-                      /> */}
+                          );
+                        }}
+                      />
                     </FormGroup>
 
                     <FormGroup>
@@ -955,32 +992,17 @@ const AddNewModule = () => {
                         editor={ClassicEditor}
                         data={clarifier.moreExplanation}
                         config={editorConfig}
-                        onChange={
-                          (event, editor) => {
-                            handleConceptClarifierChange(
-                              null,
-                              editor,
-                              topicIndex,
-                              subIndex,
-                              clarifierIndex,
-                              "moreExplanation"
-                            )
-                          }
-                        } />
-                      {/* <TextArea
-                        rows="3"
-                        value={clarifier.moreExplanation}
-                        onChange={(e) =>
+                        onChange={(event, editor) => {
                           handleConceptClarifierChange(
-                            e,
+                            null,
+                            editor,
                             topicIndex,
                             subIndex,
                             clarifierIndex,
                             "moreExplanation"
-                          )
-                        }
-                        style={{ backgroundColor: theme.colors.backgray }}
-                      /> */}
+                          );
+                        }}
+                      />
                     </FormGroup>
 
                     {/* DELETE CLARIFIER BUTTON/ICON */}
@@ -989,12 +1011,9 @@ const AddNewModule = () => {
                         variant="danger"
                         style={{
                           marginLeft: "0px",
-
-
                           border: "1px solid #2390ac",
                           color: "#2390ac",
-                          backgroundColor: "transparent"
-
+                          backgroundColor: "transparent",
                         }}
                         onClick={() =>
                           openDeleteModal(
@@ -1042,7 +1061,9 @@ const AddNewModule = () => {
                       {subtopic.questionBankFile.name}
                       <ActionButton
                         variant="danger"
-                        onClick={() => handleRemoveQuestionBank(topicIndex, subIndex)}
+                        onClick={() =>
+                          handleRemoveQuestionBank(topicIndex, subIndex)
+                        }
                         style={{
                           marginLeft: "10px",
                           color: theme.colors.secondary,
@@ -1086,7 +1107,9 @@ const AddNewModule = () => {
                       }
                       questionBankRefs.current[topicIndex][subIndex] = el;
                     }}
-                    onChange={(e) => handleQuestionBankUpload(e, topicIndex, subIndex)}
+                    onChange={(e) =>
+                      handleQuestionBankUpload(e, topicIndex, subIndex)
+                    }
                   />
                 </div>
               </SectionHeader>
@@ -1157,7 +1180,9 @@ const AddNewModule = () => {
                       }
                       tryItYourselfRefs.current[topicIndex][subIndex] = el;
                     }}
-                    onChange={(e) => handleTryItYourselfUpload(e, topicIndex, subIndex)}
+                    onChange={(e) =>
+                      handleTryItYourselfUpload(e, topicIndex, subIndex)
+                    }
                   />
                 </div>
               </SectionHeader>
@@ -1165,11 +1190,10 @@ const AddNewModule = () => {
               {/* DELETE SUBTOPIC BUTTON */}
               <ButtonRow>
                 <ActionButton
-
                   style={{
                     border: "1px solid #2390ac",
                     color: "#2390ac",
-                    backgroundColor: "transparent"
+                    backgroundColor: "transparent",
                   }}
                   variant="danger"
                   onClick={() => openDeleteModal("subtopic", topicIndex, subIndex)}
@@ -1183,11 +1207,10 @@ const AddNewModule = () => {
           {/* DELETE TOPIC BUTTON */}
           <ButtonRow>
             <ActionButton
-
               style={{
                 border: "1px solid #2390ac",
                 color: "#2390ac",
-                backgroundColor: "transparent"
+                backgroundColor: "transparent",
               }}
               variant="danger"
               onClick={() => openDeleteModal("topic", topicIndex)}
@@ -1202,7 +1225,7 @@ const AddNewModule = () => {
               style={{
                 border: "1px solid #2390ac",
                 color: "#2390ac",
-                backgroundColor: "transparent"
+                backgroundColor: "transparent",
               }}
               onClick={() => handleAddSubtopic(topicIndex)}
             >
@@ -1218,10 +1241,17 @@ const AddNewModule = () => {
           style={{
             border: "1px solid #2390ac",
             color: "#2390ac",
-            backgroundColor: "transparent"
+            backgroundColor: "transparent",
           }}
-          onClick={handleAddTopic}>+ Add Topic</ActionButton>
-        <ActionButton variant="primary" style={{ width: "100px" }} onClick={handleDone}>
+          onClick={handleAddTopic}
+        >
+          + Add Topic
+        </ActionButton>
+        <ActionButton
+          variant="primary"
+          style={{ width: "100px" }}
+          onClick={handleDone}
+        >
           Done
         </ActionButton>
       </ButtonRow>
@@ -1242,10 +1272,10 @@ const AddNewModule = () => {
             deleteType === "topic"
               ? "Are you sure you want to delete this entire topic?"
               : deleteType === "subtopic"
-                ? "Are you sure you want to delete this subtopic?"
-                : deleteType === "layman"
-                  ? "Are you sure you want to delete this Layman explanation?"
-                  : "Are you sure you want to delete this Concept Clarifier?"
+              ? "Are you sure you want to delete this subtopic?"
+              : deleteType === "layman"
+              ? "Are you sure you want to delete this Layman explanation?"
+              : "Are you sure you want to delete this Concept Clarifier?"
           }
         />
       )}
