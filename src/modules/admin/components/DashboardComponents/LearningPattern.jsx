@@ -10,6 +10,12 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  width: 100%;
+  // margin-left: 10px;
+    }
 `;
 
 const OuterTitle = styled.h2`
@@ -18,17 +24,29 @@ const OuterTitle = styled.h2`
   font-size: 1.2rem;
   text-align: left;
   margin-bottom: ${(props) => props.theme.spacing(3)};
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
 `;
 
 const CardContainer = styled.div`
   padding: ${(props) => props.theme.spacing(2)};
   background-color: ${(props) => props.theme.colors.lightgreen};
   border-radius: ${(props) => props.theme.spacing(1)};
-  box-shadow: 0 4px 6px ${(props) => props.theme.colors.borderblue};
+  box-shadow: 0 4px 4px ${(props) => props.theme.colors.borderblue};
   width: 80%;
   height: 300px;
   margin-right: 5px;
   border: 1px solid ${(props) => props.theme.colors.primary};
+
+  @media (max-width: 768px) {
+    width: 70%;
+  }
 `;
 
 const Title = styled.h3`
@@ -36,6 +54,15 @@ const Title = styled.h3`
   color: ${(props) => props.theme.colors.text};
   font-size: 1rem;
   margin-bottom: ${(props) => props.theme.spacing(4)};
+
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Subtitle = styled.p`
