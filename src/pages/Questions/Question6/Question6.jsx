@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import HeaderWithLogo from "../../../components/HeaderWithLogo/HeaderWithLogo";
-import { Question6Wrapper } from "./Question6.styles";
+import { Question6Wrapper } from "./Question6.Styles";
 import { useNavigate } from "react-router";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { useUser } from '@clerk/clerk-react'
