@@ -3,26 +3,25 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../../theme/Theme';
 
-// Styled Components
 const Wrapper = styled.div`
 //   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: ${({ theme }) => theme.spacing(2)};
+  // gap: ${({ theme }) => theme.spacing(2)};
 `;
 
 const Title = styled.h2`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 1.2rem;
+  font-family: ${({ theme }) => theme.fonts.body};
+      font-size:1.2rem;
+        font-weight:800;
   color: ${({ theme }) => theme.colors.text};
-  margin-bottom: ${({ theme }) => theme.spacing(1)};
+  // margin-bottom: ${({ theme }) => theme.spacing(1)};
 `;
 
 const Container = styled.div`
   width: 100%;
-
-  margin-bottom:${({ theme }) => theme.spacing(2)};
+  margin-bottom:${({ theme }) => theme.spacing(1)};
   display: flex;
   flex-direction: column;
 //   gap: ${({ theme }) => theme.spacing(2)};

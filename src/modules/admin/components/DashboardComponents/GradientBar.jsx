@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const GradientBackground = styled.div`
   height: 100px; /* Adjust height as needed */
-  width: 100%;
+  width: 98%;
 //   margin-left: 60px;
   margin-top: 20px;
   position: absolute;

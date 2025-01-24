@@ -3,11 +3,12 @@ import theme from "../../../../theme/Theme";
 
 
 export const FeedbackAnalyticsWrap=styled.div`
+width: 100%;
 /* FeedbackAnalytics.css */
 .feedbackContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   background-color: #fff;
 border-radius: 8px;
 border: 1px solid #F5F5F5;
@@ -16,6 +17,9 @@ border: 1px solid #F5F5F5;
   margin: 1rem auto;
   // height:250px;
   font-family: "Helvetica", sans-serif;
+
+  @media (max-width: 768px) {
+  width: 100%;}
 }
 
 .legendArea {
@@ -28,6 +32,7 @@ border: 1px solid #F5F5F5;
   display: flex;
   align-items: center;
   font-size: 0.9rem;
+  // font-weight: bold;
   color: #444;
 }
 
@@ -44,6 +49,7 @@ border: 1px solid #F5F5F5;
   background-color: #f5f5f5;
   color: #666;
   font-size: 0.8rem;
+
   border-radius: 4px;
   padding: 0.2rem 0.5rem;
   margin-top: 0.5rem;
@@ -65,3 +71,10 @@ border: 1px solid #F5F5F5;
 
 
 `
+
+export const Title=styled.h2`
+        font-family:${theme.fonts.body};
+        color:${theme.colors.text};
+        font-size:1.2rem;
+        font-weight:800;
+`;

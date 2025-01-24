@@ -17,9 +17,13 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip,
 // Styled components
 const Wrapper = styled.div`
   width: 100%;
-//   height: 100%;
+ height: 100%;
 //    padding: ${(props) => props.theme.spacing(4)};
   margin-top: ${(props) => props.theme.spacing(4)};
+
+  @media (max-width: 768px) {
+  width: 90%;
+  }
 
 `;
 
@@ -35,8 +39,9 @@ const CardContainer = styled.div`
   padding: ${(props) => props.theme.spacing(2)};
   background-color: ${(props) => props.theme.colors.light};
   border-radius: ${(props) => props.theme.spacing(1)};
-  box-shadow: 0 4px 6px ${(props) => props.theme.colors.borderblue};
+  box-shadow: 0 4px 4px ${(props) => props.theme.colors.borderblue};
   width: 100%;
+  height: 300px;
   margin-left:1px;
 `;
 

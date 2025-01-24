@@ -1,8 +1,7 @@
 import React from "react";
-import { Breadcrumb } from "antd"; // Importing Ant Design's Breadcrumb
-import { MdNotificationsNone } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom"; // Importing useLocation from react-router-dom
-import { AppBarWrap } from "./Navbar.styles"; // Adjust the path accordingly
+import { Breadcrumb } from "antd";
+import { Link, useLocation } from "react-router-dom";
+import { AppBarWrap } from "./Navbar.styles";
 
 function NavBar() {
   const location = useLocation();
@@ -12,14 +11,15 @@ function NavBar() {
     const pathnames = location.pathname.split("/").filter((x) => x); // Split the path into segments
     const breadcrumbItems = [];
 
-    let currentPath = ""; // Start with an empty path
+    let currentPath = "";
     // Add the breadcrumbs dynamically based on the path segments
     pathnames.forEach((segment) => {
-      currentPath += `/${segment}`; // Build the path incrementally
+      currentPath += `/${segment}`;
       breadcrumbItems.push(
         <Breadcrumb.Item key={currentPath}>
           <Link to={currentPath}>
-            {segment.charAt(0).toUpperCase() + segment.slice(1)} {/* Capitalize first letter */}
+            {/* Capitalize the first letter of each segment */}
+            {segment.charAt(0).toUpperCase() + segment.slice(1)}
           </Link>
         </Breadcrumb.Item>
       );
@@ -33,14 +33,15 @@ function NavBar() {
       <div className="appbar-content">
         {/* Center Section - Breadcrumb */}
         <div className="appbar-breadcrumb">
-          <Breadcrumb className="text-sm">
-            {generateBreadcrumbs()} {/* Render the dynamic breadcrumbs */}
+          {/* Use separator=">" for the custom breadcrumb separator */}
+          <Breadcrumb className="text-sm" separator=">">
+            {generateBreadcrumbs()}
           </Breadcrumb>
         </div>
 
         {/* Right Section */}
         <div className="appbar-right">
-        
+          {/* Add any right-side content (like notifications, profile, etc.) */}
         </div>
       </div>
     </AppBarWrap>

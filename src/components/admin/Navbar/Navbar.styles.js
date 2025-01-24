@@ -9,7 +9,7 @@ margin-left: 60px;
   padding: 8px;
   border-radius: 6px;
   max-width: 100%;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.gray};
 
 
 
