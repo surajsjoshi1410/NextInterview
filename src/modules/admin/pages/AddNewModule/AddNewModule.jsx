@@ -28,6 +28,13 @@ import theme from "../../../../theme/Theme";
 import DeleteModule from "../../../admin/components/DeleteModule/DeleteModule";
 import { uploadFileToFirebase, uploadVideoToFirebase } from "../../../../utils/uploadFileToFirebase";
 import { addNewModule } from "../../../../api/addNewModuleApi";
+import CKEditorDemo from "../../components/CKEditorDemo/CKEditorDemo";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import {
+  ClassicEditor,
+}
+  from 'ckeditor5';
+import { editorConfig } from "../../../../config/ckEditorConfig";
 
 // Styled icon/button if you want to show a delete icon
 const DeleteIconWrapper = styled.span`
@@ -185,12 +192,20 @@ const AddNewModule = () => {
   // 2. Handle changes in Layman Explanation fields
   const handleLaymanExplanationChange = (
     e,
+    event,
     topicIndex,
     subIndex,
     laymanIndex,
     field
   ) => {
-    const { value } = e.target;
+    // const { value } = e.target;
+    // const value = e.getData();
+    let value;
+    if (e != null) {
+      value = e.target.value;
+    } else {
+      value = event.getData();
+    }
     setTopics((prevTopics) => {
       const updated = [...prevTopics];
       updated[topicIndex].subtopics[subIndex].laymanExplanations[laymanIndex][
@@ -215,12 +230,20 @@ const AddNewModule = () => {
 
   const handleConceptClarifierChange = (
     e,
+    editor,
     topicIndex,
     subIndex,
     clarifierIndex,
     clarifierField
   ) => {
-    const { value } = e.target;
+    // const { value } = e.target;
+    // const value = e.getData();
+    let value;
+    if (e != null) {
+      value = e.target.value;
+    } else {
+      value = editor.getData();
+    }
     setTopics((prevTopics) => {
       const updated = [...prevTopics];
       updated[topicIndex].subtopics[subIndex].conceptClarifiers[clarifierIndex][
@@ -240,8 +263,15 @@ const AddNewModule = () => {
     });
   };
 
-  const handleSubtopicChange = (e, topicIndex, subIndex, field) => {
-    const { value } = e.target;
+  const handleSubtopicChange = (e, event, topicIndex, subIndex, field) => {
+    // const { value } = e.target;
+    // const value = event.getData();
+    let value;
+    if (e != null) {
+      value = e.target.value;
+    } else {
+      value = event.getData();
+    }
     setTopics((prevTopics) => {
       const updated = [...prevTopics];
       updated[topicIndex].subtopics[subIndex][field] = value;
@@ -351,7 +381,7 @@ const AddNewModule = () => {
   };
 
   // ----------------------------- DONE BUTTON -----------------------------
-  const handleDone = async() => {
+  const handleDone = async () => {
     console.log("All topics data:", topics);
     const topicData = topics.map((topic) => {
       return ({
@@ -366,14 +396,14 @@ const AddNewModule = () => {
               revisionPoints: sub.quickRevisePoints,
               cheatSheetURL: sub.cheatSheet.dataUrl,
               interviewFavorite: sub.isInterviewFavorite,
-              conceptClarifier: sub.conceptClarifiers.map((concept)=>{
-               return (
-                {
-                  conceptClarifier: concept.clarifierWordOrPhrase,
-                  hoverExplanation: concept.explanationOnHover,
-                  popupExplanation: concept.moreExplanation,
-                }
-               ) 
+              conceptClarifier: sub.conceptClarifiers.map((concept) => {
+                return (
+                  {
+                    conceptClarifier: concept.clarifierWordOrPhrase,
+                    hoverExplanation: concept.explanationOnHover,
+                    popupExplanation: concept.moreExplanation,
+                  }
+                )
               }),
               laymanTerms: sub.laymanExplanations.map((laymn) => {
                 return (
@@ -383,7 +413,7 @@ const AddNewModule = () => {
                   }
                 )
               }),
-              
+
               questionBankURL: sub.questionBankFileUrl,
               tiyQuestionsURL: sub.tryItYourselfFileUrl,
             }
@@ -402,11 +432,11 @@ const AddNewModule = () => {
       interviewSampleURL: location.state.data.interviewSampleURL,
       courseOverview: location.state.data.courseOverview,
       userLearntData: location.state.data.userLearntData,
-      topicData:topicData ,
+      topicData: topicData,
     }
 
-    console.log("sub",submissionData);
-    const response= await addNewModule(submissionData);
+    console.log("sub", submissionData);
+    const response = await addNewModule(submissionData);
     setTopics([
       {
         topicName: "",
@@ -633,7 +663,7 @@ const AddNewModule = () => {
                 <TextInput
                   value={subtopic.subtopicName}
                   onChange={(e) =>
-                    handleSubtopicChange(e, topicIndex, subIndex, "subtopicName")
+                    handleSubtopicChange(e, null, topicIndex, subIndex, "subtopicName")
                   }
                 />
               </FormGroup>
@@ -641,37 +671,64 @@ const AddNewModule = () => {
               {/* SUBTOPIC CONTENT */}
               <FormGroup>
                 <Label>Subtopic {subIndex + 1} Content</Label>
-                <TextArea
+                <CKEditor
+                  editor={ClassicEditor}
+                  data={subtopic.subtopicContent}
+                  config={editorConfig}
+                  onChange={
+                    (event, editor) => {
+                      handleSubtopicChange(null, editor, topicIndex, subIndex, "subtopicContent")
+                    }
+                  } />
+                {/* <TextArea
                   rows="6"
                   value={subtopic.subtopicContent}
                   onChange={(e) =>
                     handleSubtopicChange(e, topicIndex, subIndex, "subtopicContent")
                   }
-                />
+                /> */}
               </FormGroup>
 
               {/* SUBTOPIC SUMMARY */}
               <FormGroup>
                 <Label>Subtopic {subIndex + 1} Summary</Label>
-                <TextArea
+                <CKEditor
+                  editor={ClassicEditor}
+                  data={subtopic.subtopicSummary}
+                  config={editorConfig}
+                  onChange={
+                    (event, editor) => {
+                      handleSubtopicChange(null, editor, topicIndex, subIndex, "subtopicSummary")
+                    }
+                  } />
+                {/* <TextArea
                   rows="4"
                   value={subtopic.subtopicSummary}
                   onChange={(e) =>
                     handleSubtopicChange(e, topicIndex, subIndex, "subtopicSummary")
                   }
-                />
+                /> */}
               </FormGroup>
 
               {/* QUICK REVISE POINTS */}
               <FormGroup>
                 <Label>Quickly Revise Points</Label>
-                <TextArea
+                <CKEditor
+                  editor={ClassicEditor}
+                  data={subtopic.quickRevisePoints}
+                  config={editorConfig}
+                  onChange={
+                    (event, editor) => {
+                      handleSubtopicChange(null, editor, topicIndex, subIndex, "quickRevisePoints")
+                    }
+                  } />
+                {/* <TextArea
                   rows="4"
                   value={subtopic.quickRevisePoints}
                   onChange={(e) =>
                     handleSubtopicChange(e, topicIndex, subIndex, "quickRevisePoints")
                   }
-                />
+                /> */}
               </FormGroup>
 
               {/* CHEAT SHEET VIDEO */}
@@ -775,6 +832,7 @@ const AddNewModule = () => {
                       onChange={(e) =>
                         handleLaymanExplanationChange(
                           e,
+                          null,
                           topicIndex,
                           subIndex,
                           laymanIndex,
@@ -785,7 +843,23 @@ const AddNewModule = () => {
                   </FormGroup>
                   <FormGroup>
                     <Label>Layman Info</Label>
-                    <TextArea
+                    <CKEditor
+                      editor={ClassicEditor}
+                      data={layman.laymanInfo}
+                      config={editorConfig}
+                      onChange={
+                        (event, editor) => {
+                          handleLaymanExplanationChange(
+                            null,
+                            editor,
+                            topicIndex,
+                            subIndex,
+                            laymanIndex,
+                            "laymanInfo"
+                          )
+                        }
+                      } />
+                    {/* <TextArea
                       rows="3"
                       value={layman.laymanInfo}
                       onChange={(e) =>
@@ -797,7 +871,7 @@ const AddNewModule = () => {
                           "laymanInfo"
                         )
                       }
-                    />
+                    /> */}
                   </FormGroup>
 
                   {/* DELETE LAYMAN ICON/BUTTON */}
@@ -831,6 +905,7 @@ const AddNewModule = () => {
                         onChange={(e) =>
                           handleConceptClarifierChange(
                             e,
+                            null,
                             topicIndex,
                             subIndex,
                             clarifierIndex,
@@ -843,7 +918,23 @@ const AddNewModule = () => {
 
                     <FormGroup>
                       <Label>Explanation on Hover</Label>
-                      <TextInput
+                      <CKEditor
+                        editor={ClassicEditor}
+                        data={clarifier.explanationOnHover}
+                        config={editorConfig}
+                        onChange={
+                          (event, editor) => {
+                            handleConceptClarifierChange(
+                              null,
+                              editor,
+                              topicIndex,
+                              subIndex,
+                              clarifierIndex,
+                              "explanationOnHover"
+                            )
+                          }
+                        } />
+                      {/* <TextInput
                         value={clarifier.explanationOnHover}
                         onChange={(e) =>
                           handleConceptClarifierChange(
@@ -855,12 +946,28 @@ const AddNewModule = () => {
                           )
                         }
                         style={{ backgroundColor: theme.colors.backgray }}
-                      />
+                      /> */}
                     </FormGroup>
 
                     <FormGroup>
                       <Label>More Explanation on Popup</Label>
-                      <TextArea
+                      <CKEditor
+                        editor={ClassicEditor}
+                        data={clarifier.moreExplanation}
+                        config={editorConfig}
+                        onChange={
+                          (event, editor) => {
+                            handleConceptClarifierChange(
+                              null,
+                              editor,
+                              topicIndex,
+                              subIndex,
+                              clarifierIndex,
+                              "moreExplanation"
+                            )
+                          }
+                        } />
+                      {/* <TextArea
                         rows="3"
                         value={clarifier.moreExplanation}
                         onChange={(e) =>
@@ -873,7 +980,7 @@ const AddNewModule = () => {
                           )
                         }
                         style={{ backgroundColor: theme.colors.backgray }}
-                      />
+                      /> */}
                     </FormGroup>
 
                     {/* DELETE CLARIFIER BUTTON/ICON */}
