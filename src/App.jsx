@@ -69,7 +69,7 @@ function App() {
           <Route path="/profileComplete" element={<AccountCreated />} />
           <Route path="/otpEmail" element={<OtpEmail />} />
           <Route path="/validation" element={<ValidationPage />} />
-          <Route path="/ " element={<Ckeditor />} />
+          <Route path="/testing" element={<Ckeditor />} />
           <Route path="/learning" element={<LearningModules />} />
 
           {/* <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} /> */}

@@ -54,8 +54,8 @@ const LICENSE_KEY =
 const CLOUD_SERVICES_TOKEN_URL =
 	'https://s2x2utffaj1w.cke-cs.com/token/dev/c7fbfa4305e05797d85327397762df046dce49fcd4d891f4363254af6934?limit=10';
 
-export default function CKEditorDemo() {
-    const [editorContent, setEditorContent] = useState('');
+export default function CKEditorDemo({setEditorContent, editorContent}) {
+    // const [editorContent, setEditorContent] = useState('');
     const handleEditorChange = (event, editor) => {
         const data = editor.getData();
         setEditorContent(data);
@@ -243,13 +243,13 @@ export default function CKEditorDemo() {
 	}, [editorConfig]);
 
 	return (
-		<div className="main-container">
+		// <div className="main-container">
 			<div className="editor-container editor-container_classic-editor" ref={editorContainerRef}>
-				<div className="editor-container__editor">
+				{/* <div className="editor-container__editor"> */}
 					<div ref={editorRef}>{editorConfig && <CKEditor editor={ClassicEditor} config={editorConfig}  onChange={handleEditorChange} />}</div>
-				</div>
+				{/*  </div> */}
 			</div>
-		</div>
+		// </div>
 	);
 }
 

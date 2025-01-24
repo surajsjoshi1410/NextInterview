@@ -1,10 +1,10 @@
 
-.main-container {
+/* .main-container {
 	font-family: 'Lato';
 	width: fit-content;
 	margin-left: auto;
 	margin-right: auto;
-}
+} */
 
 .ck-content {
 	font-family: 'Lato';
@@ -12,7 +12,7 @@
 	word-break: break-word;
 }
 
-.editor-container_classic-editor .editor-container__editor {
+/* .editor-container_classic-editor .editor-container__editor {
 	min-width: 795px;
 	max-width: 795px;
-}
+} */

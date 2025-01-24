@@ -1,14 +1,18 @@
-import React from 'react'
+import React ,{ useState }from 'react'
 import CKEditorDemo from '../../components/CKEditorDemo/CKEditorDemo'
 
 
 export default function Ckeditor() {
+  const [editorContent, setEditorContent] = useState('');
+
+  console.log(editorContent);
   return (
-    <div>Ckeditor
+    <>
+      <CKEditorDemo editorContent={editorContent} setEditorContent={setEditorContent}/>
+
+    </>
 
 
-<CKEditorDemo/>
-        
-    </div>
+
   )
 }
