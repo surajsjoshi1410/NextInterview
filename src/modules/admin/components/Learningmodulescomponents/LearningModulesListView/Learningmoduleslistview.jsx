@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   ModulesSection,
@@ -6,17 +6,59 @@ import {
   ModuleActions,
   SearchBar,
   NewUploadButton,
+  SearchBarWrapper,
 } from "./Learningmoduleslistview.styles";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { CiEdit } from "react-icons/ci";
+import { IoSearch } from "react-icons/io5"; // Importing Search Icon
+import { deleteModule, getModule } from "../../../../../api/addNewModuleApi";
 
-const LearningModulesListView = ({ modules }) => {
+const LearningModulesListView = () => {
+  const [modules, setModules] = React.useState([])
+  useEffect(() => {
+    const apiCaller = async () => {
+      const data = await getModule()
+      console.log("data", data)
+      const response = data.data.map((item) => {
+        return ({
+          title: item.moduleName,
+          topics: item.topicData.length || 0,
+          _id: item._id,
+        })
+      })
+      setModules(response)
+    }
+    apiCaller();
+  }, [])
+
+  const handleDelete = async (id) => {
+    await deleteModule(id)
+    const apiCaller = async () => {
+      const data = await getModule()
+      console.log("data", data)
+      const response = data.data.map((item) => {
+        return ({
+          title: item.moduleName,
+          topics: item.topicData.length || 0,
+          _id: item._id,
+        })
+      })
+      setModules(response)
+    }
+    apiCaller();
+  }
+
   return (
     <ModulesSection>
       <div className="module-header">
         <h3>Data Science Lite Modules</h3>
-        <div>
-          <SearchBar type="text" placeholder="Search" />
+        <div style={{ display: "flex", gap: "10px" }}>
+          {/* <SearchBar type="text" placeholder="Search" /> */}
+          <SearchBarWrapper>
+            <IoSearch size={20} />
+            <SearchBar type="text" placeholder="Search" />
+          </SearchBarWrapper>
+
           <NewUploadButton>
             <Link to={"/admin/uploadmodule"}>New Upload</Link>
           </NewUploadButton>
@@ -32,7 +74,8 @@ const LearningModulesListView = ({ modules }) => {
           />
           <div className="module-info">
             <h4>
-              <Link to={`/admin/${module.title.replace(/\s+/g, "-")}`}>
+              {/* <Link to={`/admin/${module.title.replace(/\s+/g, "-")}`}> */}
+              <Link to={`/admin/Diagnosing-and-Investigating-Metrics`}>
                 {module.title}
               </Link>
             </h4>
@@ -42,7 +85,7 @@ const LearningModulesListView = ({ modules }) => {
             <button className="edit-btn">
               <CiEdit size={20} />
             </button>
-            <button className="delete-btn">
+            <button className="delete-btn" onClick={() => handleDelete(module._id)}>
               <RiDeleteBin6Line size={20} />
             </button>
           </ModuleActions>

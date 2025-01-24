@@ -1,10 +1,9 @@
-// UploadModule.jsx
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { RiImageAddLine } from "react-icons/ri";
 import { FaUpload, FaEdit } from "react-icons/fa";
 import theme from "../../../../theme/Theme";
-
+// Your styled components + theme import
 import {
   Container,
   Title,
@@ -23,32 +22,63 @@ import {
   NavButton,
   TextAreaContainer,
   TextArea,
-  AddMoreButton,
-  PreviewImage, // Newly added
-  PreviewVideo, // Newly added
-  ReplaceButton, // Newly added
+  PreviewImage,
+  PreviewVideo,
+  ReplaceButton,
+  ErrorMessage,
 } from "./UploadModule.styles";
 
+import {
+  uploadFileToFirebase,
+  uploadVideoToFirebase,
+} from "../../../../utils/uploadFileToFirebase";
+
 const UploadModule = () => {
-  const [whatUsersLearn, setWhatUsersLearn] = useState("");
+  const [whatUsersLearn, setWhatUsersLearn] = useState([]);
+  const [imageUrl, setImageUrl] = useState(null);
+  const [videoUrl, setVideoUrl] = useState(null);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const [moduleImage, setModuleImage] = useState(null);
   const imageInputRef = useRef(null);
+  const videoInputRef = useRef(null);
+  const navigate = useNavigate();
 
+  // Error states
+  const [imageError, setImageError] = useState("");
+  const [moduleNameError, setModuleNameError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
+  const [approxTimeError, setApproxTimeError] = useState("");
+  const [videoUrlError, setVideoUrlError] = useState("");
+  const [courseOverviewError, setCourseOverviewError] = useState("");
+  const [whatUsersLearnError, setWhatUsersLearnError] = useState("");
+
+  // For sample video preview
+  const [sampleVideo, setSampleVideo] = useState(null);
+
+  // ------------------ IMAGE HANDLERS ------------------
   const handleImageClick = () => {
     imageInputRef.current.click();
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("image/")) {
+      setButtonDisabled(true);
       const reader = new FileReader();
       reader.onloadend = () => {
         setModuleImage(reader.result);
       };
       reader.readAsDataURL(file);
+
+      const Url = await uploadFileToFirebase(file, "moduleImage");
+      setImageUrl(Url);
+      setButtonDisabled(false);
+      setImageError("");
     } else {
-      alert("Please select a valid image file.");
+      setModuleImage(null);
+      setImageUrl(null);
+      setImageError("Please select a valid image file.");
     }
   };
 
@@ -56,17 +86,22 @@ const UploadModule = () => {
     imageInputRef.current.click();
   };
 
-
-  const [sampleVideo, setSampleVideo] = useState(null);
-  const videoInputRef = useRef(null);
-
-  const handleVideoChange = (e) => {
+  // ------------------ VIDEO HANDLERS ------------------
+  const handleVideoChange = async (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("video/")) {
+      setButtonDisabled(true);
       const videoURL = URL.createObjectURL(file);
       setSampleVideo(videoURL);
+
+      const url = await uploadVideoToFirebase(file, "moduleVideo");
+      setVideoUrl(url);
+      setButtonDisabled(false);
+      setVideoUrlError("");
     } else {
-      alert("Please select a valid video file.");
+      setSampleVideo(null);
+      setVideoUrl(null);
+      setVideoUrlError("Please select a valid video file.");
     }
   };
 
@@ -74,24 +109,124 @@ const UploadModule = () => {
     videoInputRef.current.click();
   };
 
-  // ---------------------------------------
-  // 4. Handler to append bullet points
-  // ---------------------------------------
-  const handleAddMore = () => {
-    setWhatUsersLearn((prev) => (prev ? `${prev}\n• ` : "• "));
+  // ------------------ TEXT INPUTS ------------------
+  const [approxTime, setApproxTime] = useState("");
+  const handleApproxTimeChange = (e) => {
+    setApproxTime(e.target.value);
+    setApproxTimeError("");
+  };
+
+  const [description, setDescription] = useState("");
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);
+    setDescriptionError("");
+  };
+
+  const [moduleName, setModuleName] = useState("");
+  const handleModuleNameChange = (e) => {
+    setModuleName(e.target.value);
+    setModuleNameError("");
+  };
+
+  const [courseOverview, setCourseOverview] = useState("");
+  const handleCourseOverviewChange = (e) => {
+    setCourseOverview(e.target.value);
+    setCourseOverviewError("");
+  };
+
+  // ------------------ WHAT USERS LEARN ------------------
+  const handleWhatUsersLearnChange = (e) => {
+    const data = e.target.value.split("\n");
+    const cleanedData = data.map((item) => item.replace(/•/g, ""));
+    setWhatUsersLearn(cleanedData);
+    setWhatUsersLearnError("");
+  };
+
+  // (Optional) Handler to append bullet points
+  // const handleAddMore = () => {
+  //   setWhatUsersLearn((prev) => (prev ? `${prev}\n• ` : "• "));
+  // };
+
+  // ------------------ SUBMISSION ------------------
+  const handleNext = async () => {
+    // Reset errors
+    setImageError("");
+    setModuleNameError("");
+    setDescriptionError("");
+    setApproxTimeError("");
+    setVideoUrlError("");
+    setCourseOverviewError("");
+    setWhatUsersLearnError("");
+
+    let formIsValid = true;
+
+    // Validate Image
+    if (!moduleImage) {
+      setImageError("Please upload a module image.");
+      formIsValid = false;
+    }
+    // Validate Module Name
+    if (!moduleName.trim()) {
+      setModuleNameError("Please fill the module name.");
+      formIsValid = false;
+    }
+    // Validate Description
+    if (!description.trim()) {
+      setDescriptionError("Please enter a short description.");
+      formIsValid = false;
+    }
+    // Validate Approx Time
+    if (!approxTime.trim()) {
+      setApproxTimeError("Please enter the approximate time taken.");
+      formIsValid = false;
+    }
+    // Validate Video
+    if (!videoUrl) {
+      setVideoUrlError("Please upload a sample interview video.");
+      formIsValid = false;
+    }
+    // Validate Course Overview
+    if (!courseOverview.trim()) {
+      setCourseOverviewError("Please enter the course overview.");
+      formIsValid = false;
+    }
+    // Validate 'What Users Learn'
+    if (
+      whatUsersLearn.length === 0 ||
+      whatUsersLearn.every((item) => !item.trim())
+    ) {
+      setWhatUsersLearnError("Please provide at least one learning point.");
+      formIsValid = false;
+    }
+
+    if (!formIsValid) return;
+
+    // If valid, gather data & navigate
+    const submissionData = {
+      imageURL: imageUrl,
+      moduleName: moduleName,
+      description: description,
+      approxTimeTaken: approxTime,
+      interviewSampleURL: videoUrl,
+      courseOverview: courseOverview,
+      userLearntData: whatUsersLearn.map((item) => ({ learntData: item })),
+    };
+
+    console.log("submissionData", submissionData);
+    navigate("/admin/addnewmodule", { state: { data: submissionData } });
   };
 
   return (
     <Container>
       <Title>Add Module Details</Title>
       <FormWrapper>
-        {/* Left Section: Image upload */}
+        {/* ------------- LEFT SECTION: IMAGE UPLOAD ------------- */}
         <FormGroup
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
-            width: "40%", // Adjust as needed
+            width: "40%",
           }}
         >
           <Label
@@ -129,112 +264,149 @@ const UploadModule = () => {
               <FaEdit /> Replace Image
             </ReplaceButton>
           )}
+          {/* Image Error */}
+          {imageError && (
+            <p style={{ color: "red", marginTop: "4px" }}>{imageError}</p>
+          )}
         </FormGroup>
 
-        {/* Right Section: Form fields */}
-        <RightSideWrapper style={{ width: "100%" }}> {/* Adjust as needed */}
+        {/* ------------- RIGHT SECTION: FORM FIELDS ------------- */}
+        <RightSideWrapper>
           {/* Module Name */}
           <FormGroup>
             <Label htmlFor="moduleName">Module Name</Label>
-            <Input
-              id="moduleName"
-              type="text"
-              maxLength={20}
-              placeholder="Enter module name..."
-              // value={moduleName}
-              // onChange={(e) => setModuleName(e.target.value)}
-            />
+            <div>
+              <Input
+                id="moduleName"
+                type="text"
+                maxLength={20}
+                placeholder="Enter module name..."
+                value={moduleName}
+                onChange={handleModuleNameChange}
+              />
+              {moduleNameError && (
+                <ErrorMessage>{moduleNameError}</ErrorMessage>
+              )}
+            </div>
           </FormGroup>
 
           {/* Description */}
           <FormGroup>
             <Label htmlFor="description">Description</Label>
-            <TextAreaContainer>
-              <TextArea
-                id="description"
-                rows={4}
-                maxLength={50}
-                placeholder="Enter a short description..."
-                // value={description}
-                // onChange={(e) => setDescription(e.target.value)}
-              />
-            </TextAreaContainer>
+            <div>
+              <TextAreaContainer>
+                <TextArea
+                  id="description"
+                  rows={2}
+                  maxLength={50}
+                  placeholder="Enter a short description..."
+                  value={description}
+                  onChange={handleDescriptionChange}
+                />
+              </TextAreaContainer>
+              {descriptionError && (
+                <ErrorMessage>{descriptionError}</ErrorMessage>
+              )}
+            </div>
           </FormGroup>
 
           {/* Approximate Time */}
           <FormGroup>
             <Label htmlFor="timeTaken">Approximate Time Taken</Label>
-            <Input id="timeTaken" type="text" placeholder="e.g. 2 hours" />
+            <div>
+              <Input
+                id="timeTaken"
+                type="text"
+                placeholder="e.g. 2 hours"
+                value={approxTime}
+                onChange={handleApproxTimeChange}
+              />
+              {approxTimeError && (
+                <ErrorMessage>{approxTimeError}</ErrorMessage>
+              )}
+            </div>
           </FormGroup>
 
-          <FormGroup >
+          {/* Sample Interview Video */}
+          <FormGroup>
             <Label htmlFor="sampleInterview">Upload Sample Interview</Label>
-            <div
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "flex-start",
-                                    }}
-                                >
-            <UploadButton onClick={() => videoInputRef.current.click()}>
-              <FaUpload /> Upload
-            </UploadButton>
-            <input
-              type="file"
-              accept="video/*"
-              ref={videoInputRef}
-              style={{ display: "none" }}
-              onChange={handleVideoChange}
-            />
-            {sampleVideo && (
-              <div style={{ marginTop: "10px", width: "250px" }}>
-                <PreviewVideo controls src={sampleVideo} />
-                <ReplaceButton onClick={handleReplaceVideo}>
-                  <FaEdit /> Replace Video
-                </ReplaceButton>
-              </div>
-            )}
+            <div>
+              <UploadButton onClick={() => videoInputRef.current.click()}>
+                <FaUpload /> Upload
+              </UploadButton>
+              <input
+                type="file"
+                accept="video/*"
+                ref={videoInputRef}
+                style={{ display: "none" }}
+                onChange={handleVideoChange}
+              />
+              {sampleVideo && (
+                <div style={{ marginTop: "10px", width: "250px" }}>
+                  <PreviewVideo controls src={sampleVideo} />
+                  <ReplaceButton onClick={handleReplaceVideo}>
+                    <FaEdit /> Replace Video
+                  </ReplaceButton>
+                </div>
+              )}
+              {videoUrlError && (
+                <ErrorMessage>{videoUrlError}</ErrorMessage>
+              )}
             </div>
           </FormGroup>
 
           {/* Course Overview */}
           <FormGroup>
             <Label htmlFor="courseOverview">Course Overview</Label>
-            <TextAreaContainer>
-              <TextArea
-                id="courseOverview"
-                rows={4}
-                placeholder="Enter a course overview..."
-              />
-            </TextAreaContainer>
+            <div>
+              <TextAreaContainer>
+                <TextArea
+                  id="courseOverview"
+                  rows={2}
+                  placeholder="Enter a course overview..."
+                  value={courseOverview}
+                  onChange={handleCourseOverviewChange}
+                />
+              </TextAreaContainer>
+              {courseOverviewError && (
+                <ErrorMessage>{courseOverviewError}</ErrorMessage>
+              )}
+            </div>
           </FormGroup>
 
           {/* What Users Learn */}
           <FormGroup>
             <Label htmlFor="whatUsersLearn">What Users Learn?</Label>
-            <TextAreaContainer>
-              <TextArea
-                id="whatUsersLearn"
-                rows={3}
-                placeholder="Add points here..."
-                value={whatUsersLearn}
-                onChange={(e) => setWhatUsersLearn(e.target.value)}
-              />
-              {/* "Add more" button appends a bullet point */}
-              <AddMoreButton onClick={handleAddMore}>+ Add More</AddMoreButton>
-            </TextAreaContainer>
+            <div>
+              <TextAreaContainer>
+                <TextArea
+                  id="whatUsersLearn"
+                  rows={3}
+                  placeholder="Add points here..."
+                  value={whatUsersLearn.map((point) => `•${point}`).join("\n")}
+                  onChange={handleWhatUsersLearnChange}
+                />
+              </TextAreaContainer>
+              {whatUsersLearnError && (
+                <ErrorMessage>{whatUsersLearnError}</ErrorMessage>
+              )}
+            </div>
           </FormGroup>
         </RightSideWrapper>
       </FormWrapper>
 
-      {/* Bottom Navigation */}
+      {/* ------------- BOTTOM NAVIGATION ------------- */}
       <ButtonRow>
-        <NavButton>Previous</NavButton>
+        {/* You can place a "Back" button here if needed */}
         <ButtonGroup>
           <Pagination>1 / 2</Pagination>
-          <Link to="/admin/addnewmodule">
-            <NavButton variant="primary">Next</NavButton>
-          </Link>
+          <NavButton
+            variant="primary"
+            onClick={handleNext}
+            disabled={buttonDisabled}
+          >
+            Next
+          </NavButton>
         </ButtonGroup>
       </ButtonRow>
     </Container>

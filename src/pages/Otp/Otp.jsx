@@ -52,7 +52,7 @@ const Otp = () => {
 
   const handleGoBack = () => {
     // If user wants to change phone number, navigate back
-    navigate("/login");
+    navigate("/loginPhone",{state:{flow:location.state.flow}});
   };
 
   // Only allow digits in the OTP field
@@ -104,7 +104,7 @@ const Otp = () => {
         ) {
           // Successfully signed up & automatically signed in
           await setSignUpActive({ session: createdSessionId });
-          alert("You have successfully signed up!");
+          alert("You Phone Number hasbeen successfully verified!");
           navigate("/otpEmail",
             {
               state: {

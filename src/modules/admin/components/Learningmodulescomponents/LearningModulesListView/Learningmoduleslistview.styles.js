@@ -11,7 +11,6 @@ export const ModulesSection = styled.div`
     margin-bottom: ${theme.spacing(2)};
 
     h3 {
-      color: ${theme.colors.secondary};
       font-family: ${theme.fonts.heading};
     }
   }
@@ -75,17 +74,17 @@ export const ModuleActions = styled.div`
   }
 `;
 
-export const SearchBar = styled.input`
-  padding: 8px;
-  border: 1px solid ${theme.colors.sidebarHoverBgColor};
-  border-radius: 4px;
-  width: 200px;
-  margin-right: ${theme.spacing(2)};
+// export const SearchBar = styled.input`
+//   padding: 8px;
+//   border: 1px solid ${theme.colors.sidebarHoverBgColor};
+//   border-radius: 4px;
+//   width: 200px;
+//   margin-right: ${theme.spacing(2)};
 
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    width: 100%;
-  }
-`;
+//   @media (max-width: ${theme.breakpoints.tablet}) {
+//     width: 100%;
+//   }
+// `;
 
 // export const NewUploadButton = styled.button`
 //   background: ${theme.colors.primary};
@@ -102,7 +101,7 @@ export const SearchBar = styled.input`
 // `;
 
 export const NewUploadButton = styled.button`
-  background: ${theme.colors.primary};
+  background: ${theme.colors.info};
   color: ${theme.colors.light};
   padding: 8px 16px;
   border: none;
@@ -122,5 +121,32 @@ export const NewUploadButton = styled.button`
   &:hover {
     background: ${theme.colors.sidebarHoverBgColor};
     color: ${theme.colors.text};
+  }
+`;
+
+
+export const SearchBar = styled.input`
+  border: none;
+  outline: none;
+  font-family: ${theme.fonts.body};
+  font-size: 14px;
+  flex: 1;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: 12px;
+  }
+`;
+
+export const SearchBarWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  background: ${theme.colors.white};
+  padding: 8px 12px;
+  border-radius: 4px;
+  gap: 8px;
+  border: 1px solid ${theme.colors.sidebarHoverBgColor};
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    width: 100%;
   }
 `;

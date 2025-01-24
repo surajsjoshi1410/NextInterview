@@ -44,17 +44,16 @@ export const Question7Wrapper = styled.div`
   }
 
   .Label {
-
     color: ${(props) => props.theme.colors.black};
     margin-bottom: 10px;
     display: block;
 
     font-family: "DM Sans";
-font-size: 15px;
-font-style: normal;
-font-weight: 400;
-line-height: 20px; /* 153.846% */
-margin-top:24px;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 153.846% */
+    margin-top: 24px;
   }
 
   .Dropdown {
@@ -125,12 +124,12 @@ margin-top:24px;
     font-weight: 500;
 
     display: flex;
-padding: 8px 12px;
-justify-content: center;
-align-items: center;
-gap: 8px;
-border-radius: 4px;
-border: 1px solid #BCBFC2;
+    padding: 8px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 4px;
+    border: 1px solid #bcbfc2;
   }
 
   .SkipButton:hover {
@@ -141,31 +140,29 @@ border: 1px solid #BCBFC2;
     border-radius: 50%;
     height: 30px;
   }
-  .input{
-  padding:10px;
-  width:100%;
-  border:1px solid #c2c3c4;
-  border-radius:4px;
-  font-size:14px;
-  color:#555;
+  .input {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #c2c3c4;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #555;
   }
   .anotherCompany {
     width: 100%;
     // background-color: #fff;
     background-color: transparent;
     margin-top: 12px;
-    color: #151E28;
+    color: #151e28;
     border-radius: 4px;
 
-font-family: "DM Sans";
-font-size: 15px;
-font-style: normal;
-font-weight: 500;
-line-height: 24px; /* 160% */
-border: none;
-text-align: center!important;
-
-
+    font-family: "DM Sans";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 160% */
+    border: none;
+    text-align: center !important;
   }
 
   .anotherCompany:hover {

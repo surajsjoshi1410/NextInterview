@@ -105,8 +105,8 @@ const SignUp = () => {
     try {
       await signIn.authenticateWithRedirect({
         strategy: 'oauth_google',
-        redirectUrl: window.location.origin + '/',  // Optional
-        redirectUrlComplete: window.location.origin + '/', // Where to go after successful sign-up
+        redirectUrl: window.location.origin + '/login',  // Optional
+        redirectUrlComplete: window.location.origin + '/verification', // Where to go after successful sign-up
       });
     } catch (err) {
       console.error('Google Sign-Up Error:', err);
@@ -122,8 +122,8 @@ const SignUp = () => {
       // const popup = window.open('', 'linkedinPopup', 'width=600,height=600');
       const data = await signIn.authenticateWithRedirect({
         strategy: 'oauth_linkedin_oidc',
-        redirectUrl: window.location.origin + '/',
-        redirectUrlComplete: window.location.origin + '/',
+        redirectUrl: window.location.origin + '/login',
+        redirectUrlComplete: window.location.origin + '/verification',
       });
       console.log("data", data);
     } catch (err) {
@@ -192,7 +192,7 @@ const SignUp = () => {
               <label htmlFor="rememberMe" style={{ fontSize: '0.9rem' }}>
                 <input id="rememberMe" type="checkbox" /> Remember Me
               </label>
-              <Link to="/forgot-password" style={{ color: '#007bff', fontSize: '0.9rem' }}>
+              <Link to="/forgotpassword" style={{ color: '#007bff', fontSize: '0.9rem' }}>
                 Forgot Password
               </Link>
             </div>
@@ -200,7 +200,7 @@ const SignUp = () => {
             <Button type="submit">Log In</Button>
 
             <AlternativeLogin>
-              <Link to="/loginPhone">
+              <Link to="/loginPhone" state={{flow: "SIGN_IN"}}>
                 <button>
                   <FaMobileAlt /> Log in with Mobile
                 </button>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../../assets/Logo.png";
 import PropTypes from "prop-types";
 import {
@@ -16,36 +16,46 @@ import {
 import { PiLineVertical } from "react-icons/pi";
 import { BsBell } from "react-icons/bs";
 import { MdOutlineInfo } from "react-icons/md";
-import { useSignIn, useSignUp, useAuth, useClerk, UserButton } from "@clerk/clerk-react";
+import { UserButton } from "@clerk/clerk-react";
+import ProfileInfo from "../../../src/modules/admin/components/ProfileComponents/ProfileInfo";
 
 const Header = ({ title }) => {
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+  const handleAvatarClick = () => {
+    setIsProfileOpen((prevState) => !prevState); // Toggle the profile view
+  };
+
   return (
-    <HeaderContainer>
-      <div style={{marginLeft:"60px"}}>
-        <Title>{title}</Title> {/* Dynamic title with fallback */}
-      </div>
-      <HeaderRight>
-        <IconWrapper>
-          <Icon>
-            <BsBell title="Notifications" />
-          </Icon>
-          <Icon>
-            <PiLineVertical title="Vertical Line" />
-          </Icon>
-          <Icon>
-            <MdOutlineInfo title="Information" />
-          </Icon>
-        </IconWrapper>
-        <UserProfile>
-          <UserDetails>
-            <UserName>Krishna</UserName>
-            <UserEmail>Krishna@gmail.com</UserEmail>
-          </UserDetails>
-          <Avatar src={Logo} alt="Profile" />
-          <UserButton afterSignOutUrl="/" />
-        </UserProfile>
-      </HeaderRight>
-    </HeaderContainer>
+    <>
+      <HeaderContainer>
+        <div style={{ marginLeft: "60px" }}>
+          <Title>{title}</Title> {/* Dynamic title with fallback */}
+        </div>
+        <HeaderRight>
+          <IconWrapper>
+            <Icon>
+              <BsBell title="Notifications" />
+            </Icon>
+            <Icon>
+              <PiLineVertical title="Vertical Line" />
+            </Icon>
+            <Icon>
+              <MdOutlineInfo title="Information" />
+            </Icon>
+          </IconWrapper>
+          <UserProfile>
+            <UserDetails>
+              <UserName>Krishna</UserName>
+              <UserEmail>Krishna@gmail.com</UserEmail>
+            </UserDetails>
+            <Avatar src={Logo} alt="Profile" onClick={handleAvatarClick} />
+            <UserButton afterSignOutUrl="/" />
+          </UserProfile>
+        </HeaderRight>
+      </HeaderContainer>
+      {isProfileOpen && <ProfileInfo onClose={handleAvatarClick} />}
+    </>
   );
 };
 

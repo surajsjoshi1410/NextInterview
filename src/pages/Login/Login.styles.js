@@ -4,109 +4,69 @@ import styled from "styled-components";
 import theme from "../../theme/Theme";
 
 export const Loginmobilewrapper = styled.div`
-  height: 100vh; /* Set full height of the viewport */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: ${theme.colors.light};
-  position: relative;
-  //  z-index: -1;
-  //  margin-top: -72px;
-  @media (max-width: 768px) {
-    height: 100vh;
-    padding: 20px;
+  height: 100vh;
+  background-color: ${(props) => props.theme.colors.light};
+
+  .Container {
+    background-color: ${(props) => props.theme.colors.light};
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px 40px;
+    max-width: 600px;
+    margin: 0 auto;
   }
 
-  @media (max-width: 480px) {
-    height: 100vh;
-    padding: 20px;
+  .Input {
+    width: 100%;
+    padding-top: 10px;
+    margin-bottom: 25px;
+  }
+  .Form {
+    width: 100%;
   }
 
-  @media (max-width: 320px) {
-    height: 100vh;
-    padding: 20px;
-  }
-`;
-
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  //   height: 80vh;
-  // height: 100%;
-  background-color: ${theme.colors.light};
-  position: relative;
-
-  @media (max-width: 768px) {
-    height: auto;
-    padding: 20px;
-  }
-
-  @media (max-width: 480px) {
-    height: auto;
-    padding: 20px;
-  }
-
-  @media (max-width: 320px) {
-    height: auto;
-    padding: 20px;
-  }
-`;
-
-export const FormSection = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  justify-content: flex-start;
-  max-width: 400px;
-  width: 100%;
-  // padding: 0;
-
-  @media (max-width: 768px) {
-    max-width: 100%;
-    padding: 20px;
-  }
-  @media (max-width: 480px) {
-    max-width: 100%;
-    padding: 20px;
-  }
-
-  @media (max-width: 320px) {
-    max-width: 100%;
-    padding: 20px;
-  }
-`;
-
-export const BackIcon = styled.div`
-  /* Let the icon be placed at the top of the form */
-  align-self: flex-start;
-  justify-content: center;
-  font-size: 16px;
-  color: ${theme.colors.text};
-  cursor: pointer;
-  margin-bottom: 10px;
-
-  @media (max-width: 768px) {
+  .BackIcon {
+    cursor: pointer;
     font-size: 24px;
+    color: ${(props) => props.theme.colors.text};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid grey;
+    border-radius: 10%;
+    padding: 8px;
+    margin-bottom: 24px;
   }
-`;
+  .Title {
+    font-size: 24px;
+    font-weight: bold;
+    color: ${(props) => props.theme.colors.text};
+    margin-bottom: 24px;
+  }
+  Label {
+    font-size: 14px;
 
-export const Title = styled.h1`
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: ${theme.colors.text};
-
-  @media (max-width: 768px) {
-    font-size: 20px;
-    margin-bottom: 5px;
+    color: ${(props) => props.theme.colors.textgray};
+    margin-bottom: 8px;
+    display: block;
   }
 
-  @media (max-width: 480px) {
-    font-size: 18px;
-    margin-bottom: 5px;
+  .Button {
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    background-color: ${(props) => props.theme.colors.primary};
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 12px;
   }
 `;
 
@@ -168,35 +128,6 @@ export const Label = styled.label`
   @media (max-width: 320px) {
     font-size: 8px;\
     margin-bottom: 5px;
-  }
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid ${theme.colors.textgray};
-  border-radius: 4px;
-  outline: none;
-  transition: border 0.3s;
-
-  &:focus {
-    border-color: ${theme.colors.textgray};
-  }
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-    padding: 8px;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 12px;
-    padding: 6px;
-  }
-
-  @media (max-width: 320px) {
-    font-size: 10px;
-    padding: 4px;
   }
 `;
 
