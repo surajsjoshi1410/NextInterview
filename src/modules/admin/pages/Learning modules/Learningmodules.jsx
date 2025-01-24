@@ -9,31 +9,10 @@ import { Outlet } from "react-router-dom";
 import { getModule } from "../../../../api/addNewModuleApi";
 const LearningModules = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const[modules,setModules]=useState([])
-  // let modules1;
-  useEffect(() => {
-    const apiCaller= async()=>{
-      const data= await getModule()
-      console.log("data",data)
-      const response= data.data.map((item)=>{
-        return({
-          title: item.moduleName, topics: item.topicData.length||0
-        })
-      })
-      setModules(response)
-    }
-    apiCaller();
-    
-  }, [])
+
   
   //rajatgit
 
-  // const modules = [
-  //   { title: "Diagnosing and Investigating Metrics", topics: 5 },
-  //   { title: "Diagnosing and Investigating Metrics", topics: 5 },
-  //   { title: "Diagnosing and Investigating Metrics", topics: 5 },
-  //   { title: "Diagnosing and Investigating Metrics", topics: 5 },
-  // ];
 
   return (
     <div style={{ display: "flex" }}>
@@ -45,7 +24,7 @@ const LearningModules = () => {
         {/* <Header/> */}
         {/* <h2>Learning Modules</h2> */}
         <LearningModulesStats />
-        <LearningModulesListView modules={modules} />
+        <LearningModulesListView  />
       </ContentWrapper>
       {/* <Outlet/> */}
     </div>
