@@ -4,7 +4,7 @@ position: relative;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-left: 40px;
+    margin-left: 60px;
     padding-left: 20px;
     max-width: 100%;
     // width: 100%;

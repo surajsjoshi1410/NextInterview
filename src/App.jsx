@@ -89,7 +89,7 @@ function App() {
           {/* <Route path="/challenges" element={<Challenges />} /> */}
 
           <Route path="/admin" element={<BaseLayout />}>
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route index element={<AdminDashboard />} />
             <Route path="/admin/learning" element={<LearningModules />} />
             <Route
               path="/admin/Diagnosing-and-Investigating-Metrics"
