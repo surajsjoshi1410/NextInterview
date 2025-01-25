@@ -39,7 +39,7 @@ const queries = [
     submittedOn: "12/12/24 12:42:14",
     resolutionTime: "2h",
   },
-    {
+  {
     id: "User",
     name: "Lana Steiner",
     email: "lana@gmail.com",
@@ -49,7 +49,7 @@ const queries = [
     submittedOn: "12/12/24 12:42:14",
     resolutionTime: "-",
   },
-   {
+  {
     id: "User",
     name: "Demi Wilkinson",
     email: "dem@gmail.com",
@@ -74,7 +74,6 @@ const queries = [
     name: "Natali Craig",
     email: "natali@gmail.com",
     profileImage: "https://img.freepik.com/premium-photo/young-smart-indian-businesswoman-smiling-face-standing-blur-background-modern-office-building-generative-ai-aig20_31965-117685.jpg",
-    
     category: "Billing",
     status: "Resolved",
     submittedOn: "12/12/24 12:42:14",
@@ -85,7 +84,6 @@ const queries = [
     name: "Drew Cano",
     email: "drew@gmail.com",
     profileImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxjR7vj2h745769RuDk7L9xxsSZyBs7ZBXUg&s",
-
     category: "Billing",
     status: "Resolved",
     submittedOn: "12/12/24 12:42:14",
@@ -96,7 +94,6 @@ const queries = [
     name: "Orlando Diggs",
     email: "orlando@gmail.com",
     profileImage: "https://static9.depositphotos.com/1499355/1200/i/450/depositphotos_12002062-Happy-Indian-business-woman..jpg",
-
     category: "Content",
     status: "Open",
     submittedOn: "12/12/24 12:42:14",
@@ -108,6 +105,11 @@ const SupportQueryListView = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filteredQueries, setFilteredQueries] = useState(queries);
+  const [storedFilters, setStoredFilters] = useState({
+    status: "All",
+    categories: { Technical: false, Content: false, Billing: false, General: false },
+    dateRange: { Today: false, "Last 7 days": false, "Last 30 days": false },
+  });
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -119,13 +121,15 @@ const SupportQueryListView = () => {
     const filtered = queries.filter((query) => {
       const matchesStatus = status === "All" || query.status === status;
       const matchesCategory =
-        categories.length === 0 || categories.includes(query.category);
-      const matchesDate = dateRange.length === 0; // Add date filtering logic here if needed
+        Object.keys(categories).every((key) => !categories[key]) ||
+        categories[query.category];
+      const matchesDate = Object.keys(dateRange).every((key) => !dateRange[key]); // Placeholder for future date filtering
 
       return matchesStatus && matchesCategory && matchesDate;
     });
 
     setFilteredQueries(filtered);
+    setStoredFilters(filters); // Save applied filters
   };
 
   return (
@@ -190,6 +194,12 @@ const SupportQueryListView = () => {
       {isFilterOpen && (
         <FilterModal>
           <SupportQueryListViewFilter
+            defaultFilters={{
+              status: "All",
+              categories: { Technical: false, Content: false, Billing: false, General: false },
+              dateRange: { Today: false, "Last 7 days": false, "Last 30 days": false },
+            }}
+            storedFilters={storedFilters} // Pass stored filters here
             onApplyFilters={(filters) => {
               applyFilters(filters);
               setIsFilterOpen(false);
