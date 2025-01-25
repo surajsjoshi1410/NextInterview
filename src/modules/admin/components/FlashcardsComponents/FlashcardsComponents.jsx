@@ -29,22 +29,24 @@ const FlashcardsComponents = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [currentCard, setCurrentCard] = useState(null);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const apiCaller = async () => {
+    const data = await getFlashcards();
+    console.log("data", data);
+    const response = data.data.map((item, index) => {
+      return ({
+        id: index + 1,
+        text: item.cardContent,
+        know: item.cardKnown||0,
+        dontKnow: item.cardUnknown||0,
+        sharedCount: item.sharedCount||0,
+        peopleInteractionCount: item.peopleInteractionCount,
+        _id: item._id
+      })
+    });
+    setFlashcards(response);
+  }
 
   useEffect(() => {
-    const apiCaller = async () => {
-      const data = await getFlashcards();
-      console.log("data", data);
-      const response = data.data.map((item, index) => {
-        return ({
-          id: index + 1,
-          text: item.cardContent,
-          know: 10,
-          dontKnow: 20,
-          _id: item._id
-        })
-      });
-      setFlashcards(response);
-    }
     apiCaller();
 
   }, []);
@@ -61,25 +63,12 @@ const FlashcardsComponents = () => {
     setDeleteModalVisible(true); // Show DeleteModule
   };
 
-  const handleConfirmDelete = async(id) => {
+  const handleConfirmDelete = async (id) => {
     const response = await deleteFlashcard(currentCard);
+
     
-    const apiCaller = async () => {
-      const data = await getFlashcards();
-      console.log("data", data);
-      const response = data.data.map((item, index) => {
-        return ({
-          id: index + 1,
-          text: item.cardContent,
-          know: 10,
-          dontKnow: 20,
-          _id: item._id
-        })
-      });
-      setFlashcards(response);
-    }
     apiCaller();
-   
+
     setDeleteModalVisible(false); // Hide DeleteModule after deletion
     setCurrentCard(null);
   };
@@ -93,43 +82,14 @@ const FlashcardsComponents = () => {
     console.log("newFlashcard", newFlashcard);
 
     const response = await addFlashcard({ cardContent: newFlashcard.text });
-    
-    const apiCaller = async () => {
-      const data = await getFlashcards();
-      console.log("data", data);
-      const response = data.data.map((item, index) => {
-        return ({
-          id: index + 1,
-          text: item.cardContent,
-          know: 10,
-          dontKnow: 20,
-          _id: item._id
-        })
-      });
-      setFlashcards(response);
-    }
+
     apiCaller();
     setIsAdding(false);
   };
 
-  const handleSaveEdit = async(updatedCard) => {
+  const handleSaveEdit = async (updatedCard) => {
     console.log("updatedCard", updatedCard);
-    const response = await updateFlashcard(updatedCard._id,{ cardContent: updatedCard.text });
-    
-    const apiCaller = async () => {
-      const data = await getFlashcards();
-      console.log("data", data);
-      const response = data.data.map((item, index) => {
-        return ({
-          id: index + 1,
-          text: item.cardContent,
-          know: 10,
-          dontKnow: 20,
-          _id: item._id
-        })
-      });
-      setFlashcards(response);
-    }
+    const response = await updateFlashcard(updatedCard._id, { cardContent: updatedCard.text });
     apiCaller();
     setIsEditing(false);
     setCurrentCard(null);
@@ -193,8 +153,8 @@ const FlashcardsComponents = () => {
               </div>
             </div>
             <InteractionStats>
-              <span>Shared with - 1589 people</span>
-              <span>No. of people interacted - {card.know}</span>
+              <span>Shared with - {card.sharedCount} people</span>
+              <span>No. of people interacted - {card.peopleInteractionCount}</span>
               <div>
                 <span
                   style={{
