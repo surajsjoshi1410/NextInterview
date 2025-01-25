@@ -19,8 +19,8 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
   const location = useLocation();
 
   const SidebarItem = [
-    { id: 1, name: "Dashboard", path: "/admin/dashboard", icon: <RxDashboard /> },
-    { id: 2, name: "Home", path: "/home", icon: <FiHome /> },
+    { id: 1, name: "Dashboard", path: "/admin", icon: <RxDashboard /> },
+    // { id: 2, name: "Home", path: "/admin/dashboard", icon: <FiHome /> },
     { id: 3, name: "Learning", path: "/admin/learning", icon: <MdOutlineMenuBook /> },
     { id: 4, name: "Flashcards", path: "/admin/flashcards", icon: <CiMobile1 /> },
     { id: 5, name: "Challenges", path: "/admin/challenges", icon: <MdOutlineLockClock /> },

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaBell, FaBan } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { FaEye } from "react-icons/fa";
 
 const TableContainer = styled.div`
   border-radius: 8px;
@@ -173,7 +174,7 @@ const UserTable = ({ users, selectedRows, onRowSelectionChange }) => {
               </Td>
               <Td>
                 <Link to={`/admin/userProfile`} style={{ textDecoration: 'none' }}>
-                  view
+                  <FaEye />
                 </Link>
               </Td>
             </Tr>
