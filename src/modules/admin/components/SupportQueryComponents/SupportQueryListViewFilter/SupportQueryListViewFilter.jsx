@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Container,
   Header,
@@ -13,32 +13,80 @@ import {
   ApplyButton,
 } from "./SupportQueryListViewFilter.styles";
 
-const SupportQueryListViewFilter = ({ onApplyFilters, onClose }) => {
-  const [status, setStatus] = useState("All");
-  const [categories, setCategories] = useState({
-    Technical: false,
-    "Content-Related": false,
-    Billing: false,
-    General: false,
-  });
-  const [dateRange, setDateRange] = useState({
-    Today: false,
-    "Last 7 days": false,
-    "Last 30 days": false,
-  });
+const SupportQueryListViewFilter = ({ defaultFilters, storedFilters, onApplyFilters, onClose, onStoreFilters }) => {
+  const [status, setStatus] = useState(storedFilters?.status || defaultFilters?.status || "All");
+  const [categories, setCategories] = useState(
+    storedFilters?.categories || defaultFilters?.categories || {
+      Technical: false,
+      "Content-Related": false,
+      Billing: false,
+      General: false,
+    }
+  );
+  const [dateRange, setDateRange] = useState(
+    storedFilters?.dateRange || defaultFilters?.dateRange || {
+      Today: false,
+      "Last 7 days": false,
+      "Last 30 days": false,
+    }
+  );
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredCategories, setFilteredCategories] = useState(Object.keys(categories));
+  const [filteredDates, setFilteredDates] = useState(Object.keys(dateRange));
+  const containerRef = useRef(null); // Ref for the container
 
+  // Reinitialize filters when modal is reopened
+  useEffect(() => {
+    if (storedFilters) {
+      setStatus(storedFilters.status || "All");
+      setCategories({
+        ...defaultFilters.categories,
+        ...storedFilters.categories,
+      });
+      setDateRange({
+        ...defaultFilters.dateRange,
+        ...storedFilters.dateRange,
+      });
+      setFilteredCategories(Object.keys(defaultFilters.categories || categories));
+      setFilteredDates(Object.keys(defaultFilters.dateRange || dateRange));
+    }
+  }, [storedFilters, defaultFilters]);
+
+  // Handle Status Change
   const handleStatusChange = (event) => {
     setStatus(event.target.value);
   };
 
+  // Handle Category Toggle
   const handleCategoryChange = (category) => {
     setCategories((prev) => ({ ...prev, [category]: !prev[category] }));
   };
 
+  // Handle Date Toggle
   const handleDateChange = (date) => {
     setDateRange((prev) => ({ ...prev, [date]: !prev[date] }));
   };
 
+  // Handle Search Term Change
+  const handleSearchChange = (event) => {
+    const value = event.target.value.toLowerCase();
+    setSearchTerm(value);
+
+    // Filter categories and date ranges dynamically based on search term
+    setFilteredCategories(
+      Object.keys(categories).filter((category) =>
+        category.toLowerCase().includes(value)
+      )
+    );
+
+    setFilteredDates(
+      Object.keys(dateRange).filter((date) =>
+        date.toLowerCase().includes(value)
+      )
+    );
+  };
+
+  // Clear Filters
   const handleClearFilters = () => {
     setStatus("All");
     setCategories({
@@ -52,8 +100,13 @@ const SupportQueryListViewFilter = ({ onApplyFilters, onClose }) => {
       "Last 7 days": false,
       "Last 30 days": false,
     });
+    setSearchTerm("");
+    setFilteredCategories(Object.keys(categories));
+    setFilteredDates(Object.keys(dateRange));
+    onStoreFilters({ status: "All", categories: {}, dateRange: {} }); // Reset stored filters
   };
 
+  // Apply Filters
   const handleApplyFilters = () => {
     const appliedFilters = {
       status,
@@ -61,15 +114,35 @@ const SupportQueryListViewFilter = ({ onApplyFilters, onClose }) => {
       dateRange: Object.keys(dateRange).filter((key) => dateRange[key]),
     };
     onApplyFilters(appliedFilters);
+    onStoreFilters({ status, categories, dateRange }); // Store applied filters
     onClose();
   };
 
+  // Close component when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose]);
+
   return (
-    <Container>
+    <Container ref={containerRef}>
       <Header>More filters</Header>
-      <SearchInput type="text" placeholder="Search" />
+      <SearchInput
+        type="text"
+        placeholder="Search"
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
       <Section>
-        <SectionTitle>status</SectionTitle>
+        <SectionTitle>Status</SectionTitle>
         <FilterOption>
           <RadioInput
             type="radio"
@@ -114,7 +187,7 @@ const SupportQueryListViewFilter = ({ onApplyFilters, onClose }) => {
 
       <Section>
         <SectionTitle>Category</SectionTitle>
-        {Object.keys(categories).map((category) => (
+        {filteredCategories.map((category) => (
           <FilterOption key={category}>
             <CheckboxInput
               type="checkbox"
@@ -128,7 +201,7 @@ const SupportQueryListViewFilter = ({ onApplyFilters, onClose }) => {
 
       <Section>
         <SectionTitle>Date</SectionTitle>
-        {Object.keys(dateRange).map((date) => (
+        {filteredDates.map((date) => (
           <FilterOption key={date}>
             <CheckboxInput
               type="checkbox"

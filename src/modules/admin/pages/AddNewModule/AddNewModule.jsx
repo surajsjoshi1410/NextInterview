@@ -32,7 +32,7 @@ import {
 } from "../../../../utils/uploadFileToFirebase";
 import { addNewModule } from "../../../../api/addNewModuleApi";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import {ClassicEditor} from "ckeditor5";
+import { ClassicEditor } from "ckeditor5";
 import { editorConfig } from "../../../../config/ckEditorConfig";
 
 // Styled icon/button if you want to show a delete icon
@@ -411,8 +411,7 @@ const AddNewModule = () => {
           topics[tIndex].subtopics[sIndex].laymanExplanations.length;
         if (laymanCount < 5) {
           alert(
-            `Subtopic ${
-              sIndex + 1
+            `Subtopic ${sIndex + 1
             } of Topic ${tIndex + 1} must have 5 layman explanations. Currently: ${laymanCount}`
           );
           return;
@@ -443,10 +442,7 @@ const AddNewModule = () => {
             }),
             laymanTerms: sub.laymanExplanations.map((laymn) => {
               return {
-                // -----------------------------------------------------------------
-                // Include the laymanScale in final submission
-                // -----------------------------------------------------------------
-                scale: laymn.laymanScale,
+                topicLevel: laymn.laymanScale,
                 topicTitle: laymn.laymanTitle,
                 topicInfo: laymn.laymanInfo,
               };
@@ -1272,10 +1268,10 @@ const AddNewModule = () => {
             deleteType === "topic"
               ? "Are you sure you want to delete this entire topic?"
               : deleteType === "subtopic"
-              ? "Are you sure you want to delete this subtopic?"
-              : deleteType === "layman"
-              ? "Are you sure you want to delete this Layman explanation?"
-              : "Are you sure you want to delete this Concept Clarifier?"
+                ? "Are you sure you want to delete this subtopic?"
+                : deleteType === "layman"
+                  ? "Are you sure you want to delete this Layman explanation?"
+                  : "Are you sure you want to delete this Concept Clarifier?"
           }
         />
       )}

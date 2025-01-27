@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import AddFlashCard from "./AddFlashCard/AddFlashCard";
 import EditFlashCard from "./EditFlashCard/EditFlashCard";
@@ -14,9 +14,11 @@ import {
   SearchBar,
   Header,
 } from "./FlashcardsComponents.styles";
+import { addFlashcard, deleteFlashcard, getFlashcards, updateFlashcard } from "../../../../api/flashcardApi";
 
 const FlashcardsComponents = () => {
   const [searchTerm, setSearchTerm] = useState("");
+
   const [flashcards, setFlashcards] = useState([
     { id: 1, text: "Flashcard 1 Content", know: 0, dontKnow: 0 },
     { id: 2, text: "Flashcard 2 Content", know: 95, dontKnow: 5 },
@@ -27,6 +29,27 @@ const FlashcardsComponents = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [currentCard, setCurrentCard] = useState(null);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const apiCaller = async () => {
+    const data = await getFlashcards();
+    console.log("data", data);
+    const response = data.data.map((item, index) => {
+      return ({
+        id: index + 1,
+        text: item.cardContent,
+        know: item.cardKnown||0,
+        dontKnow: item.cardUnknown||0,
+        sharedCount: item.sharedCount||0,
+        peopleInteractionCount: item.peopleInteractionCount,
+        _id: item._id
+      })
+    });
+    setFlashcards(response);
+  }
+
+  useEffect(() => {
+    apiCaller();
+
+  }, []);
 
   const handleEdit = (id) => {
     const cardToEdit = flashcards.find((card) => card.id === id);
@@ -35,12 +58,17 @@ const FlashcardsComponents = () => {
   };
 
   const handleDeleteClick = (id) => {
+    console.log("id", id);
     setCurrentCard(id);
     setDeleteModalVisible(true); // Show DeleteModule
   };
 
-  const handleConfirmDelete = () => {
-    setFlashcards(flashcards.filter((card) => card.id !== currentCard));
+  const handleConfirmDelete = async (id) => {
+    const response = await deleteFlashcard(currentCard);
+
+    
+    apiCaller();
+
     setDeleteModalVisible(false); // Hide DeleteModule after deletion
     setCurrentCard(null);
   };
@@ -50,17 +78,19 @@ const FlashcardsComponents = () => {
     setCurrentCard(null);
   };
 
-  const handleAddFlashcard = (newFlashcard) => {
-    setFlashcards([...flashcards, newFlashcard]);
+  const handleAddFlashcard = async (newFlashcard) => {
+    console.log("newFlashcard", newFlashcard);
+
+    const response = await addFlashcard({ cardContent: newFlashcard.text });
+
+    apiCaller();
     setIsAdding(false);
   };
 
-  const handleSaveEdit = (updatedCard) => {
-    setFlashcards(
-      flashcards.map((card) =>
-        card.id === updatedCard.id ? updatedCard : card
-      )
-    );
+  const handleSaveEdit = async (updatedCard) => {
+    console.log("updatedCard", updatedCard);
+    const response = await updateFlashcard(updatedCard._id, { cardContent: updatedCard.text });
+    apiCaller();
     setIsEditing(false);
     setCurrentCard(null);
   };
@@ -70,7 +100,7 @@ const FlashcardsComponents = () => {
   };
 
   const filteredFlashcards = flashcards.filter((card) =>
-    card.text.toLowerCase().includes(searchTerm)
+    card?.text?.toLowerCase().includes(searchTerm)
   );
 
   return (
@@ -117,14 +147,14 @@ const FlashcardsComponents = () => {
                 <ActionButton onClick={() => handleEdit(card.id)}>
                   <FaEdit />
                 </ActionButton>
-                <ActionButton onClick={() => handleDeleteClick(card.id)} delete>
+                <ActionButton onClick={() => handleDeleteClick(card._id)} delete>
                   <RiDeleteBin6Line />
                 </ActionButton>
               </div>
             </div>
             <InteractionStats>
-              <span>Shared with - 1589 people</span>
-              <span>No. of people interacted - {card.know}</span>
+              <span>Shared with - {card.sharedCount} people</span>
+              <span>No. of people interacted - {card.peopleInteractionCount}</span>
               <div>
                 <span
                   style={{
