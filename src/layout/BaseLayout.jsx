@@ -1,26 +1,3 @@
-// import React, { useState } from "react";
-// import { Outlet } from "react-router-dom";
-// import Sidebar from "../components/Sidebar/Sidebar";
-// import { PageWrapper, ContentWrapper } from "./BaseLayout.style";
-// import Header from "../components/Header/Header";
-
-// const BaseLayout = () => {
-//   const [isExpanded, setIsExpanded] = useState(false);
-//   const [title, setTitle] = useState("");
-
-//   return (
-//     <PageWrapper isExpanded={isExpanded}>
-      
-//       <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} setTitle={setTitle} />
-//       <ContentWrapper isExpanded={isExpanded}>
-//         <Header title={title} />
-//         <Outlet />
-//       </ContentWrapper>
-//     </PageWrapper>
-//   );
-// };
-
-// export default BaseLayout;
 
 import React, { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
@@ -32,28 +9,7 @@ import NavBar from "../components/admin/Navbar/Navbar";
 
 const BaseLayout = () => {
 
-//   const { getToken } = useAuth()
-//   useEffect(() => {
 
-//       const apiallert = async () => {
-//           const token = await getToken()
-//           const data = await fetch(
-// 'http://localhost:3000/user/getUsers',
-//               {
-//                   method: 'GET',
-//                   headers: {
-//                       'Content-Type': 'application/json',
-//                       Authorization: `Bearer ${token}`,
-//                       mode: 'cors',
-//                   },
-//               }
-
-//           )
-//           const user = await( await data.json())
-//           console.log(user)
-//       }
-//       apiallert();
-//   }, []);
   const [isExpanded, setIsExpanded] = useState(false);
   const [title, setTitle] = useState("");
   const location = useLocation();

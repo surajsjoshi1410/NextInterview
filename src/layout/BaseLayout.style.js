@@ -12,5 +12,5 @@ export const ContentWrapper = styled.div`
   // padding: 20px;
   transition: margin-left 0.3s ease;
   overflow-y: auto;
-  background-color: #f9f9f9; /* Optional */
+  // background-color: #f9f9f9; /* Optional */
 `;
