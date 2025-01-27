@@ -127,7 +127,9 @@ function App() {
             <Route path="/admin/userProfile" element={<UserProfile />} />
           </Route>
 
-          <Route path="/user" element={<BaseLayout />}></Route>
+          <Route path="/user" element={<BaseLayout />}>
+          <Route index element={<UserDashboard />} />
+          </Route>
         </Routes>
       </Router>
     </ThemeProvider>
