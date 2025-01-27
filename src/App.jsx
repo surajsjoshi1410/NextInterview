@@ -49,6 +49,7 @@ import Ckeditor from "./modules/admin/pages/Ckeditor/Ckeditor";
 import UserDashboard from "./modules/user/pages/UserDashboard/UserDashboard";
 import QuicklyRevise from "./modules/User/pages/QuicklyRevise/QuicklyRevise";
 import UserChallenges from "./modules/User/pages/UserChallenges/UserChallenges";
+import UserHome from "./modules/user/pages/UserHome/UserHome";
 
 function App() {
   return (
@@ -119,6 +120,7 @@ function App() {
             <Route index element={<UserDashboard />} />
             <Route path="/user/revise" element={<QuicklyRevise />} />
             <Route path="/user/challenges" element={<UserChallenges />} />
+            <Route path="/user/home" element={<UserHome/>} /> 
           </Route>
         </Routes>
       </Router>

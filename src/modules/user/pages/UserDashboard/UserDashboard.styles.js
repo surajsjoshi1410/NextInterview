@@ -7,7 +7,7 @@ export const UserDashboardWrapper = styled.div`
  
     .UserDashboard-statsContainer{
     position: relative;
-    margin-left: 40px;
+    margin-left: 50px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
