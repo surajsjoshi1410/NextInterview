@@ -46,6 +46,7 @@ import Users from "./modules/admin/pages/Users/Users";
 import AdminDashboard from "./modules/admin/pages/AdminDashboard/AdminDashboard";
 import UserProfile from "./modules/admin/pages/UserProfile/UserProfile";
 import Ckeditor from "./modules/admin/pages/Ckeditor/Ckeditor";
+import UserDashboard from "./modules/user/pages/UserDashboard/UserDashboard";
 
 function App() {
   return (
@@ -89,7 +90,7 @@ function App() {
           {/* <Route path="/challenges" element={<Challenges />} /> */}
 
           <Route path="/admin" element={<BaseLayout />}>
-          <Route index element={<AdminDashboard />} />
+            <Route index element={<AdminDashboard />} />
             <Route path="/admin/learning" element={<LearningModules />} />
             <Route
               path="/admin/Diagnosing-and-Investigating-Metrics"
@@ -128,7 +129,7 @@ function App() {
           </Route>
 
           <Route path="/user" element={<BaseLayout />}>
-          <Route index element={<UserDashboard />} />
+            <Route index element={<UserDashboard />} />
           </Route>
         </Routes>
       </Router>
