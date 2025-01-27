@@ -47,8 +47,8 @@ import AdminDashboard from "./modules/admin/pages/AdminDashboard/AdminDashboard"
 import UserProfile from "./modules/admin/pages/UserProfile/UserProfile";
 import Ckeditor from "./modules/admin/pages/Ckeditor/Ckeditor";
 import UserDashboard from "./modules/user/pages/UserDashboard/UserDashboard";
-import QuicklyRevise from "./modules/User/pages/QuicklyRevise/QuicklyRevise";
-import UserChallenges from "./modules/User/pages/UserChallenges/UserChallenges";
+import QuicklyRevise from "./modules/user/pages/QuicklyRevise/QuicklyRevise";
+import UserChallenges from "./modules/user/pages/UserChallenges/UserChallenges";
 import UserHome from "./modules/user/pages/UserHome/UserHome";
 
 function App() {
