@@ -27,6 +27,7 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
    
   ];
 
+  
   return (
     <SideBarwrapper
       onMouseEnter={() => setIsExpanded(true)}
