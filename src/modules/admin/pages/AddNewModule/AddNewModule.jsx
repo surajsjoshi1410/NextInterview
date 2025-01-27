@@ -85,7 +85,7 @@ const AddNewModule = () => {
             },
           ],
           // -----------------------------------------------------------------
-          // ADD the laymanScale field to our initial layman object (default scale=1)
+          // ADD the layman    field to our initial layman object (default scale=1)
           // -----------------------------------------------------------------
           laymanExplanations: [
             {
