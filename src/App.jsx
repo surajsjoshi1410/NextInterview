@@ -50,6 +50,7 @@ import UserDashboard from "./modules/user/pages/UserDashboard/UserDashboard";
 import QuicklyRevise from "./modules/user/pages/QuicklyRevise/QuicklyRevise";
 import UserChallenges from "./modules/user/pages/UserChallenges/UserChallenges";
 import UserHome from "./modules/user/pages/UserHome/UserHome";
+import ProfileUser from "./modules/user/pages/UserProfile/ProfileUser";
 
 function App() {
   return (
@@ -121,6 +122,7 @@ function App() {
             <Route path="/user/revise" element={<QuicklyRevise />} />
             <Route path="/user/challenges" element={<UserChallenges />} />
             <Route path="/user/home" element={<UserHome/>} /> 
+            <Route path="/user/userProfile" element={<ProfileUser/>} />
           </Route>
         </Routes>
       </Router>
