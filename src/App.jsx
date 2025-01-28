@@ -46,8 +46,10 @@ import Users from "./modules/admin/pages/Users/Users";
 import AdminDashboard from "./modules/admin/pages/AdminDashboard/AdminDashboard";
 import UserProfile from "./modules/admin/pages/UserProfile/UserProfile";
 import Ckeditor from "./modules/admin/pages/Ckeditor/Ckeditor";
-import QuicklyRevise from "./modules/User/pages/QuicklyRevise/QuicklyRevise";
-import UserChallenges from "./modules/User/pages/UserChallenges/UserChallenges";
+import UserDashboard from "./modules/user/pages/UserDashboard/UserDashboard";
+import QuicklyRevise from "./modules/user/pages/QuicklyRevise/QuicklyRevise";
+import UserChallenges from "./modules/user/pages/UserChallenges/UserChallenges";
+import UserHome from "./modules/user/pages/UserHome/UserHome";
 
 function App() {
   return (
@@ -91,10 +93,10 @@ function App() {
           {/* <Route path="/challenges" element={<Challenges />} /> */}
 
           <Route path="/admin" element={<BaseLayout />}>
-          <Route index element={<AdminDashboard />} />
+            <Route index element={<AdminDashboard />} />
             <Route path="/admin/learning" element={<LearningModules />} />
-            <Route path="/admin/Diagnosing-and-Investigating-Metrics" element={<Userdetails />}    />
-            <Route path="/admin/skill-assessment" element={<SkillAssessment />}  />
+            <Route path="/admin/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
+            <Route path="/admin/skill-assessment" element={<SkillAssessment />} />
             <Route path="/admin/uploadmodule" element={<UploadModule />} />
             <Route path="/admin/addnewmodule" element={<AddNewModule />} />
             <Route path="/admin/challenges" element={<Challenges />} />
@@ -110,14 +112,15 @@ function App() {
             <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
             <Route path="/admin/settings" element={<Settings />} />
             <Route path="/admin/users" element={<Users />} />
-            <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />}  />
+            <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
             <Route path="/admin/userProfile" element={<UserProfile />} />
           </Route>
 
           <Route path="/user" element={<BaseLayout />}>
-          {/* <Route index element={<UserDashboard />} /> */}
-          <Route path="/user/revise" element={<QuicklyRevise />} />
-          <Route path="/user/challenges" element={<UserChallenges />} />
+            <Route index element={<UserDashboard />} />
+            <Route path="/user/revise" element={<QuicklyRevise />} />
+            <Route path="/user/challenges" element={<UserChallenges />} />
+            <Route path="/user/home" element={<UserHome/>} /> 
           </Route>
         </Routes>
       </Router>

@@ -8,7 +8,7 @@ const Card = styled.div`
   padding: ${(props) => props.theme.spacing(2)};
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: ${(props) => props.theme.fonts.body};
-margin-left: 60px;
+// margin-left: 60px;
 `;
 
 const ChallengeTitle = styled.h2`
