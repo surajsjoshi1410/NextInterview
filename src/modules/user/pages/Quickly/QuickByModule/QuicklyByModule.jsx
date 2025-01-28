@@ -110,3 +110,4 @@ const parseJSONContent = (content) => {
 };
 
 export default QuicklyByModule;
+
