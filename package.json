@@ -24,6 +24,7 @@
     "chart.js": "^4.4.7",
     "ckeditor5": "^44.1.0",
     "ckeditor5-premium-features": "^44.1.0",
+    "esbuild": "^0.24.2",
     "firebase": "^11.2.0",
     "lottie": "^0.0.1",
     "lottie-react": "^2.4.0",

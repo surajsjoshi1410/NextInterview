@@ -47,9 +47,10 @@ import AdminDashboard from "./modules/admin/pages/AdminDashboard/AdminDashboard"
 import UserProfile from "./modules/admin/pages/UserProfile/UserProfile";
 import Ckeditor from "./modules/admin/pages/Ckeditor/Ckeditor";
 import UserDashboard from "./modules/user/pages/UserDashboard/UserDashboard";
-import QuicklyRevise from "./modules/user/pages/QuicklyRevise/QuicklyRevise";
+import QuicklyRevise from "./modules/User/pages/Quickly/QuicklyRevise/QuicklyRevise";
 import UserChallenges from "./modules/user/pages/UserChallenges/UserChallenges";
 import UserHome from "./modules/user/pages/UserHome/UserHome";
+import QuicklyByModule from "./modules/User/pages/Quickly/QuickByModule/QuicklyByModule";
 
 function App() {
   return (
@@ -119,6 +120,7 @@ function App() {
           <Route path="/user" element={<BaseLayout />}>
             <Route index element={<UserDashboard />} />
             <Route path="/user/revise" element={<QuicklyRevise />} />
+            <Route path="/user/revise/:id" element={< QuicklyByModule />} />
             <Route path="/user/challenges" element={<UserChallenges />} />
             <Route path="/user/home" element={<UserHome/>} /> 
           </Route>
