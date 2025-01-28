@@ -350,7 +350,7 @@ export const ModalContent = styled.div`
 `;
 
 export const ModalButton = styled.button`
-  background: ${props => props.theme.colors.primary};
+  background: ${props => props.theme.colors.secondary};
   color: #fff;
   padding: 10px 20px;
   border: none;
