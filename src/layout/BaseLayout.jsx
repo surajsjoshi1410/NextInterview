@@ -6,6 +6,7 @@ import SidebarUser from "../components/user/SidebarUser/SidebarUser";
 import { PageWrapper, ContentWrapper } from "./BaseLayout.style";
 import Header from "../components/Header/Header";
 import NavBar from "../components/admin/Navbar/Navbar";
+import UserHeader from "../components/UserHeader/UserHeader";
 
 const BaseLayout = () => {
 
@@ -41,7 +42,7 @@ const BaseLayout = () => {
             setTitle={setTitle}
           />
           <ContentWrapper isExpanded={isExpanded}>
-            <Header title={title} />
+            <UserHeader title={title} />
             <Outlet />
           </ContentWrapper>
         </>

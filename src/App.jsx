@@ -50,6 +50,7 @@ import UserDashboard from "./modules/user/pages/UserDashboard/UserDashboard";
 import QuicklyRevise from "./modules/User/pages/Quickly/QuicklyRevise/QuicklyRevise";
 import UserChallenges from "./modules/user/pages/UserChallenges/UserChallenges";
 import UserHome from "./modules/user/pages/UserHome/UserHome";
+import ProfileUser from "./modules/user/pages/UserProfile/ProfileUser";
 import QuicklyByModule from "./modules/User/pages/Quickly/QuickByModule/QuicklyByModule";
 
 function App() {
@@ -123,6 +124,7 @@ function App() {
             <Route path="/user/revise/:id" element={< QuicklyByModule />} />
             <Route path="/user/challenges" element={<UserChallenges />} />
             <Route path="/user/home" element={<UserHome/>} /> 
+            <Route path="/user/userProfile" element={<ProfileUser/>} />
           </Route>
         </Routes>
       </Router>
