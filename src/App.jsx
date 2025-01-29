@@ -52,6 +52,8 @@ import UserChallenges from "./modules/user/pages/UserChallenges/UserChallenges";
 import UserHome from "./modules/user/pages/UserHome/UserHome";
 import ProfileUser from "./modules/user/pages/UserProfile/ProfileUser";
 import  QuicklyByModule from "./modules/user/pages/Quickly/QuickByModule/QuicklyByModule";
+import UserLearning from "./modules/user/pages/Learning/UserLearning/UserLearning";
+import UserLearningModule from "./modules/user/pages/Learning/UserLeraningModule/UserLearningModule";
 
 function App() {
   return (
@@ -125,6 +127,8 @@ function App() {
             <Route path="/user/challenges" element={<UserChallenges />} />
             <Route path="/user/home" element={<UserHome/>} /> 
             <Route path="/user/userProfile" element={<ProfileUser/>} />
+            <Route path="/user/learning" element={<UserLearning/>} />
+            <Route path="/user/learning/:id" element={<UserLearningModule/>} />
           </Route>
         </Routes>
       </Router>
