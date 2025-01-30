@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Navigate, NavLink, useLocation, useParams } from "react-router-dom";
+import { Link, Navigate, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { FiHome } from "react-icons/fi";
 import { MdOutlineMenuBook } from "react-icons/md";
 import { BsFileEarmarkLock } from "react-icons/bs";
@@ -19,6 +19,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { MdExpandLess } from "react-icons/md";
 import { MdExpandMore } from "react-icons/md";
 import { getModuleById } from '../../api/addNewModuleApi';
+import { RiGeminiLine } from "react-icons/ri";
 const courseData1 = {
     title: "Diagnosing and Investigating the userMetrics",
     topicsList: [
@@ -52,8 +53,8 @@ const courseData1 = {
 export default function ModuleSidebar({ isExpanded, setIsExpanded, setTitle, courseProgress }) {
     const location = useLocation();
     const [expandedTopic, setExpandedTopic] = useState(null);
-    
-  
+    const navigate = useNavigate();
+
     const [courseData, setCourseData] = useState(courseData1);
     const moduleId = useParams().id;
 
@@ -70,18 +71,18 @@ export default function ModuleSidebar({ isExpanded, setIsExpanded, setTitle, cou
                         return ({
                             title: item.topicName,
                             subtopics: item.subtopicData.map((subitem) => {
-                               return (
-                              {  
-                                title: subitem.subtopicName,
-                                completed: subitem.completed
-                              }
-                            )
-                               
+                                return (
+                                    {
+                                        title: subitem.subtopicName,
+                                        completed: subitem.completed
+                                    }
+                                )
+
                             })
                         })
                     })
 
-                   
+
                 };
                 setCourseData(data);
             } catch (error) {
@@ -89,7 +90,9 @@ export default function ModuleSidebar({ isExpanded, setIsExpanded, setTitle, cou
             }
         };
         apiCaller();
-    }, []);
+    }, [navigate]);
+
+    
 
 
 
@@ -127,7 +130,7 @@ export default function ModuleSidebar({ isExpanded, setIsExpanded, setTitle, cou
                     </div>
 
                 </div>
-                <button className="start-button">View sample interview</button>
+                <button className="start-button"><RiGeminiLine />  View sample interview</button>
 
             </div>
 
@@ -148,7 +151,7 @@ export default function ModuleSidebar({ isExpanded, setIsExpanded, setTitle, cou
                                         <div key={subIndex} className="subtopic">
                                             <div className="subtopic-info">
                                                 <span className={subtopic.completed ? "completed" : "pending"}>
-                                                 <Link className='subtopic-link'  to={`/user/learning/${moduleId}`} state={{ topicIndex: index, subtopicIndex: subIndex, }}>   <span>{subtopic.completed ? <FaCheckCircle /> : <MdExpandCircleDown />}</span> <span className="subtopic-title"> {subtopic.title}</span></Link>
+                                                    <Link className='subtopic-link' to={`/user/learning/${moduleId}/topic`} state={{ topicIndex: index, subtopicIndex: subIndex, }}>   <span>{subtopic.completed ? <FaCheckCircle /> : <MdExpandCircleDown />}</span> <span className="subtopic-title"> {subtopic.title}</span></Link>
 
                                                 </span>
                                                 {/* <span className="time">{subtopic.time}</span> */}
