@@ -221,4 +221,21 @@ font-weight: 600;
 color:${({ theme }) => theme.colors.black};
 
 }
+
+.start-button{
+width: 170px;
+height: 34px;
+border-radius: 4px;
+border: 1px solid ${({ theme }) => theme.colors.secondary};
+color:${({ theme }) => theme.colors.secondary};
+gap: 10px;
+text-align: center;
+/* Body Text/Small/Body Small (Medium) */
+font-family: "DM Sans";
+font-size: 11px;
+font-style: normal;
+font-weight: 500;
+color:${({ theme }) => theme.colors.secondary};
+margin-top: 20px;
+}
 `;

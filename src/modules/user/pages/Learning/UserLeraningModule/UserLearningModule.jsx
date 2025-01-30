@@ -125,7 +125,7 @@ const UserLearningModule = () => {
                     </div>
                     <div className="course-action-btns">
                         <button className="view-sample-btn"><RiGeminiLine />  View Sample Interview</button>
-                      <Link to={`/user/learning/${moduleId}/topic`}>  <button className="start-learning-btn">Start Learning</button></Link>
+                      <Link to={`/user/learning/${moduleId}/topic`} state={{ topicIndex: 0, subtopicIndex: 0, }}>  <button className="start-learning-btn">Start Learning</button></Link>
                     </div>
 
                 </div>

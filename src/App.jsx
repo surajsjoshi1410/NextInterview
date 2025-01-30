@@ -51,10 +51,10 @@ import QuicklyRevise from "./modules/user/pages/Quickly/QuicklyRevise/QuicklyRev
 import UserChallenges from "./modules/user/pages/UserChallenges/UserChallenges";
 import UserHome from "./modules/user/pages/UserHome/UserHome";
 import ProfileUser from "./modules/user/pages/UserProfile/ProfileUser";
-import  QuicklyByModule from "./modules/user/pages/Quickly/QuickByModule/QuicklyByModule";
+import QuicklyByModule from "./modules/user/pages/Quickly/QuickByModule/QuicklyByModule";
 import UserLearning from "./modules/user/pages/Learning/UserLearning/UserLearning";
 import UserLearningModule from "./modules/user/pages/Learning/UserLeraningModule/UserLearningModule";
-import UserModuleTopic from "./modules/User/pages/Learning/UserModuleTopic/UserModuleTopic";
+import UserModuleTopic from "./modules/user/pages/Learning/UserModuleTopic/UserModuleTopic";
 
 function App() {
   return (
@@ -126,11 +126,11 @@ function App() {
             <Route path="/user/revise" element={<QuicklyRevise />} />
             <Route path="/user/revise/:id" element={<QuicklyByModule />} />
             <Route path="/user/challenges" element={<UserChallenges />} />
-            <Route path="/user/home" element={<UserHome/>} /> 
-            <Route path="/user/userProfile" element={<ProfileUser/>} />
-            <Route path="/user/learning" element={<UserLearning/>} />
-            <Route path="/user/learning/:id" element={<UserLearningModule/>} />
-      <Route path="/user/learning/:id/topic" element={<UserModuleTopic/>} />
+            <Route path="/user/home" element={<UserHome />} />
+            <Route path="/user/userProfile" element={<ProfileUser />} />
+            <Route path="/user/learning" element={<UserLearning />} />
+            <Route path="/user/learning/:id" element={<UserLearningModule />} />
+            <Route path="/user/learning/:id/topic" element={<UserModuleTopic />} />
           </Route>
         </Routes>
       </Router>
