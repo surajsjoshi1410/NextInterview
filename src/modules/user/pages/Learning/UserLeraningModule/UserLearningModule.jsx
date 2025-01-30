@@ -11,6 +11,7 @@ import { MdOutlineExpandMore } from "react-icons/md";
 import { MdExpandCircleDown } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import { getModuleById } from "../../../../../api/addNewModuleApi";
+import { Link } from "react-router-dom";
 // const courseData = {
 //     title: "Diagnosing and Investigating the userMetrics",
 //     topics: 5,
@@ -124,7 +125,7 @@ const UserLearningModule = () => {
                     </div>
                     <div className="course-action-btns">
                         <button className="view-sample-btn"><RiGeminiLine />  View Sample Interview</button>
-                        <button className="start-learning-btn">Start Learning</button>
+                      <Link to={`/user/learning/${moduleId}/topic`}>  <button className="start-learning-btn">Start Learning</button></Link>
                     </div>
 
                 </div>
