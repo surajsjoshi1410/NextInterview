@@ -7,6 +7,7 @@ import { PageWrapper, ContentWrapper } from "./BaseLayout.style";
 import Header from "../components/Header/Header";
 import NavBar from "../components/admin/Navbar/Navbar";
 import UserHeader from "../components/UserHeader/UserHeader";
+import ModuleSidebar from "../components/ModuleSidebar/ModuleSidebar";
 
 const BaseLayout = () => {
 
@@ -18,6 +19,7 @@ const BaseLayout = () => {
   // Determine layout based on path
   const isAdminPath = location.pathname.startsWith("/admin");
   const isUserPath = location.pathname.startsWith("/user");
+  const ModulePath= (location.pathname.startsWith("/user/learning/") && location.pathname.endsWith("/topic"));
 
   return (
     <PageWrapper isExpanded={isExpanded}>
@@ -34,7 +36,19 @@ const BaseLayout = () => {
             <Outlet />
           </ContentWrapper>
         </>
-      ) : isUserPath ? (
+      ) : ModulePath?(
+        <>
+          <ModuleSidebar
+           isExpanded={isExpanded}
+           setIsExpanded={setIsExpanded}
+           setTitle={setTitle}
+          />
+          <ContentWrapper isExpanded={isExpanded}>
+            <UserHeader title={title} />
+            <Outlet />
+          </ContentWrapper>
+        </>
+      ):isUserPath ? (
         <>
           <SidebarUser
             isExpanded={isExpanded}
