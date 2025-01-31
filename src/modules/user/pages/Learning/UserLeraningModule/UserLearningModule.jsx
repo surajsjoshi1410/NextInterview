@@ -9,7 +9,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { MdOutlineExpandLess } from "react-icons/md";
 import { MdOutlineExpandMore } from "react-icons/md";
 import { MdExpandCircleDown } from "react-icons/md";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getModuleById } from "../../../../../api/addNewModuleApi";
 import { Link } from "react-router-dom";
 // const courseData = {
@@ -58,6 +58,7 @@ const UserLearningModule = () => {
     const [expandedTopic, setExpandedTopic] = useState(null);
     const moduleId = useParams().id;
     const [courseData, setCourseData] = useState({});
+    const navigate = useNavigate();
     useEffect(() => {
         const apiCaller = async () => {
             try {
@@ -124,7 +125,7 @@ const UserLearningModule = () => {
 
                     </div>
                     <div className="course-action-btns">
-                        <button className="view-sample-btn"><RiGeminiLine />  View Sample Interview</button>
+                        <button className="view-sample-btn" onClick={()=>{navigate(`/user/learning/${moduleId}/topic/sampleInterview`)}}><RiGeminiLine />  View Sample Interview</button>
                       <Link to={`/user/learning/${moduleId}/topic`} state={{ topicIndex: 0, subtopicIndex: 0, }}>  <button className="start-learning-btn">Start Learning</button></Link>
                     </div>
 

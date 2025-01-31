@@ -55,6 +55,7 @@ import QuicklyByModule from "./modules/user/pages/Quickly/QuickByModule/QuicklyB
 import UserLearning from "./modules/user/pages/Learning/UserLearning/UserLearning";
 import UserLearningModule from "./modules/user/pages/Learning/UserLeraningModule/UserLearningModule";
 import UserModuleTopic from "./modules/user/pages/Learning/UserModuleTopic/UserModuleTopic";
+import UserSampleInterview from "./modules/user/pages/Learning/userSampleInterview/userSampleInterview";
 
 function App() {
   return (
@@ -131,6 +132,7 @@ function App() {
             <Route path="/user/learning" element={<UserLearning />} />
             <Route path="/user/learning/:id" element={<UserLearningModule />} />
             <Route path="/user/learning/:id/topic" element={<UserModuleTopic />} />
+            <Route path="/user/learning/:id/topic/sampleInterview" element={<UserSampleInterview/>} />
           </Route>
         </Routes>
       </Router>

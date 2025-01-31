@@ -130,7 +130,7 @@ export default function ModuleSidebar({ isExpanded, setIsExpanded, setTitle, cou
                     </div>
 
                 </div>
-                <button className="start-button"><RiGeminiLine />  View sample interview</button>
+                <button className="start-button" onClick={()=>{navigate(`/user/learning/${moduleId}/topic/sampleInterview`)}}><RiGeminiLine />  View sample interview</button>
 
             </div>
 
