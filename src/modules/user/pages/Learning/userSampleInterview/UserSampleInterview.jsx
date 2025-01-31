@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { UserSampleInterviewWrapper } from './userSampleInterview.styles';
+import { UserSampleInterviewWrapper } from './UserSampleInterview.styles';
 import { useParams } from 'react-router-dom';
 import { getModuleById } from '../../../../../api/addNewModuleApi';
 import { IoMdArrowRoundBack } from "react-icons/io";
