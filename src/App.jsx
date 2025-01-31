@@ -55,7 +55,8 @@ import QuicklyByModule from "./modules/user/pages/Quickly/QuickByModule/QuicklyB
 import UserLearning from "./modules/user/pages/Learning/UserLearning/UserLearning";
 import UserLearningModule from "./modules/user/pages/Learning/UserLeraningModule/UserLearningModule";
 import UserModuleTopic from "./modules/user/pages/Learning/UserModuleTopic/UserModuleTopic";
-import UserSampleInterview from "./modules/user/pages/Learning/UserSampleInterview/UserSampleInterview";
+import UserSampleInterview from "./modules/user/pages/Learning/userSampleInterview/UserSampleInterview";
+
 
 function App() {
   return (
