@@ -9,7 +9,7 @@ const theme = {
     light: "#ffffff",
     text: "#262524",
     sidebarBgColor: "#F0F8F1",
-    textgray:"#c2c3c4",
+    textgray:"rgba(26, 28, 30, 0.60)",
     black: "#000",
     lightgreen: "#ebfced",
     backgray:"#e0e0e0",
@@ -22,8 +22,7 @@ const theme = {
     bluetext:"#2290AC",
     white:"#fff",
     lightyellow:"#f5ebbf",
-
-
+    lightgreen:"#f0fff0",
     sidebarTextColor: "#1A1C1E",
     sidebarHoverBgColor: "#e0e0e0",
     sidebarHoverTextColor: "#000",
