@@ -30,3 +30,15 @@ export const deleteModule = async (id) => {
         throw error;
     }
 };
+
+export const getModuleById = async (id) => {
+    try {
+        console.log("Id",id);
+        const response = await api.get(`/addNewModule/${id}`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};

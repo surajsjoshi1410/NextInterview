@@ -19,16 +19,12 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import BacktoSignIn from "./pages/BacktoSignIn/BacktoSignIn";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import ResetSuccessful from "./pages/passwordresetsuccessful/ResetSuccessful";
-
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import OtpEmail from "./pages/OtpEmail/OtpEmail";
 import UploadModule from "./modules/admin/pages/UploadModule/UploadModule";
 import AddNewModule from "./modules/admin/pages/AddNewModule/AddNewModule";
-
 import SkillAssessment from "./modules/admin/pages/Skill Assesment/SkillAssesment";
-
 import Flashcards from "./modules/admin/pages/Flashcards/Flashcards";
-
 import Challenges from "./modules/admin/pages/Challenges/Challenges";
 import Analytics from "./modules/admin/pages/ViewAnalytics/Analytics";
 import Faq from "./modules/admin/pages/FAQ/Faq";
@@ -46,6 +42,20 @@ import Users from "./modules/admin/pages/Users/Users";
 import AdminDashboard from "./modules/admin/pages/AdminDashboard/AdminDashboard";
 import UserProfile from "./modules/admin/pages/UserProfile/UserProfile";
 import Ckeditor from "./modules/admin/pages/Ckeditor/Ckeditor";
+import UserDashboard from "./modules/user/pages/UserDashboard/UserDashboard";
+import QuicklyRevise from "./modules/user/pages/Quickly/QuicklyRevise/QuicklyRevise";
+import UserChallenges from "./modules/user/pages/UserChallenges/UserChallenges";
+import UserHome from "./modules/user/pages/UserHome/UserHome";
+import ProfileUser from "./modules/user/pages/UserProfile/ProfileUser";
+import QuicklyByModule from "./modules/user/pages/Quickly/QuickByModule/QuicklyByModule";
+import UserLearning from "./modules/user/pages/Learning/UserLearning/UserLearning";
+import UserLearningModule from "./modules/user/pages/Learning/UserLeraningModule/UserLearningModule";
+import UserModuleTopic from "./modules/user/pages/Learning/UserModuleTopic/UserModuleTopic";
+import QuestionBank from "./modules/user/pages/QuestionBank/QuestionBank";
+import QuestionCollapsible from "./modules/user/components/QuestionBank/QuestionCollapsible";
+// import UserModuleTopic from "./modules/user/pages/Learning/UserModuleTopic/UserModuleTopic";
+import UserSampleInterview from "./modules/user/pages/Learning/userSampleInterview/UserSampleInterview";
+
 
 function App() {
   return (
@@ -89,45 +99,49 @@ function App() {
           {/* <Route path="/challenges" element={<Challenges />} /> */}
 
           <Route path="/admin" element={<BaseLayout />}>
-          <Route index element={<AdminDashboard />} />
+            <Route index element={<AdminDashboard />} />
             <Route path="/admin/learning" element={<LearningModules />} />
-            <Route
-              path="/admin/Diagnosing-and-Investigating-Metrics"
-              element={<Userdetails />}
-            />
-            <Route
-              path="/admin/skill-assessment"
-              element={<SkillAssessment />}
-            />
+            <Route path="/admin/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
+            <Route path="/admin/skill-assessment" element={<SkillAssessment />} />
             <Route path="/admin/uploadmodule" element={<UploadModule />} />
             <Route path="/admin/addnewmodule" element={<AddNewModule />} />
-
-
             <Route path="/admin/challenges" element={<Challenges />} />
             <Route path="/admin/viewanalytics" element={<Analytics />} />
             <Route path="/admin/SupportQuery" element={<SupportQuery />} />
             <Route path="/admin/SupportQuery/UserDetails" element={<SupportQueryUserDetails />} />
-
             <Route path="/admin/Flashcards" element={<Flashcards />} />
-
-
             <Route path="/admin/challenges" element={<Challenges />} />
             <Route path="/admin/viewanalytics" element={<Analytics />} />
             <Route path="/admin/faq" element={<Faq />} />
             <Route path="/admin/notifications" element={<Notification />} />
-            {/* <Route path="/admin/edit" element={<EditModal />} /> */}
             <Route path="/admin/SupportQuery" element={<SupportQuery />} />
             <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
             <Route path="/admin/settings" element={<Settings />} />
             <Route path="/admin/users" element={<Users />} />
-            <Route
-              path="/admin/SupportQuery/1234"
-              element={<SupportQueryUserDetails />}
-            />
+            <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
             <Route path="/admin/userProfile" element={<UserProfile />} />
           </Route>
 
-          <Route path="/user" element={<BaseLayout />}></Route>
+          <Route path="/user" element={<BaseLayout />}>
+            <Route index element={<UserDashboard />} />
+            <Route path="/user/revise" element={<QuicklyRevise />} />
+            <Route path="/user/revise/:id" element={<QuicklyByModule />} />
+            <Route path="/user/challenges" element={<UserChallenges />} />
+            <Route path="/user/home" element={<UserHome/>} /> 
+            <Route path="/user/userProfile" element={<ProfileUser/>} />
+            <Route path="/user/learning" element={<UserLearning/>} />
+            <Route path="/user/learning/:id" element={<UserLearningModule/>} />
+      <Route path="/user/learning/:id/topic" element={<UserModuleTopic/>} />
+         <Route path="/user/questionBank" element={<QuestionBank/>} />
+         <Route path="/user/questionBank/:id" element={<QuestionCollapsible/>} />
+         
+            <Route path="/user/home" element={<UserHome />} />
+            <Route path="/user/userProfile" element={<ProfileUser />} />
+            <Route path="/user/learning" element={<UserLearning />} />
+            <Route path="/user/learning/:id" element={<UserLearningModule />} />
+            <Route path="/user/learning/:id/topic" element={<UserModuleTopic />} />
+            <Route path="/user/learning/:id/topic/sampleInterview" element={<UserSampleInterview/>} />
+          </Route>
         </Routes>
       </Router>
     </ThemeProvider>
