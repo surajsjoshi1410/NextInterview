@@ -19,16 +19,12 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import BacktoSignIn from "./pages/BacktoSignIn/BacktoSignIn";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import ResetSuccessful from "./pages/passwordresetsuccessful/ResetSuccessful";
-
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import OtpEmail from "./pages/OtpEmail/OtpEmail";
 import UploadModule from "./modules/admin/pages/UploadModule/UploadModule";
 import AddNewModule from "./modules/admin/pages/AddNewModule/AddNewModule";
-
 import SkillAssessment from "./modules/admin/pages/Skill Assesment/SkillAssesment";
-
 import Flashcards from "./modules/admin/pages/Flashcards/Flashcards";
-
 import Challenges from "./modules/admin/pages/Challenges/Challenges";
 import Analytics from "./modules/admin/pages/ViewAnalytics/Analytics";
 import Faq from "./modules/admin/pages/FAQ/Faq";
@@ -57,7 +53,7 @@ import UserLearningModule from "./modules/user/pages/Learning/UserLeraningModule
 import UserModuleTopic from "./modules/User/pages/Learning/UserModuleTopic/UserModuleTopic";
 import QuestionBank from "./modules/user/pages/QuestionBank/QuestionBank";
 import QuestionCollapsible from "./modules/user/components/QuestionBank/QuestionCollapsible";
-import UserModuleTopic from "./modules/user/pages/Learning/UserModuleTopic/UserModuleTopic";
+// import UserModuleTopic from "./modules/user/pages/Learning/UserModuleTopic/UserModuleTopic";
 import UserSampleInterview from "./modules/user/pages/Learning/userSampleInterview/UserSampleInterview";
 
 
