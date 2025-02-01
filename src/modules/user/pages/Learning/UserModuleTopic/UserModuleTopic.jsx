@@ -9,7 +9,7 @@ import {
     SummaryTitle,
     SummaryText,
     ButtonGroup
-} from "../../Learning/UserModuleTopic/UserModuleTopic.style";
+} from "./UserModuleTopic.style";
 import { SlLike } from "react-icons/sl";
 import { SlDislike } from "react-icons/sl";
 import { getModuleById } from '../../../../../api/addNewModuleApi';

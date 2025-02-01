@@ -54,6 +54,9 @@ import ProfileUser from "./modules/user/pages/UserProfile/ProfileUser";
 import QuicklyByModule from "./modules/user/pages/Quickly/QuickByModule/QuicklyByModule";
 import UserLearning from "./modules/user/pages/Learning/UserLearning/UserLearning";
 import UserLearningModule from "./modules/user/pages/Learning/UserLeraningModule/UserLearningModule";
+import UserModuleTopic from "./modules/User/pages/Learning/UserModuleTopic/UserModuleTopic";
+import QuestionBank from "./modules/user/pages/QuestionBank/QuestionBank";
+import QuestionCollapsible from "./modules/user/components/QuestionBank/QuestionCollapsible";
 import UserModuleTopic from "./modules/user/pages/Learning/UserModuleTopic/UserModuleTopic";
 import UserSampleInterview from "./modules/user/pages/Learning/userSampleInterview/UserSampleInterview";
 
@@ -128,6 +131,14 @@ function App() {
             <Route path="/user/revise" element={<QuicklyRevise />} />
             <Route path="/user/revise/:id" element={<QuicklyByModule />} />
             <Route path="/user/challenges" element={<UserChallenges />} />
+            <Route path="/user/home" element={<UserHome/>} /> 
+            <Route path="/user/userProfile" element={<ProfileUser/>} />
+            <Route path="/user/learning" element={<UserLearning/>} />
+            <Route path="/user/learning/:id" element={<UserLearningModule/>} />
+      <Route path="/user/learning/:id/topic" element={<UserModuleTopic/>} />
+         <Route path="/user/questionBank" element={<QuestionBank/>} />
+         <Route path="/user/questionBank/:id" element={<QuestionCollapsible/>} />
+         
             <Route path="/user/home" element={<UserHome />} />
             <Route path="/user/userProfile" element={<ProfileUser />} />
             <Route path="/user/learning" element={<UserLearning />} />

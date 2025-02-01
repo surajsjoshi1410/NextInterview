@@ -21,10 +21,11 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
   const SidebarItem = [
     { id: 1, name: "Dashboard", path: "/user", icon: <RxDashboard /> },
     { id: 2, name: "Home", path: "/user/home", icon: <FiHome /> },
-    { id: 3, name: "Learning", path: "/user/learning", icon: <MdOutlineMenuBook /> },
-    { id: 4, name: "Challenges", path: "/user/challenges", icon: <MdOutlineLockClock /> },
-    {id: 5, name: "Quickly Revise", path: "/user/revise", icon: <IoIosInformationCircleOutline /> },
+    { id: 3, name: "Learning Module", path: "/user/learning", icon: <MdOutlineMenuBook /> },
    
+    {id: 4, name: "Quickly Revise", path: "/user/revise", icon: <IoIosInformationCircleOutline /> },
+    {id: 5, name: "Question Bank", path: "/user/questionBank", icon: <TbDeviceIpadQuestion /> },
+    { id: 6, name: "Challenges", path: "/user/challenges", icon: <MdOutlineLockClock /> },
   ];
 
 

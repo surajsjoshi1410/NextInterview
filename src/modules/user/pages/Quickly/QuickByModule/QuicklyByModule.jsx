@@ -7,7 +7,7 @@ import {
   Title,
   Button,
   LinkStyled,
-} from "../QuickByModule/QuicklyByModule.styles";
+} from "./QuicklyByModule.styles";
 import { useParams } from "react-router-dom";
 
 const QuicklyByModule = () => {
