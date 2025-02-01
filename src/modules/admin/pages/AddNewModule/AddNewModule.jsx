@@ -309,7 +309,8 @@ const AddNewModule = () => {
     const file = e.target.files[0];
     if (file) {
       const previewURL = URL.createObjectURL(file);
-      const dataUrl = await uploadVideoToFirebase(file, "cheatSheet");
+      const dataUrl = await uploadFileToFirebase(file, "cheatSheet");
+      console.log(dataUrl);
       setTopics((prevTopics) => {
         const updated = [...prevTopics];
         updated[topicIndex].subtopics[subIndex].cheatSheet = {
@@ -401,23 +402,23 @@ const AddNewModule = () => {
     // -----------------------------------------------------------------
     // Ensure each subtopic has 5 layman explanations
     // -----------------------------------------------------------------
-    for (let tIndex = 0; tIndex < topics.length; tIndex++) {
-      for (
-        let sIndex = 0;
-        sIndex < topics[tIndex].subtopics.length;
-        sIndex++
-      ) {
-        const laymanCount =
-          topics[tIndex].subtopics[sIndex].laymanExplanations.length;
-        if (laymanCount < 5) {
-          alert(
-            `Subtopic ${sIndex + 1
-            } of Topic ${tIndex + 1} must have 5 layman explanations. Currently: ${laymanCount}`
-          );
-          return;
-        }
-      }
-    }
+    // for (let tIndex = 0; tIndex < topics.length; tIndex++) {
+    //   for (
+    //     let sIndex = 0;
+    //     sIndex < topics[tIndex].subtopics.length;
+    //     sIndex++
+    //   ) {
+    //     const laymanCount =
+    //       topics[tIndex].subtopics[sIndex].laymanExplanations.length;
+    //     if (laymanCount < 5) {
+    //       alert(
+    //         `Subtopic ${sIndex + 1
+    //         } of Topic ${tIndex + 1} must have 5 layman explanations. Currently: ${laymanCount}`
+    //       );
+    //       return;
+    //     }
+    //   }
+    // }
 
     console.log("All topics data:", topics);
 
@@ -773,7 +774,7 @@ const AddNewModule = () => {
 
               {/* CHEAT SHEET VIDEO */}
               <FormGroup>
-                <Label>Cheat Sheet (Video)</Label>
+                <Label>Cheat Sheet </Label>
                 <div
                   style={{
                     display: "flex",
@@ -781,7 +782,7 @@ const AddNewModule = () => {
                     alignItems: "flex-start",
                   }}
                 >
-                  {!subtopic.cheatSheet?.previewURL ? (
+                  {!subtopic.cheatSheet?.dataUrl ? (
                     <>
                       <UploadButton>
                         <FiUpload />
@@ -789,51 +790,46 @@ const AddNewModule = () => {
                           style={{ cursor: "pointer" }}
                           onClick={() => videoInputRef.current.click()}
                         >
-                          Upload Video
+                          Upload
                         </label>
                       </UploadButton>
                       <input
                         type="file"
-                        accept="video/*"
+                        accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         ref={videoInputRef}
                         style={{ display: "none" }}
                         onChange={(e) =>
                           handleCheatSheetUpload(e, topicIndex, subIndex)
                         }
                       />
+
                     </>
                   ) : (
                     <>
-                      <video
-                        width="200px"
-                        height="150px"
-                        controls
-                        style={{
-                          marginTop: "10px",
-                          border: "1px solid #ccc",
-                          borderRadius: "4px",
-                        }}
-                      >
-                        <source
-                          src={subtopic.cheatSheet.previewURL}
-                          type="video/mp4"
-                        />
-                        Your browser does not support the video tag.
-                      </video>
-                      <ButtonRow>
-                        <ActionButton
-                          variant="danger"
-                          onClick={() =>
-                            handleRemoveCheatSheet(topicIndex, subIndex)
-                          }
+                      {subtopic.cheatSheet?.dataUrl && (
+                        <div
                           style={{
-                            border: "none",
-                            color: `${theme.colors.secondary}`,
+                            marginTop: "10px",
+                            display: "flex",
+                            alignItems: "center",
                           }}
                         >
-                          Remove Video
-                        </ActionButton>
-                      </ButtonRow>
+                          <strong>Uploaded File:</strong>{" "}
+                          {subtopic.cheatSheet?.file.name}
+                          <ActionButton
+                            variant="danger"
+                            onClick={() => handleRemoveCheatSheet(topicIndex, subIndex)}
+                            style={{
+                              marginLeft: "10px",
+                              color: theme.colors.secondary,
+                              border: "none",
+                              backgroundColor: "transparent",
+                            }}
+                          >
+                            Remove file
+                          </ActionButton>
+                        </div>
+                      )}
                     </>
                   )}
                 </div>
