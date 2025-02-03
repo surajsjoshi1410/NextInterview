@@ -25,13 +25,16 @@ import { list } from "firebase/storage";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
-
+import RaiseQuery from "../../modules/user/components/UserFaqComponent/RaiseQuery";
+// import SupportQuery from "../../modules/admin/pages/SupportQuery/SupportQuery";
+import SupportQuery from "../../modules/user/components/SupportQuery/SupportQuery";
 // **Logout Confirmation Modal Component**
 
 // **Dropdown Component**
-const Dropdown = ({ isOpen, onClose, position, onLogoutClick }) => {
+const Dropdown = ({ isOpen, onClose, position,onOpenQueryModal , onLogoutClick }) => {
   const dropdownRef = useRef();
   const navigate = useNavigate();
+ 
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -85,6 +88,8 @@ const Dropdown = ({ isOpen, onClose, position, onLogoutClick }) => {
       <ul style={listyles}>
         <li style={listLIStyles}  onClick={() => { navigate("/user/userprofile"); onClose(); }}> <CgProfile /> My Profile</li>
         <li style={listLIStyles} onClick={() => { alert("Customer Support clicked"); onClose(); }}> <MdOutlineSupportAgent /> Customer Support</li>
+        <li style={listLIStyles} onClick={() => { navigate("/user/userfaq"); onClose(); }}> <CgProfile /> Help</li>
+        <li onClick={() => { onOpenQueryModal(); onClose(); }}> <CgProfile /> Support Query</li>
         <li style={listLIStyles} onClick={onLogoutClick}><RiLogoutBoxLine /> Logout</li>
       </ul>
     </div>,
@@ -97,6 +102,7 @@ const UserHeader = ({ title }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [avatarPosition, setAvatarPosition] = useState({ top: 0, left: 0 });
+  const [isRaiseQueryOpen, setIsRaiseQueryOpen] = useState(false); // State for RaiseQuery modal
 
   const handleAvatarClick = (event) => {
     const rect = event.target.getBoundingClientRect();
@@ -144,6 +150,7 @@ const UserHeader = ({ title }) => {
                   setIsLogoutModalOpen(true);
                   // setIsProfileOpen(false);
                 }}
+                onOpenQueryModal={() => setIsRaiseQueryOpen(true)} // Open RaiseQuery modal
               />
             </div>
             <UserButton afterSignOutUrl="/" />
@@ -167,6 +174,7 @@ const UserHeader = ({ title }) => {
           </div>
         </div>
       }
+      <SupportQuery isOpen={isRaiseQueryOpen} onClose={() => setIsRaiseQueryOpen(false)} />
       </UserHeaderWrapper>
     </>
   );

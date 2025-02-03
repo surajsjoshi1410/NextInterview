@@ -55,6 +55,9 @@ import QuestionBank from "./modules/user/pages/QuestionBank/QuestionBank";
 import QuestionCollapsible from "./modules/user/components/QuestionBank/QuestionCollapsible";
 // import UserModuleTopic from "./modules/user/pages/Learning/UserModuleTopic/UserModuleTopic";
 import UserSampleInterview from "./modules/user/pages/Learning/userSampleInterview/UserSampleInterview";
+import UserFAQ from "./modules/user/pages/UserFAQ/UserFAQ";
+import RaiseQuery from "./modules/user/components/UserFaqComponent/RaiseQuery";
+import Interview from "./modules/user/pages/Interview/Interview";
 
 
 function App() {
@@ -134,13 +137,14 @@ function App() {
       <Route path="/user/learning/:id/topic" element={<UserModuleTopic/>} />
          <Route path="/user/questionBank" element={<QuestionBank/>} />
          <Route path="/user/questionBank/:id" element={<QuestionCollapsible/>} />
-         
             <Route path="/user/home" element={<UserHome />} />
             <Route path="/user/userProfile" element={<ProfileUser />} />
             <Route path="/user/learning" element={<UserLearning />} />
             <Route path="/user/learning/:id" element={<UserLearningModule />} />
             <Route path="/user/learning/:id/topic" element={<UserModuleTopic />} />
             <Route path="/user/learning/:id/topic/sampleInterview" element={<UserSampleInterview/>} />
+            <Route path="/user/userfaq" element={<UserFAQ />} />
+            <Route path="/user/interview" element={<Interview />} />
           </Route>
         </Routes>
       </Router>
