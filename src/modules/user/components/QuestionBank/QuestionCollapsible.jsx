@@ -34,8 +34,7 @@ const allQuestions = [
 const QuestionCollapsible = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const selectedQuestion = allQuestions.find(q => q.id === Number(id));
-
+    const selectedQuestion = allQuestions.find(q => q.id === Number(id)) || allQuestions[0];
     // State to manage selected answer and solution visibility
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [showSolution, setShowSolution] = useState(false);
