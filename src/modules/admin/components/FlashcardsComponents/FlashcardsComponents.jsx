@@ -113,7 +113,7 @@ const FlashcardsComponents = () => {
             value={searchTerm}
             onChange={handleSearch}
           />
-          <AddButton onClick={() => setIsAdding(true)}>Add flashcard</AddButton>
+          <AddButton onClick={() => setIsAdding(true)}>Add Flashcard</AddButton>
         </Header>
 
         {isAdding && (

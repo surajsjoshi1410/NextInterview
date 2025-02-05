@@ -42,3 +42,17 @@ export const getModuleById = async (id) => {
         throw error;
     }
 };
+
+export const updateModuleById = async (id) => {
+    try{
+        console.log("Id",id);
+        const response = await api.put(`/addNewModule/${id}`);
+        console.log(response.data);
+        return response.data;
+
+    }
+    catch(error){
+        console.log(error);
+        throw error;
+    }
+}

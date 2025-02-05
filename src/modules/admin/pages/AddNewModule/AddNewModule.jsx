@@ -399,26 +399,7 @@ const AddNewModule = () => {
 
   // ----------------------------- DONE BUTTON -----------------------------
   const handleDone = async () => {
-    // -----------------------------------------------------------------
-    // Ensure each subtopic has 5 layman explanations
-    // -----------------------------------------------------------------
-    // for (let tIndex = 0; tIndex < topics.length; tIndex++) {
-    //   for (
-    //     let sIndex = 0;
-    //     sIndex < topics[tIndex].subtopics.length;
-    //     sIndex++
-    //   ) {
-    //     const laymanCount =
-    //       topics[tIndex].subtopics[sIndex].laymanExplanations.length;
-    //     if (laymanCount < 5) {
-    //       alert(
-    //         `Subtopic ${sIndex + 1
-    //         } of Topic ${tIndex + 1} must have 5 layman explanations. Currently: ${laymanCount}`
-    //       );
-    //       return;
-    //     }
-    //   }
-    // }
+
 
     console.log("All topics data:", topics);
 
