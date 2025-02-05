@@ -1,223 +1,110 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  Container,
-  Header,
-  SearchInput,
-  Section,
-  SectionTitle,
+  FilterContainer,
+  FilterSection,
+  FilterTitle,
+  FilterOptions,
   FilterOption,
-  RadioInput,
-  CheckboxInput,
-  Actions,
+  Checkbox,
+  Radio,
+  ButtonsContainer,
   ClearButton,
   ApplyButton,
+  Title,
 } from "./SupportQueryListViewFilter.styles";
+// import Title from "antd/es/skeleton/Title";
 
-const SupportQueryListViewFilter = ({ defaultFilters, storedFilters, onApplyFilters, onClose, onStoreFilters }) => {
-  const [status, setStatus] = useState(storedFilters?.status || defaultFilters?.status || "All");
-  const [categories, setCategories] = useState(
-    storedFilters?.categories || defaultFilters?.categories || {
-      Technical: false,
-      "Content-Related": false,
-      Billing: false,
-      General: false,
-    }
-  );
-  const [dateRange, setDateRange] = useState(
-    storedFilters?.dateRange || defaultFilters?.dateRange || {
-      Today: false,
-      "Last 7 days": false,
-      "Last 30 days": false,
-    }
-  );
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredCategories, setFilteredCategories] = useState(Object.keys(categories));
-  const [filteredDates, setFilteredDates] = useState(Object.keys(dateRange));
-  const containerRef = useRef(null); // Ref for the container
+const SupportQueryListViewFilter = ({ defaultFilters, storedFilters, onApplyFilters, onClose }) => {
+  const [filters, setFilters] = useState(storedFilters || defaultFilters);
 
-  // Reinitialize filters when modal is reopened
   useEffect(() => {
-    if (storedFilters) {
-      setStatus(storedFilters.status || "All");
-      setCategories({
-        ...defaultFilters.categories,
-        ...storedFilters.categories,
-      });
-      setDateRange({
-        ...defaultFilters.dateRange,
-        ...storedFilters.dateRange,
-      });
-      setFilteredCategories(Object.keys(defaultFilters.categories || categories));
-      setFilteredDates(Object.keys(defaultFilters.dateRange || dateRange));
-    }
+    setFilters(storedFilters || defaultFilters);
   }, [storedFilters, defaultFilters]);
 
-  // Handle Status Change
-  const handleStatusChange = (event) => {
-    setStatus(event.target.value);
+  const handleStatusChange = (status) => {
+    setFilters((prev) => ({ ...prev, status }));
   };
 
-  // Handle Category Toggle
   const handleCategoryChange = (category) => {
-    setCategories((prev) => ({ ...prev, [category]: !prev[category] }));
+    setFilters((prev) => ({
+      ...prev,
+      categories: { ...prev.categories, [category]: !prev.categories[category] }
+    }));
   };
 
-  // Handle Date Toggle
-  const handleDateChange = (date) => {
-    setDateRange((prev) => ({ ...prev, [date]: !prev[date] }));
+  const handleDateChange = (dateRange) => {
+    setFilters((prev) => ({
+      ...prev,
+      dateRange: { Today: false, "Last 7 days": false, "Last 30 days": false, [dateRange]: true }
+    }));
   };
 
-  // Handle Search Term Change
-  const handleSearchChange = (event) => {
-    const value = event.target.value.toLowerCase();
-    setSearchTerm(value);
-
-    // Filter categories and date ranges dynamically based on search term
-    setFilteredCategories(
-      Object.keys(categories).filter((category) =>
-        category.toLowerCase().includes(value)
-      )
-    );
-
-    setFilteredDates(
-      Object.keys(dateRange).filter((date) =>
-        date.toLowerCase().includes(value)
-      )
-    );
-  };
-
-  // Clear Filters
-  const handleClearFilters = () => {
-    setStatus("All");
-    setCategories({
-      Technical: false,
-      "Content-Related": false,
-      Billing: false,
-      General: false,
-    });
-    setDateRange({
-      Today: false,
-      "Last 7 days": false,
-      "Last 30 days": false,
-    });
-    setSearchTerm("");
-    setFilteredCategories(Object.keys(categories));
-    setFilteredDates(Object.keys(dateRange));
-    onStoreFilters({ status: "All", categories: {}, dateRange: {} }); // Reset stored filters
-  };
-
-  // Apply Filters
   const handleApplyFilters = () => {
-    const appliedFilters = {
-      status,
-      categories: Object.keys(categories).filter((key) => categories[key]),
-      dateRange: Object.keys(dateRange).filter((key) => dateRange[key]),
-    };
-    onApplyFilters(appliedFilters);
-    onStoreFilters({ status, categories, dateRange }); // Store applied filters
+    onApplyFilters(filters);
     onClose();
   };
 
-  // Close component when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (containerRef.current && !containerRef.current.contains(event.target)) {
-        onClose();
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [onClose]);
+  const handleClearFilters = () => {
+    setFilters(defaultFilters);
+  };
 
   return (
-    <Container ref={containerRef}>
-      <Header>More filters</Header>
-      <SearchInput
-        type="text"
-        placeholder="Search"
-        value={searchTerm}
-        onChange={handleSearchChange}
-      />
-      <Section>
-        <SectionTitle>Status</SectionTitle>
-        <FilterOption>
-          <RadioInput
-            type="radio"
-            name="status"
-            value="All"
-            checked={status === "All"}
-            onChange={handleStatusChange}
-          />
-          All
-        </FilterOption>
-        <FilterOption>
-          <RadioInput
-            type="radio"
-            name="status"
-            value="Open"
-            checked={status === "Open"}
-            onChange={handleStatusChange}
-          />
-          Open
-        </FilterOption>
-        <FilterOption>
-          <RadioInput
-            type="radio"
-            name="status"
-            value="Pending"
-            checked={status === "Pending"}
-            onChange={handleStatusChange}
-          />
-          Pending
-        </FilterOption>
-        <FilterOption>
-          <RadioInput
-            type="radio"
-            name="status"
-            value="Resolved"
-            checked={status === "Resolved"}
-            onChange={handleStatusChange}
-          />
-          Resolved
-        </FilterOption>
-      </Section>
+    <FilterContainer>
+      <FilterSection>
+        <Title>Filters</Title>
+        <FilterTitle>Status</FilterTitle>
+        <FilterOptions>
+          {["All", "Open", "Pending", "Resolved"].map((status) => (
+            <FilterOption key={status}>
+              <Radio
+                type="radio"
+                name="status"
+                checked={filters.status === status}
+                onChange={() => handleStatusChange(status)}
+              />
+              {status}
+            </FilterOption>
+          ))}
+        </FilterOptions>
+      </FilterSection>
 
-      <Section>
-        <SectionTitle>Category</SectionTitle>
-        {filteredCategories.map((category) => (
-          <FilterOption key={category}>
-            <CheckboxInput
-              type="checkbox"
-              checked={categories[category]}
-              onChange={() => handleCategoryChange(category)}
-            />
-            {category}
-          </FilterOption>
-        ))}
-      </Section>
+      <FilterSection>
+        <FilterTitle>Category</FilterTitle>
+        <FilterOptions>
+          {Object.keys(filters.categories).map((category) => (
+            <FilterOption key={category}>
+              <Checkbox
+                type="checkbox"
+                checked={filters.categories[category]}
+                onChange={() => handleCategoryChange(category)}
+              />
+              {category}
+            </FilterOption>
+          ))}
+        </FilterOptions>
+      </FilterSection>
 
-      <Section>
-        <SectionTitle>Date</SectionTitle>
-        {filteredDates.map((date) => (
-          <FilterOption key={date}>
-            <CheckboxInput
-              type="checkbox"
-              checked={dateRange[date]}
-              onChange={() => handleDateChange(date)}
-            />
-            {date}
-          </FilterOption>
-        ))}
-      </Section>
+      <FilterSection>
+        <FilterTitle>Date</FilterTitle>
+        <FilterOptions>
+          {Object.keys(filters.dateRange).map((dateRange) => (
+            <FilterOption key={dateRange}>
+              <Checkbox
+                type="checkbox"
+                checked={filters.dateRange[dateRange]}
+                onChange={() => handleDateChange(dateRange)}
+              />
+              {dateRange}
+            </FilterOption>
+          ))}
+        </FilterOptions>
+      </FilterSection>
 
-      <Actions>
+      <ButtonsContainer>
         <ClearButton onClick={handleClearFilters}>Clear all</ClearButton>
         <ApplyButton onClick={handleApplyFilters}>Apply filter</ApplyButton>
-      </Actions>
-    </Container>
+      </ButtonsContainer>
+    </FilterContainer>
   );
 };
 

@@ -10,7 +10,7 @@ export const Container = styled.div`
   padding: ${theme.spacing(2)};
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-family: ${theme.fonts.body};
-
+margin-left: 40px;
   @media (max-width: ${theme.breakpoints.tablet}) {
     flex-wrap: wrap;
     padding: ${theme.spacing(1.5)};

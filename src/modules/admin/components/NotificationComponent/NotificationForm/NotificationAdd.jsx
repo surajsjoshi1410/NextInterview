@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TimePicker from "react-time-picker";  // Import the TimePicker component
 import {
   ModalOverlay,
   ModalContent,
@@ -14,7 +15,9 @@ import {
   ButtonGroup,
   Button,
   CloseButton,
+  TimePickerStyled,  // Import the styled TimePicker
 } from "./NotificationAdd.styles";
+import { BsDisplay } from "react-icons/bs";
 
 const NotificationAdd = ({ isOpen, onClose, onSave }) => {
   const [formData, setFormData] = useState({
@@ -22,7 +25,7 @@ const NotificationAdd = ({ isOpen, onClose, onSave }) => {
     subText: "",
     trigger: "Schedule",
     timeZone: "",
-    time: "00:00 AM",
+    time: "00:00",  // Default to "00:00" (updated to match time picker format)
     frequency: "",
     notificationType: "Only notification",
   });
@@ -78,34 +81,44 @@ const NotificationAdd = ({ isOpen, onClose, onSave }) => {
               value={formData.trigger}
               onChange={handleInputChange}
             >
-              <option>Schedule</option>
-              <option>Immediately</option>
+              <option value="Schedule">Schedule</option>
+              <option value="Immediately">Immediately</option>
             </Select>
           </FormGroup>
 
-  <FormGroup>
-    <Label>Select time zone</Label>
-    <Select
-      name="timeZone"
-      value={formData.timeZone}
-      onChange={handleInputChange}
-    >
-      <option value="">Select</option>
-      <option value="UTC">UTC</option>
-      <option value="IST">IST</option>
-      <option value="PST">PST</option>
-    </Select>
-  </FormGroup>
-  <FormGroup>
-    <Label>Select time</Label>
-    <Input
-      type="text"
-      name="time"
-      placeholder="00:00 AM"
-      value={formData.time}
-      onChange={handleInputChange}
-    />
-  </FormGroup>
+          <FormGroup>
+            <Label>Select time zone</Label>
+            <Select
+              name="timeZone"
+              value={formData.timeZone}
+              onChange={handleInputChange}
+            >
+              <option value="">Select</option>
+              <option value="UTC">UTC</option>
+              <option value="IST">IST</option>
+              <option value="PST">PST</option>
+            </Select>
+          </FormGroup>
+
+          <FormGroup>
+            <Label>Select time</Label>
+            {formData.trigger !== "Immediately" ? (
+              <TimePickerStyled
+                name="time"
+                value={formData.time}
+                onChange={(value) => setFormData((prev) => ({ ...prev, time: value }))}
+                format="hh:mm"
+              />
+            ) : (
+              <Input
+                type="text"
+                name="time"
+                placeholder="00:00 AM"
+                value={formData.time}
+                disabled
+              />
+            )}
+          </FormGroup>
 
           <FormGroup>
             <Label>Frequency</Label>
@@ -113,6 +126,7 @@ const NotificationAdd = ({ isOpen, onClose, onSave }) => {
               name="frequency"
               value={formData.frequency}
               onChange={handleInputChange}
+              disabled={formData.trigger === "Immediately"}
             >
               <option value="">Select</option>
               <option value="Daily">Daily</option>
@@ -129,8 +143,6 @@ const NotificationAdd = ({ isOpen, onClose, onSave }) => {
                 value="Only notification"
                 checked={formData.notificationType === "Only notification"}
                 onChange={handleInputChange}
-                style={{background: "red"}}
-             
               />
               <RadioLabel>Only notification</RadioLabel>
             </RadioOption>
