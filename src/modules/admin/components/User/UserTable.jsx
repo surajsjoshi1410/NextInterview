@@ -141,18 +141,18 @@ const UserTable = ({ users, selectedRows, onRowSelectionChange }) => {
           {users.map((user, index) => (
             <Tr
               key={index}
-              isSelected={selectedRows.includes(index)}
-              onClick={() => onRowSelectionChange(index)}
+              isSelected={selectedRows.includes(user.clerkId)}
+              onClick={() => onRowSelectionChange(user.clerkId)}
             >
               <Td>
                 <Checkbox
-                  checked={selectedRows.includes(index)}
+                  checked={selectedRows.includes(user.clerkId)}
                   onChange={(e) => e.stopPropagation()} // Prevent click conflict
                 />
               </Td>
               <Td>
                 <UserCell>
-                  <Avatar>{user.name[0]}</Avatar>
+                  <Avatar> <img style={{ borderRadius: "50%", width: "40px", height: "40px" }} src={user.profilePic} alt={user.name} /></Avatar>
                   <UserInfo>
                     <Name>{user.name}</Name>
                     <Email>{user.email}</Email>
@@ -173,7 +173,7 @@ const UserTable = ({ users, selectedRows, onRowSelectionChange }) => {
                 {user.bellIcon ? <FaBell /> : <FaBan color="#dc3545" />}
               </Td>
               <Td>
-                <Link to={`/admin/userProfile`} style={{ textDecoration: 'none' }}>
+                <Link to={`/admin/userProfile`}state={{clerkId: user.clerkId}} style={{ textDecoration: 'none' }}>
                   <FaEye />
                 </Link>
               </Td>

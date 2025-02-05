@@ -1,15 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserSearchBar from '../../components/User/UserSearchBar';
 import UserTable from '../../components/User/UserTable';
 import UserCheckTopBar from '../../components/User/UserCheckTopBar';
 import RestrictUser from '../../components/User/RestrictUser';
 import SendReminder from '../../components/User/SendReminder';
 
+import { getUsers } from '../../../../api/userApi';
+
 const Users = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRows, setSelectedRows] = useState([]); // Manage selected rows
   const [isRestrictModalOpen, setRestrictModalOpen] = useState(false);
   const [isReminderModalOpen, setReminderModalOpen] = useState(false);
+  const[userList,setUserList]= useState([]);
+  useEffect(() => {
+    const apiCaller=async()=>{
+     const response= await  getUsers();
+     console.log(response);
+     const userListData=response.data.userData.map((item)=>{
+       
+      return(
+        {
+          clerkId:item.clerkUserData.id,
+          name: item.clerkUserData.firstName||"Anonymous",
+          email: item.userData.user_email ,
+          role: item.userData.user_role,
+          topicsCompleted: "12/15 (80%)",
+          activeHours: "~12h / week",
+          lastActive:new Date(item.clerkUserData.lastActiveAt).getDate() + "/" + new Date(item.clerkUserData.lastActiveAt).getMonth()+1 + "/" + new Date(item.clerkUserData.lastActiveAt).getFullYear(),
+          bellIcon: item.clerkUserData.locked,
+          profilePic: item.clerkUserData.imageUrl,
+        }
+      )
+     })
+     console.log("sdfghj",userListData);
+     setUserList(userListData); 
+    }
+    apiCaller();
+  },[]);
 
   const users = [
     {
@@ -42,7 +70,7 @@ const Users = () => {
     // Add more users as needed...
   ];
 
-  const filteredUsers = users.filter(
+  const filteredUsers = userList.filter(
     (user) =>
       user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.email.toLowerCase().includes(searchQuery.toLowerCase())
@@ -69,6 +97,7 @@ const Users = () => {
       alert("Please select at least one user to restrict.");
       return;
     }
+    console.log(selectedRows);
     setRestrictModalOpen(true);
   };
 
@@ -102,7 +131,7 @@ const Users = () => {
         selectedRows={selectedRows}
         onRowSelectionChange={toggleRowSelection}
       />
-      <RestrictUser isOpen={isRestrictModalOpen} onClose={handleCloseRestrictModal} />
+      <RestrictUser isOpen={isRestrictModalOpen} selectedRows={selectedRows} onClose={handleCloseRestrictModal} />
       <SendReminder isOpen={isReminderModalOpen} onClose={handleCloseReminderModal} />
     </div>
   );

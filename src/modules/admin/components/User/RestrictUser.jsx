@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import theme from "../../../../theme/Theme";
+import { restrictUser } from "../../../../api/userApi";
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -112,21 +113,38 @@ const Button = styled.button`
   }
 `;
 
-const RestrictUser = ({ isOpen, onClose }) => {
+const RestrictUser = ({ isOpen, onClose, selectedRows }) => {
   const [reason, setReason] = useState("Illegal activities");
   const [remarks, setRemarks] = useState("");
   const [duration, setDuration] = useState(1);
   const [durationUnit, setDurationUnit] = useState("Week");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Process form submission
+    const startDate = new Date();
+    const endDate = new Date();
+
+    if (durationUnit === "Week") {
+      const days = duration * 7;
+      endDate.setDate(startDate.getDate() + days * duration);
+    } else if (durationUnit === "Month") {
+
+      endDate.setMonth(startDate.getMonth() + duration);
+    } else if (durationUnit === "Day") {
+
+      endDate.setFullYear(startDate.getDate() + duration);
+    }
+    console.log({ clerk_ids: selectedRows, startDate: startDate, endDate: endDate, reason: reason, remarks: remarks });
     console.log({
+      selectedRows,
       reason,
       remarks,
       duration,
       durationUnit,
     });
+    await restrictUser({ clerk_ids: selectedRows, startDate: startDate, endDate: endDate, reason: reason, remarks: remarks });
+    window.location.reload();
     onClose();
   };
 
