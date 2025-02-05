@@ -59,6 +59,8 @@ import UserFAQ from "./modules/user/pages/UserFAQ/UserFAQ";
 import RaiseQuery from "./modules/user/components/UserFaqComponent/RaiseQuery";
 import Interview from "./modules/user/pages/Interview/Interview";
 import MainWindow from "./modules/user/components/CodeEditorWindow/MainWindow";
+import Editupload from "./modules/admin/components/Learningmodulescomponents/Editupload/Editupload";
+import EditAddModule from "./modules/admin/components/Learningmodulescomponents/EditAddModule/EditAddModule";
 
 
 function App() {
@@ -108,6 +110,10 @@ function App() {
             <Route path="/admin/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
             <Route path="/admin/skill-assessment" element={<SkillAssessment />} />
             <Route path="/admin/uploadmodule" element={<UploadModule />} />
+
+            <Route path="/admin/editmodel/:id" element={<Editupload />} />
+            <Route path="/admin/editaddmodule/:id" element={<EditAddModule />} />
+            
             <Route path="/admin/addnewmodule" element={<AddNewModule />} />
             <Route path="/admin/challenges" element={<Challenges />} />
             <Route path="/admin/viewanalytics" element={<Analytics />} />

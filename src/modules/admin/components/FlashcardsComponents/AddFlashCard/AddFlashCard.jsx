@@ -45,7 +45,7 @@ const AddFlashCard = ({ onClose, onSave, flashcardCount }) => {
       </ContentWrapper>
         <span style={{marginLeft: "160px"}}>{content.length}/50</span>
       <Footer>
-        <UploadButton onClick={handleSave}>Upload</UploadButton>
+        <UploadButton onClick={handleSave}>Save</UploadButton>
       </Footer>
     </Container>
   );
