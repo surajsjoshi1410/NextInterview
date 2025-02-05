@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import TimePicker from "react-time-picker";
 export const ModalOverlay = styled.div`
   position: absolute;
   top: 0;
@@ -149,5 +150,19 @@ export const Button = styled.button`
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.secondary};
+  }
+`;
+
+export const TimePickerStyled = styled(TimePicker)`
+  width: 100%;
+  padding: 10px;
+  border: 1px solid ${({ theme }) => theme.colors.textgray};
+  border-radius: 5px;
+  font-size: 0.8rem;
+  margin-top: 8px;
+
+  &:focus {
+    border-color: ${({ theme }) => theme.colors.primary};
+    outline: none;
   }
 `;

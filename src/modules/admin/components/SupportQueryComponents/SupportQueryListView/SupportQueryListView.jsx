@@ -190,7 +190,9 @@ const SupportQueryListView = () => {
               </TableRow>
             ))}
         </tbody>
-      </Table>
+      </Table>  
+
+      
       {isFilterOpen && (
         <FilterModal>
           <SupportQueryListViewFilter
