@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { UserProfileContainer } from './UserProfile.styles'
 import { FaUndo } from "react-icons/fa";
 import AssesmentPerformanceProfile from '../../components/AssesmentPerformance/AssesmentPerformanceProfile';
@@ -9,14 +9,13 @@ import QuizPerformance from '../../components/QuizPerformance/QuizPerformance';
 import UserDropOffs from '../../components/UserDropOffs/UserDropOffs';
 import TopicsPerformance from '../../components/TopicsPerformance/TopicsPerformance';
 import theme from '../../../../theme/Theme';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { getUserByClerkId, unrestrictUser } from '../../../../api/userApi';
 
 
 export default function UserProfile() {
     const [showModal, setShowModal] = useState(false);
-    // ^ NEW: local state to track modal visibility
-
-    const handleOpenModal = () => setShowModal(true);
-    const handleCloseModal = () => setShowModal(false);
     const userData = {
         name: "Olivia Rhye",
         email: "olivia@gmail.com",
@@ -31,20 +30,58 @@ export default function UserProfile() {
             topics: "12/15 (80%)"
         }
     };
+    const [userInfo, setUserInfo] = useState(userData)
+    // ^ NEW: local state to track modal visibility
+    const location = useLocation();
+    const clerkID = location.state.clerkId;
+    const[clekId, setClerkId] = useState(clerkID);
+    useEffect(() => {
+        const apiCaller = async () => {
+            const response = await getUserByClerkId(clerkID);
+            console.log("response", response)
+
+            const userInfoData = {
+                name: response.data.clerkUserData.firstName || "Anonymous",
+                email: response.data.user.user_email,
+                role: response.data.user.user_role,
+                lastActive: new Date(response.data.clerkUserData.lastActiveAt) + "",
+                avatarUrl: response.data.clerkUserData.imageUrl,
+                stats: {
+                    timeSpent: "2.5h daily",
+                    weeklyTotal: "12.5h",
+                    quizzes: "8 (Avg. 80%)",
+                    bestScore: "95%",
+                    topics: "12/15 (80%)"
+                },
+                locked: response.data.clerkUserData.locked,
+                clerkId: response.data.clerkUserData.id
+            }
+            console.log("userInfoData", userInfoData)
+
+            setUserInfo(userInfoData);
+        }
+        apiCaller();
+    }, [])
+
+    const handleOpenModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
+
 
     return (
         <UserProfileContainer>
             {/* user profile restriction conditionally */}
-            <div className="restriction-banner">
-                <p className="restriction-banner-text">
-                    This user is no longer permitted to access this platform.
-                </p>
-                <button className="remove-restriction-btn"
-                onClick={handleOpenModal} 
-                >
-                    <FaUndo /> Remove restriction
-                </button>
-            </div>
+            {userInfo?.locked &&
+                <div className="restriction-banner">
+                    <p className="restriction-banner-text">
+                        This user is no longer permitted to access this platform.
+                    </p>
+                    <button className="remove-restriction-btn"
+                        onClick={handleOpenModal}
+                    >
+                        <FaUndo /> Remove restriction
+                    </button>
+                </div>
+            }
             {/* The confirmation MODAL (only shows if showModal === true) */}
             {showModal && (
                 <div style={styles.modalOverlay}>
@@ -61,10 +98,12 @@ export default function UserProfile() {
                             </button>
                             <button
                                 style={styles.yesBtn}
-                                onClick={() => {
+                                onClick={async() => {
                                     // Your "Yes" logic here:
                                     // e.g. call an API or update state
+                                   await unrestrictUser({clerk_ids: [clerkID]});
                                     alert("Restriction removed!");
+                                    window.location.reload();
                                     setShowModal(false);
                                 }}
                             >
@@ -75,18 +114,19 @@ export default function UserProfile() {
                 </div>
             )}
             {/* profile  Section */}
+
             <div className="profile-card">
                 {/* Left side: avatar + user info  */}
                 <div className="profile-left">
                     <div className="avatar-wrapper">
-                        <img src={userData.avatarUrl} alt="User Avatar" />
+                        <img src={userInfo.avatarUrl} alt="User Avatar" />
                     </div>
                     <div className="info-text">
-                        <h2 className="user-name" >{userData.name}</h2>
-                        <p className='user-email'>{userData.email}</p>
-                        <span className="role-badge">{userData.role}</span>
+                        <h2 className="user-name" >{userInfo.name}</h2>
+                        <p className='user-email'>{userInfo.email}</p>
+                        <span className="role-badge">{userInfo.role}</span>
                         <p className="last-active" >
-                            Last Active: {userData.lastActive}
+                            Last Active: {userInfo.lastActive}
                         </p>
                     </div>
                 </div>
@@ -95,23 +135,23 @@ export default function UserProfile() {
                 <div className="profile-stats">
                     <div className="stat-group">
                         <p className="stat-label">Time Spent</p>
-                        <p className="stat-value">{userData.stats.timeSpent}</p>
+                        <p className="stat-value">{userInfo.stats.timeSpent}</p>
                     </div>
                     <div className="stat-group">
                         <p className="stat-label">Weekly Total Time</p>
-                        <p className="stat-value">{userData.stats.weeklyTotal}</p>
+                        <p className="stat-value">{userInfo.stats.weeklyTotal}</p>
                     </div>
                     <div className="stat-group">
                         <p className="stat-label">Total Quizzes Taken</p>
-                        <p className="stat-value">{userData.stats.quizzes}</p>
+                        <p className="stat-value">{userInfo.stats.quizzes}</p>
                     </div>
                     <div className="stat-group">
                         <p className="stat-label">Best Quiz Score</p>
-                        <p className="stat-value">{userData.stats.bestScore}</p>
+                        <p className="stat-value">{userInfo.stats.bestScore}</p>
                     </div>
                     <div className="stat-group">
                         <p className="stat-label">Topics Completed</p>
-                        <p className="stat-value">{userData.stats.topics}</p>
+                        <p className="stat-value">{userInfo.stats.topics}</p>
                     </div>
                 </div>
             </div>
@@ -193,13 +233,13 @@ const styles = {
     cancelBtn: {
         backgroundColor: "#fff",
         color: theme.colors.info,
-        border: `1px solid ${theme.colors.info}`,   
+        border: `1px solid ${theme.colors.info}`,
         padding: "0.5rem 1rem",
         borderRadius: "4px",
         cursor: "pointer",
     },
     yesBtn: {
-        backgroundColor:theme.colors.info,
+        backgroundColor: theme.colors.info,
         color: "#fff",
         border: "none",
         padding: "0.5rem 1rem",
