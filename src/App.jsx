@@ -85,7 +85,7 @@ function App() {
           <Route path="/profileComplete" element={<AccountCreated />} />
           <Route path="/otpEmail" element={<OtpEmail />} />
           <Route path="/validation" element={<ValidationPage />} />
-          <Route path="/testing" element={<MainWindow/>} />
+          <Route path="/testing" element={<MainWindow />} />
           <Route path="/learning" element={<LearningModules />} />
 
           {/* <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} /> */}
@@ -137,19 +137,19 @@ function App() {
             <Route path="/user/revise" element={<QuicklyRevise />} />
             <Route path="/user/revise/:id" element={<QuicklyByModule />} />
             <Route path="/user/challenges" element={<UserChallenges />} />
-            <Route path="/user/home" element={<UserHome/>} /> 
-            <Route path="/user/userProfile" element={<ProfileUser/>} />
-            <Route path="/user/learning" element={<UserLearning/>} />
-            <Route path="/user/learning/:id" element={<UserLearningModule/>} />
-      <Route path="/user/learning/:id/topic" element={<UserModuleTopic/>} />
-         <Route path="/user/questionBank" element={<QuestionBank/>} />
-         <Route path="/user/questionBank/:id" element={<QuestionCollapsible/>} />
             <Route path="/user/home" element={<UserHome />} />
             <Route path="/user/userProfile" element={<ProfileUser />} />
             <Route path="/user/learning" element={<UserLearning />} />
             <Route path="/user/learning/:id" element={<UserLearningModule />} />
             <Route path="/user/learning/:id/topic" element={<UserModuleTopic />} />
-            <Route path="/user/learning/:id/topic/sampleInterview" element={<UserSampleInterview/>} />
+            <Route path="/user/questionBank" element={<QuestionBank />} />
+            <Route path="/user/questionBank/:id" element={<QuestionCollapsible />} />
+            <Route path="/user/home" element={<UserHome />} />
+            <Route path="/user/userProfile" element={<ProfileUser />} />
+            <Route path="/user/learning" element={<UserLearning />} />
+            <Route path="/user/learning/:id" element={<UserLearningModule />} />
+            <Route path="/user/learning/:id/topic" element={<UserModuleTopic />} />
+            <Route path="/user/learning/:id/topic/sampleInterview" element={<UserSampleInterview />} />
             <Route path="/user/userfaq" element={<UserFAQ />} />
             <Route path="/user/interview" element={<Interview />} />
           </Route>

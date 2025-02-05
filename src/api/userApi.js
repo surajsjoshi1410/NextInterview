@@ -36,3 +36,32 @@ export const getUserByClerkId = async (clerkId) => {
         throw error;
     }
 };
+export const getUsers = async () => {
+    try {
+        const response = await api.get("/users/getUsers");
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+export const restrictUser = async (data) => {
+    try {
+        const response = await api.post("/users/restrictUser", data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+export const unrestrictUser = async (data) => {
+    try {
+        const response = await api.post("/users/unrestrictUser", data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
