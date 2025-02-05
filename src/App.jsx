@@ -58,6 +58,7 @@ import UserSampleInterview from "./modules/user/pages/Learning/userSampleIntervi
 import UserFAQ from "./modules/user/pages/UserFAQ/UserFAQ";
 import RaiseQuery from "./modules/user/components/UserFaqComponent/RaiseQuery";
 import Interview from "./modules/user/pages/Interview/Interview";
+import MainWindow from "./modules/user/components/CodeEditorWindow/MainWindow";
 
 
 function App() {
@@ -82,7 +83,7 @@ function App() {
           <Route path="/profileComplete" element={<AccountCreated />} />
           <Route path="/otpEmail" element={<OtpEmail />} />
           <Route path="/validation" element={<ValidationPage />} />
-          <Route path="/testing" element={<Ckeditor />} />
+          <Route path="/testing" element={<MainWindow/>} />
           <Route path="/learning" element={<LearningModules />} />
 
           {/* <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} /> */}
