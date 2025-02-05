@@ -26,6 +26,7 @@ const Challenges = () => {
   const fileInputRef = useRef(null);
   const replaceInputRef = useRef(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [replaceIndex, setReplaceIndex] = useState(null); // FIX: Define replaceIndex
 
   // Load persisted files from localStorage on component mount
   useEffect(() => {
@@ -46,10 +47,21 @@ const Challenges = () => {
 
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
-    if (files.length > 0) {
+    const allowedExtensions = ["doc", "docx", "xls", "xlsx"];
+
+    const validFiles = files.filter((file) => {
+      const fileExtension = file.name.split(".").pop().toLowerCase();
+      return allowedExtensions.includes(fileExtension);
+    });
+
+    if (validFiles.length !== files.length) {
+      alert("Only Word and Excel files are allowed!");
+    }
+
+    if (validFiles.length > 0) {
       setUploadedFiles((prevFiles) => [
         ...prevFiles,
-        ...files.map((file) => ({
+        ...validFiles.map((file) => ({
           fileName: file.name,
           applied: false,
           uploadDate: new Date().toLocaleDateString(),
@@ -60,15 +72,29 @@ const Challenges = () => {
 
   const handleReplaceFileChange = (event) => {
     const files = Array.from(event.target.files);
-    if (files.length > 0 && replaceIndex !== null) {
-      setUploadedFiles((prevFiles) =>
-        prevFiles.map((fileObj, index) =>
-          index === replaceIndex
-            ? { ...fileObj, fileName: files[0].name, uploadDate: new Date().toLocaleDateString() }
-            : fileObj
-        )
-      );
-      setReplaceIndex(null);
+    const allowedExtensions = ["doc", "docx", "xls", "xlsx"];
+
+    if (files.length > 0) {
+      const fileExtension = files[0].name.split(".").pop().toLowerCase();
+      if (!allowedExtensions.includes(fileExtension)) {
+        alert("Only Word and Excel files are allowed!");
+        return;
+      }
+
+      if (replaceIndex !== null) {
+        setUploadedFiles((prevFiles) =>
+          prevFiles.map((fileObj, index) =>
+            index === replaceIndex
+              ? {
+                  ...fileObj,
+                  fileName: files[0].name,
+                  uploadDate: new Date().toLocaleDateString(),
+                }
+              : fileObj
+          )
+        );
+        setReplaceIndex(null); // Reset replaceIndex after replacing
+      }
     }
   };
 
@@ -86,7 +112,7 @@ const Challenges = () => {
   };
 
   const handleReplaceClick = (index) => {
-    setReplaceIndex(index);
+    setReplaceIndex(index); // FIX: Set the correct index before opening file picker
     replaceInputRef.current.click();
   };
 
@@ -100,7 +126,40 @@ const Challenges = () => {
   return (
     <Container>
       <UploadSection>
-        <UploadBox>
+      <UploadBox>
+  <UploadText>
+    <strong>Upload {getCurrentMonthAndYear()}'s challenge</strong>
+  </UploadText>
+  <UploadIcon>📤</UploadIcon>
+  <DragDropText>
+    Drag & drop files or{" "}
+    <BrowseLink onClick={handleBrowseClick}>Browse</BrowseLink>
+  </DragDropText>
+  <SupportedFormats>
+    Supported formats: Word (.doc, .docx), Excel (.xls, .xlsx)
+  </SupportedFormats>
+  <input
+    type="file"
+    ref={fileInputRef}
+    style={{ display: "none" }}
+    onChange={handleFileChange}
+    multiple
+    accept=".doc,.docx,.xls,.xlsx"
+  />
+
+  <input
+    type="file"
+    ref={replaceInputRef}
+    style={{ display: "none" }}
+    onChange={handleReplaceFileChange}
+    accept=".doc,.docx,.xls,.xlsx"
+  />
+
+  {/* Upload button should be visible only when files are selected */}
+  {uploadedFiles.length > 0 && <Button onClick={handleApplyClick}>Upload</Button>}
+</UploadBox>
+
+        {/* <UploadBox>
           <UploadText>
             <strong>Upload {getCurrentMonthAndYear()}'s challenge</strong>
           </UploadText>
@@ -110,7 +169,7 @@ const Challenges = () => {
             <BrowseLink onClick={handleBrowseClick}>Browse</BrowseLink>
           </DragDropText>
           <SupportedFormats>
-            Supported formats: JPEG, PNG, GIF, MP4, PDF, PSD, AI, Word, PPT
+            Supported formats: Word (.doc, .docx), Excel (.xls, .xlsx)
           </SupportedFormats>
           <input
             type="file"
@@ -118,15 +177,19 @@ const Challenges = () => {
             style={{ display: "none" }}
             onChange={handleFileChange}
             multiple
+            accept=".doc,.docx,.xls,.xlsx"
           />
+
           <input
             type="file"
             ref={replaceInputRef}
             style={{ display: "none" }}
             onChange={handleReplaceFileChange}
+            accept=".doc,.docx,.xls,.xlsx"
           />
-          <Button onClick={handleApplyClick}>Apply</Button>
-        </UploadBox>
+
+          <Button onClick={handleApplyClick}>Upload</Button>
+        </UploadBox> */}
       </UploadSection>
 
       <ChallengesList>
@@ -143,7 +206,9 @@ const Challenges = () => {
                 </ActionButtons>
               </FileInfo>
               <Status>{fileObj.applied ? "Ongoing" : "Pending"}</Status>
-              <Link to={"/admin/viewanalytics"}><AnalyticsButton >View analytics</AnalyticsButton></Link>
+              <Link to={"/admin/viewanalytics"}>
+                <AnalyticsButton>View analytics</AnalyticsButton>
+              </Link>
             </ChallengeContent>
           </ChallengeCard>
         ))}

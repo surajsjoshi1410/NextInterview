@@ -6,6 +6,7 @@ export const Container = styled.div`
   padding: ${theme.spacing(4)};
   background-color: ${theme.colors.sidebarBgColor};
   font-family: ${theme.fonts.body};
+  margin-left: 40px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     padding: ${theme.spacing(2)};

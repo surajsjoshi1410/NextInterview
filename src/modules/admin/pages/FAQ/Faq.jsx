@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import {
   FAQContainer,
@@ -15,27 +15,28 @@ import { MdDelete } from "react-icons/md";
 import AddFaqModal from "../../components/FAQComponent/FAQAdd/FaqAdd"; 
 import { IoAddCircleOutline } from "react-icons/io5";
 import { CiCircleMinus } from "react-icons/ci";
-const FAQ = () => {
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    
-  const [faqs, setFaqs] = useState([
-    {
-      question: "Is there a free trial available?",
-      answer:
-        "Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
-      isVisible: false,
-    },
-    { question: "Can I change my plan later?", answer: "Yes, you can upgrade or downgrade anytime.", isVisible: false },
-    { question: "What is your cancellation policy?", answer: "You can cancel anytime with no additional fees.", isVisible: false },
-    { question: "Can other info be added to an invoice?", answer: "Yes, you can customize your invoice as needed.", isVisible: false },
-    { question: "How does billing work?", answer: "We bill annually or monthly based on your plan.", isVisible: false },
-    { question: "How do I change my account email?", answer: "Go to account settings and update your email.", isVisible: false },
-  ]);
+import { getFaq, createFaq, deleteFaq, updateFaq } from "../../../../api/faqApi";
 
+const FAQ = () => {
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [faqs, setFaqs] = useState([]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [currentDeleteIndex, setCurrentDeleteIndex] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentEditIndex, setCurrentEditIndex] = useState(null);
+
+  useEffect(() => {
+    const fetchFaqs = async () => {
+      try {
+        const faqs = await getFaq();
+        setFaqs(faqs);
+      } catch (error) {
+        console.error("Error fetching faqs:", error);
+      }
+    };
+
+    fetchFaqs();
+  }, []);
 
   const toggleAnswerVisibility = (index) => {
     setFaqs((prevFaqs) =>
@@ -45,13 +46,18 @@ const FAQ = () => {
     );
   };
 
-  const handleEditSave = (question, answer) => {
-    setFaqs((prevFaqs) =>
-      prevFaqs.map((faq, i) =>
-        i === currentEditIndex ? { ...faq, question, answer } : faq
-      )
-    );
-    setIsEditModalOpen(false);
+  const handleEditSave = async (question, answer) => {
+    try {
+      const updatedFaq = await updateFaq(faqs[currentEditIndex]._id, { question, answer });
+      setFaqs((prevFaqs) =>
+        prevFaqs.map((faq, i) =>
+          i === currentEditIndex ? { ...faq, question, answer } : faq
+        )
+      );
+      setIsEditModalOpen(false);
+    } catch (error) {
+      console.error("Error updating FAQ:", error);
+    }
   };
 
   const openEditModal = (index) => {
@@ -59,9 +65,14 @@ const FAQ = () => {
     setIsEditModalOpen(true);
   };
 
-  const handleDelete = () => {
-    setFaqs((prevFaqs) => prevFaqs.filter((_, i) => i !== currentDeleteIndex));
-    setIsDeleteModalOpen(false);
+  const handleDelete = async () => {
+    try {
+      await deleteFaq(faqs[currentDeleteIndex]._id);
+      setFaqs((prevFaqs) => prevFaqs.filter((_, i) => i !== currentDeleteIndex));
+      setIsDeleteModalOpen(false);
+    } catch (error) {
+      console.error("Error deleting FAQ:", error);
+    }
   };
 
   const openDeleteModal = (index) => {
@@ -69,10 +80,14 @@ const FAQ = () => {
     setIsDeleteModalOpen(true);
   };
 
-
-
-  const addQuestion = (newFaq) => {
-    setFaqs((prevFaqs) => [...prevFaqs, newFaq]);
+  const addQuestion = async (newFaq) => {
+    try {
+      const createdFaq = await createFaq(newFaq);
+      setFaqs((prevFaqs) => [...prevFaqs, createdFaq]);
+      setIsAddModalOpen(false);
+    } catch (error) {
+      console.error("Error adding FAQ:", error);
+    }
   };
 
   return (
@@ -82,30 +97,29 @@ const FAQ = () => {
           <div key={index}>
             <Question onClick={() => toggleAnswerVisibility(index)}>
               {faq.question}
-              <span>{faq.isVisible ? <CiCircleMinus /> : <IoAddCircleOutline/>}</span>
+              <span>{faq.isVisible ? <CiCircleMinus /> : <IoAddCircleOutline />}</span>
             </Question>
             <Answer isVisible={faq.isVisible}>
               {faq.answer}
               {faq.isVisible && (
                 <ActionButtons>
                   <ActionButton type="edit" onClick={() => openEditModal(index)}>
-                  <CiEdit />
+                    <CiEdit />
                   </ActionButton>
                   <ActionButton type="delete" onClick={() => openDeleteModal(index)}>
-                  <MdDelete />
+                    <MdDelete />
                   </ActionButton>
                 </ActionButtons>
               )}
             </Answer>
           </div>
         ))}
-       
 
-       <AddQuestionButton onClick={() => setIsAddModalOpen(true)}>
-                 + Add Question
-               </AddQuestionButton>
-
+        <AddQuestionButton onClick={() => setIsAddModalOpen(true)}>
+          + Add Question
+        </AddQuestionButton>
       </FAQContainer>
+
       {isEditModalOpen && (
         <EditModal
           faq={faqs[currentEditIndex]}
@@ -113,22 +127,23 @@ const FAQ = () => {
           onCancel={() => setIsEditModalOpen(false)}
         />
       )}
+
       {isDeleteModalOpen && (
         <DeleteModule
           onDelete={handleDelete}
           onCancel={() => setIsDeleteModalOpen(false)}
         />
-
-        
       )}
+
       {isAddModalOpen && (
-              <AddFaqModal
-                onClose={() => setIsAddModalOpen(false)}
-                onSave={addQuestion}
-              />
-            )}
+        <AddFaqModal
+          onClose={() => setIsAddModalOpen(false)}
+          onSave={addQuestion}
+        />
+      )}
     </>
   );
 };
 
 export default FAQ;
+ 
