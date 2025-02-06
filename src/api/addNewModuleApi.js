@@ -43,10 +43,10 @@ export const getModuleById = async (id) => {
     }
 };
 
-export const updateModuleById = async (id) => {
+export const updateModuleById = async (id,data) => {
     try{
         console.log("Id",id);
-        const response = await api.put(`/addNewModule/${id}`);
+        const response = await api.put(`/addNewModule/${id}`,data);
         console.log(response.data);
         return response.data;
 

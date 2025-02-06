@@ -232,7 +232,7 @@ const Editupload = () => {
             // Call updateModuleById API
             try {
                 console.log("Hello module Id", moduleData?.id);
-                const updatedModule = await updateModuleById(moduleDataId); // Use the ID from moduleData
+                const updatedModule = await updateModuleById(moduleDataId,submissionData); // Use the ID from moduleData
                 console.log("Module updated successfully:", updatedModule);
                 navigate(`/admin/editaddmodule/${moduleDataId}`, { state: { data: updatedModule } });
             } catch (error) {
