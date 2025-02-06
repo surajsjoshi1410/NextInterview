@@ -61,6 +61,7 @@ import Interview from "./modules/user/pages/Interview/Interview";
 import MainWindow from "./modules/user/components/CodeEditorWindow/MainWindow";
 import Editupload from "./modules/admin/components/Learningmodulescomponents/Editupload/Editupload";
 import EditAddModule from "./modules/admin/components/Learningmodulescomponents/EditAddModule/EditAddModule";
+import ProfileInfo from "./modules/admin/components/ProfileComponents/ProfileInfo";
 
 
 function App() {
@@ -130,6 +131,7 @@ function App() {
             <Route path="/admin/users" element={<Users />} />
             <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
             <Route path="/admin/userProfile" element={<UserProfile />} />
+            <Route path="/admin/profile" element={<ProfileInfo/>} />
           </Route>
 
           <Route path="/user" element={<BaseLayout />}>
