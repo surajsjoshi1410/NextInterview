@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { FiUpload } from "react-icons/fi";
 import styled from "styled-components";
 import {
+  PaginationContainer1,
   AddContainer,
   Heading,
   SectionHeader,
@@ -18,7 +19,7 @@ import {
   ClarifierHeading,
   ButtonRow,
   ActionButton,
-  PaginationContainer,
+  // PaginationContainer,
   FormGroup,
   ModalContainer,
   ModalContent,
@@ -49,7 +50,7 @@ const DeleteIconWrapper = styled.span`
 const AddNewModule = () => {
   // ----------------------------- STATES -----------------------------
   const [modalVisible, setModalVisible] = useState(false);
-
+const navigate = useNavigate();
   // 'topic', 'subtopic', 'layman', or 'clarifier'
   const [deleteType, setDeleteType] = useState(null);
   const location = useLocation();
@@ -486,6 +487,7 @@ const AddNewModule = () => {
       },
     ]);
     setModalVisible(true); // show success modal
+    navigate("/admin/learning");
   };
 
   // ----------------------------- DELETE HANDLING -----------------------------
@@ -1230,11 +1232,11 @@ const AddNewModule = () => {
       </ButtonRow>
 
       {/* PAGINATION (OPTIONAL) */}
-      <PaginationContainer>
-        <Link to="/admin/uploadmodule">
+      <PaginationContainer1>
+        <Link to={`/admin/uploadmodule/`} state={{data:location.state.data}}>
           <ActionButton>Previous</ActionButton>
         </Link>
-      </PaginationContainer>
+      </PaginationContainer1>
 
       {/* DELETE CONFIRMATION MODAL */}
       {modalVisible && deleteType && (

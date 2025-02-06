@@ -291,7 +291,7 @@ export const ActionButton = styled.button`
 export const PaginationContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: ${theme.spacing(2)};
   margin-top: ${theme.spacing(3)};
 

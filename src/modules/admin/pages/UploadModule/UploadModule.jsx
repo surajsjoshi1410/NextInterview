@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { RiImageAddLine } from "react-icons/ri";
 import { FaUpload, FaEdit } from "react-icons/fa";
 import theme from "../../../../theme/Theme";
@@ -42,7 +42,20 @@ const UploadModule = () => {
   const [moduleImage, setModuleImage] = useState(null);
   const imageInputRef = useRef(null);
   const videoInputRef = useRef(null);
+  const location= useLocation();
   const navigate = useNavigate();
+  useEffect(() => {
+    console.log("location.state", location.state);
+    console.log(location.state.data?.userLearntData.map((item) =>`${item.learntData}`) );
+    setImageUrl(location.state.data?.imageURL);
+    setModuleImage(location.state.data?.imageURL);
+    setModuleName(location.state.data?.moduleName);
+    setDescription(location.state.data?.description);
+    setApproxTime(location.state.data?.approxTimeTaken);
+    setVideoUrl(location.state.data?.interviewSampleURL);
+    setCourseOverview(location.state.data?.courseOverview);
+    setWhatUsersLearn(location.state.data?.userLearntData.map((item) =>`${item.learntData}`) );
+  }, []);
 
   // Error states
   const [imageError, setImageError] = useState("");
@@ -383,7 +396,7 @@ const UploadModule = () => {
                   id="whatUsersLearn"
                   rows={3}
                   placeholder="Add points here..."
-                  value={whatUsersLearn.map((point) => `•${point}`).join("\n")}
+                  value={whatUsersLearn?.map((point) => `•${point}`).join("\n")}
                   onChange={handleWhatUsersLearnChange}
                 />
               </TextAreaContainer>

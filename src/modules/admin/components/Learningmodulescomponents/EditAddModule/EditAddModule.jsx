@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { FiUpload } from "react-icons/fi";
 import styled from "styled-components";
 import {
@@ -54,7 +54,7 @@ const EditAddModule = () => {
   const [deleteType, setDeleteType] = useState(null);
   const location = useLocation();
   const videoInputRef = useRef(null);
-
+const navigate = useNavigate();
   // Store indices for whichever item we are deleting
   const [deleteIndices, setDeleteIndices] = useState({
     topicIndex: null,
@@ -544,6 +544,7 @@ const EditAddModule = () => {
       },
     ]);
     setModalVisible(true); // show success modal
+    navigate("/admin/learning");
   };
 
   // ----------------------------- DELETE HANDLING -----------------------------
@@ -1310,7 +1311,7 @@ const EditAddModule = () => {
 
       {/* PAGINATION (OPTIONAL) */}
       <PaginationContainer>
-        <Link to="/admin/uploadmodule">
+        <Link to={`/admin/uploadmodule/${moduleId}`} style={{ textDecoration: "none" }}>
           <ActionButton>Previous</ActionButton>
         </Link>
       </PaginationContainer>
