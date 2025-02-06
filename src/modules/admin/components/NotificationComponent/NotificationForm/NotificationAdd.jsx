@@ -20,6 +20,7 @@ import {
 import { BsDisplay } from "react-icons/bs";
 
 const NotificationAdd = ({ isOpen, onClose, onSave }) => {
+  const [timeVisibility, setTimeVisibility] = useState(true);
   const [formData, setFormData] = useState({
     heading: "",
     subText: "",
@@ -32,6 +33,13 @@ const NotificationAdd = ({ isOpen, onClose, onSave }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    if (name === "trigger") {
+      if (value === "Schedule") {
+        setTimeVisibility(true);
+      } else {
+        setTimeVisibility(false);
+      }
+    }
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -85,55 +93,48 @@ const NotificationAdd = ({ isOpen, onClose, onSave }) => {
               <option value="Immediately">Immediately</option>
             </Select>
           </FormGroup>
+          {timeVisibility ? (
+            <>
+              <FormGroup>
+                <Label>Select time zone</Label>
+                <Select
+                  name="timeZone"
+                  value={formData.timeZone}
+                  onChange={handleInputChange}
+                >
+                  <option value="">Select</option>
+                  <option value="UTC">UTC</option>
+                  <option value="IST">IST</option>
+                  <option value="PST">PST</option>
+                </Select>
+              </FormGroup>
 
-          <FormGroup>
-            <Label>Select time zone</Label>
-            <Select
-              name="timeZone"
-              value={formData.timeZone}
-              onChange={handleInputChange}
-            >
-              <option value="">Select</option>
-              <option value="UTC">UTC</option>
-              <option value="IST">IST</option>
-              <option value="PST">PST</option>
-            </Select>
-          </FormGroup>
+              <FormGroup>
+                <Label>Select time</Label>
+               
+                  
+                  <input type="time" id="appt"   name="time" value={formData.time}  onChange={handleInputChange} required />
+                
+              </FormGroup>
 
-          <FormGroup>
-            <Label>Select time</Label>
-            {formData.trigger !== "Immediately" ? (
-              <TimePickerStyled
-                name="time"
-                value={formData.time}
-                onChange={(value) => setFormData((prev) => ({ ...prev, time: value }))}
-                format="hh:mm"
-              />
-            ) : (
-              <Input
-                type="text"
-                name="time"
-                placeholder="00:00 AM"
-                value={formData.time}
-                disabled
-              />
-            )}
-          </FormGroup>
+              <FormGroup>
+                <Label>Frequency</Label>
+                <Select
+                  name="frequency"
+                  value={formData.frequency}
+                  onChange={handleInputChange}
+                  disabled={formData.trigger === "Immediately"}
+                >
+                  <option value="">Select</option>
+                  <option value="Daily">Daily</option>
+                  <option value="Weekly">Weekly</option>
+                  <option value="Monthly">Monthly</option>
+                </Select>
+              </FormGroup>
+            </>
 
-          <FormGroup>
-            <Label>Frequency</Label>
-            <Select
-              name="frequency"
-              value={formData.frequency}
-              onChange={handleInputChange}
-              disabled={formData.trigger === "Immediately"}
-            >
-              <option value="">Select</option>
-              <option value="Daily">Daily</option>
-              <option value="Weekly">Weekly</option>
-              <option value="Monthly">Monthly</option>
-            </Select>
-          </FormGroup>
+          ) : null}
+
 
           <RadioGroup>
             <RadioOption>
