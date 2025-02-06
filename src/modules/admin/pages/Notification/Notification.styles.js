@@ -21,7 +21,7 @@ export const NotificationCard = styled.div`
   flex-direction: column;
   gap: 10px;
   position: relative;
-  width: 60%;
+  width: 40%;
   margin-left: 2px;
 gap: 10px;
 
