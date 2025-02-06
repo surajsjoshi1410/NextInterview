@@ -258,7 +258,6 @@ export const ButtonRow = styled.div`
 `;
 
 export const ActionButton = styled.button`
-
   background-color: ${(props) =>
     props.variant === "primary" ? theme.colors.secondary : theme.colors.light};
   border: 1px solid
@@ -288,10 +287,13 @@ export const ActionButton = styled.button`
   }
 `;
 
-export const PaginationContainer = styled.div`
+export const PaginationContainer1 = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  align-items: flex-start;
+  flex-direction: row;
+  // margin-left: auto;
+  
+  justify-content: flex-start;
   gap: ${theme.spacing(2)};
   margin-top: ${theme.spacing(3)};
 
