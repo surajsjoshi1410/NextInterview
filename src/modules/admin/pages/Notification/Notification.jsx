@@ -30,7 +30,10 @@ const Notifications = () => {
       );
     } else {
       // Add new notification
-      setNotifications((prev) => [...prev, { ...formData, createdOn: new Date() }]);
+      setNotifications((prev) => [
+        ...prev,
+        { ...formData, createdOn: new Date(), isActive: false }, // Add isActive property
+      ]);
     }
     setEditData(null); // Reset edit data
   };
@@ -50,6 +53,49 @@ const Notifications = () => {
       setIsDeleteModalOpen(false);
     }
   };
+  const ToggleSwitch = ({ checked, onChange }) => {
+    return (
+      <label style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center' }}>
+        <input 
+          type="checkbox" 
+          checked={checked} 
+          onChange={onChange} 
+          style={{ display: 'none' }} // Hide the default checkbox
+        />
+        <span
+          style={{
+            width: '40px',
+            height: '24px',
+            backgroundColor: checked ? '#2390ac' : '#ccc',
+            borderRadius: '20px',
+            position: 'relative',
+            transition: 'background-color 0.3s ease',
+          }}
+        >
+          <span
+            style={{
+              position: 'absolute',
+              top: '4px',
+              left: checked ? '20px' : '4px',
+              width: '16px',
+              height: '16px',
+              backgroundColor: 'white',
+              borderRadius: '50%',
+              transition: 'left 0.3s ease',
+            }}
+          />
+        </span>
+      </label>
+    );
+  };
+  
+  const handleToggleSwitch = (index) => {
+    setNotifications((prevNotifications) =>
+      prevNotifications.map((notification, i) =>
+        i === index ? { ...notification, isActive: !notification.isActive } : notification
+      )
+    );
+  };
 
   return (
     <Container>
@@ -61,53 +107,61 @@ const Notifications = () => {
       >
         Create new notification
       </AddButton>
-
-      {notifications.map((notification, index) => (
-        <NotificationCard key={index}>
-          <NotificationHeader>
-            <p>
-              <strong>Created On</strong> – {new Date(notification.createdOn).toLocaleDateString()}
-            </p>
-            <ToggleSwitch />
-          </NotificationHeader>
-          <NotificationBody>
-            <h3>{notification.heading}</h3>
-            <p style={{ color: "black" }}>{notification.subText}</p>
-            <p className="highlight">
-              <strong>Trigger</strong> – {notification.trigger}
-            </p>
-            {notification.trigger === "Schedule" && (
-              <>
-                <p>
-                  <strong>Time Zone</strong> – {notification.timeZone}
-                </p>
-                <p>
-                  <strong>Time</strong> – {notification.time}
-                </p>
-                <p>
-                  <strong>Frequency</strong> – {notification.frequency}
-                </p>
-              </>
-            )}
-            <p className="small-text">{notification.notificationType}</p>
-
-          </NotificationBody>
-          <Actions>
-            <ActionButton onClick={() => handleEditNotification(index)}>
-              <MdEdit />
-            </ActionButton>
-            <ActionButton
-              onClick={() => {
-                setSelectedNotificationIndex(index);
-                setIsDeleteModalOpen(true);
-              }}
-            >
-              <MdDelete />
-            </ActionButton>
-          </Actions>
-        </NotificationCard>
-      ))}
-
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "40px",
+        }}
+      >
+        {notifications.map((notification, index) => (
+          <NotificationCard key={index}>
+            <NotificationHeader>
+              <p>
+                <strong>Created On</strong> – {new Date(notification.createdOn).toLocaleDateString()}
+              </p>
+              <ToggleSwitch
+                checked={notification.isActive} // controlled state
+                onChange={() => handleToggleSwitch(index)} // toggle on/off
+              />
+            </NotificationHeader>
+            <NotificationBody>
+              <h3>{notification.heading}</h3>
+              <p style={{ color: "black" }}>{notification.subText}</p>
+              <p className="highlight">
+                <strong>Trigger</strong> – {notification.trigger}
+              </p>
+              {notification.trigger === "Schedule" && (
+                <>
+                  <p>
+                    <strong>Time Zone</strong> – {notification.timeZone}
+                  </p>
+                  <p>
+                    <strong>Time</strong> – {notification.time}
+                  </p>
+                  <p>
+                    <strong>Frequency</strong> – {notification.frequency}
+                  </p>
+                </>
+              )}
+              <p className="small-text">{notification.notificationType}</p>
+            </NotificationBody>
+            <Actions>
+              <ActionButton onClick={() => handleEditNotification(index)}>
+                <MdEdit />
+              </ActionButton>
+              <ActionButton
+                onClick={() => {
+                  setSelectedNotificationIndex(index);
+                  setIsDeleteModalOpen(true);
+                }}
+              >
+                <MdDelete />
+              </ActionButton>
+            </Actions>
+          </NotificationCard>
+        ))}
+      </div>
       <NotificationAdd
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
