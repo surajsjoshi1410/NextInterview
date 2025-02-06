@@ -198,3 +198,65 @@ export const Avatar = styled.img`
         height: 25px;
       }
 `;
+
+export const HeaderWrapper = styled.div`
+/* Modal Background Overlay */
+.User-Header-modal-overlay {
+   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Modal Content */
+.User-Header-modal-content {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  min-width: 300px;
+}
+
+/* Modal Buttons */
+.User-Header-modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.User-Header-cancel-btn {
+  padding: 10px 15px;
+  border: 1px solid ${({ theme }) => theme.colors.secondary};
+  background: white;
+  color:${({ theme }) => theme.colors.secondary};
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.User-Header-cancel-btn:hover {
+  background:${({ theme }) => theme.colors.info};
+  color: white;
+}
+
+.User-Header-logout-btn {
+  padding: 10px 15px;
+  border: none;
+  background:${({ theme }) => theme.colors.secondary};
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.User-Header-logout-btn:hover {
+  background:${({ theme }) => theme.colors.info};
+}
+
+  `
