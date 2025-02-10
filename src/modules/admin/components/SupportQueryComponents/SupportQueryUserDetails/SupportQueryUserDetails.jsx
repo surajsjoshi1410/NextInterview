@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   Container,
   Header,
@@ -17,85 +18,158 @@ import {
   LogMessage,
   Divider,
 } from "./SupportQueryUserDetails.styles";
+import { getSupportQueryById, updateSupportQuery } from "../../../../../api/supportQueryApi";
+import { getUserByClerkId } from "../../../../../api/userApi";
 
 const SupportQueryUserDetails = () => {
-  const queryDetails = {
-    id: "1234",
-    severity: "High",
-    category: "Content - related",
-    raisedBy: {
-      name: "Olivia Rhye",
-      email: "olivia@gmail.com",
-      profileImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIfmxwFxAtJORIF7Wzj5M-9BCu0hB9uWBXAg&s",
-    },
-    uploadedOn: "12/12/24 12:01:01 PM",
-    queryInfo: {
-      heading: "Here is the Heading",
-      content: "I am not able to use a Skill assessment test",
-    },
-    communicationLog: [
-      {
-        time: "12:42:57",
-        message: "User submitted the query",
-        date: "December 20",
-      },
-      {
-        time: "09:42:57",
-        message: "Support Agent responded with initial troubleshooting steps",
-        date: "December 20",
-      },
-    ],
+  const { id } = useParams();
+  const [queryDetails, setQueryDetails] = useState(null);
+  const [userDetails, setUserDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [queryDate, setQueryDate] = useState(null);
+  const [closedDate, setClosedDate] = useState("Pending");
+
+  useEffect(() => {
+    const fetchQueryAndUserDetails = async () => {
+      try {
+        const queryData = await getSupportQueryById(id);
+
+        // Format the submitted date
+        setQueryDate(new Date(queryData.submitted_on).toLocaleDateString());
+
+        // Format the closed date (If already closed, show date; otherwise, show "Pending")
+        if (queryData.closed_on) {
+          setClosedDate(` ${new Date(queryData.closed_on).toLocaleDateString()}- Closed by Admin`);
+        }
+
+        setQueryDetails(queryData);
+
+        if (queryData?.user_id?.clerkUserId) {
+          const userDataResponse = await getUserByClerkId(queryData.user_id.clerkUserId);
+
+          if (userDataResponse?.success) {
+            const { user, clerkUserData } = userDataResponse.data;
+            setUserDetails({
+              user_name: user?.user_name || "N/A",
+              user_email: user?.user_email || "N/A",
+              profileImage: clerkUserData?.imageUrl || user?.user_profile_pic || "https://via.placeholder.com/50",
+            });
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError("Failed to fetch data.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchQueryAndUserDetails();
+  }, [id]);
+
+  const handleQueryUpdate = async () => {
+    try {
+      if (!queryDetails) return;
+
+      const updatedClosedDate = new Date().toLocaleDateString();
+
+      const updatedLog = [
+        ...(queryDetails.communicationLog || []),
+        {
+          date: updatedClosedDate,
+          time: new Date().toLocaleTimeString(),
+          message: "Query solved by admin.",
+        },
+      ];
+
+      const data = {
+        status: "solved",
+        communicationLog: updatedLog,
+        closed_on: updatedClosedDate, // Send closed date to backend
+      };
+
+      const response = await updateSupportQuery(id, data);
+
+      if (response) {
+        setQueryDetails((prevState) => ({
+          ...prevState,
+          status: "solved",
+          communicationLog: updatedLog,
+          closed_on: updatedClosedDate, // Update closed date in UI
+        }));
+
+        // Update UI to show closed date instead of "Pending"
+        setClosedDate(`Closed on: ${updatedClosedDate}`);
+      }
+    } catch (error) {
+      console.error("Error updating query:", error);
+    }
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+  if (!queryDetails) return <p>No query details found.</p>;
 
   return (
     <Container>
-      {/* Header Section */}
       <Header>
         <QueryId>
-          {queryDetails.id}{" "}
-          <SeverityBadge severity={queryDetails.severity}>
-            {queryDetails.severity}
+          {queryDetails._id}{" "}
+          <SeverityBadge severity={queryDetails.priority}>
+            {queryDetails.priority}
           </SeverityBadge>
         </QueryId>
         <QueryDetails>{queryDetails.category}</QueryDetails>
         <RaisedBy>
-          <ProfileImage
-            src={queryDetails.raisedBy.profileImage}
-            alt={queryDetails.raisedBy.name}
-          />
+          <ProfileImage src={userDetails?.profileImage} alt={userDetails?.user_name || "User"} />
           <UserInfo>
-            <strong>{queryDetails.raisedBy.name}</strong>
+            <strong>{userDetails?.user_name || "N/A"}</strong>
             <br />
-            <span>{queryDetails.raisedBy.email}</span>
+            <span>{userDetails?.user_email || "N/A"}</span>
           </UserInfo>
         </RaisedBy>
-        <QueryDetails>
-          Uploaded on: {queryDetails.uploadedOn}
-        </QueryDetails>
+        <QueryDetails>Uploaded on: {queryDate}</QueryDetails>
       </Header>
       <Divider />
 
-      {/* Query Info Section */}
       <QueryInfoSection>
-        <h3>Query Info</h3>
-        <QueryHeading>{queryDetails.queryInfo.heading}</QueryHeading>
-        <QueryContent>{`"${queryDetails.queryInfo.content}"`}</QueryContent>
+        <QueryHeading>Query Info</QueryHeading>
+        <QueryContent>{queryDetails.query_description || "N/A"}</QueryContent>
       </QueryInfoSection>
       <Divider />
 
-      {/* Communication Log Section */}
       <CommunicationLog>
-        <h3>Communication Log</h3>
-        {queryDetails.communicationLog.map((log, index) => (
-          <LogEntry key={index}>
-            <LogTime>{log.date} {log.time}</LogTime>
-            <LogMessage>{log.message}</LogMessage>
-          </LogEntry>
-        ))}
+        <QueryHeading>Communication Log</QueryHeading>
+        <LogEntry style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+        }}>
+          <LogTime>{queryDate} - <strong 
+          style={{
+            color: "black",
+            fontWeight: "normal"
+          }}
+          >User submitted the query</strong></LogTime>
+          <LogMessage>{closedDate}</LogMessage>
+        </LogEntry>
+
+        <button  onClick={handleQueryUpdate} disabled={queryDetails.status === "solved"}
+        style={{
+          color: queryDetails.status === "solved" ? "Green" : "red",
+          backgroundColor: queryDetails.status === "solved" ? "#f0fff0" : "#ffebeb",
+          border: "none",
+          borderRadius: "4px",
+          padding: "8px 16px",
+
+        }}
+        >
+          {queryDetails.status === "solved" ? "solved" : "Mark as Solved"}
+        </button>
       </CommunicationLog>
     </Container>
   );
 };
-
 
 export default SupportQueryUserDetails;
