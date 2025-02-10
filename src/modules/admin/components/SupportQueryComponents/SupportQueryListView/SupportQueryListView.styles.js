@@ -93,26 +93,26 @@ export const StatusBadge = styled.span`
   padding: ${theme.spacing(0.5)} ${theme.spacing(1)};
   border-radius: 4px;
   font-size: 0.8rem;
-  font-weight: bold;
+  font-weight: normal;
   color: ${(props) =>
-    props.status === "Resolved"
-      ? theme.colors.success
+    props.status === "solved"
+      ? theme.colors.white
       : props.status === "Pending"
-      ? theme.colors.error
+      ? theme.colors.white
       : props.status === "In-progress"
       ? theme.colors.info
       : props.status === "Open"
-      ? theme.colors.warning
+      ? theme.colors.white
       : theme.colors.text};
   background-color: ${(props) =>
-    props.status === "Resolved"
-      ? "#e7f6e9"
+    props.status === "solved"
+      ? theme.colors.primary
       : props.status === "Pending"
       ? "#fdecea"
       : props.status === "In-progress"
       ? "#e6f3fa"
       : props.status === "Open"
-      ? "#fff4e6"
+      ? theme.colors.error
       : "#f8f9fa"};
 `;
 
