@@ -194,6 +194,15 @@ align-items: center;
 gap: 4px;
 }
 
+.interview-list-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  grid-template-rows: auto;
+  gap: 15px;
+  max-height: 400px; /* Set a fixed height or adjust as per your design */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
 .add-btn:hover {
     background: ${({ theme }) => theme.colors.info};
 }
@@ -209,5 +218,9 @@ gap: 4px;
             .modal-content-formgroup{
             flex-direction: column;
             }
+    }
+
+    .modal-content-formgroup-select{
+    width: 60%;
     }
 `
