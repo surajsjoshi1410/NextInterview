@@ -126,7 +126,7 @@ function App() {
             <Route path="/admin/faq" element={<Faq />} />
             <Route path="/admin/notifications" element={<Notification />} />
             <Route path="/admin/SupportQuery" element={<SupportQuery />} />
-            <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
+            <Route path="/admin/SupportQuery/:id" element={<SupportQueryUserDetails />} />
             <Route path="/admin/settings" element={<Settings />} />
             <Route path="/admin/users" element={<Users />} />
             <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />

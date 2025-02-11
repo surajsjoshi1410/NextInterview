@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState, useEffect} from "react";
 import {
   Container,
   StatCard,
@@ -6,35 +6,56 @@ import {
   StatValue,
   Divider,
 } from "./SupportQueryStats.styles";
-
+import { getSupportQueryStats } from "../../../../../api/supportQueryApi";
 const SupportQueryStats = () => {
-  const stats = {
-    totalQueries: 1501,
-    openQueries: 15,
-    resolvedQueries: 135,
-    avgResolutionTime: "2h",
-  };
+  const [stats, setStats] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await getSupportQueryStats();
+        setStats(response);
+        console.log("Response",response);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+
 
   return (
     <Container>
       <StatCard>
         <StatLabel>Total Queries</StatLabel>
-        <StatValue>{stats.totalQueries}</StatValue>
+        <StatValue>{stats.data.totalQueries}</StatValue>
       </StatCard>
       <Divider />
       <StatCard>
         <StatLabel>Open Queries</StatLabel>
-        <StatValue>{stats.openQueries}</StatValue>
+        <StatValue>{stats.data.openQueries}</StatValue>
       </StatCard>
       <Divider />
       <StatCard>
-        <StatLabel>Resolved Queries</StatLabel>
-        <StatValue>{stats.resolvedQueries}</StatValue>
+        <StatLabel>Solved Queries</StatLabel>
+        <StatValue>{stats.data.solvedQueries}</StatValue>
       </StatCard>
       <Divider />
       <StatCard>
         <StatLabel>Avg. Resolution Time</StatLabel>
-        <StatValue>{stats.avgResolutionTime}</StatValue>
+        <StatValue>{stats.data.avgTimeToSolve}</StatValue>
       </StatCard>
     </Container>
   );

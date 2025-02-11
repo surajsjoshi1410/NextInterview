@@ -35,7 +35,7 @@ export const QueryId = styled.div`
 export const SeverityBadge = styled.span`
   background-color: ${(props) =>
     props.severity === "High" ? theme.colors.error : theme.colors.warning};
-  color: ${theme.colors.light};
+  color: ${theme.colors.black};
   padding: ${theme.spacing(0.5)} ${theme.spacing(1)};
   border-radius: 4px;
   font-size: 0.8rem;
@@ -111,6 +111,6 @@ export const LogTime = styled.div`
 `;
 
 export const LogMessage = styled.div`
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: ${theme.colors.text};
 `;

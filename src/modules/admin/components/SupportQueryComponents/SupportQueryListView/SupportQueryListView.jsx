@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -17,119 +17,88 @@ import {
   FilterModal,
 } from "./SupportQueryListView.styles";
 import SupportQueryListViewFilter from "../SupportQueryListViewFilter/SupportQueryListViewFilter";
-
-const queries = [
-  {
-    id: "UserDetails",
-    name: "Olivia Rhye",
-    email: "olivia@gmail.com",
-    profileImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIfmxwFxAtJORIF7Wzj5M-9BCu0hB9uWBXAg&s",
-    category: "Technical",
-    status: "In-progress",
-    submittedOn: "12/12/24 12:42:14",
-    resolutionTime: "-",
-  },
-  {
-    id: "User",
-    name: "Phoenix Baker",
-    email: "phoenix@gmail.com",
-    profileImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxjR7vj2h745769RuDk7L9xxsSZyBs7ZBXUg&s",
-    category: "Content",
-    status: "Resolved",
-    submittedOn: "12/12/24 12:42:14",
-    resolutionTime: "2h",
-  },
-  {
-    id: "User",
-    name: "Lana Steiner",
-    email: "lana@gmail.com",
-    profileImage: "https://static9.depositphotos.com/1499355/1200/i/450/depositphotos_12002062-Happy-Indian-business-woman..jpg",
-    category: "Billing",
-    status: "Pending",
-    submittedOn: "12/12/24 12:42:14",
-    resolutionTime: "-",
-  },
-  {
-    id: "User",
-    name: "Demi Wilkinson",
-    email: "dem@gmail.com",
-    profileImage: "https://img.freepik.com/premium-photo/young-smart-indian-businesswoman-smiling-face-standing-blur-background-modern-office-building-generative-ai-aig20_31965-117685.jpg",
-    category: "General",
-    status: "Open",
-    submittedOn: "12/12/24 12:42:14",
-    resolutionTime: "-",
-  },
-  {
-    id: "User",
-    name: "Candice Wu",
-    email: "candice@gmail.com",
-    profileImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIfmxwFxAtJORIF7Wzj5M-9BCu0hB9uWBXAg&s",
-    category: "Content",
-    status: "~ 12h / week",
-    submittedOn: "12/12/24 12:42:14",
-    resolutionTime: "12/12/24",
-  },
-  {
-    id: "User",
-    name: "Natali Craig",
-    email: "natali@gmail.com",
-    profileImage: "https://img.freepik.com/premium-photo/young-smart-indian-businesswoman-smiling-face-standing-blur-background-modern-office-building-generative-ai-aig20_31965-117685.jpg",
-    category: "Billing",
-    status: "Resolved",
-    submittedOn: "12/12/24 12:42:14",
-    resolutionTime: "4h",
-  },
-  {
-    id: "User",
-    name: "Drew Cano",
-    email: "drew@gmail.com",
-    profileImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxjR7vj2h745769RuDk7L9xxsSZyBs7ZBXUg&s",
-    category: "Billing",
-    status: "Resolved",
-    submittedOn: "12/12/24 12:42:14",
-    resolutionTime: "6h",
-  },
-  {
-    id: "User",
-    name: "Orlando Diggs",
-    email: "orlando@gmail.com",
-    profileImage: "https://static9.depositphotos.com/1499355/1200/i/450/depositphotos_12002062-Happy-Indian-business-woman..jpg",
-    category: "Content",
-    status: "Open",
-    submittedOn: "12/12/24 12:42:14",
-    resolutionTime: "-",
-  },
-];
-
+import { getAllSupportQuery } from "../../../../../api/supportQueryApi";
+import { getUserByClerkId } from "../../../../../api/userApi";
 const SupportQueryListView = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [filteredQueries, setFilteredQueries] = useState(queries);
+  const [queries, setQueries] = useState([]);
+  const [filteredQueries, setFilteredQueries] = useState([]);
   const [storedFilters, setStoredFilters] = useState({
     status: "All",
     categories: { Technical: false, Content: false, Billing: false, General: false },
     dateRange: { Today: false, "Last 7 days": false, "Last 30 days": false },
   });
 
+  useEffect(() => {
+    const fetchQueries = async () => {
+      try {
+        const response = await getAllSupportQuery();
+        console.log("response", response);
+        if (response && Array.isArray(response.data)) {
+          let queriesWithProfilePics = await Promise.all(
+            response.data.map(async (query) => {
+              if (query.user_id?.clerkUserId) {
+                try {
+                  const userData = await getUserByClerkId(query.user_id.clerkUserId);
+                  console.log("userData", userData);
+                  return {
+                    ...query,
+                    profileImage: userData?.data?.user?.user_profile_pic || userData?.data?.clerkUserData?.imageUrl || "",
+                  };
+
+
+                } catch (error) {
+                  console.error("Error fetching user profile:", error);
+                  return { ...query, profileImage: "" };
+                }
+              }
+              return { ...query, profileImage: "" };
+            })
+          );
+
+          setQueries(queriesWithProfilePics);
+          setFilteredQueries(queriesWithProfilePics);
+        } else {
+          console.error("Unexpected API response format:", response);
+          setQueries([]);
+          setFilteredQueries([]);
+        }
+      } catch (error) {
+        console.error("Error fetching queries:", error);
+        setQueries([]);
+        setFilteredQueries([]);
+      }
+    };
+    fetchQueries();
+  }, []);
+  useEffect(() => {
+    applyFilters(storedFilters);
+  }, [storedFilters, queries]);
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
   const applyFilters = (filters) => {
-    const { status, categories, dateRange } = filters;
+    if (!Array.isArray(queries)) {
+      console.error("applyFilters was called before queries were set.");
+      return;
+    }
 
+    const { status, categories, dateRange } = filters;
     const filtered = queries.filter((query) => {
       const matchesStatus = status === "All" || query.status === status;
       const matchesCategory =
         Object.keys(categories).every((key) => !categories[key]) ||
         categories[query.category];
-      const matchesDate = Object.keys(dateRange).every((key) => !dateRange[key]); // Placeholder for future date filtering
+      const matchesDate = Object.keys(dateRange).every((key) => !dateRange[key]);
 
       return matchesStatus && matchesCategory && matchesDate;
     });
 
     setFilteredQueries(filtered);
-    setStoredFilters(filters); // Save applied filters
+    setStoredFilters(filters);
   };
 
   return (
@@ -158,26 +127,25 @@ const SupportQueryListView = () => {
           {filteredQueries
             .filter(
               (query) =>
-                query.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                query.email.toLowerCase().includes(searchTerm.toLowerCase())
+                query.user_id?.user_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                query.user_id?.user_email?.toLowerCase().includes(searchTerm.toLowerCase())
             )
             .map((query, index) => (
               <TableRow key={index}>
                 <TableCell>
-                  <QueryLink to={`/admin/SupportQuery/${query.id}`}>
-                    {query.id}
-                  </QueryLink>
+                  <QueryLink to={`/admin/SupportQuery/${query._id}`}>{query._id}</QueryLink>
                 </TableCell>
                 <TableCell>
                   <NameContainer>
                     <ProfileImage
                       src={query.profileImage}
-                      alt={`${query.name}'s profile`}
+                      alt={`${query.user_id?.user_name || 'User'}'s profile`}
                     />
+
                     <NameEmail>
-                      <strong>{query.name}</strong>
+                      <strong>{query.user_id?.user_name || "N/A"}</strong>
                       <br />
-                      <span>{query.email}</span>
+                      <span>{query.user_id?.user_email || "N/A"}</span>
                     </NameEmail>
                   </NameContainer>
                 </TableCell>
@@ -185,23 +153,32 @@ const SupportQueryListView = () => {
                 <TableCell>
                   <StatusBadge status={query.status}>{query.status}</StatusBadge>
                 </TableCell>
-                <TableCell>{query.submittedOn}</TableCell>
-                <TableCell>{query.resolutionTime}</TableCell>
+                <TableCell>{new Date(query.submitted_on).toLocaleDateString()}</TableCell>
+               <TableCell>
+  {query.submitted_on && query.closed_on
+    ? (() => {
+        const submitted = new Date(query.submitted_on);
+        const closed = new Date(query.closed_on);
+        const diffInMs = closed - submitted;
+        const diffInHours = diffInMs / (1000 * 60 * 60);
+        const days = Math.floor(diffInHours / 24);
+        const hours = Math.round(diffInHours % 24);
+        return days > 0
+          ? `${days} day${days > 1 ? "s" : ""} ${hours} hr${hours !== 1 ? "s" : ""}`
+          : `${hours} hr${hours !== 1 ? "s" : ""}`;
+      })()
+    : "N/A"}
+</TableCell>
+
               </TableRow>
             ))}
         </tbody>
-      </Table>  
-
-      
+      </Table>
       {isFilterOpen && (
         <FilterModal>
           <SupportQueryListViewFilter
-            defaultFilters={{
-              status: "All",
-              categories: { Technical: false, Content: false, Billing: false, General: false },
-              dateRange: { Today: false, "Last 7 days": false, "Last 30 days": false },
-            }}
-            storedFilters={storedFilters} // Pass stored filters here
+            defaultFilters={storedFilters}
+            storedFilters={storedFilters}
             onApplyFilters={(filters) => {
               applyFilters(filters);
               setIsFilterOpen(false);

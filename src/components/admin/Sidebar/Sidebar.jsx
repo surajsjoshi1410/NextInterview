@@ -20,15 +20,18 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
 
   const SidebarItem = [
     { id: 1, name: "Dashboard", path: "/admin", icon: <RxDashboard /> },
+    { id: 2, name: "Users", path: "/admin/users", icon: <BsFileEarmarkLock /> },
     // { id: 2, name: "Home", path: "/admin/dashboard", icon: <FiHome /> },
     { id: 3, name: "Learning Module", path: "/admin/learning", icon: <MdOutlineMenuBook /> },
-    { id: 4, name: "Flashcards", path: "/admin/flashcards", icon: <CiMobile1 /> },
-    { id: 5, name: "Challenges", path: "/admin/challenges", icon: <MdOutlineLockClock /> },
+    { id: 4, name: "Support Query", path: "/admin/SupportQuery", icon: <TfiHeadphoneAlt /> },
+    { id: 5, name: "Flashcards", path: "/admin/flashcards", icon: <CiMobile1 /> },
     { id: 6, name: "FAQ's", path: "/admin/faq", icon: <IoIosInformationCircleOutline /> },
-    { id: 7, name: "Notifications", path: "/admin/notifications", icon: <MdNotificationsNone /> },
-    { id: 8, name: "Support Query", path: "/admin/SupportQuery", icon: <TfiHeadphoneAlt /> },
+    { id: 7, name: "Challenges", path: "/admin/challenges", icon: <MdOutlineLockClock /> },
+    
+    { id: 8, name: "Notifications", path: "/admin/notifications", icon: <MdNotificationsNone /> },
+   
     { id: 9, name: "Settings", path: "/admin/settings", icon: <IoSettingsOutline /> },
-    { id: 10, name: "Users", path: "/admin/users", icon: <BsFileEarmarkLock /> },
+   
   ];
 
   return (
