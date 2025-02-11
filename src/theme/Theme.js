@@ -28,6 +28,7 @@ const theme = {
     sidebarHoverTextColor: "#000",
     sidebarActiveBgColor: "#d3d3d3",
     sidebarActiveTextColor: "#000",
+    admintop:"#6ec389"
   },
   fonts: {
     body: "'DM Sans', sans-serif",
