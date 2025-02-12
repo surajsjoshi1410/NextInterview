@@ -62,6 +62,7 @@ import MainWindow from "./modules/user/components/CodeEditorWindow/MainWindow";
 import Editupload from "./modules/admin/components/Learningmodulescomponents/Editupload/Editupload";
 import EditAddModule from "./modules/admin/components/Learningmodulescomponents/EditAddModule/EditAddModule";
 import ProfileInfo from "./modules/admin/components/ProfileComponents/ProfileInfo";
+import UserSubscription from "./modules/user/pages/UserSubscription/UserSubscription";
 import InterviewPage from "./modules/user/pages/InterviewPage/InterviewPage";
 
 
@@ -154,6 +155,7 @@ function App() {
             <Route path="/user/learning/:id/topic" element={<UserModuleTopic />} />
             <Route path="/user/learning/:id/topic/sampleInterview" element={<UserSampleInterview />} />
             <Route path="/user/userfaq" element={<UserFAQ />} />
+            <Route path="/user/subscription" element={<UserSubscription/>} />
             <Route path="/user/interview" element={<InterviewPage />} />
           </Route>
         </Routes>
