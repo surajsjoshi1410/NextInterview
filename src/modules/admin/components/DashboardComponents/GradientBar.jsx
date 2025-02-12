@@ -7,11 +7,12 @@ const GradientBackground = styled.div`
 //   margin-left: 60px;
   margin-top: 20px;
   position: absolute;
+  border-radius: 8px;
   z-index: 0;
   background: linear-gradient(
     to bottom,
-    ${(props) => props.theme.colors.primary},
-    ${(props) => props.theme.colors.lightgreen}
+    ${(props) => props.theme.colors.bluetext},
+    ${(props) => props.theme.colors.admintop}
   );
 `;
 
