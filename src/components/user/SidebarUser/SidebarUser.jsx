@@ -49,6 +49,7 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
                 className={({ isActive }) => (isActive ? "menu-link active" : "menu-link")}
                 onClick={() => setTitle(item.name)}
               >
+                
                 <span className="menu-link-icon">{item.icon}</span>
                 <span className="menu-link-text">{item.name}</span>
               </NavLink>
