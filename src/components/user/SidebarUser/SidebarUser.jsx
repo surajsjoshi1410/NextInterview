@@ -14,6 +14,7 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 import { MdNotificationsNone } from "react-icons/md";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { IoSettingsOutline } from "react-icons/io5";
+import { FaMoneyCheckAlt } from "react-icons/fa";
 
 const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
   const location = useLocation();
@@ -26,6 +27,7 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
     {id: 5, name: "Question Bank", path: "/user/questionBank", icon: <TbDeviceIpadQuestion /> },
     { id: 6, name: "Challenges", path: "/user/challenges", icon: <MdOutlineLockClock /> },
     { id: 7, name: "Interview", path: "/user/interview", icon: <CiMobile1 /> },
+    { id: 8, name: "Subscription", path: "/user/subscription", icon: <FaMoneyCheckAlt /> },
   ];
 
 
