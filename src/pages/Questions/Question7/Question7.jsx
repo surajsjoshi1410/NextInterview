@@ -112,7 +112,7 @@ function Question7() {
     });
     console.log("pastData", pastData);
     const submissionData = {
-      user_id: data.data._id,
+      user_id: data.data.user._id,
       data_past_interview_response: pastData,
     };
 
@@ -262,7 +262,7 @@ function Question7() {
         <button className="NextButton" onClick={handleNext}>
           Next
         </button>
-        <button className="SkipButton" onClick={() => {}}>
+        <button className="SkipButton" onClick={() => { navigate("/question8", { state: { backLink: "/question7" } })}}>
           skip
         </button>
         <button className="anotherCompany" onClick={handleAddAnotherCompany}>

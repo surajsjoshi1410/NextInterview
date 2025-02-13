@@ -78,7 +78,7 @@ const CompaniesPlan = () => {
     }
     console.log("data", data);
     const submissionData = {
-      user_id: data.data._id,
+      user_id: data.data.user._id,
       data_interview_scheduled_response: subisstionData,
       // profile_status:true
     };

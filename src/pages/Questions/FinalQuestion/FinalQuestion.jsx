@@ -22,7 +22,7 @@ function FinalQuestion() {
   const handleNext = async () => {
     const data = await getUserByClerkId(user.id);
     const submissionData = {
-      user_id: data.data._id,
+      user_id: data.data.user._id,
       data_motive_response: selectedOption,
       profile_status:true
     }

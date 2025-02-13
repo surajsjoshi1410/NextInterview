@@ -97,7 +97,7 @@ function Question6() {
   const handleNext = async () => {
     const data = await getUserByClerkId(user.id);
     const submissionData = {
-      user_id: data.data._id,
+      user_id: data.data.user._id,
       data_planned_interview_response: {
         companies: selectedCompany,
         designations: selectedDesignation

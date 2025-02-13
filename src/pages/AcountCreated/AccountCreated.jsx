@@ -15,7 +15,7 @@ function AccountCreated() {
   const handleClick = async() => {
      const data = await getUserByClerkId(user.id);
         const submissionData = {
-          user_id: data.data._id,
+          user_id: data.data.user._id,
           profile_status:true
         }
         const responseData = await createUserProfile(submissionData);

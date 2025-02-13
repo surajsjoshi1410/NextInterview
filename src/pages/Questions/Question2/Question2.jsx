@@ -30,7 +30,7 @@ const QuestionPage2 = () => {
         const data = await getUserByClerkId(user.id);
         console.log("data", data);
         const submissionData = {
-            user_id: data.data._id,
+            user_id: data.data.user._id,
             data_ai_job_response: selectedOption,
         }
         await createUserProfile(submissionData);
