@@ -42,20 +42,25 @@ const UploadModule = () => {
   const [moduleImage, setModuleImage] = useState(null);
   const imageInputRef = useRef(null);
   const videoInputRef = useRef(null);
-  const location= useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   console.log("location.state", location.state);
-  //   // console.log(location.state.data?.userLearntData?.map((item) =>`${item.learntData}`) );
-  //   setImageUrl(location.state.data?.imageURL);
-  //   setModuleImage(location.state.data?.imageURL);
-  //   setModuleName(location.state.data?.moduleName);
-  //   setDescription(location.state.data?.description);
-  //   setApproxTime(location.state.data?.approxTimeTaken);
-  //   setVideoUrl(location.state.data?.interviewSampleURL);
-  //   setCourseOverview(location.state.data?.courseOverview);
-  //   setWhatUsersLearn(location.state.data?.userLearntData.map((item) =>`${item.learntData}`) );
-  // }, [location.state?.data]);
+  useEffect(() => {
+    const intializeData = () => {
+      console.log("location.state", location.state);
+      // console.log(location.state.data?.userLearntData?.map((item) =>`${item.learntData}`) );
+      setImageUrl(location.state.data?.imageURL);
+      setModuleImage(location.state.data?.imageURL);
+      setModuleName(location.state.data?.moduleName);
+      setDescription(location.state.data?.description);
+      setApproxTime(location.state.data?.approxTimeTaken);
+      setVideoUrl(location.state.data?.interviewSampleURL);
+      setSampleVideo(location.state.data?.interviewSampleURL);
+      setCourseOverview(location.state.data?.courseOverview);
+      setWhatUsersLearn(location.state.data?.userLearntData.map((item) => `${item.learntData}`));
+    };
+    if(location.state) intializeData();
+
+  }, []);
 
   // Error states
   const [imageError, setImageError] = useState("");
@@ -162,6 +167,7 @@ const UploadModule = () => {
 
   // ------------------ SUBMISSION ------------------
   const handleNext = async () => {
+    console.log(" mext clicked");
     // Reset errors
     setImageError("");
     setModuleNameError("");
