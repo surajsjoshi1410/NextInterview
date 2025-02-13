@@ -1,6 +1,7 @@
 import React from "react";
 import { OutputWindowWrapper } from "./OutputWindow.styles";
 import { BsArrowReturnRight } from "react-icons/bs";
+import { RiGeminiLine } from "react-icons/ri";
 const OutputWindow = ({ outputDetails,customBTN,tryHarderBTn,submitCodebtn }) => {
     const getOutput = () => {
         let statusId = outputDetails?.status?.id;
@@ -43,10 +44,10 @@ const OutputWindow = ({ outputDetails,customBTN,tryHarderBTn,submitCodebtn }) =>
                     </div>
                     <div className="outputWindow-btns-right">
                         <div className="btn-one">
-                            <button className="outputWindow-btns-right-run">{tryHarderBTn} try harder btn here</button>
+                            <button className="outputWindow-btns-right-run"><RiGeminiLine /> Try harder question</button>
                         </div>
                     {customBTN}
-                    {submitCodebtn}
+                      <button className="outputWindow-btns-right-submit"> Submit Code</button>
                     </div>
                 </div>
                 <h1 className="output-title">

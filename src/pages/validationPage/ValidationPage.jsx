@@ -12,8 +12,13 @@ export default function ValidationPage() {
                 console.log(user);
                 const data = await getUserByClerkId(user.id);
                 console.log(data.data);
-                if(data.data.user_role === "user") {
+                if(data.data.user.user_role === "user") {
+                  if(data.data.user.profile_status === true) {
                     navigate("/user")
+                  }else{
+                      navigate("/personalInfo")
+                  }
+                   
                 }else if(data.data.user_role === "admin") {
                     navigate("/admin")
                 }

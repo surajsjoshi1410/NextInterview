@@ -31,7 +31,7 @@ const QuestionPage4 = () => {
     const data = await getUserByClerkId(user.id);
     console.log("data", data);
     const submissionData = {  
-      user_id: data.data._id,
+      user_id: data.data.user._id,
       data_scheduled_interview_response: selectedOption,
       // profile_status:true
     };

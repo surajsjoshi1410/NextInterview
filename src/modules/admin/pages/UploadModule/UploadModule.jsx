@@ -44,18 +44,18 @@ const UploadModule = () => {
   const videoInputRef = useRef(null);
   const location= useLocation();
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log("location.state", location.state);
-    console.log(location.state.data?.userLearntData.map((item) =>`${item.learntData}`) );
-    setImageUrl(location.state.data?.imageURL);
-    setModuleImage(location.state.data?.imageURL);
-    setModuleName(location.state.data?.moduleName);
-    setDescription(location.state.data?.description);
-    setApproxTime(location.state.data?.approxTimeTaken);
-    setVideoUrl(location.state.data?.interviewSampleURL);
-    setCourseOverview(location.state.data?.courseOverview);
-    setWhatUsersLearn(location.state.data?.userLearntData.map((item) =>`${item.learntData}`) );
-  }, []);
+  // useEffect(() => {
+  //   console.log("location.state", location.state);
+  //   // console.log(location.state.data?.userLearntData?.map((item) =>`${item.learntData}`) );
+  //   setImageUrl(location.state.data?.imageURL);
+  //   setModuleImage(location.state.data?.imageURL);
+  //   setModuleName(location.state.data?.moduleName);
+  //   setDescription(location.state.data?.description);
+  //   setApproxTime(location.state.data?.approxTimeTaken);
+  //   setVideoUrl(location.state.data?.interviewSampleURL);
+  //   setCourseOverview(location.state.data?.courseOverview);
+  //   setWhatUsersLearn(location.state.data?.userLearntData.map((item) =>`${item.learntData}`) );
+  // }, [location.state?.data]);
 
   // Error states
   const [imageError, setImageError] = useState("");

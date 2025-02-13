@@ -220,17 +220,17 @@ const MainWindow = () => {
                 <div className="h-4 w-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500"></div>
                 <div className="button-top">
                     <div className="editor-title">
-                    Question Type - Coding
+                        Question Type - Coding
                     </div>
                     <div className="btns-both">
 
-                         <div className="btn-title">
+                        <div className="btn-title">
                             Language
-                         </div>
+                        </div>
                         {/* <div className=""> */}
-                            <LanguagesDropdown onSelectChange={onSelectChange} />
+                        <LanguagesDropdown onSelectChange={onSelectChange} />
                         {/* </div> */}
-                        
+
                     </div>
                 </div>
                 <div className="flex flex-row space-x-4 items-start px-4 py-4">
@@ -244,14 +244,14 @@ const MainWindow = () => {
                     </div>
 
                     <div className="right-container flex flex-shrink-0 w-[30%] flex-col">
-                        <OutputWindow outputDetails={outputDetails}  customBTN={ <button
-                                onClick={handleCompile}
-                                disabled={!code}
-                                className={"compile-btn"}
-                                style={{disabled:processing}}
-                            >
-                                {processing ? <MdPlayDisabled/> : <FaRegCirclePlay/>}
-                            </button>}/>
+                        <OutputWindow outputDetails={outputDetails} customBTN={<button
+                            onClick={handleCompile}
+                            disabled={!code}
+                            className={"compile-btn"}
+                            style={{ disabled: processing }}
+                        >
+                            {processing ? <MdPlayDisabled /> : <FaRegCirclePlay />}
+                        </button>} />
                         <div className="flex flex-col items-end">
                             {/* <CustomInput
                                 customInput={customInput}

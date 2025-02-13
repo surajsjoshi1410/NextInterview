@@ -28,9 +28,9 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
     { id: 6, name: "FAQ's", path: "/admin/faq", icon: <IoIosInformationCircleOutline /> },
     { id: 7, name: "Challenges", path: "/admin/challenges", icon: <MdOutlineLockClock /> },
     
-    { id: 8, name: "Notifications", path: "/admin/notifications", icon: <MdNotificationsNone /> },
+    // { id: 8, name: "Notifications", path: "/admin/notifications", icon: <MdNotificationsNone /> },
    
-    { id: 9, name: "Settings", path: "/admin/settings", icon: <IoSettingsOutline /> },
+    // { id: 9, name: "Settings", path: "/admin/settings", icon: <IoSettingsOutline /> },
    
   ];
 
@@ -51,6 +51,7 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
                 to={item.path}
                 className={({ isActive }) => (isActive ? "menu-link active" : "menu-link")}
                 onClick={() => setTitle(item.name)}
+                end
               >
                 <span className="menu-link-icon">{item.icon}</span>
                 <span className="menu-link-text">{item.name}</span>
