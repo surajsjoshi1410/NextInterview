@@ -70,7 +70,10 @@ const SignUp = () => {
         // setSignInActive(data.createdSessionId);
         // await setSignInActive({ session: data.createdSessionId }); 
         console.log("user", user);
-        navigate("/validation");  
+        setTimeout(() => {
+          navigate("/validation");  
+        },4000)
+       
         //   const data = await getUserByClerkId(user.id);
         //   console.log("data", data);
         // try {
@@ -135,7 +138,7 @@ const SignUp = () => {
   return (
     <Container>
       <HeaderWithLogo />
-      <UserButton />
+      {/* <UserButton /> */}
       {/* <UserProfile /> */}
       <div style={{
         display: 'flex',
