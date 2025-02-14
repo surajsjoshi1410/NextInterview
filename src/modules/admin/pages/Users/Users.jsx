@@ -22,7 +22,7 @@ const Users = () => {
       return(
         {
           clerkId:item.clerkUserData.id,
-          name: item.clerkUserData.firstName||"Anonymous",
+          name: (item.clerkUserData.firstName)||"Anonymous",
           email: item.userData.user_email ,
           role: item.userData.user_role,
           topicsCompleted: "12/15 (80%)",
