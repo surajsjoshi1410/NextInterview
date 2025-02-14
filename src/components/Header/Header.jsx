@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Logo from "../../assets/Logo.png";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
@@ -25,6 +25,8 @@ import theme from "../../theme/Theme";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import { useUser } from '@clerk/clerk-react'
+import { getUserByClerkId } from "../../api/userApi";
 
 // **Dropdown Component**
 const Dropdown = ({ isOpen, onClose, position, onOpenQueryModal, onLogoutClick }) => {
@@ -111,23 +113,34 @@ const Dropdown = ({ isOpen, onClose, position, onOpenQueryModal, onLogoutClick }
 
 const Header = ({ title }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-    const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-    const [avatarPosition, setAvatarPosition] = useState({ top: 0, left: 0 });
-    const [isRaiseQueryOpen, setIsRaiseQueryOpen] = useState(false); // State for RaiseQuery modal
-  
-    const handleAvatarClick = (event) => {
-      const rect = event.target.getBoundingClientRect();
-      setAvatarPosition({ top: rect.top + window.scrollY, left: rect.left });
-      setIsProfileOpen((prevState) => !prevState); // Toggle the dropdown menu
-    };
-  
-    const handleLogout = () => {
-      // Perform logout actions here (e.g., clearing session, redirecting)
-      alert("Logged out successfully!");
-      setIsLogoutModalOpen(false);
-    };
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [avatarPosition, setAvatarPosition] = useState({ top: 0, left: 0 });
+  const [isRaiseQueryOpen, setIsRaiseQueryOpen] = useState(false); // State for RaiseQuery modal
+  const { isSignedIn, user, isLoaded } = useUser()
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const handleAvatarClick = (event) => {
+    const rect = event.target.getBoundingClientRect();
+    setAvatarPosition({ top: rect.top + window.scrollY, left: rect.left });
+    setIsProfileOpen((prevState) => !prevState); // Toggle the dropdown menu
+  };
 
- 
+  const handleLogout = () => {
+    // Perform logout actions here (e.g., clearing session, redirecting)
+    alert("Logged out successfully!");
+    setIsLogoutModalOpen(false);
+  };
+
+  useEffect(() => {
+    const apiCaller = async () => {
+      const userData = await getUserByClerkId(user?.id);
+      setUserName(userData.data.user.user_name);
+      setUserEmail(userData.data.user.user_email);
+
+    }
+    apiCaller();
+
+  }, []);
 
   return (
     <>
@@ -150,8 +163,8 @@ const Header = ({ title }) => {
             </IconWrapper>
             <UserProfile>
               <UserDetails>
-                <UserName>Krishna</UserName>
-                <UserEmail>Krishna@gmail.com</UserEmail>
+                <UserName>{userName}</UserName>
+                <UserEmail>{userEmail}</UserEmail>
               </UserDetails>
               <div style={{ position: "relative" }} className="dropdown-container">
                 <Avatar src={Logo} alt="Profile" onClick={handleAvatarClick} />

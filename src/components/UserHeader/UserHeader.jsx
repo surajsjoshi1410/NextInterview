@@ -28,13 +28,15 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import RaiseQuery from "../../modules/user/components/UserFaqComponent/RaiseQuery";
 // import SupportQuery from "../../modules/admin/pages/SupportQuery/SupportQuery";
 import SupportQuery from "../../modules/user/components/SupportQuery/SupportQuery";
+import { useUser } from '@clerk/clerk-react'
+import { getUserByClerkId } from "../../api/userApi";
 // **Logout Confirmation Modal Component**
 
 // **Dropdown Component**
-const Dropdown = ({ isOpen, onClose, position,onOpenQueryModal , onLogoutClick }) => {
+const Dropdown = ({ isOpen, onClose, position, onOpenQueryModal, onLogoutClick }) => {
   const dropdownRef = useRef();
   const navigate = useNavigate();
- 
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -67,16 +69,16 @@ const Dropdown = ({ isOpen, onClose, position,onOpenQueryModal , onLogoutClick }
     padding: "10px 0",
     cursor: "pointer",
   };
-  const listyles={
+  const listyles = {
     FontFace: "DM Sans",
     fontSize: "16px",
     fontWeight: "500",
     color: theme.colors.textgray,
     listStyle: "none",
-    
- 
+
+
   }
-  const listLIStyles={
+  const listLIStyles = {
     // border: "1px solid #ddd",
     // borderRadius: "8px",
     // boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
@@ -86,7 +88,7 @@ const Dropdown = ({ isOpen, onClose, position,onOpenQueryModal , onLogoutClick }
   return ReactDOM.createPortal(
     <div ref={dropdownRef} style={dropdownStyles}>
       <ul style={listyles}>
-        <li style={listLIStyles}  onClick={() => { navigate("/user/userprofile"); onClose(); }}> <CgProfile /> My Profile</li>
+        <li style={listLIStyles} onClick={() => { navigate("/user/userprofile"); onClose(); }}> <CgProfile /> My Profile</li>
         <li style={listLIStyles} onClick={() => { alert("Customer Support clicked"); onClose(); }}> <MdOutlineSupportAgent /> Customer Support</li>
         <li style={listLIStyles} onClick={() => { navigate("/user/userfaq"); onClose(); }}> <CgProfile /> Help</li>
         <li onClick={() => { onOpenQueryModal(); onClose(); }}> <CgProfile /> Support Query</li>
@@ -103,7 +105,9 @@ const UserHeader = ({ title }) => {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [avatarPosition, setAvatarPosition] = useState({ top: 0, left: 0 });
   const [isRaiseQueryOpen, setIsRaiseQueryOpen] = useState(false); // State for RaiseQuery modal
-
+  const { isSignedIn, user, isLoaded } = useUser()
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const handleAvatarClick = (event) => {
     const rect = event.target.getBoundingClientRect();
     setAvatarPosition({ top: rect.top + window.scrollY, left: rect.left });
@@ -115,66 +119,76 @@ const UserHeader = ({ title }) => {
     alert("Logged out successfully!");
     setIsLogoutModalOpen(false);
   };
+  useEffect(() => {
+    const apiCaller = async () => {
+      const userData = await getUserByClerkId(user.id);
+      setUserName(userData.data.user.user_name);
+      setUserEmail(userData.data.user.user_email);
+
+    }
+    apiCaller();
+
+  }, []);
 
   return (
     <>
-    <UserHeaderWrapper>
-      <HeaderContainer>
-        <div style={{ marginLeft: "60px" }}>
-          <Title>{title}</Title> {/* Dynamic title with fallback */}
-        </div>
-        <HeaderRight>
-          <IconWrapper>
-            <Icon>
-              <BsBell title="Notifications" />
-            </Icon>
-            <Icon>
-              <PiLineVertical title="Vertical Line" />
-            </Icon>
-            <Icon>
-              <MdOutlineInfo title="Information" />
-            </Icon>
-          </IconWrapper>
-          <UserProfile>
-            <UserDetails>
-              <UserName>Krishna</UserName>
-              <UserEmail>Krishna@gmail.com</UserEmail>
-            </UserDetails>
-            <div style={{ position: "relative" }} className="dropdown-container">
-              <Avatar src={Logo} alt="Profile" onClick={handleAvatarClick} />
-              <Dropdown
-                isOpen={isProfileOpen}
-                position={avatarPosition}
-                onClose={() => setIsProfileOpen(false)}
-                onLogoutClick={() => {
-                  setIsLogoutModalOpen(true);
-                  // setIsProfileOpen(false);
-                }}
-                onOpenQueryModal={() => setIsRaiseQueryOpen(true)} // Open RaiseQuery modal
-              />
-            </div>
-            <UserButton afterSignOutUrl="/" />
-          </UserProfile>
-        </HeaderRight>
-      </HeaderContainer>
+      <UserHeaderWrapper>
+        <HeaderContainer>
+          <div style={{ marginLeft: "60px" }}>
+            <Title>{title}</Title> {/* Dynamic title with fallback */}
+          </div>
+          <HeaderRight>
+            <IconWrapper>
+              <Icon>
+                <BsBell title="Notifications" />
+              </Icon>
+              <Icon>
+                <PiLineVertical title="Vertical Line" />
+              </Icon>
+              <Icon>
+                <MdOutlineInfo title="Information" />
+              </Icon>
+            </IconWrapper>
+            <UserProfile>
+              <UserDetails>
+                <UserName>{userName}</UserName>
+                <UserEmail>{userEmail}</UserEmail>
+              </UserDetails>
+              <div style={{ position: "relative" }} className="dropdown-container">
+                <Avatar src={Logo} alt="Profile" onClick={handleAvatarClick} />
+                <Dropdown
+                  isOpen={isProfileOpen}
+                  position={avatarPosition}
+                  onClose={() => setIsProfileOpen(false)}
+                  onLogoutClick={() => {
+                    setIsLogoutModalOpen(true);
+                    // setIsProfileOpen(false);
+                  }}
+                  onOpenQueryModal={() => setIsRaiseQueryOpen(true)} // Open RaiseQuery modal
+                />
+              </div>
+              <UserButton afterSignOutUrl="/" />
+            </UserProfile>
+          </HeaderRight>
+        </HeaderContainer>
 
-      
-      {isLogoutModalOpen &&
-        <div className="User-Header-modal-overlay">
-          <div className="User-Header-modal-content">
-            <h3>Are you sure, you want to Logout?</h3>
-            <div className="User-Header-modal-buttons">
-              <button className="User-Header-cancel-btn" onClick={() => setIsLogoutModalOpen(false)}>
-                Cancel
-              </button>
-              <button className="User-Header-logout-btn" onClick={() => {alert("Logged out successfully!");handleLogout( )}}>
-                Logout
-              </button>
+
+        {isLogoutModalOpen &&
+          <div className="User-Header-modal-overlay">
+            <div className="User-Header-modal-content">
+              <h3>Are you sure, you want to Logout?</h3>
+              <div className="User-Header-modal-buttons">
+                <button className="User-Header-cancel-btn" onClick={() => setIsLogoutModalOpen(false)}>
+                  Cancel
+                </button>
+                <button className="User-Header-logout-btn" onClick={() => { alert("Logged out successfully!"); handleLogout() }}>
+                  Logout
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      }
-      <SupportQuery isOpen={isRaiseQueryOpen} onClose={() => setIsRaiseQueryOpen(false)} />
+        }
+        <SupportQuery isOpen={isRaiseQueryOpen} onClose={() => setIsRaiseQueryOpen(false)} />
       </UserHeaderWrapper>
     </>
   );
