@@ -27,6 +27,7 @@ import { MdOutlineSupportAgent } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useUser } from '@clerk/clerk-react'
 import { getUserByClerkId } from "../../api/userApi";
+import { useClerk } from '@clerk/clerk-react';
 
 // **Dropdown Component**
 const Dropdown = ({ isOpen, onClose, position, onOpenQueryModal, onLogoutClick }) => {
@@ -119,6 +120,9 @@ const Header = ({ title }) => {
   const { isSignedIn, user, isLoaded } = useUser()
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
+  const { signOut } = useClerk();
+  const navigate = useNavigate();
   const handleAvatarClick = (event) => {
     const rect = event.target.getBoundingClientRect();
     setAvatarPosition({ top: rect.top + window.scrollY, left: rect.left });
@@ -134,13 +138,14 @@ const Header = ({ title }) => {
   useEffect(() => {
     const apiCaller = async () => {
       const userData = await getUserByClerkId(user?.id);
+      setUserAvatar(userData.data.clerkUserData.imageUrl);
       setUserName(userData.data.user.user_name);
       setUserEmail(userData.data.user.user_email);
 
     }
     apiCaller();
 
-  }, []);
+  }, [navigate, isSignedIn, isLoaded, user]);
 
   return (
     <>
@@ -167,7 +172,7 @@ const Header = ({ title }) => {
                 <UserEmail>{userEmail}</UserEmail>
               </UserDetails>
               <div style={{ position: "relative" }} className="dropdown-container">
-                <Avatar src={Logo} alt="Profile" onClick={handleAvatarClick} />
+                <Avatar src={userAvatar ? userAvatar :Logo} alt="Profile" onClick={handleAvatarClick} />
                 <Dropdown
                   isOpen={isProfileOpen}
                   position={avatarPosition}
@@ -179,7 +184,7 @@ const Header = ({ title }) => {
                   onOpenQueryModal={() => setIsRaiseQueryOpen(true)} // Open RaiseQuery modal
                 />
               </div>
-              <UserButton afterSignOutUrl="/" />
+              {/* <UserButton afterSignOutUrl="/" /> */}
             </UserProfile>
           </HeaderRight>
         </HeaderContainer>
@@ -192,7 +197,7 @@ const Header = ({ title }) => {
                 <button className="User-Header-cancel-btn" onClick={() => setIsLogoutModalOpen(false)}>
                   Cancel
                 </button>
-                <button className="User-Header-logout-btn" onClick={() => { alert("Logged out successfully!"); handleLogout() }}>
+                <button className="User-Header-logout-btn" onClick={() => {  signOut();alert("Logged out successfully!"); handleLogout() }}>
                   Logout
                 </button>
               </div>
