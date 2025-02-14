@@ -10,15 +10,22 @@ import {
   Title
 } from "../../components/SupportQuery/SupportQuery.style";
 import { theme } from "antd";
+import { createSupportQuery } from "../../../../api/supportQueryApi";
+import { useUser } from '@clerk/clerk-react'
+import { getUserByClerkId } from "../../../../api/userApi";
 // import theme from "../../../../theme/Theme";
 
 const SupportQuery = ({ isOpen, onClose }) => {
   const [priority, setPriority] = useState("Low");
   const [category, setCategory] = useState("Content");
   const [query, setQuery] = useState("");
+  const { isSignedIn, user, isLoaded } = useUser()
 
-  const handleSend = () => {
+  const handleSend =async () => {
+    const userData= await getUserByClerkId(user.id);
+    const data = await createSupportQuery({ user_id: userData.data.user._id,priority, category, status:"CREATED", query_description: query });
     alert(`Priority: ${priority}\nCategory: ${category}\nQuery: ${query}`);
+
   };
 
   return (
