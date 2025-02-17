@@ -18,7 +18,10 @@ import {
   LogMessage,
   Divider,
 } from "./SupportQueryUserDetails.styles";
-import { getSupportQueryById, updateSupportQuery } from "../../../../../api/supportQueryApi";
+import {
+  getSupportQueryById,
+  updateSupportQuery,
+} from "../../../../../api/supportQueryApi";
 import { getUserByClerkId } from "../../../../../api/userApi";
 
 const SupportQueryUserDetails = () => {
@@ -40,20 +43,29 @@ const SupportQueryUserDetails = () => {
 
         // Format the closed date (If already closed, show date; otherwise, show "Pending")
         if (queryData.closed_on) {
-          setClosedDate(` ${new Date(queryData.closed_on).toLocaleDateString()}- Closed by Admin`);
+          setClosedDate(
+            ` ${new Date(
+              queryData.closed_on
+            ).toLocaleDateString()}- Closed by Admin`
+          );
         }
 
         setQueryDetails(queryData);
 
         if (queryData?.user_id?.clerkUserId) {
-          const userDataResponse = await getUserByClerkId(queryData.user_id.clerkUserId);
+          const userDataResponse = await getUserByClerkId(
+            queryData.user_id.clerkUserId
+          );
 
           if (userDataResponse?.success) {
             const { user, clerkUserData } = userDataResponse.data;
             setUserDetails({
               user_name: user?.user_name || "N/A",
               user_email: user?.user_email || "N/A",
-              profileImage: clerkUserData?.imageUrl || user?.user_profile_pic || "https://via.placeholder.com/50",
+              profileImage:
+                clerkUserData?.imageUrl ||
+                user?.user_profile_pic ||
+                "https://via.placeholder.com/50",
             });
           }
         }
@@ -107,7 +119,7 @@ const SupportQueryUserDetails = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return;
   if (error) return <p>{error}</p>;
   if (!queryDetails) return <p>No query details found.</p>;
 
@@ -122,7 +134,10 @@ const SupportQueryUserDetails = () => {
         </QueryId>
         <QueryDetails>{queryDetails.category}</QueryDetails>
         <RaisedBy>
-          <ProfileImage src={userDetails?.profileImage} alt={userDetails?.user_name || "User"} />
+          <ProfileImage
+            src={userDetails?.profileImage}
+            alt={userDetails?.user_name || "User"}
+          />
           <UserInfo>
             <strong>{userDetails?.user_name || "N/A"}</strong>
             <br />
@@ -141,29 +156,38 @@ const SupportQueryUserDetails = () => {
 
       <CommunicationLog>
         <QueryHeading>Communication Log</QueryHeading>
-        <LogEntry style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-        }}>
-          <LogTime>{queryDate} - <strong 
+        <LogEntry
           style={{
-            color: "black",
-            fontWeight: "normal"
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
           }}
-          >User submitted the query</strong></LogTime>
+        >
+          <LogTime>
+            {queryDate} -{" "}
+            <strong
+              style={{
+                color: "black",
+                fontWeight: "normal",
+              }}
+            >
+              User submitted the query
+            </strong>
+          </LogTime>
           <LogMessage>{closedDate}</LogMessage>
         </LogEntry>
 
-        <button  onClick={handleQueryUpdate} disabled={queryDetails.status === "solved"}
-        style={{
-          color: queryDetails.status === "solved" ? "Green" : "red",
-          backgroundColor: queryDetails.status === "solved" ? "#f0fff0" : "#ffebeb",
-          border: "none",
-          borderRadius: "4px",
-          padding: "8px 16px",
-
-        }}
+        <button
+          onClick={handleQueryUpdate}
+          disabled={queryDetails.status === "solved"}
+          style={{
+            color: queryDetails.status === "solved" ? "Green" : "red",
+            backgroundColor:
+              queryDetails.status === "solved" ? "#f0fff0" : "#ffebeb",
+            border: "none",
+            borderRadius: "4px",
+            padding: "8px 16px",
+          }}
         >
           {queryDetails.status === "solved" ? "solved" : "Mark as Solved"}
         </button>

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { FaEdit } from "react-icons/fa";
+import { FiEdit3 } from "react-icons/fi";
 import AddFlashCard from "./AddFlashCard/AddFlashCard";
 import EditFlashCard from "./EditFlashCard/EditFlashCard";
 import DeleteModule from "../DeleteModule/DeleteModule";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { SearchBarWrapper } from "./FlashcardsComponents.styles";
+import { IoSearch } from "react-icons/io5";
 
 import {
   FlashcardContainer,
@@ -14,16 +16,17 @@ import {
   SearchBar,
   Header,
 } from "./FlashcardsComponents.styles";
-import { addFlashcard, deleteFlashcard, getFlashcards, updateFlashcard } from "../../../../api/flashcardApi";
+import {
+  addFlashcard,
+  deleteFlashcard,
+  getFlashcards,
+  updateFlashcard,
+} from "../../../../api/flashcardApi";
 
 const FlashcardsComponents = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [flashcards, setFlashcards] = useState([
-    { id: 1, text: "Flashcard 1 Content", know: 0, dontKnow: 0 },
-    { id: 2, text: "Flashcard 2 Content", know: 95, dontKnow: 5 },
-    { id: 3, text: "Flashcard 3 Content", know: 95, dontKnow: 5 },
-  ]);
+  const [flashcards, setFlashcards] = useState([]);
 
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -33,22 +36,21 @@ const FlashcardsComponents = () => {
     const data = await getFlashcards();
     console.log("data", data);
     const response = data.data.map((item, index) => {
-      return ({
+      return {
         id: index + 1,
         text: item.cardContent,
-        know: item.cardKnown||0,
-        dontKnow: item.cardUnknown||0,
-        sharedCount: item.sharedCount||0,
+        know: item.cardKnown || 0,
+        dontKnow: item.cardUnknown || 0,
+        sharedCount: item.sharedCount || 0,
         peopleInteractionCount: item.peopleInteractionCount,
-        _id: item._id
-      })
+        _id: item._id,
+      };
     });
     setFlashcards(response);
-  }
+  };
 
   useEffect(() => {
     apiCaller();
-
   }, []);
 
   const handleEdit = (id) => {
@@ -66,7 +68,6 @@ const FlashcardsComponents = () => {
   const handleConfirmDelete = async (id) => {
     const response = await deleteFlashcard(currentCard);
 
-    
     apiCaller();
 
     setDeleteModalVisible(false); // Hide DeleteModule after deletion
@@ -89,7 +90,9 @@ const FlashcardsComponents = () => {
 
   const handleSaveEdit = async (updatedCard) => {
     console.log("updatedCard", updatedCard);
-    const response = await updateFlashcard(updatedCard._id, { cardContent: updatedCard.text });
+    const response = await updateFlashcard(updatedCard._id, {
+      cardContent: updatedCard.text,
+    });
     apiCaller();
     setIsEditing(false);
     setCurrentCard(null);
@@ -107,13 +110,16 @@ const FlashcardsComponents = () => {
     <>
       <FlashcardContainer>
         <Header>
-          <SearchBar
-            type="text"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={handleSearch}
-          />
-          <AddButton onClick={() => setIsAdding(true)}>Add Flashcard</AddButton>
+          <SearchBarWrapper>
+            <IoSearch size={20} />
+            <SearchBar
+              type="text"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+          </SearchBarWrapper>
+          <AddButton onClick={() => setIsAdding(true)}>Add flashcard</AddButton>
         </Header>
 
         {isAdding && (
@@ -145,32 +151,39 @@ const FlashcardsComponents = () => {
               <p>{card.text}</p>
               <div className="actions">
                 <ActionButton onClick={() => handleEdit(card.id)}>
-                  <FaEdit />
+                  <FiEdit3 />
                 </ActionButton>
-                <ActionButton onClick={() => handleDeleteClick(card._id)} delete>
-                  <RiDeleteBin6Line />
+                <ActionButton
+                  onClick={() => handleDeleteClick(card._id)}
+                  delete
+                >
+                  <RiDeleteBinLine />
                 </ActionButton>
               </div>
             </div>
             <InteractionStats>
               <span>Shared with - {card.sharedCount} people</span>
-              <span>No. of people interacted - {card.peopleInteractionCount}</span>
+              <span>
+                No. of people interacted - {card.peopleInteractionCount}
+              </span>
               <div>
                 <span
                   style={{
-                    color: "green",
+                    color: "#68c184",
                     fontWeight: "bold",
-                    backgroundColor: "lightgreen",
+                    backgroundColor: "#f0f8f1",
+                    border: "1px solid #defcd6",
                   }}
                 >
                   I know - {card.know}%
                 </span>
                 <span
                   style={{
-                    color: "#dc3545",
+                    color: "#843838",
                     fontWeight: "bold",
                     marginLeft: "10px",
-                    backgroundColor: "lightcoral",
+                    backgroundColor: "#ffebeb",
+                    border: "1px solid #fcd6d6",
                   }}
                 >
                   I don't know - {card.dontKnow}%

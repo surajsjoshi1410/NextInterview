@@ -1,30 +1,26 @@
 // React Component: ViewedItems.js
-import React from 'react';
-import styled from 'styled-components';
-import theme from '../../../../theme/Theme';
+import React from "react";
+import styled from "styled-components";
+import theme from "../../../../theme/Theme";
 
 const Wrapper = styled.div`
-//   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  // gap: ${({ theme }) => theme.spacing(2)};
 `;
 
 const Title = styled.h2`
   font-family: ${({ theme }) => theme.fonts.body};
-      font-size:1.2rem;
-        font-weight:800;
+  font-size: 1.2rem;
+  font-weight: 800;
   color: ${({ theme }) => theme.colors.text};
-  // margin-bottom: ${({ theme }) => theme.spacing(1)};
 `;
 
 const Container = styled.div`
   width: 100%;
-  margin-bottom:${({ theme }) => theme.spacing(1)};
+  margin-bottom: ${({ theme }) => theme.spacing(1)};
   display: flex;
   flex-direction: column;
-//   gap: ${({ theme }) => theme.spacing(2)};
 `;
 
 const Item = styled.div`
@@ -35,13 +31,14 @@ const Item = styled.div`
   border-radius: 8px;
   padding: ${({ theme }) => theme.spacing(2)};
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
 `;
 
 const Section = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  padding: ${({ theme }) => theme.spacing(2)} ;
+  align-items: center;
+  padding: ${({ theme }) => theme.spacing(2)};
   gap: ${({ theme }) => theme.spacing(1)};
 `;
 
@@ -55,9 +52,9 @@ const Label = styled.div`
   font-family: ${({ theme }) => theme.fonts.accent};
   font-weight: 600;
   color: ${({ type, theme }) =>
-    type === 'most' ? theme.colors.primary : theme.colors.textgray};
+    type === "most" ? theme.colors.primary : theme.colors.textgray};
   background-color: ${({ type, theme }) =>
-    type === 'most' ? theme.colors.lightgreen : theme.colors.lightblue};
+    type === "most" ? theme.colors.lightgreen : theme.colors.lightblue};
   padding: ${({ theme }) => theme.spacing(0.5)};
   border-radius: 4px;
 `;
@@ -65,8 +62,7 @@ const Label = styled.div`
 const Details = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
   gap: ${({ theme }) => theme.spacing(2)};
 `;
 
@@ -75,12 +71,11 @@ const InfoTitle = styled.div`
   font-weight: 600;
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.text};
-  margin-bottom: ${({ theme }) => theme.spacing(0.5)};
 `;
 
 const Info = styled.div`
   font-family: ${({ theme }) => theme.fonts.body};
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: ${({ theme }) => theme.colors.textgray};
 `;
 

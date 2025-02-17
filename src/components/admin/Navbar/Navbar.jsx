@@ -15,11 +15,18 @@ function NavBar() {
     // Add the breadcrumbs dynamically based on the path segments
     pathnames.forEach((segment) => {
       currentPath += `/${segment}`;
+
+      const displayText =
+        segment.toLowerCase() === "faq"
+          ? "FAQ"
+          : segment.charAt(0).toUpperCase() + segment.slice(1);
+
       breadcrumbItems.push(
         <Breadcrumb.Item key={currentPath}>
           <Link to={currentPath}>
+            {displayText}
             {/* Capitalize the first letter of each segment */}
-            {segment.charAt(0).toUpperCase() + segment.slice(1)}
+            {/* {segment.charAt(0).toUpperCase() + segment.slice(1)} */}
           </Link>
         </Breadcrumb.Item>
       );
@@ -28,24 +35,7 @@ function NavBar() {
     return breadcrumbItems;
   };
 
-  return (
-    <AppBarWrap>
-      <div className="appbar-content">
-        {/* Center Section - Breadcrumb */}
-        <div className="appbar-breadcrumb">
-          {/* Use separator=">" for the custom breadcrumb separator */}
-          <Breadcrumb className="text-sm" separator=">">
-            {generateBreadcrumbs()}
-          </Breadcrumb>
-        </div>
-
-        {/* Right Section */}
-        <div className="appbar-right">
-          {/* Add any right-side content (like notifications, profile, etc.) */}
-        </div>
-      </div>
-    </AppBarWrap>
-  );
+  return <AppBarWrap></AppBarWrap>;
 }
 
 export default NavBar;

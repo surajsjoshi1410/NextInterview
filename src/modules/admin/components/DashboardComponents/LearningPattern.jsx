@@ -4,7 +4,7 @@ import styled from "styled-components";
 // Styled components
 const Wrapper = styled.div`
   width: 100%;
-//   height: 100%;
+  //   height: 100%;
   margin-top: ${(props) => props.theme.spacing(4)};
   display: flex;
   flex-direction: column;
@@ -13,9 +13,9 @@ const Wrapper = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-  width: 100%;
-  // margin-left: 10px;
-    }
+    width: 100%;
+    // margin-left: 10px;
+  }
 `;
 
 const OuterTitle = styled.h2`
@@ -54,7 +54,6 @@ const Title = styled.h3`
   color: ${(props) => props.theme.colors.text};
   font-size: 1rem;
   margin-bottom: ${(props) => props.theme.spacing(4)};
-
 
   @media (max-width: 768px) {
     font-size: 0.9rem;
@@ -106,18 +105,40 @@ const LearningPattern = () => {
       <CardContainer>
         <Title>Peak Time</Title>
         <BarContainer>
-          <GradientBar width="30%" gradient="linear-gradient(to right, #00f, #f0f, #f00)" />
+          <GradientBar
+            width="40%"
+            gradient="linear-gradient(to right, #00f, #f0f, #f00)"
+          />
           <Label style={{ left: "10%" }}>12:00 pm</Label>
           <Label style={{ right: "10%" }}>03:00 pm</Label>
         </BarContainer>
-        <Subtitle>(Mon – Sun)</Subtitle>
+        <Subtitle style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+          <div>Sun</div>
+        </Subtitle>
 
         <Title>Low Time</Title>
         <BarContainer>
-          <GradientBar width="80%" gradient="linear-gradient(to right, #555, #ddd)" />
+          <GradientBar
+            width="80%"
+            gradient="linear-gradient(to right, #555, #ddd)"
+          />
           <Label style={{ left: "10%" }}>Upto 05:00 pm</Label>
         </BarContainer>
-        <Subtitle>(Weekends)</Subtitle>
+        <Subtitle style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+          <div>Sun</div>
+        </Subtitle>
       </CardContainer>
     </Wrapper>
   );

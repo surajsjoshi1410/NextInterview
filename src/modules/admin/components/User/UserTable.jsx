@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { FaBell, FaBan } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import { FaBell, FaBan } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 import { FaEye } from "react-icons/fa";
 
 const TableContainer = styled.div`
@@ -22,26 +22,24 @@ const Th = styled.th`
   padding: ${({ theme }) => theme.spacing(1)};
   background-color: ${({ theme }) => theme.colors.lightgreen};
   color: ${({ theme }) => theme.colors.textgray};
+  border: 1px solid #ebfced;
 `;
 
 const Tr = styled.tr`
   background-color: ${({ isSelected, theme }) =>
     isSelected ? theme.colors.lightgreen : theme.colors.light};
   cursor: pointer;
-
-  &:nth-child(even) {
-    background-color: ${({ isSelected, theme }) =>
-    isSelected ? theme.colors.lightgreen : theme.colors.lightblue};
-  }
+  border: 1px solid #ebfced;
 `;
 
 const Td = styled.td`
-  padding: ${({ theme }) => theme.spacing(1)};
+  padding: 5px 5px 5px 10px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.borderblue};
   text-align: left;
+  border: 1px solid #ebfced;
 `;
 
-const Checkbox = styled.input.attrs({ type: 'checkbox' })`
+const Checkbox = styled.input.attrs({ type: "checkbox" })`
   width: 16px;
   height: 16px;
   border: 2px solid ${({ theme }) => theme.colors.bluetext}; /* Default border color */
@@ -57,7 +55,7 @@ const Checkbox = styled.input.attrs({ type: 'checkbox' })`
     position: relative;
 
     &::after {
-      content: '✔';
+      content: "✔";
       font-size: 12px;
       color: ${({ theme }) => theme.colors.light}; /* Tick color */
       display: block;
@@ -70,7 +68,8 @@ const Checkbox = styled.input.attrs({ type: 'checkbox' })`
   }
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.primary}; /* Hover border color */
+    border-color: ${({ theme }) =>
+      theme.colors.primary}; /* Hover border color */
   }
 `;
 
@@ -121,7 +120,6 @@ const UserTable = ({ users, selectedRows, onRowSelectionChange }) => {
   //     );
   //   };
 
-
   return (
     <TableContainer>
       <Table>
@@ -129,7 +127,6 @@ const UserTable = ({ users, selectedRows, onRowSelectionChange }) => {
           <tr>
             <Th></Th>
             <Th>Name</Th>
-            <Th>Role</Th>
             <Th>Topics Completed</Th>
             <Th>Avg. Active Hours</Th>
             <Th>Last Active</Th>
@@ -152,28 +149,42 @@ const UserTable = ({ users, selectedRows, onRowSelectionChange }) => {
               </Td>
               <Td>
                 <UserCell>
-                  <Avatar> <img style={{ borderRadius: "50%", width: "40px", height: "40px" }} src={user.profilePic} alt={user.name} /></Avatar>
+                  <Avatar>
+                    {" "}
+                    <img
+                      style={{
+                        borderRadius: "50%",
+                        width: "40px",
+                        height: "40px",
+                      }}
+                      src={user.profilePic}
+                      alt={user.name}
+                    />
+                  </Avatar>
                   <UserInfo>
                     <Name>{user.name}</Name>
                     <Email>{user.email}</Email>
                   </UserInfo>
                 </UserCell>
               </Td>
-              <Td>{user.role}</Td>
               <Td>{user.topicsCompleted}</Td>
               <Td>
                 <ActiveHours
-                  color={user.activeHours.includes("18h") ? "success" : "warning"}
+                  color={
+                    user.activeHours.includes("18h") ? "success" : "warning"
+                  }
                 >
                   {user.activeHours}
                 </ActiveHours>
               </Td>
               <Td>{user.lastActive}</Td>
+              <Td>{user.bellIcon ? <FaBell /> : <FaBan color="#dc3545" />}</Td>
               <Td>
-                {user.bellIcon ? <FaBell /> : <FaBan color="#dc3545" />}
-              </Td>
-              <Td>
-                <Link to={`/admin/userProfile`}state={{clerkId: user.clerkId}} style={{ textDecoration: 'none' }}>
+                <Link
+                  to={`/admin/userProfile`}
+                  state={{ clerkId: user.clerkId }}
+                  style={{ textDecoration: "none" }}
+                >
                   <FaEye />
                 </Link>
               </Td>

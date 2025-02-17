@@ -8,8 +8,8 @@ import {
   NewUploadButton,
   SearchBarWrapper,
 } from "./Learningmoduleslistview.styles";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { CiEdit } from "react-icons/ci";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { FiEdit3 } from "react-icons/fi";
 import { IoSearch } from "react-icons/io5";
 import { deleteModule, getModule } from "../../../../../api/addNewModuleApi";
 import DeleteModule from "../../../components/DeleteModule/DeleteModule"; // Import Delete Modal
@@ -32,6 +32,7 @@ const LearningModulesListView = () => {
       title: item.moduleName,
       topics: item.topicData.length || 0,
       _id: item._id,
+      imageURL: item.imageURL || "",
     }));
     setModules(response);
     setFilteredModules(response);
@@ -78,7 +79,7 @@ const LearningModulesListView = () => {
     <ModulesSection>
       <div className="module-header">
         <h3>Data Science Lite Modules</h3>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ display: "flex", gap: "30px" }}>
           <SearchBarWrapper>
             <IoSearch size={20} />
             <SearchBar
@@ -97,7 +98,7 @@ const LearningModulesListView = () => {
       {filteredModules.map((module, index) => (
         <ModuleCard key={index}>
           <img
-            src="https://media.istockphoto.com/id/1023428598/photo/3d-illustration-laptop-isolated-on-white-background-laptop-with-empty-space-screen-laptop-at.jpg?s=612x612&w=0&k=20&c=ssK6er5v1fGpSghGiqySwoD8tn5blC7xgefQJI2xU38="
+            src={module.imageURL}
             alt={module.title}
             className="module-image"
           />
@@ -110,14 +111,17 @@ const LearningModulesListView = () => {
             <p>{module.topics} topic</p>
           </div>
           <ModuleActions>
-            <button className="edit-btn" onClick={() => handleEditClick(module)}>
-              <CiEdit size={20} />
+            <button
+              className="edit-btn"
+              onClick={() => handleEditClick(module)}
+            >
+              <FiEdit3 size={20} />
             </button>
             <button
               className="delete-btn"
               onClick={() => handleDeleteClick(module._id)}
             >
-              <RiDeleteBin6Line size={20} />
+              <RiDeleteBinLine size={20} />
             </button>
           </ModuleActions>
         </ModuleCard>
@@ -125,7 +129,10 @@ const LearningModulesListView = () => {
 
       {/* Delete Confirmation Modal */}
       {isDeleteModalOpen && (
-        <DeleteModule onDelete={handleDeleteConfirm} onCancel={handleCancelDelete} />
+        <DeleteModule
+          onDelete={handleDeleteConfirm}
+          onCancel={handleCancelDelete}
+        />
       )}
     </ModulesSection>
   );

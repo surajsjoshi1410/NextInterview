@@ -5,7 +5,12 @@ export const Header = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing(2)};
-  background: ${theme.colors.sidebarBgColor};
+  // background: ${theme.colors.sidebarBgColor};
+  background: linear-gradient(
+    to bottom,
+    ${(props) => props.theme.colors.bluetext},
+    ${(props) => props.theme.colors.admintop}
+  );
   padding: ${theme.spacing(2)};
   border-radius: 8px;
 
@@ -15,7 +20,9 @@ export const Header = styled.div`
   }
 
   > div {
-    display: flex;
+    // display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: ${theme.spacing(2)};
     // justify-content: space-between;
     flex-wrap: wrap;
@@ -30,6 +37,16 @@ export const Stats = styled.div`
   display: flex;
   justify-content: space-between;
   gap: ${theme.spacing(2)};
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #f3f3f3;
+
+  .linediv {
+    color: black;
+    height: 100%;
+    width: 3px;
+    margin: auto;
+  }
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     flex-direction: column;
@@ -42,7 +59,7 @@ export const StatCard = styled.div`
 
   h1 {
     font-family: ${theme.fonts.heading};
-    }
+  }
 
   p {
     margin: 0;
@@ -53,11 +70,12 @@ export const StatCard = styled.div`
 export const StatCard1 = styled.div`
   display: flex;
   gap: ${theme.spacing(2)};
-  background: ${theme.colors.light};
+  ${"" /* background: ${theme.colors.light}; */}
   padding: ${theme.spacing(1)};
   border-radius: 8px;
   text-align: center;
   // margin-left: -60px;
+  margin-top: 10px;
 
   h3 {
     color: ${theme.colors.primary};
@@ -77,15 +95,16 @@ export const StatCard1 = styled.div`
 export const StatCard2 = styled.div`
   display: flex;
   gap: ${theme.spacing(2)};
-  background: ${theme.colors.light};
+  ${"" /* background: ${theme.colors.light}; */}
   padding: ${theme.spacing(1)};
   border-radius: 8px;
   text-align: center;
   // margin-left: -60px;
 
-  h3 {
-    color: ${theme.colors.primary};
+  .datascience {
+    color: ${theme.colors.black};
     font-family: ${theme.fonts.heading};
+    text-align: left;
   }
 
   p {

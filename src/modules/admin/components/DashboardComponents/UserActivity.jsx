@@ -12,19 +12,26 @@ import {
 } from "chart.js";
 
 // Register Chart.js components
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
+ChartJS.register(
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  Tooltip,
+  Legend
+);
 
 // Styled components
 const Wrapper = styled.div`
   width: 100%;
- height: 100%;
-//    padding: ${(props) => props.theme.spacing(4)};
+  height: 100%;
+  padding: 16px;
+  //    padding: ${(props) => props.theme.spacing(4)};
   margin-top: ${(props) => props.theme.spacing(4)};
 
   @media (max-width: 768px) {
-  width: 90%;
+    width: 90%;
   }
-
 `;
 
 const Title = styled.h2`
@@ -42,16 +49,32 @@ const CardContainer = styled.div`
   box-shadow: 0 4px 4px ${(props) => props.theme.colors.borderblue};
   width: 100%;
   height: 300px;
-  margin-left:1px;
+  margin-left: 1px;
 `;
 
 const UserActivity = () => {
   const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
     datasets: [
       {
         label: "Users Growth",
-        data: [1000, 5000, 10000, 30000, 80000, 70000, 90000, 85000, 60000, 70000, 80000, 90000],
+        data: [
+          1000, 5000, 10000, 30000, 80000, 70000, 90000, 85000, 60000, 70000,
+          80000, 90000,
+        ],
         borderColor: `${({ theme }) => theme.colors.primary}`,
         backgroundColor: "transparent",
         borderWidth: 2,
@@ -66,9 +89,12 @@ const UserActivity = () => {
     plugins: {
       legend: {
         display: true,
+        position: "right",
+
         labels: {
           font: {
             family: `${({ theme }) => theme.fonts.body}`,
+            marginLeft: "auto",
           },
           color: `${({ theme }) => theme.colors.textgray}`,
         },

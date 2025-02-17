@@ -10,9 +10,7 @@ import { getModule } from "../../../../api/addNewModuleApi";
 const LearningModules = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  
   //rajatgit
-
 
   return (
     <div style={{ display: "flex" }}>
@@ -20,11 +18,11 @@ const LearningModules = () => {
       {/* <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} /> */}
 
       {/* Content */}
-      <ContentWrapper isExpanded={isExpanded}>
+      <ContentWrapper isExpanded={isExpanded} style={{ width: "100%" }}>
         {/* <Header/> */}
         {/* <h2>Learning Modules</h2> */}
         <LearningModulesStats />
-        <LearningModulesListView  />
+        <LearningModulesListView />
       </ContentWrapper>
       {/* <Outlet/> */}
     </div>

@@ -22,14 +22,38 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
   const SidebarItem = [
     { id: 1, name: "Dashboard", path: "/user", icon: <RxDashboard /> },
     { id: 2, name: "Home", path: "/user/home", icon: <FiHome /> },
-    { id: 3, name: "Learning Module", path: "/user/learning", icon: <MdOutlineMenuBook /> },
-    {id: 4, name: "Quickly Revise", path: "/user/revise", icon: <IoIosInformationCircleOutline /> },
-    {id: 5, name: "Question Bank", path: "/user/questionBank", icon: <TbDeviceIpadQuestion /> },
-    { id: 6, name: "Challenges", path: "/user/challenges", icon: <MdOutlineLockClock /> },
+    {
+      id: 3,
+      name: "Learning Module",
+      path: "/user/learning",
+      icon: <MdOutlineMenuBook />,
+    },
+    {
+      id: 4,
+      name: "Quickly Revise",
+      path: "/user/revise",
+      icon: <IoIosInformationCircleOutline />,
+    },
+    {
+      id: 5,
+      name: "Question Bank",
+      path: "/user/questionBank",
+      icon: <TbDeviceIpadQuestion />,
+    },
+    {
+      id: 6,
+      name: "Challenges",
+      path: "/user/challenges",
+      icon: <MdOutlineLockClock />,
+    },
     { id: 7, name: "Interview", path: "/user/interview", icon: <CiMobile1 /> },
-    { id: 8, name: "Subscription", path: "/user/subscription", icon: <FaMoneyCheckAlt /> },
+    {
+      id: 8,
+      name: "Subscription",
+      path: "/user/subscription",
+      icon: <FaMoneyCheckAlt />,
+    },
   ];
-
 
   return (
     <SideBarwrapper
@@ -46,11 +70,15 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
             <li className="menu-item" key={item.id}>
               <NavLink
                 to={item.path}
-                className={({ isActive }) => (isActive ? "menu-link active" : "menu-link")}
-                onClick={() => setTitle(item.name)}
+                className={({ isActive }) =>
+                  isActive ? "menu-link active" : "menu-link"
+                }
+                onClick={() => {
+                  setTitle(item.name),
+                    localStorage.setItem("title", JSON.stringify(item.name));
+                }}
                 end
               >
-
                 <span className="menu-link-icon">{item.icon}</span>
                 <span className="menu-link-text">{item.name}</span>
               </NavLink>

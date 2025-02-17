@@ -74,7 +74,7 @@ export const UploadText = styled.p`
   }
 `;
 
-export const UploadIcon = styled.div`
+export const UploadIcon = styled.img`
   font-size: 2rem;
   margin-bottom: ${theme.spacing(2)};
   color: ${theme.colors.primary};
@@ -150,8 +150,8 @@ export const ChallengeHeader = styled.h3`
 `;
 
 export const ChallengeContent = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
@@ -185,7 +185,7 @@ export const UploadDate = styled.p`
 `;
 
 export const Status = styled.span`
-  font-size: 0.8rem;
+  font-size: 25px;
   color: ${theme.colors.secondary};
   font-weight: bold;
 
@@ -211,6 +211,15 @@ export const AnalyticsButton = styled.button`
     font-size: 0.8rem;
     padding: ${theme.spacing(0.8)} ${theme.spacing(1.5)};
   }
+`;
+
+export const Rightdiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${theme.spacing(8)};
+  align-items: center;
+  width: 35%;
+  margin-left: auto;
 `;
 
 export const ActionButtons = styled.div`

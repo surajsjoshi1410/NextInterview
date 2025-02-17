@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import uploadicon from "../../../../assets/Upload icon.png";
+import { FaFileWord, FaFileExcel, FaFile } from "react-icons/fa";
 import {
   Container,
   UploadSection,
@@ -20,6 +22,7 @@ import {
   AnalyticsButton,
   ActionButtons,
   Button,
+  Rightdiv,
 } from "./Challenges.styles";
 
 const Challenges = () => {
@@ -27,6 +30,17 @@ const Challenges = () => {
   const replaceInputRef = useRef(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [replaceIndex, setReplaceIndex] = useState(null); // FIX: Define replaceIndex
+  const getFileIcon = (fileName) => {
+    const fileExtension = fileName.split(".").pop().toLowerCase();
+
+    if (fileExtension === "docx" || fileExtension === "doc") {
+      return <FaFileWord size={24} color="blue" />;
+    } else if (fileExtension === "xlsx" || fileExtension === "xls") {
+      return <FaFileExcel size={24} color="green" />;
+    } else {
+      return <FaFile size={24} color="gray" />;
+    }
+  };
 
   // Load persisted files from localStorage on component mount
   useEffect(() => {
@@ -126,38 +140,52 @@ const Challenges = () => {
   return (
     <Container>
       <UploadSection>
-      <UploadBox>
-  <UploadText>
-    <strong>Upload {getCurrentMonthAndYear()}'s challenge</strong>
-  </UploadText>
-  <UploadIcon>📤</UploadIcon>
-  <DragDropText>
-    Drag & drop files or{" "}
-    <BrowseLink onClick={handleBrowseClick}>Browse</BrowseLink>
-  </DragDropText>
-  <SupportedFormats>
-    Supported formats: Word (.doc, .docx), Excel (.xls, .xlsx)
-  </SupportedFormats>
-  <input
-    type="file"
-    ref={fileInputRef}
-    style={{ display: "none" }}
-    onChange={handleFileChange}
-    multiple
-    accept=".doc,.docx,.xls,.xlsx"
-  />
+        <div
+          className="topbtn"
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginBottom: "20px",
+          }}
+        >
+          <Link to={"/admin/viewanalytics"} style={{ marginLeft: "10px" }}>
+            <AnalyticsButton>All Challenges</AnalyticsButton>
+          </Link>
+        </div>
+        <UploadBox>
+          <UploadText>
+            <strong>Upload {getCurrentMonthAndYear()}'s challenge</strong>
+          </UploadText>
+          <UploadIcon src={uploadicon} alt="Upload Icon" />
+          <DragDropText>
+            Drag & drop files or{" "}
+            <BrowseLink onClick={handleBrowseClick}>Browse</BrowseLink>
+          </DragDropText>
+          <SupportedFormats>
+            Supported formats: Word (.doc, .docx), Excel (.xls, .xlsx)
+          </SupportedFormats>
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+            multiple
+            accept=".doc,.docx,.xls,.xlsx"
+          />
 
-  <input
-    type="file"
-    ref={replaceInputRef}
-    style={{ display: "none" }}
-    onChange={handleReplaceFileChange}
-    accept=".doc,.docx,.xls,.xlsx"
-  />
+          <input
+            type="file"
+            ref={replaceInputRef}
+            style={{ display: "none" }}
+            onChange={handleReplaceFileChange}
+            accept=".doc,.docx,.xls,.xlsx"
+          />
 
-  {/* Upload button should be visible only when files are selected */}
-  {uploadedFiles.length > 0 && <Button onClick={handleApplyClick}>Upload</Button>}
-</UploadBox>
+          {/* Upload button should be visible only when files are selected */}
+          {uploadedFiles.length > 0 && (
+            <Button onClick={handleApplyClick}>Upload</Button>
+          )}
+        </UploadBox>
 
         {/* <UploadBox>
           <UploadText>
@@ -195,20 +223,27 @@ const Challenges = () => {
       <ChallengesList>
         {uploadedFiles.map((fileObj, index) => (
           <ChallengeCard key={index}>
-            <ChallengeHeader>{getCurrentMonthAndYear()}</ChallengeHeader>
             <ChallengeContent>
               <FileInfo>
-                <FileName>{fileObj.fileName}</FileName>
+                <ChallengeHeader>{getCurrentMonthAndYear()}</ChallengeHeader>
+                <FileName>
+                  {getFileIcon(fileObj.fileName)} {fileObj.fileName}
+                </FileName>
                 <UploadDate>Uploaded On - {fileObj.uploadDate}</UploadDate>
-                <ActionButtons>
-                  <Button onClick={() => handleRemoveClick(index)}>Remove</Button>
-                  <Button onClick={() => handleReplaceClick(index)}>Replace</Button>
-                </ActionButtons>
               </FileInfo>
-              <Status>{fileObj.applied ? "Ongoing" : "Pending"}</Status>
-              <Link to={"/admin/viewanalytics"}>
-                <AnalyticsButton>View analytics</AnalyticsButton>
-              </Link>
+              <div style={{ textAlign: "center" }}>
+                <Status>{fileObj.applied ? "Ongoing" : "Pending"}</Status>
+              </div>
+              <Rightdiv>
+                <ActionButtons>
+                  <Button onClick={() => handleRemoveClick(index)}>
+                    Remove
+                  </Button>
+                  <Button onClick={() => handleReplaceClick(index)}>
+                    Replace
+                  </Button>
+                </ActionButtons>
+              </Rightdiv>
             </ChallengeContent>
           </ChallengeCard>
         ))}

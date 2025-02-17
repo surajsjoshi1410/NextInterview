@@ -1,4 +1,4 @@
-import React,{ useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   StatCard,
@@ -17,7 +17,7 @@ const SupportQueryStats = () => {
       try {
         const response = await getSupportQueryStats();
         setStats(response);
-        console.log("Response",response);
+        console.log("Response", response);
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -28,13 +28,11 @@ const SupportQueryStats = () => {
     fetchStats();
   }, []);
   if (loading) {
-    return <div>Loading...</div>;
+    return <div style={{ textAlign: "center" }}>Fetching Statistics</div>;
   }
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
-
 
   return (
     <Container>

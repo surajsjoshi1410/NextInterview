@@ -30,10 +30,15 @@ import {
   uploadFileToFirebase,
   uploadVideoToFirebase,
 } from "../../../../../utils/uploadFileToFirebase";
-import { updateModuleById, getModuleById } from "../../../../../api/addNewModuleApi";
+import {
+  updateModuleById,
+  getModuleById,
+} from "../../../../../api/addNewModuleApi";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { ClassicEditor } from "ckeditor5";
 import { editorConfig } from "../../../../../config/ckEditorConfig";
+import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 
 // Styled icon/button if you want to show a delete icon
 const DeleteIconWrapper = styled.span`
@@ -54,7 +59,7 @@ const EditAddModule = () => {
   const [deleteType, setDeleteType] = useState(null);
   const location = useLocation();
   const videoInputRef = useRef(null);
-const navigate = useNavigate();
+  const navigate = useNavigate();
   // Store indices for whichever item we are deleting
   const [deleteIndices, setDeleteIndices] = useState({
     topicIndex: null,
@@ -113,51 +118,43 @@ const navigate = useNavigate();
         // setModuleData(data);
         // setTopics(data.data.topicData);
         const moduleTopicData = data.data.topicData.map((topic) => {
-          return (
-
-            {
-              topicName: topic.topicName,
-              skillAssessmentFile: topic.skillAssessmentQuestionsURL,
-              skillAssessmentFileUrl: topic.skillAssessmentQuestionsURL,
-              subtopics: topic.subtopicData.map((subtopic) => {
-                return (
-                  {
-                    subtopicName: subtopic.subtopicName,
-                    subtopicContent: subtopic.subtopicContent,
-                    subtopicSummary: subtopic.subtopicSummary,
-                    quickRevisePoints: subtopic.revisionPoints,
-                    cheatSheet: { dataUrl: subtopic.cheatSheetURL },
-                    cheatSheetUrl: subtopic.cheatSheetURL,
-                    isInterviewFavorite: subtopic.interviewFavorite,
-                    conceptClarifiers: subtopic.conceptClarifier.map((clarifier) => {
-                      return (
-                        {
-                          clarifierWordOrPhrase: clarifier.conceptClarifier,
-                          explanationOnHover: clarifier.hoverExplanation,
-                          moreExplanation: clarifier.popupExplanation,
-                        }
-                      )
-                    }),
-                    laymanExplanations: subtopic.laymanTerms.map((layman) => {
-                      return (
-                        {
-                          laymanScale: layman.topicLevel,
-                          laymanTitle: layman.topicTitle,
-                          laymanInfo: layman.topicInfo,
-                        }
-                      )
-                    }),
-                    questionBankFile: { dataUrl: subtopic.questionBankURL },
-                    questionBankFileUrl: subtopic.questionBankURL,
-                    tryItYourselfFile: { dataUrl: subtopic.tiyQuestionsURL },
-                    tryItYourselfFileUrl: subtopic.tiyQuestionsURL
+          return {
+            topicName: topic.topicName,
+            skillAssessmentFile: topic.skillAssessmentQuestionsURL,
+            skillAssessmentFileUrl: topic.skillAssessmentQuestionsURL,
+            subtopics: topic.subtopicData.map((subtopic) => {
+              return {
+                subtopicName: subtopic.subtopicName,
+                subtopicContent: subtopic.subtopicContent,
+                subtopicSummary: subtopic.subtopicSummary,
+                quickRevisePoints: subtopic.revisionPoints,
+                cheatSheet: { dataUrl: subtopic.cheatSheetURL },
+                cheatSheetUrl: subtopic.cheatSheetURL,
+                isInterviewFavorite: subtopic.interviewFavorite,
+                conceptClarifiers: subtopic.conceptClarifier.map(
+                  (clarifier) => {
+                    return {
+                      clarifierWordOrPhrase: clarifier.conceptClarifier,
+                      explanationOnHover: clarifier.hoverExplanation,
+                      moreExplanation: clarifier.popupExplanation,
+                    };
                   }
-                )
-              })
-            }
-
-          )
-        })
+                ),
+                laymanExplanations: subtopic.laymanTerms.map((layman) => {
+                  return {
+                    laymanScale: layman.topicLevel,
+                    laymanTitle: layman.topicTitle,
+                    laymanInfo: layman.topicInfo,
+                  };
+                }),
+                questionBankFile: { dataUrl: subtopic.questionBankURL },
+                questionBankFileUrl: subtopic.questionBankURL,
+                tryItYourselfFile: { dataUrl: subtopic.tiyQuestionsURL },
+                tryItYourselfFileUrl: subtopic.tiyQuestionsURL,
+              };
+            }),
+          };
+        });
         console.log("moduleTopicData", moduleTopicData);
         setTopics(moduleTopicData);
       };
@@ -239,59 +236,6 @@ const navigate = useNavigate();
         tryItYourselfFile: null,
         tryItYourselfFileUrl: null,
       });
-      return updated;
-    });
-  };
-
-  // ----------------------------- LAYMAN SECTION -----------------------------
-  // 1. Add new Layman Explanation
-  const handleAddLaymanExplanation = (topicIndex, subIndex) => {
-    setTopics((prevTopics) => {
-      const updated = [...prevTopics];
-      const laymans = updated[topicIndex].subtopics[subIndex].laymanExplanations;
-
-      // -----------------------------------------------------------------
-      // Enforce a limit of 5 Layman items
-      // -----------------------------------------------------------------
-      if (laymans.length >= 5) {
-        alert("You can only add up to 5 layman explanations (scales).");
-        return updated;
-      }
-
-      // The new scale is the next number
-      const newScale = laymans.length + 1;
-
-      laymans.push({
-        laymanScale: newScale,
-        laymanTitle: "",
-        laymanInfo: "",
-      });
-
-      return updated;
-    });
-  };
-
-  // 2. Handle changes in Layman Explanation fields
-  const handleLaymanExplanationChange = (
-    e,
-    event,
-    topicIndex,
-    subIndex,
-    laymanIndex,
-    field
-  ) => {
-    let value;
-    if (e != null) {
-      value = e.target.value;
-    } else {
-      value = event.getData();
-    }
-
-    setTopics((prevTopics) => {
-      const updated = [...prevTopics];
-      updated[topicIndex].subtopics[subIndex].laymanExplanations[laymanIndex][
-        field
-      ] = value;
       return updated;
     });
   };
@@ -461,8 +405,6 @@ const navigate = useNavigate();
 
   // ----------------------------- DONE BUTTON -----------------------------
   const handleDone = async () => {
-
-
     console.log("All topics data:", topics);
 
     const topicData = topics.map((topic) => {
@@ -500,7 +442,6 @@ const navigate = useNavigate();
 
     // Prepare final submission payload
     const submissionData = {
-
       topicData: topicData,
     };
 
@@ -614,20 +555,22 @@ const navigate = useNavigate();
       // remove a single layman explanation
       setTopics((prevTopics) => {
         const updated = [...prevTopics];
-        updated[topicIndex].subtopics[subIndex].laymanExplanations =
-          updated[topicIndex].subtopics[subIndex].laymanExplanations.filter(
-            (_, idx) => idx !== laymanIndex
-          );
+        updated[topicIndex].subtopics[subIndex].laymanExplanations = updated[
+          topicIndex
+        ].subtopics[subIndex].laymanExplanations.filter(
+          (_, idx) => idx !== laymanIndex
+        );
         return updated;
       });
     } else if (deleteType === "clarifier") {
       // remove a single concept clarifier
       setTopics((prevTopics) => {
         const updated = [...prevTopics];
-        updated[topicIndex].subtopics[subIndex].conceptClarifiers =
-          updated[topicIndex].subtopics[subIndex].conceptClarifiers.filter(
-            (_, idx) => idx !== clarifierIndex
-          );
+        updated[topicIndex].subtopics[subIndex].conceptClarifiers = updated[
+          topicIndex
+        ].subtopics[subIndex].conceptClarifiers.filter(
+          (_, idx) => idx !== clarifierIndex
+        );
         return updated;
       });
     }
@@ -704,14 +647,26 @@ const navigate = useNavigate();
                     marginTop: "10px",
                     display: "flex",
                     alignItems: "center",
+                    gap: "10px",
                   }}
                 >
-                  <strong>Uploaded File:</strong>{" "}
-                  {topic.skillAssessmentFile.name ?
+                  Uploaded File:{" "}
+                  {topic.skillAssessmentFile.name ? (
                     topic.skillAssessmentFile.name
-                    :
-                    <a href={topic.skillAssessmentFile} style={{ color: theme.colors.secondary, cursor: "pointer" }} target="_blank"> Preview File</a>
-                  }
+                  ) : (
+                    <a
+                      href={topic.skillAssessmentFile}
+                      style={{
+                        color: theme.colors.secondary,
+                        cursor: "pointer",
+                        gap: "10px",
+                      }}
+                      target="_blank"
+                    >
+                      {" "}
+                      Preview File
+                    </a>
+                  )}
                   {/* {topic.skillAssessmentFile.name} */}
                   <ActionButton
                     variant="danger"
@@ -819,7 +774,7 @@ const navigate = useNavigate();
 
               {/* CHEAT SHEET VIDEO */}
               <FormGroup>
-                <Label>Cheat Sheet </Label>
+                <Label>Upload Cheat Sheet </Label>
                 <div
                   style={{
                     display: "flex",
@@ -847,7 +802,6 @@ const navigate = useNavigate();
                           handleCheatSheetUpload(e, topicIndex, subIndex)
                         }
                       />
-
                     </>
                   ) : (
                     <>
@@ -857,18 +811,31 @@ const navigate = useNavigate();
                             marginTop: "10px",
                             display: "flex",
                             alignItems: "center",
+                            gap: "10px",
                           }}
                         >
-                          <strong>Uploaded File:</strong>{" "}
-                          {subtopic.cheatSheet?.file?.name ?
+                          Uploaded File:{" "}
+                          {subtopic.cheatSheet?.file?.name ? (
                             subtopic.cheatSheet?.file?.name
-                            :
-                            <a href={subtopic.cheatSheet.dataUrl} style={{ color: theme.colors.secondary, cursor: "pointer" }} target="_blank"> Preview File</a>
-                          }
+                          ) : (
+                            <a
+                              href={subtopic.cheatSheet.dataUrl}
+                              style={{
+                                color: theme.colors.secondary,
+                                cursor: "pointer",
+                              }}
+                              target="_blank"
+                            >
+                              {" "}
+                              Preview File
+                            </a>
+                          )}
                           {/* {subtopic.cheatSheet?.file.name} */}
                           <ActionButton
                             variant="danger"
-                            onClick={() => handleRemoveCheatSheet(topicIndex, subIndex)}
+                            onClick={() =>
+                              handleRemoveCheatSheet(topicIndex, subIndex)
+                            }
                             style={{
                               marginLeft: "10px",
                               color: theme.colors.secondary,
@@ -892,99 +859,11 @@ const navigate = useNavigate();
                   checked={subtopic.isInterviewFavorite}
                   onChange={(e) => handleCheckChange(e, topicIndex, subIndex)}
                 />
-                <label>Mark this subtopic as Interview Favorite</label>
+                <label>
+                  Mark this subtopic as Interview Favorite (This subtopic will
+                  be displayed on the home tab)
+                </label>
               </CheckboxContainer>
-
-              {/* +ADD LAYMAN BUTTON */}
-              <ButtonRow>
-                {/* Limit to 5 layman. If already 5, we can hide or disable the button */}
-                <ActionButton
-                  style={{
-                    border: "1px solid #2390ac",
-                    color: "#2390ac",
-                  }}
-                  onClick={() => handleAddLaymanExplanation(topicIndex, subIndex)}
-                  disabled={subtopic.laymanExplanations.length >= 5}
-                >
-                  + Add Layman
-                </ActionButton>
-              </ButtonRow>
-
-              {/* LAYMAN EXPLANATIONS LOOP */}
-              {subtopic.laymanExplanations.map((layman, laymanIndex) => (
-                <div
-                  key={laymanIndex}
-                  style={{
-                    border: "1px solid #ddd",
-                    padding: "10px",
-                    margin: "10px 0",
-                    borderRadius: "4px",
-                    backgroundColor: "#f9f9f9",
-                  }}
-                >
-                  {/* Display the layman scale */}
-                  <FormGroup>
-                    <Label>Layman Scale</Label>
-                    <TextInput
-                      type="number"
-                      readOnly
-                      value={layman.laymanScale}
-                      style={{ backgroundColor: theme.colors.backgray }}
-                    />
-                  </FormGroup>
-
-                  <FormGroup>
-                    <Label>Layman Title</Label>
-                    <TextInput
-                      value={layman.laymanTitle}
-                      onChange={(e) =>
-                        handleLaymanExplanationChange(
-                          e,
-                          null,
-                          topicIndex,
-                          subIndex,
-                          laymanIndex,
-                          "laymanTitle"
-                        )
-                      }
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label>Layman Info</Label>
-                    <CKEditor
-                      editor={ClassicEditor}
-                      data={layman.laymanInfo}
-                      config={editorConfig}
-                      onChange={(event, editor) => {
-                        handleLaymanExplanationChange(
-                          null,
-                          editor,
-                          topicIndex,
-                          subIndex,
-                          laymanIndex,
-                          "laymanInfo"
-                        );
-                      }}
-                    />
-                  </FormGroup>
-
-                  {/* DELETE LAYMAN ICON/BUTTON */}
-                  <ButtonRow>
-                    <ActionButton
-                      style={{
-                        border: "1px solid #2390ac",
-                        color: "#2390ac",
-                      }}
-                      variant="danger"
-                      onClick={() =>
-                        openDeleteModal("layman", topicIndex, subIndex, laymanIndex)
-                      }
-                    >
-                      Delete Layman
-                    </ActionButton>
-                  </ButtonRow>
-                </div>
-              ))}
 
               {/* CONCEPT CLARIFIER SECTION */}
               <ConceptClarifierContainer>
@@ -1048,28 +927,30 @@ const navigate = useNavigate();
                     </FormGroup>
 
                     {/* DELETE CLARIFIER BUTTON/ICON */}
-                    <ButtonRow>
-                      <ActionButton
-                        variant="danger"
-                        style={{
-                          marginLeft: "0px",
-                          border: "1px solid #2390ac",
-                          color: "#2390ac",
-                          backgroundColor: "transparent",
-                        }}
-                        onClick={() =>
-                          openDeleteModal(
-                            "clarifier",
-                            topicIndex,
-                            subIndex,
-                            null,
-                            clarifierIndex
-                          )
-                        }
-                      >
-                        Delete Clarifier
-                      </ActionButton>
-                    </ButtonRow>
+                    {clarifierIndex > 1 && (
+                      <ButtonRow>
+                        <ActionButton
+                          variant="danger"
+                          style={{
+                            marginLeft: "0px",
+                            border: "1px solid #2390ac",
+                            color: "#2390ac",
+                            backgroundColor: "transparent",
+                          }}
+                          onClick={() =>
+                            openDeleteModal(
+                              "clarifier",
+                              topicIndex,
+                              subIndex,
+                              null,
+                              clarifierIndex
+                            )
+                          }
+                        >
+                          Delete Clarifier
+                        </ActionButton>
+                      </ButtonRow>
+                    )}
                   </div>
                 ))}
 
@@ -1080,9 +961,11 @@ const navigate = useNavigate();
                       color: "#2390ac",
                       backgroundColor: "transparent",
                     }}
-                    onClick={() => handleAddConceptClarifier(topicIndex, subIndex)}
+                    onClick={() =>
+                      handleAddConceptClarifier(topicIndex, subIndex)
+                    }
                   >
-                    + Add More
+                    + Add Concept Clarifier
                   </ActionButton>
                 </ButtonRow>
               </ConceptClarifierContainer>
@@ -1097,15 +980,25 @@ const navigate = useNavigate();
                         marginTop: "10px",
                         display: "flex",
                         alignItems: "center",
+                        gap: "10px",
                       }}
                     >
-                      <strong>Uploaded File:</strong>{" "}
-                      {subtopic.questionBankFile.name ?
+                      Uploaded File:{" "}
+                      {subtopic.questionBankFile.name ? (
                         subtopic.questionBankFile.name
-                        :
-                        <a href={subtopic.questionBankFile.dataUrl} style={{ color: theme.colors.secondary, cursor: "pointer" }} target="_blank"> Preview File</a>
-                      }
-
+                      ) : (
+                        <a
+                          href={subtopic.questionBankFile.dataUrl}
+                          style={{
+                            color: theme.colors.secondary,
+                            cursor: "pointer",
+                          }}
+                          target="_blank"
+                        >
+                          {" "}
+                          Preview File
+                        </a>
+                      )}
                       {/* {subtopic.questionBankFile.name} */}
                       <ActionButton
                         variant="danger"
@@ -1176,14 +1069,25 @@ const navigate = useNavigate();
                         marginTop: "10px",
                         display: "flex",
                         alignItems: "center",
+                        gap: "10px",
                       }}
                     >
-                      <strong>Uploaded File:</strong>{" "}
-                      {subtopic.tryItYourselfFile.name ?
+                      Uploaded File:{" "}
+                      {subtopic.tryItYourselfFile.name ? (
                         subtopic.tryItYourselfFile.name
-                        :
-                        <a href={subtopic.tryItYourselfFile.dataUrl} style={{ color: theme.colors.secondary, cursor: "pointer" }} target="_blank"> Preview File</a>
-                      }
+                      ) : (
+                        <a
+                          href={subtopic.tryItYourselfFile.dataUrl}
+                          style={{
+                            color: theme.colors.secondary,
+                            cursor: "pointer",
+                          }}
+                          target="_blank"
+                        >
+                          {" "}
+                          Preview File
+                        </a>
+                      )}
                       {/* {subtopic.tryItYourselfFile.name} */}
                       <ActionButton
                         variant="danger"
@@ -1241,42 +1145,48 @@ const navigate = useNavigate();
               </SectionHeader>
 
               {/* DELETE SUBTOPIC BUTTON */}
-              <ButtonRow>
-                <ActionButton
-                  style={{
-                    border: "1px solid #2390ac",
-                    color: "#2390ac",
-                    backgroundColor: "transparent",
-                  }}
-                  variant="danger"
-                  onClick={() => openDeleteModal("subtopic", topicIndex, subIndex)}
-                >
-                  Delete Subtopic
-                </ActionButton>
-              </ButtonRow>
+              {topics[topicIndex].subtopics.length > 1 && (
+                <ButtonRow>
+                  <ActionButton
+                    style={{
+                      border: "1px solid #2390ac",
+                      color: "#2390ac",
+                      backgroundColor: "transparent",
+                    }}
+                    variant="danger"
+                    onClick={() =>
+                      openDeleteModal("subtopic", topicIndex, subIndex)
+                    }
+                  >
+                    Delete Subtopic
+                  </ActionButton>
+                </ButtonRow>
+              )}
             </div>
           ))}
 
           {/* DELETE TOPIC BUTTON */}
-          <ButtonRow>
-            <ActionButton
-              style={{
-                border: "1px solid #2390ac",
-                color: "#2390ac",
-                backgroundColor: "transparent",
-              }}
-              variant="danger"
-              onClick={() => openDeleteModal("topic", topicIndex)}
-            >
-              Delete Topic
-            </ActionButton>
-          </ButtonRow>
+          {topics.length > 1 && (
+            <ButtonRow>
+              <ActionButton
+                style={{
+                  border: "1px solid #2390ac",
+                  color: "#2390ac",
+                  backgroundColor: "transparent",
+                }}
+                variant="danger"
+                onClick={() => openDeleteModal("topic", topicIndex)}
+              >
+                Delete Topic
+              </ActionButton>
+            </ButtonRow>
+          )}
 
           {/* ADD SUBTOPIC BUTTON */}
           <ButtonRow>
             <ActionButton
               style={{
-                border: "1px solid #2390ac",
+                border: "none",
                 color: "#2390ac",
                 backgroundColor: "transparent",
               }}
@@ -1302,8 +1212,8 @@ const navigate = useNavigate();
         </ActionButton>
         <ActionButton
           variant="primary"
-          style={{ width: "100px" }}
           onClick={handleDone}
+          style={{ width: "100px", display: "flex", justifyContent: "center" }}
         >
           Done
         </ActionButton>
@@ -1311,8 +1221,13 @@ const navigate = useNavigate();
 
       {/* PAGINATION (OPTIONAL) */}
       <PaginationContainer>
-        <Link to={`/admin/uploadmodule/${moduleId}`} style={{ textDecoration: "none" }}>
-          <ActionButton>Previous</ActionButton>
+        <Link
+          to={`/admin/uploadmodule/${moduleId}`}
+          style={{ textDecoration: "none" }}
+        >
+          <ActionButton>
+            <FaArrowLeft size={16} /> Previous{" "}
+          </ActionButton>
         </Link>
       </PaginationContainer>
 
@@ -1325,10 +1240,10 @@ const navigate = useNavigate();
             deleteType === "topic"
               ? "Are you sure you want to delete this entire topic?"
               : deleteType === "subtopic"
-                ? "Are you sure you want to delete this subtopic?"
-                : deleteType === "layman"
-                  ? "Are you sure you want to delete this Layman explanation?"
-                  : "Are you sure you want to delete this Concept Clarifier?"
+              ? "Are you sure you want to delete this subtopic?"
+              : deleteType === "layman"
+              ? "Are you sure you want to delete this Layman explanation?"
+              : "Are you sure you want to delete this Concept Clarifier?"
           }
         />
       )}

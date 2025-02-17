@@ -29,7 +29,6 @@ export const Header = styled.div`
   justify-content: space-between;
   gap: ${theme.spacing(2)};
   align-items: center;
-  margin-bottom: ${theme.spacing(2)};
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     flex-direction: column;
@@ -39,11 +38,11 @@ export const Header = styled.div`
 `;
 
 export const SearchBar = styled.input`
-  width: 20%;
   padding: ${theme.spacing(1)};
   font-size: 14px;
   font-family: ${theme.fonts.body};
-  border: 1px solid ${theme.colors.sidebarHoverBgColor};
+  border: none;
+  background: ${theme.colors.sidebarBgColor};
   border-radius: 4px;
 
   &:focus {
@@ -60,12 +59,24 @@ export const SearchBar = styled.input`
   }
 `;
 
-export const Flashcard = styled.div`
+export const SearchBarWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  background: ${theme.colors.sidebarBgColor};
+  padding: 5px 12px;
+  border-radius: 4px;
+  gap: 8px;
+  margin-left: auto;
   border: 1px solid ${theme.colors.sidebarHoverBgColor};
-  border-radius: 8px;
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    width: 100%;
+  }
+`;
+
+export const Flashcard = styled.div`
   padding: ${theme.spacing(2)};
   background-color: ${theme.colors.white};
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 
@@ -161,7 +172,6 @@ export const ActionButton = styled.button`
   justify-content: center;
   width: 30px;
   height: 30px;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 
   &:hover {
     opacity: 0.9;

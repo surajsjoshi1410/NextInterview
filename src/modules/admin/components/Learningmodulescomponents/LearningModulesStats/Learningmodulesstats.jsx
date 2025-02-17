@@ -10,17 +10,25 @@ import {
 const LearningModulesStats = () => {
   return (
     <Header>
-      <div style={{ display: "flex" }}>
-        <div style={{ marginRight: "40px" }}>
+      <div>
+        <div
+          style={{
+            background: "#f5f5f5",
+            padding: "0 20px ",
+            borderRadius: "8px",
+          }}
+        >
           <Stats>
             <StatCard>
               <p>Total Topics Published</p>
               <h1>35</h1>
             </StatCard>
+            <hr style={{ height: "80px", margin: "20px 0 0 0" }} />
             <StatCard>
               <p>Avg. Completion Rate</p>
               <h1>75%</h1>
             </StatCard>
+            <hr style={{ height: "80px", margin: "20px 0 0 0" }} />
             <StatCard>
               <p>Avg. Quiz Score</p>
               <h1>78%</h1>
@@ -28,17 +36,21 @@ const LearningModulesStats = () => {
           </Stats>
         </div>
 
-        <div>
+        <div style={{ background: "#fff", borderRadius: "8px" }}>
           <StatCard1>
             <p>Most Viewed</p>
+            <div className="datascience">Ai Basics</div>
             <div>
-              Ai Basics <strong> - (1,245 views)</strong>
+              <strong> - (1,245 views)</strong>
             </div>
           </StatCard1>
+          <hr style={{ width: "95%" }} />
           <StatCard2>
             <p>Least Viewed</p>
+            <div className="datascience">Data Science Basics & Advanced</div>
             <div>
-              Data Science Basics & Advanced  <strong> - (1,245 views)</strong>
+              {" "}
+              <strong> - (1,245 views)</strong>
             </div>
           </StatCard2>
         </div>

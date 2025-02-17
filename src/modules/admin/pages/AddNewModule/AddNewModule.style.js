@@ -2,7 +2,7 @@ import styled from "styled-components";
 import theme from "../../../../theme/Theme";
 
 export const AddContainer = styled.div`
-margin-left: 30px;
+  margin-left: 30px;
   font-family: ${theme.fonts.body};
   color: ${theme.colors.text};
   padding: ${theme.spacing(3)};
@@ -10,10 +10,9 @@ margin-left: 30px;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     padding: ${theme.spacing(2)};
-
   }
-    @media (max-width: ${theme.breakpoints.mobile}) {
-      padding: ${theme.spacing(1)};
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding: ${theme.spacing(1)};
   }
 `;
 
@@ -24,11 +23,11 @@ export const Heading = styled.h1`
   text-align: left; /* Center align the heading */
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    font-size: 1.2rem;  
+    font-size: 1.2rem;
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    font-size: 1rem;  
+    font-size: 1rem;
   }
 `;
 
@@ -36,7 +35,7 @@ export const SectionHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-//   width: 100%;
+  //   width: 100%;
   background-color: #e0e0e0;
   padding: ${theme.spacing(1)} ${theme.spacing(1)};
   border-radius: 4px;
@@ -45,8 +44,8 @@ export const SectionHeader = styled.div`
   @media (max-width: ${theme.breakpoints.tablet}) {
     padding: ${theme.spacing(1)} ${theme.spacing(1)};
   }
-    @media (max-width: ${theme.breakpoints.mobile}) {
-      padding: ${theme.spacing(1)} ${theme.spacing(1)};
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding: ${theme.spacing(1)} ${theme.spacing(1)};
   }
 `;
 
@@ -83,12 +82,23 @@ export const UploadManually = styled.span`
   font-size: 0.875rem;
   color: ${theme.colors.secondary};
   cursor: pointer;
+  background-color: ${(props) =>
+    props.variant === "primary"
+      ? `theme.colors.secondary`
+      : `theme.colors.light`};
+  border: 1px solid
+    ${(props) =>
+      props.variant === "primary" ? "#ccc" : theme.colors.secondary};
+  border-radius: 4px;
+  color: ${(props) =>
+    props.variant === "primary" ? "#fff" : theme.colors.secondary};
+  padding: ${theme.spacing(1)} ${theme.spacing(2)};
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     font-size: 0.75rem;
   }
 
-  @media (max-width: ${theme.breakpoints.mobile}) { 
+  @media (max-width: ${theme.breakpoints.mobile}) {
     font-size: 0.625rem;
   }
 
@@ -107,8 +117,8 @@ export const FormGroup = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     grid-template-columns: 1fr;
   }
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      grid-template-columns: 1fr;
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -223,7 +233,7 @@ export const ConceptClarifierContainer = styled.div`
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-  padding: ${theme.spacing(1)};
+    padding: ${theme.spacing(1)};
   }
 `;
 
@@ -253,7 +263,7 @@ export const ButtonRow = styled.div`
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-  margin: ${theme.spacing(0.5)} 0;
+    margin: ${theme.spacing(0.5)} 0;
   }
 `;
 
@@ -262,14 +272,17 @@ export const ActionButton = styled.button`
     props.variant === "primary" ? theme.colors.secondary : theme.colors.light};
   border: 1px solid
     ${(props) =>
-      props.variant === "primary" ? theme.colors.secondary : "#ccc"};
+      props.variant === "primary" ? "#ccc" : theme.colors.secondary};
   border-radius: 4px;
   color: ${(props) =>
-    props.variant === "primary" ? "#fff" : theme.colors.text};
+    props.variant === "primary" ? "#fff" : theme.colors.secondary};
   padding: ${theme.spacing(1)} ${theme.spacing(2)};
   font-family: ${theme.fonts.body};
   font-size: 0.875rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     font-size: 0.75rem;
@@ -292,7 +305,7 @@ export const PaginationContainer1 = styled.div`
   align-items: flex-start;
   flex-direction: row;
   // margin-left: auto;
-  
+
   justify-content: flex-start;
   gap: ${theme.spacing(2)};
   margin-top: ${theme.spacing(3)};
@@ -306,13 +319,12 @@ export const PaginationContainer1 = styled.div`
   }
 `;
 
-
 export const PaginationItem = styled.span`
   font-size: 0.875rem;
   cursor: pointer;
   padding: ${theme.spacing(1)};
   border-radius: 4px;
-@media (max-width: ${theme.breakpoints.tablet}) {
+  @media (max-width: ${theme.breakpoints.tablet}) {
     font-size: 0.75rem;
     margin-top: ${theme.spacing(2)};
   }
@@ -320,14 +332,12 @@ export const PaginationItem = styled.span`
   @media (max-width: ${theme.breakpoints.mobile}) {
     font-size: 0.625rem;
     margin-top: ${theme.spacing(2)};
-    }
-    
+  }
 
   &:hover {
     background-color: ${theme.colors.sidebarHoverBgColor};
   }
 `;
-
 
 export const ModalContainer = styled.div`
   position: fixed;
@@ -352,7 +362,7 @@ export const ModalContent = styled.div`
 `;
 
 export const ModalButton = styled.button`
-  background: ${props => props.theme.colors.secondary};
+  background: ${(props) => props.theme.colors.secondary};
   color: #fff;
   padding: 10px 20px;
   border: none;

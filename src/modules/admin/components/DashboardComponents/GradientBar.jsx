@@ -3,11 +3,8 @@ import styled from "styled-components";
 
 const GradientBackground = styled.div`
   height: 100px; /* Adjust height as needed */
-  width: 98%;
-//   margin-left: 60px;
-  margin-top: 20px;
+  width: 100%;
   position: absolute;
-  border-radius: 8px;
   z-index: 0;
   background: linear-gradient(
     to bottom,
@@ -25,9 +22,11 @@ const WelcomeText = styled.h1`
 `;
 
 const GradientBar = () => {
-  return <GradientBackground >
- <WelcomeText>Welcome Back, {name}</WelcomeText>
-  </GradientBackground>;
+  return (
+    <GradientBackground>
+      <WelcomeText>Welcome Admin, {name}</WelcomeText>
+    </GradientBackground>
+  );
 };
 
 export default GradientBar;

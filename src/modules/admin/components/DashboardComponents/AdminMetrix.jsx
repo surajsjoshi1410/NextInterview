@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const MetricsContainer = styled.div`
 width: 80%;
-margin: 70px;
+margin: 60px 40px 70px 120px;
 height: 40px;
 // margin-top: 70px;
 position: absolute;
@@ -45,11 +45,11 @@ const MetricValue = styled.div`
 
 const AdminMetrics = () => {
   const metrics = [
-    { title: "Total Users", value: "1,500" },
-    { title: "Active Users", value: "1,245" },
-    { title: "Topics Completed", value: "5" },
-    { title: "Average Quiz score", value: "78%" },
-    { title: "Avg. Feedback Rating", value: "Positive" },
+    { title: "Total Users", value: "0" },
+    { title: "Active Users", value: "0" },
+    { title: "Topics Completed", value: "0" },
+    { title: "Average Quiz score", value: "0%" },
+    { title: "Avg. Feedback Rating", value: "Neutral" },
   ];
 
   return (

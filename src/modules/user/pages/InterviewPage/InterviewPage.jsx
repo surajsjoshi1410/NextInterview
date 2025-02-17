@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import theme from "../../../../theme/Theme"; // Adjust the path according to your structure
+import Group from "../..../../../../../../src/assets/Group.png";
 import {
   Container,
   Details,
@@ -70,7 +71,7 @@ const InterviewPage = () => {
       <Container>
         {courses.map((course) => (
           <Card key={course.id}>
-            <Image src={course.image} alt={course.title} />
+            <Image src={Group} alt={course.title} />
             <CardContent>
               <Title>{course.title}</Title>
               <Details>
@@ -78,7 +79,9 @@ const InterviewPage = () => {
                 <p> {course.difficulty}</p>
                 <p> {course.totalTime}</p>
               </Details>
-              <StartButton onClick={() => setSelectedCourse(course)}>Start Now</StartButton>
+              <StartButton onClick={() => setSelectedCourse(course)}>
+                Start Now
+              </StartButton>
             </CardContent>
           </Card>
         ))}

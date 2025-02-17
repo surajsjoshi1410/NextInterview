@@ -6,16 +6,22 @@ import {
   Answer,
   AddQuestionButton,
   ActionButton,
-  ActionButtons
+  ActionButtons,
 } from "../../pages/FAQ/Faq.styles";
 import DeleteModule from "../../components/DeleteModule/DeleteModule";
 import EditModal from "../../components/FAQComponent/FAQEdit/FaqEdit";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
-import AddFaqModal from "../../components/FAQComponent/FAQAdd/FaqAdd"; 
+import AddFaqModal from "../../components/FAQComponent/FAQAdd/FaqAdd";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { CiCircleMinus } from "react-icons/ci";
-import { getFaq, createFaq, deleteFaq, updateFaq } from "../../../../api/faqApi";
+import {
+  getFaq,
+  createFaq,
+  deleteFaq,
+  updateFaq,
+} from "../../../../api/faqApi";
+import theme from "../../../../theme/Theme";
 
 const FAQ = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -48,7 +54,10 @@ const FAQ = () => {
 
   const handleEditSave = async (question, answer) => {
     try {
-      const updatedFaq = await updateFaq(faqs[currentEditIndex]._id, { question, answer });
+      const updatedFaq = await updateFaq(faqs[currentEditIndex]._id, {
+        question,
+        answer,
+      });
       setFaqs((prevFaqs) =>
         prevFaqs.map((faq, i) =>
           i === currentEditIndex ? { ...faq, question, answer } : faq
@@ -68,7 +77,9 @@ const FAQ = () => {
   const handleDelete = async () => {
     try {
       await deleteFaq(faqs[currentDeleteIndex]._id);
-      setFaqs((prevFaqs) => prevFaqs.filter((_, i) => i !== currentDeleteIndex));
+      setFaqs((prevFaqs) =>
+        prevFaqs.filter((_, i) => i !== currentDeleteIndex)
+      );
       setIsDeleteModalOpen(false);
     } catch (error) {
       console.error("Error deleting FAQ:", error);
@@ -97,16 +108,24 @@ const FAQ = () => {
           <div key={index}>
             <Question onClick={() => toggleAnswerVisibility(index)}>
               {faq.question}
-              <span>{faq.isVisible ? <CiCircleMinus /> : <IoAddCircleOutline />}</span>
+              <span style={{ color: `${theme.colors.bluetext}` }}>
+                {faq.isVisible ? <CiCircleMinus /> : <IoAddCircleOutline />}
+              </span>
             </Question>
             <Answer isVisible={faq.isVisible}>
               {faq.answer}
               {faq.isVisible && (
                 <ActionButtons>
-                  <ActionButton type="edit" onClick={() => openEditModal(index)}>
+                  <ActionButton
+                    type="edit"
+                    onClick={() => openEditModal(index)}
+                  >
                     <CiEdit />
                   </ActionButton>
-                  <ActionButton type="delete" onClick={() => openDeleteModal(index)}>
+                  <ActionButton
+                    type="delete"
+                    onClick={() => openDeleteModal(index)}
+                  >
                     <MdDelete />
                   </ActionButton>
                 </ActionButtons>
@@ -146,4 +165,3 @@ const FAQ = () => {
 };
 
 export default FAQ;
- 

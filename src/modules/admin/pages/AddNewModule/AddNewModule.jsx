@@ -35,6 +35,8 @@ import { addNewModule } from "../../../../api/addNewModuleApi";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { ClassicEditor } from "ckeditor5";
 import { editorConfig } from "../../../../config/ckEditorConfig";
+import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 
 // Styled icon/button if you want to show a delete icon
 const DeleteIconWrapper = styled.span`
@@ -50,7 +52,7 @@ const DeleteIconWrapper = styled.span`
 const AddNewModule = () => {
   // ----------------------------- STATES -----------------------------
   const [modalVisible, setModalVisible] = useState(false);
-const navigate = useNavigate();
+  const navigate = useNavigate();
   // 'topic', 'subtopic', 'layman', or 'clarifier'
   const [deleteType, setDeleteType] = useState(null);
   const location = useLocation();
@@ -178,59 +180,6 @@ const navigate = useNavigate();
         tryItYourselfFile: null,
         tryItYourselfFileUrl: null,
       });
-      return updated;
-    });
-  };
-
-  // ----------------------------- LAYMAN SECTION -----------------------------
-  // 1. Add new Layman Explanation
-  const handleAddLaymanExplanation = (topicIndex, subIndex) => {
-    setTopics((prevTopics) => {
-      const updated = [...prevTopics];
-      const laymans = updated[topicIndex].subtopics[subIndex].laymanExplanations;
-
-      // -----------------------------------------------------------------
-      // Enforce a limit of 5 Layman items
-      // -----------------------------------------------------------------
-      if (laymans.length >= 5) {
-        alert("You can only add up to 5 layman explanations (scales).");
-        return updated;
-      }
-
-      // The new scale is the next number
-      const newScale = laymans.length + 1;
-
-      laymans.push({
-        laymanScale: newScale,
-        laymanTitle: "",
-        laymanInfo: "",
-      });
-
-      return updated;
-    });
-  };
-
-  // 2. Handle changes in Layman Explanation fields
-  const handleLaymanExplanationChange = (
-    e,
-    event,
-    topicIndex,
-    subIndex,
-    laymanIndex,
-    field
-  ) => {
-    let value;
-    if (e != null) {
-      value = e.target.value;
-    } else {
-      value = event.getData();
-    }
-
-    setTopics((prevTopics) => {
-      const updated = [...prevTopics];
-      updated[topicIndex].subtopics[subIndex].laymanExplanations[laymanIndex][
-        field
-      ] = value;
       return updated;
     });
   };
@@ -400,8 +349,6 @@ const navigate = useNavigate();
 
   // ----------------------------- DONE BUTTON -----------------------------
   const handleDone = async () => {
-
-
     console.log("All topics data:", topics);
 
     const topicData = topics.map((topic) => {
@@ -557,20 +504,22 @@ const navigate = useNavigate();
       // remove a single layman explanation
       setTopics((prevTopics) => {
         const updated = [...prevTopics];
-        updated[topicIndex].subtopics[subIndex].laymanExplanations =
-          updated[topicIndex].subtopics[subIndex].laymanExplanations.filter(
-            (_, idx) => idx !== laymanIndex
-          );
+        updated[topicIndex].subtopics[subIndex].laymanExplanations = updated[
+          topicIndex
+        ].subtopics[subIndex].laymanExplanations.filter(
+          (_, idx) => idx !== laymanIndex
+        );
         return updated;
       });
     } else if (deleteType === "clarifier") {
       // remove a single concept clarifier
       setTopics((prevTopics) => {
         const updated = [...prevTopics];
-        updated[topicIndex].subtopics[subIndex].conceptClarifiers =
-          updated[topicIndex].subtopics[subIndex].conceptClarifiers.filter(
-            (_, idx) => idx !== clarifierIndex
-          );
+        updated[topicIndex].subtopics[subIndex].conceptClarifiers = updated[
+          topicIndex
+        ].subtopics[subIndex].conceptClarifiers.filter(
+          (_, idx) => idx !== clarifierIndex
+        );
         return updated;
       });
     }
@@ -647,10 +596,10 @@ const navigate = useNavigate();
                     marginTop: "10px",
                     display: "flex",
                     alignItems: "center",
+                    gap: "10px",
                   }}
                 >
-                  <strong>Uploaded File:</strong>{" "}
-                  {topic.skillAssessmentFile.name}
+                  Uploaded File: {topic.skillAssessmentFile.name}
                   <ActionButton
                     variant="danger"
                     onClick={() => handleRemoveSkillAssessment(topicIndex)}
@@ -757,7 +706,7 @@ const navigate = useNavigate();
 
               {/* CHEAT SHEET VIDEO */}
               <FormGroup>
-                <Label>Cheat Sheet </Label>
+                <Label>Upload Cheat Sheet </Label>
                 <div
                   style={{
                     display: "flex",
@@ -785,7 +734,6 @@ const navigate = useNavigate();
                           handleCheatSheetUpload(e, topicIndex, subIndex)
                         }
                       />
-
                     </>
                   ) : (
                     <>
@@ -795,13 +743,15 @@ const navigate = useNavigate();
                             marginTop: "10px",
                             display: "flex",
                             alignItems: "center",
+                            gap: "10px",
                           }}
                         >
-                          <strong>Uploaded File:</strong>{" "}
-                          {subtopic.cheatSheet?.file.name}
+                          Uploaded File {subtopic.cheatSheet?.file.name}
                           <ActionButton
                             variant="danger"
-                            onClick={() => handleRemoveCheatSheet(topicIndex, subIndex)}
+                            onClick={() =>
+                              handleRemoveCheatSheet(topicIndex, subIndex)
+                            }
                             style={{
                               marginLeft: "10px",
                               color: theme.colors.secondary,
@@ -825,99 +775,11 @@ const navigate = useNavigate();
                   checked={subtopic.isInterviewFavorite}
                   onChange={(e) => handleCheckChange(e, topicIndex, subIndex)}
                 />
-                <label>Mark this subtopic as Interview Favorite</label>
+                <label>
+                  Mark this subtopic as Interview Favorite (This subtopic will
+                  be displayed on the home tab)
+                </label>
               </CheckboxContainer>
-
-              {/* +ADD LAYMAN BUTTON */}
-              <ButtonRow>
-                {/* Limit to 5 layman. If already 5, we can hide or disable the button */}
-                <ActionButton
-                  style={{
-                    border: "1px solid #2390ac",
-                    color: "#2390ac",
-                  }}
-                  onClick={() => handleAddLaymanExplanation(topicIndex, subIndex)}
-                  disabled={subtopic.laymanExplanations.length >= 5}
-                >
-                  + Add Layman
-                </ActionButton>
-              </ButtonRow>
-
-              {/* LAYMAN EXPLANATIONS LOOP */}
-              {subtopic.laymanExplanations.map((layman, laymanIndex) => (
-                <div
-                  key={laymanIndex}
-                  style={{
-                    border: "1px solid #ddd",
-                    padding: "10px",
-                    margin: "10px 0",
-                    borderRadius: "4px",
-                    backgroundColor: "#f9f9f9",
-                  }}
-                >
-                  {/* Display the layman scale */}
-                  <FormGroup>
-                    <Label>Layman Scale</Label>
-                    <TextInput
-                      type="number"
-                      readOnly
-                      value={layman.laymanScale}
-                      style={{ backgroundColor: theme.colors.backgray }}
-                    />
-                  </FormGroup>
-
-                  <FormGroup>
-                    <Label>Layman Title</Label>
-                    <TextInput
-                      value={layman.laymanTitle}
-                      onChange={(e) =>
-                        handleLaymanExplanationChange(
-                          e,
-                          null,
-                          topicIndex,
-                          subIndex,
-                          laymanIndex,
-                          "laymanTitle"
-                        )
-                      }
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label>Layman Info</Label>
-                    <CKEditor
-                      editor={ClassicEditor}
-                      data={layman.laymanInfo}
-                      config={editorConfig}
-                      onChange={(event, editor) => {
-                        handleLaymanExplanationChange(
-                          null,
-                          editor,
-                          topicIndex,
-                          subIndex,
-                          laymanIndex,
-                          "laymanInfo"
-                        );
-                      }}
-                    />
-                  </FormGroup>
-
-                  {/* DELETE LAYMAN ICON/BUTTON */}
-                  <ButtonRow>
-                    <ActionButton
-                      style={{
-                        border: "1px solid #2390ac",
-                        color: "#2390ac",
-                      }}
-                      variant="danger"
-                      onClick={() =>
-                        openDeleteModal("layman", topicIndex, subIndex, laymanIndex)
-                      }
-                    >
-                      Delete Layman
-                    </ActionButton>
-                  </ButtonRow>
-                </div>
-              ))}
 
               {/* CONCEPT CLARIFIER SECTION */}
               <ConceptClarifierContainer>
@@ -981,41 +843,45 @@ const navigate = useNavigate();
                     </FormGroup>
 
                     {/* DELETE CLARIFIER BUTTON/ICON */}
-                    <ButtonRow>
-                      <ActionButton
-                        variant="danger"
-                        style={{
-                          marginLeft: "0px",
-                          border: "1px solid #2390ac",
-                          color: "#2390ac",
-                          backgroundColor: "transparent",
-                        }}
-                        onClick={() =>
-                          openDeleteModal(
-                            "clarifier",
-                            topicIndex,
-                            subIndex,
-                            null,
-                            clarifierIndex
-                          )
-                        }
-                      >
-                        Delete Clarifier
-                      </ActionButton>
-                    </ButtonRow>
+                    {clarifierIndex > 1 && (
+                      <ButtonRow>
+                        <ActionButton
+                          variant="danger"
+                          style={{
+                            marginLeft: "0px",
+                            border: "1px solid #2390ac",
+                            color: "#2390ac",
+                            backgroundColor: "transparent",
+                          }}
+                          onClick={() =>
+                            openDeleteModal(
+                              "clarifier",
+                              topicIndex,
+                              subIndex,
+                              null,
+                              clarifierIndex
+                            )
+                          }
+                        >
+                          Delete Clarifier
+                        </ActionButton>
+                      </ButtonRow>
+                    )}
                   </div>
                 ))}
-
-                <ButtonRow>
+                <hr></hr>
+                <ButtonRow style={{ justifyContent: "flex-end" }}>
                   <ActionButton
                     style={{
                       border: "1px solid #2390ac",
                       color: "#2390ac",
                       backgroundColor: "transparent",
                     }}
-                    onClick={() => handleAddConceptClarifier(topicIndex, subIndex)}
+                    onClick={() =>
+                      handleAddConceptClarifier(topicIndex, subIndex)
+                    }
                   >
-                    + Add More
+                    + Add Concept Clarifier
                   </ActionButton>
                 </ButtonRow>
               </ConceptClarifierContainer>
@@ -1030,10 +896,10 @@ const navigate = useNavigate();
                         marginTop: "10px",
                         display: "flex",
                         alignItems: "center",
+                        gap: "10px",
                       }}
                     >
-                      <strong>Uploaded File:</strong>{" "}
-                      {subtopic.questionBankFile.name}
+                      Uploaded File {subtopic.questionBankFile.name}
                       <ActionButton
                         variant="danger"
                         onClick={() =>
@@ -1070,7 +936,7 @@ const navigate = useNavigate();
                     }}
                   >
                     <FiUpload style={{ paddingRight: "5px" }} />
-                    Upload manually
+                    Upload Question Bank
                   </UploadManually>
                   <input
                     type="file"
@@ -1103,10 +969,10 @@ const navigate = useNavigate();
                         marginTop: "10px",
                         display: "flex",
                         alignItems: "center",
+                        gap: "10px",
                       }}
                     >
-                      <strong>Uploaded File:</strong>{" "}
-                      {subtopic.tryItYourselfFile.name}
+                      Uploaded File: {subtopic.tryItYourselfFile.name}
                       <ActionButton
                         variant="danger"
                         onClick={() =>
@@ -1163,44 +1029,51 @@ const navigate = useNavigate();
               </SectionHeader>
 
               {/* DELETE SUBTOPIC BUTTON */}
-              <ButtonRow>
-                <ActionButton
-                  style={{
-                    border: "1px solid #2390ac",
-                    color: "#2390ac",
-                    backgroundColor: "transparent",
-                  }}
-                  variant="danger"
-                  onClick={() => openDeleteModal("subtopic", topicIndex, subIndex)}
-                >
-                  Delete Subtopic
-                </ActionButton>
-              </ButtonRow>
+              {topics[topicIndex].subtopics.length > 1 && (
+                <ButtonRow>
+                  <ActionButton
+                    style={{
+                      border: "1px solid #2390ac",
+                      color: "#2390ac",
+                      backgroundColor: "transparent",
+                    }}
+                    variant="danger"
+                    onClick={() =>
+                      openDeleteModal("subtopic", topicIndex, subIndex)
+                    }
+                  >
+                    Delete Subtopic
+                  </ActionButton>
+                </ButtonRow>
+              )}
             </div>
           ))}
 
           {/* DELETE TOPIC BUTTON */}
-          <ButtonRow>
-            <ActionButton
-              style={{
-                border: "1px solid #2390ac",
-                color: "#2390ac",
-                backgroundColor: "transparent",
-              }}
-              variant="danger"
-              onClick={() => openDeleteModal("topic", topicIndex)}
-            >
-              Delete Topic
-            </ActionButton>
-          </ButtonRow>
+          {topics.length > 1 && (
+            <ButtonRow>
+              <ActionButton
+                style={{
+                  border: "1px solid #2390ac",
+                  color: "#2390ac",
+                  backgroundColor: "transparent",
+                }}
+                variant="danger"
+                onClick={() => openDeleteModal("topic", topicIndex)}
+              >
+                Delete Topic
+              </ActionButton>
+            </ButtonRow>
+          )}
 
           {/* ADD SUBTOPIC BUTTON */}
           <ButtonRow>
             <ActionButton
               style={{
-                border: "1px solid #2390ac",
+                border: "none",
                 color: "#2390ac",
                 backgroundColor: "transparent",
+                fontWeight: "500",
               }}
               onClick={() => handleAddSubtopic(topicIndex)}
             >
@@ -1224,8 +1097,8 @@ const navigate = useNavigate();
         </ActionButton>
         <ActionButton
           variant="primary"
-          style={{ width: "100px" }}
           onClick={handleDone}
+          style={{ width: "100px", display: "flex", justifyContent: "center" }}
         >
           Done
         </ActionButton>
@@ -1233,8 +1106,19 @@ const navigate = useNavigate();
 
       {/* PAGINATION (OPTIONAL) */}
       <PaginationContainer1>
-        <Link to={`/admin/uploadmodule/`} state={{data:location.state.data}}>
-          <ActionButton>Previous</ActionButton>
+        <Link
+          to={`/admin/uploadmodule/`}
+          state={{ data: location.state.data }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+          }}
+        >
+          <ActionButton>
+            {" "}
+            <FaArrowLeft size={16} /> Previous{" "}
+          </ActionButton>
         </Link>
       </PaginationContainer1>
 
@@ -1247,10 +1131,10 @@ const navigate = useNavigate();
             deleteType === "topic"
               ? "Are you sure you want to delete this entire topic?"
               : deleteType === "subtopic"
-                ? "Are you sure you want to delete this subtopic?"
-                : deleteType === "layman"
-                  ? "Are you sure you want to delete this Layman explanation?"
-                  : "Are you sure you want to delete this Concept Clarifier?"
+              ? "Are you sure you want to delete this subtopic?"
+              : deleteType === "layman"
+              ? "Are you sure you want to delete this Layman explanation?"
+              : "Are you sure you want to delete this Concept Clarifier?"
           }
         />
       )}

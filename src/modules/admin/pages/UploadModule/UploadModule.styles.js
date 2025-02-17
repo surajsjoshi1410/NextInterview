@@ -235,6 +235,10 @@ export const NavButton = styled.button`
   font-size: 0.9rem;
   font-family: ${({ theme }) => theme.fonts.body};
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
 
   ${({ variant, theme }) => {
     if (variant === "primary") {

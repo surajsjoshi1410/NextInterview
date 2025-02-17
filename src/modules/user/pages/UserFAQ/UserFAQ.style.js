@@ -10,26 +10,25 @@ export const FAQContainer = styled.div`
 `;
 
 export const FAQTitle = styled.h2`
-  
-font-size: 36px;
-font-style: normal;
-font-weight: 600;
-line-height: 44px; 
-color:${theme.colors.text};
-font-family: ${theme.fonts.body};
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 44px;
+  color: ${theme.colors.text};
+  font-family: ${theme.fonts.body};
 `;
 
 export const FAQSubtitle = styled.p`
   margin-bottom: 20px;
   font-size: 20px;
-font-style: normal;
-font-weight: 400;
-font-family: ${theme.fonts.body};
-color:${theme.colors.textgray};
+  font-style: normal;
+  font-weight: 400;
+  font-family: ${theme.fonts.body};
+  color: ${theme.colors.textgray};
 `;
 
 export const FAQItem = styled.div`
-border-bottom: 1px solid ${theme.colors.backgray};
+  border-bottom: 1px solid ${theme.colors.backgray};
   padding: 15px 0;
 `;
 
@@ -39,22 +38,21 @@ export const FAQQuestion = styled.div`
   justify-content: space-between;
   align-items: center;
   font-family: "DM Sans";
-font-size: 18px;
-font-style: normal;
-font-weight: 500;
-line-height: 28px; 
-color:${theme.colors.text};
-font-family: ${theme.fonts.body};
-
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+  color: ${theme.colors.text};
+  font-family: ${theme.fonts.body};
 `;
 
 export const FAQAnswer = styled.p`
- color:${theme.colors.textgray};
+  color: ${theme.colors.textgray};
   margin-top: 10px;
-line-height: 24px;
+  line-height: 24px;
   font-size: 16px;
-font-style: normal;
-font-weight: 400;
+  font-style: normal;
+  font-weight: 400;
 `;
 
 export const ToggleButton = styled.span`
@@ -80,6 +78,7 @@ letter-spacing: -0.28px;
   margin-top: 20px;
   display: block;
   width: fit-content;
+  margin-right: 60px;
 
  &:hover {
  background-color:${theme.colors.secondary};

@@ -1,43 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import UserSearchBar from '../../components/User/UserSearchBar';
-import UserTable from '../../components/User/UserTable';
-import UserCheckTopBar from '../../components/User/UserCheckTopBar';
-import RestrictUser from '../../components/User/RestrictUser';
-import SendReminder from '../../components/User/SendReminder';
+import React, { useEffect, useState } from "react";
+import UserSearchBar from "../../components/User/UserSearchBar";
+import UserTable from "../../components/User/UserTable";
+import UserCheckTopBar from "../../components/User/UserCheckTopBar";
+import RestrictUser from "../../components/User/RestrictUser";
+import SendReminder from "../../components/User/SendReminder";
 
-import { getUsers } from '../../../../api/userApi';
+import { getUsers } from "../../../../api/userApi";
 
 const Users = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedRows, setSelectedRows] = useState([]); // Manage selected rows
   const [isRestrictModalOpen, setRestrictModalOpen] = useState(false);
   const [isReminderModalOpen, setReminderModalOpen] = useState(false);
-  const[userList,setUserList]= useState([]);
+  const [userList, setUserList] = useState([]);
   useEffect(() => {
-    const apiCaller=async()=>{
-     const response= await  getUsers();
-     console.log(response);
-     const userListData=response.data.userData.map((item)=>{
-       
-      return(
-        {
-          clerkId:item.clerkUserData.id,
-          name: (item.clerkUserData.firstName)||"Anonymous",
-          email: item.userData.user_email ,
+    const apiCaller = async () => {
+      const response = await getUsers();
+      console.log(response);
+      const userListData = response.data.userData.map((item) => {
+        return {
+          clerkId: item.clerkUserData.id,
+          name: item.clerkUserData.firstName || "Anonymous",
+          email: item.userData.user_email,
           role: item.userData.user_role,
           topicsCompleted: "12/15 (80%)",
           activeHours: "~12h / week",
-          lastActive:new Date(item.clerkUserData.lastActiveAt).getDate() + "/" + new Date(item.clerkUserData.lastActiveAt).getMonth()+1 + "/" + new Date(item.clerkUserData.lastActiveAt).getFullYear(),
+          lastActive:
+            new Date(item.clerkUserData.lastActiveAt).getDate() +
+            "/" +
+            new Date(item.clerkUserData.lastActiveAt).getMonth() +
+            1 +
+            "/" +
+            new Date(item.clerkUserData.lastActiveAt).getFullYear(),
           bellIcon: item.clerkUserData.locked,
           profilePic: item.clerkUserData.imageUrl,
-        }
-      )
-     })
-     console.log("sdfghj",userListData);
-     setUserList(userListData); 
-    }
+        };
+      });
+      console.log("sdfghj", userListData);
+      setUserList(userListData);
+    };
     apiCaller();
-  },[]);
+  }, []);
 
   const users = [
     {
@@ -76,17 +79,26 @@ const Users = () => {
       user.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const toggleRowSelection = (index) => {
-    setSelectedRows((prevSelectedRows) =>
-      prevSelectedRows.includes(index)
-        ? prevSelectedRows.filter((row) => row !== index) // Deselect row
-        : [...prevSelectedRows, index] // Select row
+  const toggleRowSelection = (clerkId) => {
+    setSelectedRows(
+      (prevSelectedRows) =>
+        prevSelectedRows.includes(clerkId)
+          ? prevSelectedRows.filter((id) => id !== clerkId) // Deselect user
+          : [...prevSelectedRows, clerkId] // Select user
     );
   };
 
+  // const toggleSelectAll = (isChecked) => {
+  //   if (isChecked) {
+  //     setSelectedRows(filteredUsers.map((_, index) => index)); // Select all visible users
+  //   } else {
+  //     setSelectedRows([]); // Deselect all users
+  //   }
+  // };
+
   const toggleSelectAll = (isChecked) => {
     if (isChecked) {
-      setSelectedRows(filteredUsers.map((_, index) => index)); // Select all visible users
+      setSelectedRows(filteredUsers.map((user) => user.clerkId)); // Select all users using unique IDs
     } else {
       setSelectedRows([]); // Deselect all users
     }
@@ -119,9 +131,15 @@ const Users = () => {
 
   return (
     <div>
-      <UserSearchBar placeholder="Search for a User" onChange={setSearchQuery} />
+      <UserSearchBar
+        placeholder="Search for a User"
+        onChange={setSearchQuery}
+      />
       <UserCheckTopBar
-        selectAll={selectedRows.length === filteredUsers.length && filteredUsers.length > 0}
+        selectAll={
+          selectedRows.length === filteredUsers.length &&
+          filteredUsers.length > 0
+        }
         onSelectAllChange={toggleSelectAll}
         onRestrictUserClick={handleRestrictUserClick}
         onSendReminderClick={handleSendReminderClick}
@@ -131,8 +149,15 @@ const Users = () => {
         selectedRows={selectedRows}
         onRowSelectionChange={toggleRowSelection}
       />
-      <RestrictUser isOpen={isRestrictModalOpen} selectedRows={selectedRows} onClose={handleCloseRestrictModal} />
-      <SendReminder isOpen={isReminderModalOpen} onClose={handleCloseReminderModal} />
+      <RestrictUser
+        isOpen={isRestrictModalOpen}
+        selectedRows={selectedRows}
+        onClose={handleCloseRestrictModal}
+      />
+      <SendReminder
+        isOpen={isReminderModalOpen}
+        onClose={handleCloseReminderModal}
+      />
     </div>
   );
 };

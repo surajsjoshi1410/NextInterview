@@ -33,6 +33,8 @@ import {
   uploadVideoToFirebase,
 } from "../../../../utils/uploadFileToFirebase";
 
+import { FaArrowRight } from "react-icons/fa";
+
 const UploadModule = () => {
   const [whatUsersLearn, setWhatUsersLearn] = useState([]);
   const [imageUrl, setImageUrl] = useState(null);
@@ -56,10 +58,11 @@ const UploadModule = () => {
       setVideoUrl(location.state.data?.interviewSampleURL);
       setSampleVideo(location.state.data?.interviewSampleURL);
       setCourseOverview(location.state.data?.courseOverview);
-      setWhatUsersLearn(location.state.data?.userLearntData.map((item) => `${item.learntData}`));
+      setWhatUsersLearn(
+        location.state.data?.userLearntData.map((item) => `${item.learntData}`)
+      );
     };
-    if(location.state) intializeData();
-
+    if (location.state) intializeData();
   }, []);
 
   // Error states
@@ -167,7 +170,6 @@ const UploadModule = () => {
 
   // ------------------ SUBMISSION ------------------
   const handleNext = async () => {
-    console.log(" mext clicked");
     // Reset errors
     setImageError("");
     setModuleNameError("");
@@ -368,9 +370,7 @@ const UploadModule = () => {
                   </ReplaceButton>
                 </div>
               )}
-              {videoUrlError && (
-                <ErrorMessage>{videoUrlError}</ErrorMessage>
-              )}
+              {videoUrlError && <ErrorMessage>{videoUrlError}</ErrorMessage>}
             </div>
           </FormGroup>
 
@@ -424,7 +424,7 @@ const UploadModule = () => {
             onClick={handleNext}
             disabled={buttonDisabled}
           >
-            Next
+            Next <FaArrowRight size={16} />
           </NavButton>
         </ButtonGroup>
       </ButtonRow>
