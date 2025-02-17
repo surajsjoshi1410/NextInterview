@@ -21,17 +21,20 @@ export default function ValidationPage() {
           const clerId= await getUserBySessionId({ sessionId: location.state.sessionId });
           console.log(clerId);
           const data = await getUserByClerkId(clerId.userId);
-          console.log(data.data);
-
+          console.log("hehe",data.data);
+          localStorage.setItem("sessionId", JSON.stringify(location.state.sessionId));
           if (data.data.user.user_role === "user") {
             if (data.data.user.profile_status === true) {
-              navigate("/user");
+             
+              navigate("/user",{state: location.state.sessionId });
             } else {
               navigate("/personalInfo");
             }
           } else if (data.data.user.user_role === "admin") {
+            
             navigate("/admin");
           }
+          console.log(data.data.user.user_role ,"mslksk");
 
         } catch (error) {
           console.error("Error fetching user data:", error);

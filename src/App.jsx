@@ -64,6 +64,8 @@ import EditAddModule from "./modules/admin/components/Learningmodulescomponents/
 import ProfileInfo from "./modules/admin/components/ProfileComponents/ProfileInfo";
 import UserSubscription from "./modules/user/pages/UserSubscription/UserSubscription";
 import InterviewPage from "./modules/user/pages/InterviewPage/InterviewPage";
+import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 
 function App() {
@@ -72,6 +74,7 @@ function App() {
       <Router>
         <GlobalStyle />
         <Routes>
+          <Route path="/"element={<SignUp />} />
           <Route path="/loginPhone" element={<Login />} />
           <Route path="/login" element={<SignUp />} />
           <Route path="/signup" element={<SignUpPage />} />
@@ -107,7 +110,7 @@ function App() {
           {/* <Route path="/question-bank" element={<QuestionBank />} /> */}
           {/* <Route path="/challenges" element={<Challenges />} /> */}
 
-          <Route path="/admin" element={<BaseLayout />}>
+          <Route path="/admin" element={<ProtectedRoute component={BaseLayout} roles={["admin"]} />}>
             <Route index element={<AdminDashboard />} />
             <Route path="/admin/learning" element={<LearningModules />} />
             <Route path="/admin/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
@@ -116,7 +119,7 @@ function App() {
 
             <Route path="/admin/editmodel/:id" element={<Editupload />} />
             <Route path="/admin/editaddmodule/:id" element={<EditAddModule />} />
-            
+
             <Route path="/admin/addnewmodule" element={<AddNewModule />} />
             <Route path="/admin/challenges" element={<Challenges />} />
             <Route path="/admin/viewanalytics" element={<Analytics />} />
@@ -133,10 +136,10 @@ function App() {
             <Route path="/admin/users" element={<Users />} />
             <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
             <Route path="/admin/userProfile" element={<UserProfile />} />
-            <Route path="/admin/profile" element={<ProfileInfo/>} />
+            <Route path="/admin/profile" element={<ProfileInfo />} />
           </Route>
 
-          <Route path="/user" element={<BaseLayout />}>
+          <Route path="/user" element={<ProtectedRoute component={BaseLayout} roles={["user"]} />}>
             <Route index element={<UserDashboard />} />
             <Route path="/user/revise" element={<QuicklyRevise />} />
             <Route path="/user/revise/:id" element={<QuicklyByModule />} />
@@ -155,10 +158,13 @@ function App() {
             <Route path="/user/learning/:id/topic" element={<UserModuleTopic />} />
             <Route path="/user/learning/:id/topic/sampleInterview" element={<UserSampleInterview />} />
             <Route path="/user/userfaq" element={<UserFAQ />} />
-            <Route path="/user/subscription" element={<UserSubscription/>} />
+            <Route path="/user/subscription" element={<UserSubscription />} />
             <Route path="/user/interview" element={<InterviewPage />} />
+
           </Route>
+
         </Routes>
+       
       </Router>
     </ThemeProvider>
   );
