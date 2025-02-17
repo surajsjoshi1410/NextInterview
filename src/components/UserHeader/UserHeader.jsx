@@ -186,7 +186,7 @@ const UserHeader = ({ title }) => {
                 <button className="User-Header-cancel-btn" onClick={() => setIsLogoutModalOpen(false)}>
                   Cancel
                 </button>
-                <button className="User-Header-logout-btn" onClick={() => { signOut(); alert("Logged out successfully!"); handleLogout() }}>
+                <button className="User-Header-logout-btn" onClick={() => { signOut();  navigate('/login');alert("Logged out successfully!"); handleLogout() }}>
                   Logout
                 </button>
               </div>
