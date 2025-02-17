@@ -14,56 +14,60 @@ import { SlLike } from "react-icons/sl";
 import { SlDislike } from "react-icons/sl";
 import { getModuleById } from '../../../../../api/addNewModuleApi';
 import { useLocation, useParams } from 'react-router-dom';
+import { summariseTopic } from '../../../../../api/gptApi';
 
 // Sample Data for Dynamic Rendering
 const topics = [
     {
-        title: "How Does Data Analytics Get Tested in the Interview?",
-        description: "Data analytics, in generais is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tol, is a subjective concept. More of a buzzword than an actual real question topic...",
+        title: "",
+        description: "",
     },
     {
-        title: "Analyzing Data for a Take–Home Assignment",
-        description: "This is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question topic...",
+        title: "",
+        description: "",
     },
     {
-        title: "Data Analytics Case Study",
-        description: "Case study on Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question topic...",
+        title: "",
+        description: "",
     }
 ];
 
 const summaryText = [
-    "Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question topic...",
-    "Data analytics is a hard cois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question tois is Data analytics, in general, is a subjective concept. More of a buzzword than an actual real question toncept to test in interviews. The consequences of the difficulty of testing data analytics have resulted in a consistent non-standardization...",
-    "Maybe a theme for all of data science and AI, where the only consistency has been the inconsistency in the interview processes so far...",
+    "",
+    "",
+    "",
 ];
 const courseData1 = {
-    title: "Diagnosing and Investigating the userMetrics",
+    title: "",
     topicsList: [
         {
-            title: "Topic 1 - Introduction to Data Analytics",
+            title: "",
             subtopics: [
                 {
-                    title: "Overview of Data Analytics", time: "5 mins read", completed: true, subtopicContent: "subitem.subtopicContent",
-                    subtopicSummary: ""
+                    title: "", time: "", completed: true, subtopicContent: "",
+                    subtopicSummary: "",
+                    gptSummary: "",
+                    cheatSheetURL: ""
+
                 },
-                { title: "How Does Data Analytics Get Tested in the Interview?", time: "5 mins read", completed: false },
-                { title: "Types of Data Analytics Interview Questions", time: "5 mins read", completed: false },
+                { title: "", time: "", completed: false },
+                { title: "", time: "", completed: false },
             ]
         },
         {
-            title: "Topic 2 - Data Analytics Fundamentals: Causal Inference",
+            title: "",
             subtopics: []
         },
         {
-            title: "Topic 3 - Diagnosing and Investigating Metrics",
+            title: "",
             subtopics: []
         },
         {
-            title: "Topic 4 - A/B Testing & Experiment Design",
+            title: "",
             subtopics: []
         },
         {
-            title: "Topic 5 - Business Health Metrics",
+            title: "",
             subtopics: []
         },
     ]
@@ -77,31 +81,51 @@ const UserModuleTopic = () => {
     const location = useLocation();
     const [courseData, setCourseData] = useState(courseData1);
     const [topicData, setTopicData] = useState(null);
+    const [gptSummaryText, setGptSummaryText] = useState([]);
+    const [delayedText, setDelayedText] = useState([]);
+    const [selectedCheetSheetURL, setSelectedCheetSheetURL] = useState("");
+    const delayPara = (index, nextWord) => {
+        setTimeout(() => {
+            setDelayedText((prevText) => [...prevText, nextWord]);
+        }, 35 * index)
+    }
+    const delayText = () => {
+        for (let i = 0; i < gptSummaryText.length; i++) {
+            delayPara(i, gptSummaryText[i]);
+        }
+    }
     useEffect(() => {
 
         console.log("location Data=>", location.state);
         const apiCaller = async () => {
             try {
                 const response = await getModuleById(moduleId);
-                console.log(response.data);
+                console.log("RR", response.data);
                 const data = {
                     title: response.data.moduleName,
-                    topicsList: response.data.topicData.map((item) => {
+                    topicsList: await Promise.all(response.data.topicData.map(async (item) => {
+
                         return ({
                             title: item.topicName,
-                            subtopics: item.subtopicData.map((subitem) => {
+                            subtopics: await Promise.all(item.subtopicData.map(async (subitem) => {
+                                const gptSumm = await summariseTopic({ message: subitem.subtopicContent })
+                                console.log(gptSumm.data);
+                                console.log("gpt ", subitem.subtopicName)
                                 return (
                                     {
                                         title: subitem.subtopicName,
                                         completed: subitem.completed,
                                         subtopicContent: subitem.subtopicContent,
-                                        subtopicSummary: subitem.subtopicSummary
+                                        subtopicSummary: subitem.subtopicSummary,
+                                        gptSummary: gptSumm.data,
+                                        cheatSheetURL: subitem.cheatSheetURL || "#"
+
                                     }
                                 )
 
-                            })
+                            }))
                         })
-                    })
+                    }))
 
 
                 };
@@ -112,30 +136,107 @@ const UserModuleTopic = () => {
         };
         apiCaller();
     }, []);
+    // useEffect(() => {
+    //     console.log("location Data=> 111", location.state);
+    //     console.log("courseData", courseData);
+    //     setDelayedText([]);
+    //     setShowSummary(false);
+    //     courseData.topicsList?.map((item, index) => {
+    //         item.subtopics?.map((topic, subindex) => {
+    //             if (index === location.state.topicIndex && subindex === location.state.subtopicIndex) {
+    //                 console.log("dfghj",)
+    //                 console.log(location.state.topicIndex, "   ", location.state.subtopicIndex);
+    //                 setTopicData([{
+    //                     title: topic.title,
+    //                     description: topic.subtopicContent,
+    //                     summary: topic.subtopicSummary,
+    //                     gptSummary: topic.gptSummary,
+    //                     cheatSheetURL: topic.cheatSheetURL || ""
+    //                 }])
+    //                 setSelectedCheetSheetURL(topic.cheatSheetURL || "");
+    //                 setGptSummaryText(topic.gptSummary);
+    //                 console.log("dfghj", {
+    //                     title: topic.title,
+    //                     description: topic.subtopicContent,
+    //                     summary: topic.subtopicSummary,
+    //                     gptSummary: topic.gptSummary,
+    //                     cheatSheetURL: topic.cheatSheetURL || ""
+    //                 })
+    //             }
+    //         })
+    //     })
+
+    // }, [location.state]);
     useEffect(() => {
-        console.log("location Data=> 111", location.state);
+            setDelayedText([]);
+        setShowSummary(false);
+        console.log("location Data=>", location.state);
+        if (!location.state) return; // Ensure location.state is defined
 
-        courseData.topicsList.map((item, index) => {
-            item.subtopics.map((topic, subindex) => {
-                if (index === location.state.topicIndex && subindex === location.state.subtopicIndex) {
-                    setTopicData([{
-                        title: item.title,
+        const apiCaller = async () => {
+            try {
+                // Make sure you're calling the API correctly and checking the response
+                const response = await getModuleById(moduleId);
+                console.log("", response.data);
+
+                // Ensure the response is valid before setting the state
+                const data = {
+                    title: response.data.moduleName,
+                    topicsList: await Promise.all(response.data.topicData.map(async (item) => {
+                        return {
+                            title: item.topicName,
+                            subtopics: await Promise.all(item.subtopicData.map(async (subitem) => {
+                                const gptSumm = await summariseTopic({ message: subitem.subtopicContent });
+                                console.log(subitem.subtopicName, " ", gptSumm.data, " ",);
+                                return {
+                                    title: subitem.subtopicName,
+                                    // completed: subitem.completed,
+                                    subtopicContent: subitem.subtopicContent,
+                                    subtopicSummary: subitem.subtopicSummary,
+                                    gptSummary: gptSumm.data,
+                                    cheatSheetURL: subitem.cheatSheetURL || "#"
+                                };
+                            }))
+                        };
+                    }))
+                };
+
+                // Now, after setting courseData, use location.state to update topicData
+                const topic = data.topicsList?.[location.state.topicIndex]?.subtopics?.[location.state.subtopicIndex];
+                console.log("subtoipi ", topic);
+                if (topic) {
+                    setSelectedCheetSheetURL(topic.cheatSheetURL || "#");
+                    console.log("title", topic.title);
+
+                    console.log("dfghj sjhbsjbh",{
+                        title: topic.title,
                         description: topic.subtopicContent,
                         summary: topic.subtopicSummary,
-                    }])
-                    console.log("dfghj", {
-                        title: item.title,
-                        description: topic.subtopicContent,
-                        summary: topic.subtopicSummary,
+                        gptSummary: topic.gptSummary,
+                        cheatSheetURL: topic.cheatSheetURL || "#"
                     })
+                    setTopicData([{
+                        title: topic.title,
+                        description: topic.subtopicContent,
+                        summary: topic.subtopicSummary,
+                        gptSummary: topic.gptSummary,
+                        cheatSheetURL: topic.cheatSheetURL || "#" 
+                    }]);
+                    setSelectedCheetSheetURL(topic.cheatSheetURL || "#");
+                    setGptSummaryText(topic.gptSummary);
                 }
-            })
-        })
+            } catch (error) {
+                console.error("Error fetching module data", error);
+            }
+        };
 
-    }, [location.state]);
+        apiCaller();
+    }, [location.state]);  // Add location.state as a dependency to ensure it runs when state changes
+
 
     const handleSummarizeClick = () => {
         setShowSummary(true); // Show summary section
+        delayText();
         setShowMarkAsRead(true); // Show "Mark as Read" button after summary section
         setShowDownloadButton(false); // Hide the "Download Cheat Sheet" button after clicking "Summarize for me"
     };
@@ -144,17 +245,24 @@ const UserModuleTopic = () => {
         <Container>
             {/* Render topics and buttons */}
             <div>
-                {topicData?.map((topic, index) => (
-                    <div key={index}>
-                        <Title>{topic.title}</Title>
-                        <Text
-                            dangerouslySetInnerHTML={{
-                                __html: parseJSONContent(topic.description),
-                            }}
-                        >
-                        </Text>
-                    </div>
-                ))}
+                {console.log("topicData inner", topicData)}
+                {topicData &&
+                    <>
+                        {topicData?.map((topic, index) => (
+                            <div key={index}>
+                                <Title>{topic.title}</Title>
+
+                                <Text
+                                    dangerouslySetInnerHTML={{
+                                        __html: parseJSONContent(topic.description),
+                                    }}
+                                >
+                                </Text>
+                            </div>
+                        ))}
+                    </>
+                }
+
 
                 {/* Buttons */}
                 <div style={{
@@ -167,15 +275,21 @@ const UserModuleTopic = () => {
                 }}>
                     <div>
                         {showDownloadButton && (
-                            <Button
-                                style={{
-                                    backgroundColor: "transparent",
-                                    fontWeight: "bold",
-                                    color: "#2390ac"
-                                }}
-                            >
-                                Download Cheat Sheet (pdf)
-                            </Button>
+                            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <a
+                                    style={{
+                                        backgroundColor: "transparent",
+                                        fontWeight: "bold",
+                                        color: "#2390ac",
+                                        textDecoration: "none"
+                                    }}
+                                    target='_blank'
+                                    download={"cheatSheet.pdf"}
+                                    href={selectedCheetSheetURL}
+                                >
+                                    Download Cheat Sheet (pdf)
+                                </a>
+                            </div>
                         )}
 
                         {/* Show "Summarize for me" button only if summary isn't visible */}
@@ -202,13 +316,22 @@ const UserModuleTopic = () => {
                     <SummaryTitle>
                         Summary
                     </SummaryTitle>
-                    {summaryText.map((text, index) => (
+
+                    <SummaryText>
+
+                        {
+                            delayedText
+                        }
+
+                    </SummaryText>
+
+                    {/* {summaryText.map((text, index) => (
                         <SummaryText key={index}
-                        dangerouslySetInnerHTML={{
-                            __html: parseJSONContent(topicData[0].summary),
-                        }}
+                            dangerouslySetInnerHTML={{
+                                __html: parseJSONContent(topicData[0].summary),
+                            }}
                         ></SummaryText>
-                    ))}
+                    ))} */}
 
                     <ButtonGroup
                         style={{
@@ -221,11 +344,20 @@ const UserModuleTopic = () => {
                             gap: "20px"
                         }}
                     >
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
 
-                        <Button
-                            style={{ backgroundColor: "transparent", color: "#2390ac", fontWeight: "bold" }} >
-                            Download Cheat Sheet (pdf)
-                        </Button>
+
+                            <a
+                                style={{ backgroundColor: "transparent", color: "#2390ac", fontWeight: "bold", textDecoration: "none", }}
+                                href={selectedCheetSheetURL}
+                                target='_blank'
+                                download={"cheatSheet.pdf"}
+                                
+                            >
+
+                                Download Cheat Sheet (pdf)
+                            </a>
+                        </div>
                         <div
                             style={{
                                 display: "flex",
