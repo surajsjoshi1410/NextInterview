@@ -67,14 +67,13 @@ import InterviewPage from "./modules/user/pages/InterviewPage/InterviewPage";
 import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import ProtectedRoute from "./utils/ProtectedRoute";
 
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <GlobalStyle />
         <Routes>
-          <Route path="/"element={<SignUp />} />
+          <Route path="/" element={<SignUp />} />
           <Route path="/loginPhone" element={<Login />} />
           <Route path="/login" element={<SignUp />} />
           <Route path="/signup" element={<SignUpPage />} />
@@ -110,36 +109,56 @@ function App() {
           {/* <Route path="/question-bank" element={<QuestionBank />} /> */}
           {/* <Route path="/challenges" element={<Challenges />} /> */}
 
-          <Route path="/admin" element={<ProtectedRoute component={BaseLayout} roles={["admin"]} />}>
+          {/* <Route path="/admin" element={<ProtectedRoute component={BaseLayout} roles={["admin"]} />}> */}
+          <Route path="/admin" element={<BaseLayout />}>
             <Route index element={<AdminDashboard />} />
             <Route path="/admin/learning" element={<LearningModules />} />
-            <Route path="/admin/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} />
-            <Route path="/admin/skill-assessment" element={<SkillAssessment />} />
+            <Route
+              path="/admin/Diagnosing-and-Investigating-Metrics"
+              element={<Userdetails />}
+            />
+            <Route
+              path="/admin/skill-assessment"
+              element={<SkillAssessment />}
+            />
             <Route path="/admin/uploadmodule" element={<UploadModule />} />
 
             <Route path="/admin/editmodel/:id" element={<Editupload />} />
-            <Route path="/admin/editaddmodule/:id" element={<EditAddModule />} />
+            <Route
+              path="/admin/editaddmodule/:id"
+              element={<EditAddModule />}
+            />
 
             <Route path="/admin/addnewmodule" element={<AddNewModule />} />
             <Route path="/admin/challenges" element={<Challenges />} />
             <Route path="/admin/viewanalytics" element={<Analytics />} />
             <Route path="/admin/SupportQuery" element={<SupportQuery />} />
-            <Route path="/admin/SupportQuery/UserDetails" element={<SupportQueryUserDetails />} />
+            <Route
+              path="/admin/SupportQuery/UserDetails"
+              element={<SupportQueryUserDetails />}
+            />
             <Route path="/admin/Flashcards" element={<Flashcards />} />
             <Route path="/admin/challenges" element={<Challenges />} />
             <Route path="/admin/viewanalytics" element={<Analytics />} />
             <Route path="/admin/faq" element={<Faq />} />
             <Route path="/admin/notifications" element={<Notification />} />
             <Route path="/admin/SupportQuery" element={<SupportQuery />} />
-            <Route path="/admin/SupportQuery/:id" element={<SupportQueryUserDetails />} />
+            <Route
+              path="/admin/SupportQuery/:id"
+              element={<SupportQueryUserDetails />}
+            />
             <Route path="/admin/settings" element={<Settings />} />
             <Route path="/admin/users" element={<Users />} />
-            <Route path="/admin/SupportQuery/1234" element={<SupportQueryUserDetails />} />
+            <Route
+              path="/admin/SupportQuery/1234"
+              element={<SupportQueryUserDetails />}
+            />
             <Route path="/admin/userProfile" element={<UserProfile />} />
             <Route path="/admin/profile" element={<ProfileInfo />} />
           </Route>
 
-          <Route path="/user" element={<ProtectedRoute component={BaseLayout} roles={["user"]} />}>
+          {/* <Route path="/user" element={<ProtectedRoute component={BaseLayout} roles={["user"]} />}> */}
+          <Route path="/user" element={<BaseLayout />}>
             <Route index element={<UserDashboard />} />
             <Route path="/user/revise" element={<QuicklyRevise />} />
             <Route path="/user/revise/:id" element={<QuicklyByModule />} />
@@ -148,23 +167,32 @@ function App() {
             <Route path="/user/userProfile" element={<ProfileUser />} />
             <Route path="/user/learning" element={<UserLearning />} />
             <Route path="/user/learning/:id" element={<UserLearningModule />} />
-            <Route path="/user/learning/:id/topic" element={<UserModuleTopic />} />
+            <Route
+              path="/user/learning/:id/topic"
+              element={<UserModuleTopic />}
+            />
             <Route path="/user/questionBank" element={<QuestionBank />} />
-            <Route path="/user/questionBank/:id" element={<QuestionCollapsible />} />
+            <Route
+              path="/user/questionBank/:id"
+              element={<QuestionCollapsible />}
+            />
             <Route path="/user/home" element={<UserHome />} />
             <Route path="/user/userProfile" element={<ProfileUser />} />
             <Route path="/user/learning" element={<UserLearning />} />
             <Route path="/user/learning/:id" element={<UserLearningModule />} />
-            <Route path="/user/learning/:id/topic" element={<UserModuleTopic />} />
-            <Route path="/user/learning/:id/topic/sampleInterview" element={<UserSampleInterview />} />
+            <Route
+              path="/user/learning/:id/topic"
+              element={<UserModuleTopic />}
+            />
+            <Route
+              path="/user/learning/:id/topic/sampleInterview"
+              element={<UserSampleInterview />}
+            />
             <Route path="/user/userfaq" element={<UserFAQ />} />
             <Route path="/user/subscription" element={<UserSubscription />} />
             <Route path="/user/interview" element={<InterviewPage />} />
-
           </Route>
-
         </Routes>
-       
       </Router>
     </ThemeProvider>
   );
