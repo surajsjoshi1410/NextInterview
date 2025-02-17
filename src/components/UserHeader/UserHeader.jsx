@@ -228,6 +228,7 @@ const UserHeader = ({ title }) => {
                   className="User-Header-logout-btn"
                   onClick={() => {
                     signOut();
+                    navigate("/login");
                     alert("Logged out successfully!");
                     handleLogout();
                   }}

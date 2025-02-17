@@ -1,21 +1,26 @@
 import React, { useEffect } from 'react';
 import { useUser } from '@clerk/clerk-react';
-import { getUserByClerkId } from '../../api/userApi';
-import { useNavigate } from 'react-router-dom';
+import { getUserByClerkId, getUserBySessionId } from '../../api/userApi';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function ValidationPage() {
   const { isSignedIn, user, isLoaded, sessionId } = useUser();
   const navigate = useNavigate();
+  const location= useLocation();
 
   useEffect(() => {
     // Only run the effect if the user is signed in and the user data has been loaded
     const apiCaller = async () => {
+      console.log("location",location);
       console.log("isSignedIn", isSignedIn,"user",user,"isLoaded",isLoaded,"sessionId",sessionId);
-      if (isSignedIn && isLoaded && user) {
-        console.log("User:", user, "Session ID:", sessionId);
+      // if (isSignedIn && isLoaded && user) {
+      //   console.log("User:", user, "Session ID:", sessionId);
         
         try {
-          const data = await getUserByClerkId(user.id);
+          console.log("location",location.state);
+          const clerId= await getUserBySessionId({ sessionId: location.state.sessionId });
+          console.log(clerId);
+          const data = await getUserByClerkId(clerId.userId);
           console.log(data.data);
 
           if (data.data.user.user_role === "user") {
@@ -32,14 +37,14 @@ export default function ValidationPage() {
           console.error("Error fetching user data:", error);
         }
       }
-    };
+    // };
 
     // Only call the API if the user is signed in and loaded
-    if (isSignedIn && isLoaded) {
+    // if (isSignedIn && isLoaded) {
       apiCaller();
-    }
+    // }
 
-  }, [isSignedIn, isLoaded, user, sessionId, navigate]); // Add dependencies to re-run the effect when values change
+  }, []); // Add dependencies to re-run the effect when values change
 
   // Optional: Show a loading indicator while the user data is being loaded
   if (!isLoaded || !isSignedIn) {

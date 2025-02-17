@@ -107,3 +107,13 @@ export const addPastInterview = async (user_id, data) => {
         throw error;
     }
 };
+
+export const getUserBySessionId = async (data) => {
+    try {
+        const response = await api.post(`/users/getUserBySessionId`,data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};

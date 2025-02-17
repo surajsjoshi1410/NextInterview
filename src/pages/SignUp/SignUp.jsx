@@ -26,7 +26,7 @@ import {
 
 // Import the new header component
 import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
-import { getUserByClerkId } from "../../api/userApi";
+import { getUserByClerkId, getUserBySessionId } from "../../api/userApi";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -73,9 +73,16 @@ const SignUp = () => {
         // setSignInActive(data.createdSessionId);
         // await setSignInActive({ session: data.createdSessionId });
         console.log("user", user);
+        // console.log("data.createdSessionId", data.createdSessionId);
+        //   const clerId= await getUserBySessionId({ sessionId: data.createdSessionId });
+        //           console.log("session",clerId);
         setTimeout(() => {
-          navigate("/validation");
-        }, 4000);
+          navigate("/validation", {
+            state: {
+              sessionId: data.createdSessionId,
+            },
+          });
+        }, 0);
 
         //   const data = await getUserByClerkId(user.id);
         //   console.log("data", data);

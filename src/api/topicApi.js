@@ -47,3 +47,44 @@ export const deleteTopic = async (id) => {
         throw error;
     }
 }
+
+export const generateSummary = async ({ text, maxLength }) => {
+    try {
+        const response = await api.post("/chatgpt/summarize", {
+            text,
+            maxLength,
+        });
+        return response.data.summary;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
