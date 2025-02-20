@@ -9,6 +9,7 @@ export const TableWrapper = styled.div`
     background-color: ${({ theme }) => theme.colors.light};
     font-family: ${({ theme }) => theme.fonts.body};
     font-size: 14px;
+    border: 1px solid ${({ theme }) => theme.colors.sidebarBgColor};
 
     thead {
       background-color: ${({ theme }) => theme.colors.lightgreen};
@@ -16,12 +17,12 @@ export const TableWrapper = styled.div`
         padding: ${({ theme }) => theme.spacing(1)};
         text-align: left;
         color: ${({ theme }) => theme.colors.textgray};
+    border: 1px solid ${({ theme }) => theme.colors.sidebarBgColor};
       }
     }
 
     tbody {
       tr {
-        border-bottom: 1px solid ${({ theme }) => theme.colors.borderblue};
         &:hover {
           background-color: ${({ theme }) => theme.colors.sidebarHoverBgColor};
         }
@@ -30,6 +31,7 @@ export const TableWrapper = styled.div`
           color: ${({ theme }) => theme.colors.text};
           text-align: left;
           font-family: ${({ theme }) => theme.fonts.body};
+    border: 1px solid ${({ theme }) => theme.colors.sidebarBgColor};
         }
       }
     }
@@ -44,7 +46,7 @@ export const ToggleSwitch = styled.div`
     isActive ? theme.colors.secondary : theme.colors.backgray};
   position: relative;
   cursor: pointer;
-  display: inline-block;
+
 
   .toggle-circle {
     width: 20px;
@@ -52,16 +54,14 @@ export const ToggleSwitch = styled.div`
     background-color: ${({ theme }) => theme.colors.white};
     border-radius: 50%;
     position: absolute;
-    top: 2px;
-    left: ${({ isActive }) => (isActive ? "26px" : "2px")};
-    transition: left 0.3s ease;
+    top: 2.1px;
+    left: ${({ isActive }) => (isActive ? "29px" : "2px")};
   }
 `;
 
 export const StatusLabel = styled.span`
-  margin-left: ${({ theme }) => theme.spacing(1)};
   color: ${({ isActive, theme }) =>
     isActive ? theme.colors.text : theme.colors.text};
-//   font-weight: bold;
   font-family: ${({ theme }) => theme.fonts.body};
+
 `;

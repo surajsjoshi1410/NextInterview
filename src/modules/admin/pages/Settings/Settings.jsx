@@ -29,21 +29,21 @@ const Settings = () => {
         <thead>
           <tr>
             <th>Features</th>
-            <th>Status</th>
+            <th style={{ textAlign: "center" }}>Status</th>
           </tr>
         </thead>
         <tbody>
           {features.map((feature) => (
             <tr key={feature.id}>
-              <td>{feature.name}</td>
-              <td>
+              <td style={{ fontWeight: "bold"}}>{feature.name}</td>
+            <td style={{ display: "flex", justifyContent: "center" , gap: "10px", padding: "20px"}}>
                 <ToggleSwitch
                   isActive={feature.status}
                   onClick={() => handleToggle(feature.id)}
                 >
-                  <div className="toggle-circle"></div>
+                  <div className="toggle-circle" ></div>
                 </ToggleSwitch>
-                <StatusLabel isActive={feature.status}>
+                <StatusLabel isActive={feature.status}  >
                   {feature.status ? "Active" : "Inactive"}
                 </StatusLabel>
               </td>
