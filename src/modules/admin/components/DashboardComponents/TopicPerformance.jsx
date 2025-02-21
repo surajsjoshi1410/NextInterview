@@ -97,7 +97,7 @@ const ViewedItems = () => {
             </Label>
             <Details>
               <InfoTitle>AI Basics</InfoTitle>
-              <Info>422 hours - 2165 users completed</Info>
+              <Info>0 hours - 0 users completed</Info>
             </Details>
           </Section>
           <Divider />
@@ -105,7 +105,7 @@ const ViewedItems = () => {
             <Label type="least">Least Viewed</Label>
             <Details>
               <InfoTitle>Data Science Basics & Advanced</InfoTitle>
-              <Info>422 hours - 2165 users completed</Info>
+              <Info>0 hours - 0 users completed</Info>
             </Details>
           </Section>
         </Item>
