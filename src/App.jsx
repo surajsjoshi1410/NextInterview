@@ -66,7 +66,7 @@ import UserSubscription from "./modules/user/pages/UserSubscription/UserSubscrip
 import InterviewPage from "./modules/user/pages/InterviewPage/InterviewPage";
 import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import ProtectedRoute from "./utils/ProtectedRoute";
-import ModuleFileUpload from "./modules/admin/pages/ModuleFileUpload/moduleFileupload";
+import ModuleFileUpload from "./modules/admin/pages/ModuleFileUpload/ModuleFileUpload";
 import NewChallenge from "./modules/user/components/UserChallenegesinfo/NewChallenges";
 
 function App() {
