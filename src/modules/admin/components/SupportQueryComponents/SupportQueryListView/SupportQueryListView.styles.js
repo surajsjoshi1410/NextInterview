@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   padding: ${theme.spacing(4)};
-  background-color: ${theme.colors.sidebarBgColor};
   font-family: ${theme.fonts.body};
-  margin-left: 40px;
+  gap: 30px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     padding: ${theme.spacing(2)};
@@ -17,9 +16,21 @@ export const SearchBar = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: ${theme.spacing(4)};
-  background-color: ${theme.colors.light};
-  padding: ${theme.spacing(1)};
+  background-color: ${theme.colors.sidebarBgColor};
+  padding: ${theme.spacing(2)};
   border-radius: 8px;
+
+  .search-container {
+    background-color: ${theme.colors.white};
+    border: 1px solid ${theme.colors.sidebarHoverBgColor};
+    border-radius: 4px;
+    padding: ${theme.spacing(1)};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    gap: 10px;
+  }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     flex-direction: column;
@@ -29,9 +40,7 @@ export const SearchBar = styled.div`
 
 export const SearchInput = styled.input`
   flex: 1;
-  border: 1px solid ${theme.colors.sidebarHoverBgColor};
-  border-radius: 4px;
-  padding: ${theme.spacing(1)};
+  border: none;
   font-size: 1rem;
   font-family: ${theme.fonts.body};
 
@@ -42,13 +51,17 @@ export const SearchInput = styled.input`
 `;
 
 export const FilterButton = styled.button`
-  background-color: ${theme.colors.primary};
-  color: ${theme.colors.light};
+  background-color: ${theme.colors.white};
+  color: ${theme.colors.black};
   padding: ${theme.spacing(1)} ${theme.spacing(2)};
   border: none;
   border-radius: 4px;
   cursor: pointer;
   margin-left: ${theme.spacing(1)};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 
   &:hover {
     background-color: ${theme.colors.secondary};
@@ -62,6 +75,10 @@ export const FilterButton = styled.button`
 export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
+
+  .theader {
+    background-color: ${theme.colors.sidebarBgColor};
+  }
 `;
 
 export const TableRow = styled.tr`
@@ -83,9 +100,14 @@ export const TableCell = styled.td`
   padding: ${theme.spacing(2)};
   font-size: 0.9rem;
   color: ${theme.colors.textgray};
+  border: 1px solid ${theme.colors.sidebarBgColor};
 
   &:first-child {
     font-weight: bold;
+    border-left: none;
+  }
+  &:last-child {
+    border-right: none;
   }
 `;
 
@@ -153,6 +175,28 @@ export const FilterModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: ${theme.colors.white};
   padding: ${theme.spacing(4)};
   border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 300px;
+  max-width: 90%;
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background: none;
+    color: ${theme.colors.text};
+    border: none;
+    font-size: 20px;
+  }
+`;
+
+// Overlay for background blur effect
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
 `;

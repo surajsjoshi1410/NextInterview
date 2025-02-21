@@ -11,17 +11,20 @@ import {
   SaveButton,
   ResetButtonWrapper,
   ResetButton,
+  Header,
+  LogoutButton,
 } from "./ProfileInfo.styles";
-import { useUser } from '@clerk/clerk-react'
+import { GoPerson } from "react-icons/go";
+import { useUser } from "@clerk/clerk-react";
 import { getUserByClerkId, updateUser } from "../../../../api/userApi";
 
 const ProfileInfo = () => {
   const [profilePhoto, setProfilePhoto] = useState("");
-  const [userName, setUserName] = useState("Krishna Kumar");
-  const [email, setEmail] = useState("krishna@samplemailid.com");
-  const [phone, setPhone] = useState("+91 9999999999");
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [showResetPassword, setShowResetPassword] = useState(false);
-  const { isSignedIn, user, isLoaded } = useUser()
+  const { isSignedIn, user, isLoaded } = useUser();
   const [profileFile, setProfileFile] = useState(null);
 
   useEffect(() => {
@@ -32,17 +35,12 @@ const ProfileInfo = () => {
       setUserName(response.data.user.user_name);
       setEmail(response.data.user.user_email);
       setPhone(response.data.user.user_phone_number);
-    }
+    };
     apiCaller();
   }, []);
 
   const handlePhotoUpload = async (event) => {
     const file = event.target.files[0];
-    console.log("file 111 ", file);
-
-    // const sub = { clerk_id: user.id, user_name: "", user_profile_pic: file, user_Phone_number: "", user_email: "" }
-    // const update = await updateUser(sub);
-    // console.log("update", update);
     setProfileFile(file);
     if (file) {
       const reader = new FileReader();
@@ -53,17 +51,15 @@ const ProfileInfo = () => {
 
   const handleSave = async () => {
     const formData = new FormData();
-    console.log("profileFile", profileFile);
-    formData.append('clerk_id', user.id);
-    formData.append('user_name', userName);
+    formData.append("clerk_id", user.id);
+    formData.append("user_name", userName);
     if (profileFile) {
-      formData.append('user_profile_pic', profileFile);
+      formData.append("user_profile_pic", profileFile);
     }
 
-    formData.append('user_Phone_number', phone);
-    formData.append('user_email', email);
+    formData.append("user_Phone_number", phone);
+    formData.append("user_email", email);
 
-  
     // Debug the contents of FormData by logging each entry
     for (let pair of formData.entries()) {
       console.log(pair[0], pair[1]);
@@ -82,27 +78,50 @@ const ProfileInfo = () => {
 
   return (
     <>
+      <Header>
+        <LogoutButton
+          onClick={() => {
+            alert("Logged out successfully!");
+            // handleLogout(); // Ensure this function exists
+          }}
+        >
+          Logout
+        </LogoutButton>
+      </Header>
       <ProfileContainer>
-        <SectionTitle>Basic info</SectionTitle>
-        {/* <p>Profile Photo</p> */}
+        <SectionTitle>Basic Info</SectionTitle>
         <ProfilePhoto>
-          <img
-            src={
-              profilePhoto ||
-              "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png"
-            }
-            alt="Profile"
-          />
+          <div className="profilePic">
+            {profilePhoto ? (
+              <img
+                src={profilePhoto}
+                alt="Profile"
+                className="uploadedProfilePic"
+                style={{
+                  width: "120px",
+                  height: "120px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
+              />
+            ) : (
+              <GoPerson size={50} className="profileicon" />
+            )}
+          </div>
+
           <UploadButton>
             <label>
               {profilePhoto ? "Change photo" : "Upload photo"}
-              {/* <input type="file" accept="image/*" onChange={handlePhotoUpload} /> */}
-              <input type="file" onChange={handlePhotoUpload} />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handlePhotoUpload}
+              />
             </label>
           </UploadButton>
         </ProfilePhoto>
         <FormGroup>
-          <Label>User name</Label>
+          <Label>Full Name</Label>
           <InputField
             type="text"
             value={userName}
@@ -110,7 +129,7 @@ const ProfileInfo = () => {
           />
         </FormGroup>
         <FormGroup>
-          <Label>User mail ID</Label>
+          <Label>Email ID</Label>
           <InputField
             type="email"
             value={email}
@@ -118,18 +137,23 @@ const ProfileInfo = () => {
           />
         </FormGroup>
         <FormGroup>
-          <Label>Phone number</Label>
+          <Label>Phone Number</Label>
           <InputField
             type="tel"
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={(e) => {
+              if (/^[0-9]*$/.test(e.target.value)) {
+                setPhone(e.target.value);
+              }
+            }}
+            maxLength={10}
           />
         </FormGroup>
-        <SaveButton onClick={handleSave}>Save</SaveButton>
         <ResetButtonWrapper>
           <ResetButton onClick={handleResetPasswordClick}>
             Reset password
           </ResetButton>
+          <SaveButton onClick={handleSave}>Save</SaveButton>
         </ResetButtonWrapper>
       </ProfileContainer>
       {showResetPassword && (

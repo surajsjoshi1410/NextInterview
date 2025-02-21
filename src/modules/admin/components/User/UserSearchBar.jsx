@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { IoSearch } from "react-icons/io5";
 
@@ -32,16 +32,41 @@ const SearchIcon = styled(IoSearch)`
   transform: translateY(-50%);
 `;
 
-const UserSearchBar = ({ placeholder, onChange }) => {
+const SearchResults = styled.div`
+  margin-left: 60px;
+  margin-top: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  display: ${({ show }) => (show ? "block" : "none")};
+`;
+
+const UserSearchBar = ({ placeholder, onChange, userCount }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    if (onChange) {
+      onChange(value); // Notify the parent about the change
+    }
+  };
   return (
-    <SearchBarContainer>
-      <SearchIcon />
-      <SearchInput
-        type="text"
-        placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
-      />
-    </SearchBarContainer>
+    <>
+      <SearchBarContainer>
+        <SearchIcon />
+        <SearchInput
+          type="text"
+          placeholder={placeholder}
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+      </SearchBarContainer>
+      <SearchResults show={searchTerm.trim() !== ""}>
+        <p className="search-results-text">
+          Showing {userCount} results for "{searchTerm}"
+        </p>
+      </SearchResults>
+    </>
   );
 };
 

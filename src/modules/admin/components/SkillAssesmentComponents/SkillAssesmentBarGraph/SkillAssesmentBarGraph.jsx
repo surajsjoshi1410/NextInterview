@@ -32,7 +32,7 @@ const SkillAssesmentBarGraph = () => {
         backgroundColor: "#2390ac",
         borderRadius: 4,
         barPercentage: 0.5,
-        barThickness: 15, 
+        barThickness: 15,
       },
     ],
   };
@@ -81,7 +81,13 @@ const SkillAssesmentBarGraph = () => {
   };
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" , marginTop: "20px"}}>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        marginTop: "20px",
+      }}
+    >
       <div>
         <GraphWrapper>
           <h3>Score Distribution</h3>

@@ -17,6 +17,7 @@ import {
   LogTime,
   LogMessage,
   Divider,
+  QueryDate,
 } from "./SupportQueryUserDetails.styles";
 import {
   getSupportQueryById,
@@ -127,13 +128,20 @@ const SupportQueryUserDetails = () => {
     <Container>
       <Header>
         <QueryId>
-          {queryDetails._id}{" "}
-          <SeverityBadge severity={queryDetails.priority}>
-            {queryDetails.priority}
-          </SeverityBadge>
+          <div className="queryDetails">
+            <p className="query">{queryDetails._id}</p>
+            <SeverityBadge severity={queryDetails.priority}>
+              {queryDetails.priority}
+            </SeverityBadge>
+          </div>
+          <QueryDetails>{queryDetails.category}</QueryDetails>
+          <QueryDate>Uploaded on: {queryDate}</QueryDate>
         </QueryId>
-        <QueryDetails>{queryDetails.category}</QueryDetails>
+
+        <div className="hrdivider"></div>
+
         <RaisedBy>
+          <p className="RaisedBy">Raised By</p>
           <ProfileImage
             src={userDetails?.profileImage}
             alt={userDetails?.user_name || "User"}
@@ -144,7 +152,6 @@ const SupportQueryUserDetails = () => {
             <span>{userDetails?.user_email || "N/A"}</span>
           </UserInfo>
         </RaisedBy>
-        <QueryDetails>Uploaded on: {queryDate}</QueryDetails>
       </Header>
       <Divider />
 

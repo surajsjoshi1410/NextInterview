@@ -15,10 +15,15 @@ export const Container = styled.div`
 
 export const Header = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: ${theme.spacing(2)};
+  .hrdivider {
+    width: 2px;
+    height: 70px;
+    background-color: ${theme.colors.sidebarTextColor}40;
+    margin-left: 50px;
+  }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     flex-direction: column;
@@ -30,6 +35,15 @@ export const QueryId = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
   color: ${theme.colors.text};
+  .queryDetails {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .query {
+    font-size: 24px;
+    margin: 0;
+  }
 `;
 
 export const SeverityBadge = styled.span`
@@ -40,17 +54,30 @@ export const SeverityBadge = styled.span`
   border-radius: 4px;
   font-size: 0.8rem;
   margin-left: ${theme.spacing(1)};
+  display: flex;
+  align-items: center;
 `;
 
-export const QueryDetails = styled.div`
-  font-size: 0.9rem;
-  color: ${theme.colors.textgray};
+export const QueryDetails = styled.p`
+  font-size: 20px;
+  color: ${theme.colors.sidebarTextColor}60;
+  margin: 0;
+`;
+export const QueryDate = styled.p`
+  font-size: 12px;
+  color: ${theme.colors.sidebarTextColor}60;
+  margin: 0;
 `;
 
 export const RaisedBy = styled.div`
   display: flex;
   align-items: center;
   gap: ${theme.spacing(1)};
+  .RaisedBy {
+    font-size: 20px;
+    color: ${theme.colors.sidebarTextColor}60;
+    padding: 20px;
+  }
 `;
 
 export const ProfileImage = styled.img`
@@ -62,6 +89,7 @@ export const ProfileImage = styled.img`
 export const UserInfo = styled.div`
   strong {
     color: ${theme.colors.text};
+    font-size: 1rem;
   }
   span {
     color: ${theme.colors.textgray};
