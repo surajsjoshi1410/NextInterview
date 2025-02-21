@@ -177,7 +177,7 @@ export default function UserProfile() {
         <UserDropOffs />
       </div>
       <div className="topicPerformanceSection">
-        <h2 className="chartHeading">Topics Performance (18)</h2>
+        <h2 className="chartHeading">Topics Performance (0)</h2>
         <TopicsPerformance />
       </div>
     </UserProfileContainer>

@@ -132,6 +132,7 @@ const Users = () => {
   return (
     <div>
       <UserSearchBar
+        userCount={filteredUsers.length}
         placeholder="Search for a User"
         onChange={setSearchQuery}
       />

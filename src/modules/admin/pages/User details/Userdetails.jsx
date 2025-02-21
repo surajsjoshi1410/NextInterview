@@ -19,7 +19,7 @@ const Userdetails = () => {
       {
         label: "Completion Rate",
         backgroundColor: "#68c184",
-        data: [1500, 1200, 1400, 1300, 1000],
+        data: [0, 0, 0, 0, 0],
       },
     ],
   };
@@ -65,12 +65,38 @@ const Userdetails = () => {
 
   // Data for user table
   const users = [
-    { image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIfmxwFxAtJORIF7Wzj5M-9BCu0hB9uWBXAg&s", name: "Olivia Rhye", email: "olivia@gmail.com", score: "78%", feedback: "Positive" },
-    { image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxjR7vj2h745769RuDk7L9xxsSZyBs7ZBXUg&s", name: "Phoenix Baker", email: "phoenix@gmail.com", score: "78%", feedback: "Positive" },
-    { image: "https://static9.depositphotos.com/1499355/1200/i/450/depositphotos_12002062-Happy-Indian-business-woman..jpg", name: "Lana Steiner", email: "lana@gmail.com", score: "78%", feedback: "Positive" },
-    { image: "https://img.freepik.com/premium-photo/young-smart-indian-businesswoman-smiling-face-standing-blur-background-modern-office-building-generative-ai-aig20_31965-117685.jpg", name: "Demi Wilkinson", email: "dem@gmail.com", score: "38%", feedback: "Negative" },
-    { image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIfmxwFxAtJORIF7Wzj5M-9BCu0hB9uWBXAg&s", name: "Candice Wu", email: "candice@gmail.com", score: "30%", feedback: "Negative" },
-    { image: "https://img.freepik.com/premium-photo/young-smart-indian-businesswoman-smiling-face-standing-blur-background-modern-office-building-generative-ai-aig20_31965-117685.jpg", name: "Natal Craig", email: "natal@gmail.com", score: "28%", feedback: "Negative" },
+    {
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIfmxwFxAtJORIF7Wzj5M-9BCu0hB9uWBXAg&s",
+      name: "Olivia Rhye",
+      email: "olivia@gmail.com",
+      score: "0%",
+      feedback: "Neutral",
+    },
+    {
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxjR7vj2h745769RuDk7L9xxsSZyBs7ZBXUg&s",
+      name: "Phoenix Baker",
+      email: "phoenix@gmail.com",
+      score: "0%",
+      feedback: "Neutral",
+    },
+    {
+      image:
+        "https://static9.depositphotos.com/1499355/1200/i/450/depositphotos_12002062-Happy-Indian-business-woman..jpg",
+      name: "Lana Steiner",
+      email: "lana@gmail.com",
+      score: "0%",
+      feedback: "Neutral",
+    },
+    {
+      image:
+        "https://img.freepik.com/premium-photo/young-smart-indian-businesswoman-smiling-face-standing-blur-background-modern-office-building-generative-ai-aig20_31965-117685.jpg",
+      name: "Demi Wilkinson",
+      email: "dem@gmail.com",
+      score: "0%",
+      feedback: "Neutral",
+    },
   ];
 
   return (
@@ -79,7 +105,7 @@ const Userdetails = () => {
       <ContentWrapper isExpanded={isExpanded}>
         <Container>
           <UserDetailStats />
-          <MetricTable/>
+          <MetricTable />
           {/* <MetricCard/> */}
           <UserDetailBarGraph data={barData} options={barOptions} />
           <UserDetailPieChart
@@ -87,7 +113,7 @@ const Userdetails = () => {
             feedbackData={pieDataFeedback}
             options={pieOptions}
           />
-          <AssesmentsPerformance/>
+          <AssesmentsPerformance />
           <AllUsers users={users} />
         </Container>
       </ContentWrapper>

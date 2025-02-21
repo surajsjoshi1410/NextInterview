@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Header,
-  StatsContainer,
-  StatCard,
-} from "./Userdetailstats.styles";
+import { Header, StatsContainer, StatCard } from "./Userdetailstats.styles";
 
 const UserDetailStats = () => {
   return (
@@ -24,22 +20,22 @@ const UserDetailStats = () => {
       <StatsContainer>
         <StatCard>
           <p>Views</p>
-          <h3>1245</h3>
+          <h3>0</h3>
         </StatCard>
         <hr />
         <StatCard>
           <p>Completion Rate</p>
-          <h3>90%</h3>
+          <h3>0%</h3>
         </StatCard>
         <hr />
         <StatCard>
           <p>Avg. Time Spent</p>
-          <h3>45m</h3>
+          <h3>0m</h3>
         </StatCard>
         <hr />
         <StatCard>
           <p>Quiz Score</p>
-          <h3>80%</h3>
+          <h3>0%</h3>
         </StatCard>
       </StatsContainer>
     </>

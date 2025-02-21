@@ -33,11 +33,11 @@ ChartJS.register(
 const MockTestsStats = () => {
   // Bar chart data
   const data = {
-    labels: ["SEP", "OCT", "NOV", "DEC", "JAN", "FEB", "MAR"],
+    labels: ["JAN", "FEB", "MAR"],
     datasets: [
       {
         label: "Total Mock Tests",
-        data: [200, 850, 564, 25, 340, 900, 150], // Example mock test data
+        data: [0, 0, 0], // Example mock test data
         backgroundColor: "rgba(75, 192, 192, 0.6)", // Light green background
         borderColor: "rgba(75, 192, 192, 1)", // Darker green border
         borderWidth: 1,

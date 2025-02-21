@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import TimePicker from "react-time-picker";  // Import the TimePicker component
 import {
   ModalOverlay,
   ModalContent,
@@ -15,9 +14,8 @@ import {
   ButtonGroup,
   Button,
   CloseButton,
-  TimePickerStyled,  // Import the styled TimePicker
 } from "./NotificationAdd.styles";
-import { BsDisplay } from "react-icons/bs";
+import { sendNotification } from "../../../../../api/notificationApi"; // API function
 
 const NotificationAdd = ({ isOpen, onClose, onSave }) => {
   const [timeVisibility, setTimeVisibility] = useState(true);
@@ -26,7 +24,7 @@ const NotificationAdd = ({ isOpen, onClose, onSave }) => {
     subText: "",
     trigger: "Schedule",
     timeZone: "",
-    time: "00:00",  // Default to "00:00" (updated to match time picker format)
+    time: "00:00", // Default to "00:00" (updated to match time picker format)
     frequency: "",
     notificationType: "Only notification",
   });
@@ -46,10 +44,33 @@ const NotificationAdd = ({ isOpen, onClose, onSave }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSave(formData);
-    onClose();
+
+    // Validate the form data before submitting
+    if (formData.trigger === "Schedule" && (!formData.timeZone || !formData.frequency)) {
+      alert("Please select both time zone and frequency when trigger is 'Schedule'.");
+      return;
+    }
+
+    try {
+      const response = await sendNotification({
+        headingText: formData.heading,
+        subText: formData.subText,
+        Trigger: formData.trigger,
+        timeZone: formData.timeZone,
+        time: formData.time,
+        frequency: formData.frequency,
+        notificationType: formData.notificationType,
+      });
+
+      console.log(response); // Log the response for debugging
+
+      onSave(response); // Optionally call onSave to handle response
+      onClose(); // Close the modal after successful submission
+    } catch (error) {
+      console.error("Error sending notification:", error);
+    }
   };
 
   if (!isOpen) return null;
@@ -111,10 +132,13 @@ const NotificationAdd = ({ isOpen, onClose, onSave }) => {
 
               <FormGroup>
                 <Label>Select time</Label>
-               
-                  
-                  <input type="time" id="appt"   name="time" value={formData.time}  onChange={handleInputChange} required />
-                
+                <input
+                  type="time"
+                  name="time"
+                  value={formData.time}
+                  onChange={handleInputChange}
+                  required
+                />
               </FormGroup>
 
               <FormGroup>
@@ -132,9 +156,7 @@ const NotificationAdd = ({ isOpen, onClose, onSave }) => {
                 </Select>
               </FormGroup>
             </>
-
           ) : null}
-
 
           <RadioGroup>
             <RadioOption>

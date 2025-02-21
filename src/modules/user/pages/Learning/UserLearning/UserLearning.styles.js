@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const UserLearningWrapper = styled.div`
 margin-left: 60px;
 
@@ -114,8 +113,6 @@ padding: 24px;
 
 .course-card {
   background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   width: 100%;
   margin-bottom: 20px;
@@ -129,7 +126,7 @@ padding: 24px;
 .course-card-list{
 background-color: white;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #EBEBEB;
   overflow: hidden;
    width: 100%;
   margin-bottom: 20px;
@@ -206,11 +203,9 @@ display:none;
   display: flex;
   justify-content: flex-start;
   padding: 10px;
-  background-color: #f8f8f8;
   gap: 10px;
 }
 .course-info-list{
-background-color:${({ theme }) => theme.colors.white};
 gap: 10px;
 padding-left: 10px;
 }

@@ -4,9 +4,9 @@ import theme from "../../../../../theme/Theme";
 export const Container = styled.div`
   display: flex;
   margin-left: 60px;
-//   justify-content: center;
-//   align-items: center;
-//   padding: ${theme.spacing(2)};
+  //   justify-content: center;
+  //   align-items: center;
+  //   padding: ${theme.spacing(2)};
 `;
 
 export const ModuleCard = styled.div`
@@ -14,8 +14,8 @@ export const ModuleCard = styled.div`
   background-color: ${theme.colors.white};
   border-radius: 8px;
   overflow: hidden;
-//   max-width: 800px;
-align-items: flex-start;
+  //   max-width: 800px;
+  align-items: flex-start;
   width: 100%;
 `;
 
@@ -31,18 +31,16 @@ export const ModuleDetails = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-//   justify-content: space-between;
-align-items: flex-start;
+  //   justify-content: space-between;
+  align-items: flex-start;
 `;
 
 export const Title = styled.h2`
   font-family: ${theme.fonts.body};
   color: ${theme.colors.text};
   font-size: 1.4rem;
-//   margin-bottom: ${theme.spacing(1)};
+  //   margin-bottom: ${theme.spacing(1)};
 `;
-
-
 
 export const Time = styled.span`
   font-family: ${theme.fonts.accent};
@@ -63,8 +61,7 @@ export const Button = styled.button`
   transition: 0.3s;
 
   &:hover {
-    background-color: ${theme.colors.secondary};
-    color: ${theme.colors.light};
+    background-color: ${theme.colors.sidebarTextColor}10;
   }
 `;
 

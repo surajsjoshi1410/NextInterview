@@ -5,6 +5,7 @@ import {
   StatLabel,
   StatValue,
   Divider,
+  Stats,
 } from "./SupportQueryStats.styles";
 import { getSupportQueryStats } from "../../../../../api/supportQueryApi";
 const SupportQueryStats = () => {
@@ -36,25 +37,29 @@ const SupportQueryStats = () => {
 
   return (
     <Container>
-      <StatCard>
-        <StatLabel>Total Queries</StatLabel>
-        <StatValue>{stats.data.totalQueries}</StatValue>
-      </StatCard>
-      <Divider />
-      <StatCard>
-        <StatLabel>Open Queries</StatLabel>
-        <StatValue>{stats.data.openQueries}</StatValue>
-      </StatCard>
-      <Divider />
-      <StatCard>
-        <StatLabel>Solved Queries</StatLabel>
-        <StatValue>{stats.data.solvedQueries}</StatValue>
-      </StatCard>
-      <Divider />
-      <StatCard>
-        <StatLabel>Avg. Resolution Time</StatLabel>
-        <StatValue>{stats.data.avgTimeToSolve}</StatValue>
-      </StatCard>
+      <Stats>
+        <div className="stats-container">
+          <StatCard>
+            <StatLabel>Total Queries</StatLabel>
+            <StatValue>{stats.data.totalQueries}</StatValue>
+          </StatCard>
+          <Divider />
+          <StatCard>
+            <StatLabel>Open Queries</StatLabel>
+            <StatValue>{stats.data.openQueries}</StatValue>
+          </StatCard>
+          <Divider />
+          <StatCard>
+            <StatLabel>Solved Queries</StatLabel>
+            <StatValue>{stats.data.solvedQueries}</StatValue>
+          </StatCard>
+          <Divider />
+          <StatCard>
+            <StatLabel>Avg. Resolution Time</StatLabel>
+            <StatValue>{stats.data.avgTimeToSolve}</StatValue>
+          </StatCard>
+        </div>
+      </Stats>
     </Container>
   );
 };

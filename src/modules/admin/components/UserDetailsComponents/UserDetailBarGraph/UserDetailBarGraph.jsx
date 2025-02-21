@@ -1,7 +1,14 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { ChartSection } from "./UserDetailBarGraph.styles";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
 // Register necessary Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
@@ -12,6 +19,7 @@ const UserDetailBarGraph = ({ data, options }) => {
     ...data,
     datasets: data.datasets.map((dataset) => ({
       ...dataset,
+      backgroundColor: "#2290AC",
       barThickness: 15, // Set individual bar thickness to 5px
     })),
   };

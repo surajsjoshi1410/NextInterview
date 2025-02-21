@@ -67,6 +67,7 @@ import InterviewPage from "./modules/user/pages/InterviewPage/InterviewPage";
 import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import ModuleFileUpload from "./modules/admin/pages/ModuleFileUpload/moduleFileupload";
+import NewChallenge from "./modules/user/components/UserChallenegesinfo/NewChallenges";
 
 function App() {
   return (
@@ -193,6 +194,7 @@ function App() {
             <Route path="/user/userfaq" element={<UserFAQ />} />
             <Route path="/user/subscription" element={<UserSubscription />} />
             <Route path="/user/interview" element={<InterviewPage />} />
+            <Route path="/user/challengeInfo" element={<NewChallenge />} />
           </Route>
         </Routes>
       </Router>

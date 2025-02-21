@@ -55,7 +55,7 @@ export const AccountCreatedWrapper = styled.div`
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
-    margin-bottom: 12px;
+    margin-top: 90px;
   }
 
   .Button:hover {
