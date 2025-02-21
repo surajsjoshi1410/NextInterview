@@ -17,6 +17,7 @@ import {
 import { GoPerson } from "react-icons/go";
 import { useUser } from "@clerk/clerk-react";
 import { getUserByClerkId, updateUser } from "../../../../api/userApi";
+import { useClerk } from "@clerk/clerk-react";
 
 const ProfileInfo = () => {
   const [profilePhoto, setProfilePhoto] = useState("");
@@ -26,6 +27,7 @@ const ProfileInfo = () => {
   const [showResetPassword, setShowResetPassword] = useState(false);
   const { isSignedIn, user, isLoaded } = useUser();
   const [profileFile, setProfileFile] = useState(null);
+  const { signOut } = useClerk();
 
   useEffect(() => {
     const apiCaller = async () => {
@@ -76,13 +78,18 @@ const ProfileInfo = () => {
     setShowResetPassword(false);
   };
 
+  const handleLogout = () => {
+    // Perform logout actions here (e.g., clearing session, redirecting)
+    alert("Logged out successfully!");
+  };
+
   return (
     <>
       <Header>
         <LogoutButton
           onClick={() => {
-            alert("Logged out successfully!");
-            // handleLogout(); // Ensure this function exists
+            signOut();
+            handleLogout();
           }}
         >
           Logout

@@ -204,7 +204,7 @@ export const AnalyticsButton = styled.button`
   font-size: 0.9rem;
 
   &:hover {
-    background-color: ${theme.colors.primary};
+    background-color: ${theme.colors.secondary}90;
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
