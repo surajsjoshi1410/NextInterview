@@ -21,17 +21,17 @@ const LearningModulesStats = () => {
           <Stats>
             <StatCard>
               <p>Total Topics Published</p>
-              <h1>35</h1>
+              <h1>0</h1>
             </StatCard>
             <hr style={{ height: "80px", margin: "20px 0 0 0" }} />
             <StatCard>
               <p>Avg. Completion Rate</p>
-              <h1>75%</h1>
+              <h1>0%</h1>
             </StatCard>
             <hr style={{ height: "80px", margin: "20px 0 0 0" }} />
             <StatCard>
               <p>Avg. Quiz Score</p>
-              <h1>78%</h1>
+              <h1>0%</h1>
             </StatCard>
           </Stats>
         </div>
@@ -41,7 +41,7 @@ const LearningModulesStats = () => {
             <p>Most Viewed</p>
             <div className="datascience">Ai Basics</div>
             <div>
-              <strong> - (1,245 views)</strong>
+              <strong> - (0 views)</strong>
             </div>
           </StatCard1>
           <hr style={{ width: "95%" }} />
@@ -50,7 +50,7 @@ const LearningModulesStats = () => {
             <div className="datascience">Data Science Basics & Advanced</div>
             <div>
               {" "}
-              <strong> - (1,245 views)</strong>
+              <strong> - (0 views)</strong>
             </div>
           </StatCard2>
         </div>

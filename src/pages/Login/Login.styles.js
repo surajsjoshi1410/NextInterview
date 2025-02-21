@@ -17,8 +17,9 @@ export const Loginmobilewrapper = styled.div`
     align-items: flex-start;
     justify-content: center;
     padding: 20px 40px;
-    max-width: 600px;
+    max-width: 400px;
     margin: 0 auto;
+    width: 100%;
   }
 
   .Input {
@@ -40,13 +41,13 @@ export const Loginmobilewrapper = styled.div`
     border: 1px solid grey;
     border-radius: 10%;
     padding: 8px;
-    margin-bottom: 24px;
+    margin-bottom: 5px;
   }
   .Title {
     font-size: 24px;
     font-weight: bold;
     color: ${(props) => props.theme.colors.text};
-    margin-bottom: 24px;
+    margin-bottom: 5px;
   }
   Label {
     font-size: 14px;
@@ -60,7 +61,7 @@ export const Loginmobilewrapper = styled.div`
     width: 100%;
     padding: 12px;
     text-align: center;
-    background-color: ${(props) => props.theme.colors.primary};
+    background-color: ${(props) => props.theme.colors.bluetext}45;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -71,9 +72,9 @@ export const Loginmobilewrapper = styled.div`
 `;
 
 export const Subtitle = styled.p`
-  font-size: 18px;
+  font-size: 16px;
   color: ${theme.colors.text};
-  margin-bottom: 50px;
+  margin: 5px 0 50px 0;
 
   @media (max-width: 768px) {
     font-size: 14px;
@@ -136,14 +137,14 @@ export const Button = styled.button`
   padding: 10px;
   font-size: 16px;
   color: ${theme.colors.light};
-  background-color: ${theme.colors.primary};
+  background-color: ${theme.colors.bluetext}45;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: ${theme.colors.success};
+    background-color: ${theme.colors.bluetext};
   }
 
   @media (max-width: 768px) {

@@ -97,8 +97,6 @@ const Login = () => {
         console.log("Sign-in error:", error);
       }
     }
-
-
   };
 
   const handleGoBack = () => {
@@ -118,8 +116,8 @@ const Login = () => {
             <IoIosArrowRoundBack />
           </div>
 
-          <div className="Title">Login with Mobile number</div>
-          <Subtitle>OTP will be sent to your mobile number.</Subtitle>
+          <div className="Title">Login with Mobile Number</div>
+          <Subtitle>OTP will be sent to your mobile number</Subtitle>
           <div className="Form">
             <Label className="Label">Mobile Number</Label>
 

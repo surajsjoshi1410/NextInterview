@@ -16,7 +16,7 @@ export const ResetPasswordOverlay = styled.div`
 
 export const ResetPasswordModal = styled.div`
   background-color: ${theme.colors.white};
-  padding: ${theme.spacing(4)};
+  padding: ${theme.spacing(3)};
   border-radius: 8px;
   max-width: 400px;
   width: 100%;
@@ -75,6 +75,7 @@ export const InputField = styled.input`
   border-radius: 4px;
   font-size: 14px;
   font-family: ${theme.fonts.body};
+  box-sizing: border-box;
 
   &:focus {
     outline: none;
@@ -112,11 +113,28 @@ export const CloseButton = styled.button`
   color: ${theme.colors.text};
   font-size: 20px;
   position: absolute;
-  top: ${theme.spacing(1)};
-  right: ${theme.spacing(1)};
+  top: ${theme.spacing(3)};
+  right: ${theme.spacing(3)};
   cursor: pointer;
 
   &:hover {
     color: ${theme.colors.error};
   }
+`;
+
+export const PasswordWrapper = styled.div`
+  position: relative;
+`;
+export const EyeIcon = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: ${theme.colors.sidebarTextColor};
+`;
+
+export const ResetContainer = styled.div`
+  width: 80%;
+  margin: 0 auto;
 `;

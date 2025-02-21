@@ -4,8 +4,6 @@ export const FilterContainer = styled.div`
   background: ${({ theme }) => theme.colors.white};
   padding: ${({ theme }) => theme.spacing(2)};
   border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  width: 300px;
 `;
 export const Title = styled.h2`
   font-family: ${({ theme }) => theme.fonts.heading};

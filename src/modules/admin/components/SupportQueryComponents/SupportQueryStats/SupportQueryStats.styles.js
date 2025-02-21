@@ -5,12 +5,14 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg, ${theme.colors.primary}, ${theme.colors.secondary});
-  border-radius: 8px;
-  padding: ${theme.spacing(2)};
+  height: 150px;
+  background: linear-gradient(
+    to bottom,
+    ${theme.colors.secondary},
+    ${theme.colors.primary}
+  );
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-family: ${theme.fonts.body};
-margin-left: 40px;
   @media (max-width: ${theme.breakpoints.tablet}) {
     flex-wrap: wrap;
     padding: ${theme.spacing(1.5)};
@@ -22,11 +24,36 @@ margin-left: 40px;
   }
 `;
 
+export const Stats = styled.div`
+  background: #f5f5f5;
+  width: 95%;
+  margin: 0 auto;
+  border-radius: 8px;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    flex: unset;
+  }
+
+  .stats-container {
+    display: flex;
+    width: 98%;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+    background: ${theme.colors.white};
+    border: 1px solid #f8f8f8;
+    border-radius: 8px;
+  }
+`;
+
 export const StatCard = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  justify-content: center;
+  align-items: flex-start;
+  padding: ${theme.spacing(1)};
+  padding-left: ${theme.spacing(3)};
+  margin-top: 20px;
   flex: 1;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
@@ -34,17 +61,19 @@ export const StatCard = styled.div`
   }
 `;
 
-export const StatLabel = styled.div`
-  font-size: 0.9rem;
-  color: ${theme.colors.text};
+export const StatLabel = styled.p`
+  font-size: 16px;
+  font-weight: bold;
+  color: ${theme.colors.sidebarTextColor};
   font-family: ${theme.fonts.body};
+  margin: 0;
 `;
 
-export const StatValue = styled.div`
-  font-size: 1.5rem;
+export const StatValue = styled.p`
+  font-size: 30px;
   font-weight: bold;
-  color: ${theme.colors.text};
-  margin-top: ${theme.spacing(0.5)};
+  color: #000;
+  margin: ${theme.spacing(1)};
   font-family: ${theme.fonts.body};
 `;
 

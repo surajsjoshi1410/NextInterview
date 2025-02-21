@@ -205,7 +205,6 @@ const Header = ({ title }) => {
                   onOpenQueryModal={() => setIsRaiseQueryOpen(true)} // Open RaiseQuery modal
                 />
               </div>
-              {/* <UserButton afterSignOutUrl="/" /> */}
             </UserProfile>
           </HeaderRight>
         </HeaderContainer>
@@ -225,7 +224,6 @@ const Header = ({ title }) => {
                   className="User-Header-logout-btn"
                   onClick={() => {
                     signOut();
-                    alert("Logged out successfully!");
                     handleLogout();
                   }}
                 >

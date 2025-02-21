@@ -8,10 +8,10 @@ const MetricCard = () => {
       <h2 className="metric-title">Diagnosing and Investigating Metrics</h2>
       <hr />
       <p className="feedback-detail">Feedback Entries Across all -</p>
-      <h1 className="feedback-value">300</h1>
+      <h1 className="feedback-value">0</h1>
       <hr />
       <p className="feedback-detail">
-        Feedback Impression - <span className="positive">Positive</span>
+        Feedback Impression - <span className="positive">Neutral</span>
       </p>
     </CardWrapper>
   );

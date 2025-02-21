@@ -1,6 +1,32 @@
 import styled from "styled-components";
 import theme from "../../../../theme/Theme";
 
+export const Header = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-bottom: ${theme.spacing(3)};
+  background-color: ${theme.colors.sidebarTextColor}10;
+  padding: 10px;
+`;
+
+export const LogoutButton = styled.button`
+  background-color: ${theme.colors.white};
+  color: ${theme.colors.bluetext};
+  padding: ${theme.spacing(1.5)};
+  border: 1px solid ${theme.colors.bluetext};
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: ${theme.fonts.body};
+  font-size: 16px;
+  padding: 10px 30px;
+  margin-right: 30px;
+
+  &:hover {
+    opacity: 0.9;
+  }
+`;
+
 export const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -26,18 +52,26 @@ export const SectionTitle = styled.h2`
 export const ProfilePhoto = styled.div`
   display: flex;
   flex-direction: column;
-//   align-items: center;
 
-  img {
+  .profilePic {
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    background-color: ${theme.colors.sidebarHoverBgColor};
+    background-color: ${theme.colors.success}40;
     margin-bottom: ${theme.spacing(1)};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profileicon {
+    color: ${theme.colors.white};
   }
 `;
 
 export const UploadButton = styled.div`
+  width: 120px;
+  text-align: center;
   label {
     cursor: pointer;
     color: ${theme.colors.primary};
@@ -60,8 +94,8 @@ export const FormGroup = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     grid-template-columns: 1fr;
   }
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      grid-template-columns: 1fr;
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -96,8 +130,8 @@ export const SaveButton = styled.button`
   font-family: ${theme.fonts.body};
   font-size: 16px;
   margin-top: ${theme.spacing(3)};
-      width: 20%;
-    margin-left: auto;
+  width: 10%;
+  margin-left: auto;
 
   &:hover {
     opacity: 0.9;
@@ -105,8 +139,11 @@ export const SaveButton = styled.button`
 `;
 
 export const ResetButtonWrapper = styled.div`
-  text-align: center;
-  margin-top: ${theme.spacing(3)};
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-family: ${theme.fonts.body};
 `;
 
 export const ResetButton = styled.button`
@@ -118,6 +155,7 @@ export const ResetButton = styled.button`
   cursor: pointer;
   font-family: ${theme.fonts.body};
   font-size: 16px;
+  width: 20%;
 
   &:hover {
     opacity: 0.9;

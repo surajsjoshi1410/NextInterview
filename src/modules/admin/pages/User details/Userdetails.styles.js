@@ -5,7 +5,9 @@ export const Container = styled.div`
   padding: ${theme.spacing(2)};
   font-family: ${theme.fonts.body};
 
-  h1, h3, h4 {
+  h1,
+  h3,
+  h4 {
     font-family: ${theme.fonts.heading};
     color: ${theme.colors.text};
   }
@@ -15,15 +17,16 @@ export const Container = styled.div`
     border-collapse: collapse;
   }
 
-  th, td {
+  th,
+  td {
     padding: ${theme.spacing(1)};
     text-align: left;
     border-bottom: 1px solid ${theme.colors.light};
   }
 
   th {
-    background: ${theme.colors.primary};
-    color: white;
+    background: ${theme.colors.sidebarBgColor};
+    color: ${theme.colors.sidebarTextColor}60;
   }
 
   tr:nth-child(even) {
