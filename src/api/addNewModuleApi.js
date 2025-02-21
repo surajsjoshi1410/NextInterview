@@ -56,3 +56,47 @@ export const updateModuleById = async (id,data) => {
         throw error;
     }
 }
+export const softModuleDelete = async (id) => {
+    try {
+        console.log("Id",id);
+        const response = await api.delete(`/addNewModule/softDelete/${id}`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+export const getModuleCode = async () => {
+    try {
+        const response = await api.get(`/addNewModule/get/moduleCode`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+export const getTopicCode = async (module_code) => {
+    try {
+        const response = await api.get(`/addNewModule/get/module/topic/${module_code}`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+export const getSubTopicCode = async (module_code,topic_code) => {
+    try {
+        const response = await api.get(`/addNewModule/get/module/topic/subtopic/${module_code}/${topic_code}`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};

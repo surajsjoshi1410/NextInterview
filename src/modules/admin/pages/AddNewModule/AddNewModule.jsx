@@ -434,7 +434,7 @@ const AddNewModule = () => {
       },
     ]);
     setModalVisible(true); // show success modal
-    navigate("/admin/learning");
+    navigate("/admin/moduleFileUpload");
   };
 
   // ----------------------------- DELETE HANDLING -----------------------------
@@ -555,7 +555,7 @@ const AddNewModule = () => {
           </FormGroup>
 
           {/* SKILL ASSESSMENT SECTION */}
-          <SectionHeader>
+          {/* <SectionHeader>
             <div>
               <SectionTitle style={{ textAlign: "left" }}>
                 Skill Assessment Questions for the Entire Topic
@@ -615,7 +615,7 @@ const AddNewModule = () => {
                 </div>
               )}
             </div>
-          </SectionHeader>
+          </SectionHeader> */}
 
           {/* SUBTOPICS */}
           {topic.subtopics.map((subtopic, subIndex) => (
@@ -887,7 +887,7 @@ const AddNewModule = () => {
               </ConceptClarifierContainer>
 
               {/* QUESTION BANK */}
-              <SectionHeader>
+              {/* <SectionHeader>
                 <div>
                   <SectionTitle>Question Bank</SectionTitle>
                   {subtopic.questionBankFile && (
@@ -953,10 +953,10 @@ const AddNewModule = () => {
                     }
                   />
                 </div>
-              </SectionHeader>
+              </SectionHeader> */}
 
               {/* TRY IT YOURSELF */}
-              <SectionHeader>
+              {/* <SectionHeader>
                 <div>
                   <SectionTitle>Try It Yourself Questions</SectionTitle>
                   <SubText>
@@ -1026,7 +1026,7 @@ const AddNewModule = () => {
                     }
                   />
                 </div>
-              </SectionHeader>
+              </SectionHeader> */}
 
               {/* DELETE SUBTOPIC BUTTON */}
               {topics[topicIndex].subtopics.length > 1 && (
