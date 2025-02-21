@@ -9,6 +9,7 @@ import {
   LinkStyled,
 } from "./QuicklyByModule.styles";
 import { useParams } from "react-router-dom";
+import spark from "../../../../../assets/fluentsparkle.svg";
 
 const QuicklyByModule = () => {
   const [moduleData, setModuleData] = useState(null);
@@ -50,31 +51,36 @@ const QuicklyByModule = () => {
           >
             <Title>{moduleData.moduleName}</Title>
             <LinkStyled href={moduleData.interviewSampleURL} target="_blank">
-              <Button>View Sample Interview</Button>
+              <Button>
+                <img src={spark} alt="start" /> View Sample Interview
+              </Button>
             </LinkStyled>
           </div>
 
           <div>
             {moduleData.topicData.map((topic, topicIndex) => (
               <div key={topicIndex}>
-                <h3>Topic {topicIndex + 1} - {topic.topicName}</h3>
+                <h3 style={{ margin: "0" }}>
+                  Topic {topicIndex + 1} - {topic.topicName}
+                </h3>
                 {topic.subtopicData.map((subtopic, subtopicIndex) => (
                   <div
                     key={subtopicIndex}
                     style={{
                       position: "relative",
-                      marginBottom: "20px",
-                      paddingBottom: "40px", // Add spacing for the button at the bottom
-                      borderBottom: "3px solid #ccc", // Add a 5px line between subtopics
+                      paddingBottom: "40px",
                     }}
                   >
                     <div>
-                      <h4>{subtopic.subtopicName}</h4>
+                      <h4 style={{ margin: "0", marginTop: "30px" }}>
+                        {subtopic.subtopicName}
+                      </h4>
                       {/* Parse and render JSON content from subtopicSummary */}
                       <p
                         dangerouslySetInnerHTML={{
                           __html: parseJSONContent(subtopic.subtopicSummary),
                         }}
+                        style={{ margin: "0" }}
                       ></p>
                     </div>
                     <Button
@@ -83,6 +89,7 @@ const QuicklyByModule = () => {
                         right: "10px",
                         bottom: "10px",
                         width: "auto", // Keep the button width fixed
+                        border: "none",
                       }}
                     >
                       Revisit Subtopic
@@ -110,4 +117,3 @@ const parseJSONContent = (content) => {
 };
 
 export default QuicklyByModule;
-

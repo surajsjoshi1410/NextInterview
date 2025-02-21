@@ -100,15 +100,21 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
       icon: <img className="svgicon" src={challenge} alt="Users Icon" />,
     },
 
-    { id: 8, name: "Notifications", path: "/admin/notifications",
-      //  icon: <MdNotificationsNone /> 
-      icon : <img className="svgicon" src ={Settings} alt="Users Icon" />,
-      },
+    {
+      id: 8,
+      name: "Notifications",
+      path: "/admin/notifications",
+      //  icon: <MdNotificationsNone />
+      icon: <img className="svgicon" src={Notification} alt="Users Icon" />,
+    },
 
-    { id: 9, name: "Settings", path: "/admin/settings",
-      //  icon: <IoSettingsOutline /> 
-      icon : <img className="svgicon" src={Notification} alt="Users Icon" />,
-      },
+    {
+      id: 9,
+      name: "Settings",
+      path: "/admin/settings",
+      //  icon: <IoSettingsOutline />
+      icon: <img className="svgicon" src={Settings} alt="Users Icon" />,
+    },
   ];
 
   return (

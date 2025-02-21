@@ -15,38 +15,56 @@ import { MdNotificationsNone } from "react-icons/md";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaMoneyCheckAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { PiVideoConference } from "react-icons/pi";
+import dboard from "../../../assets/Dashboard.svg";
+import homeicon from "../../../assets/homeicon.svg";
+import learnmod from "../../../assets/Learning_Module.svg";
+import quick from "../../../assets/quicklyrevise.svg";
+import question from "../../../assets/questionbank.svg";
+import challenge from "../../../assets/Challenges.svg";
 
 const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const SidebarItem = [
-    { id: 1, name: "Dashboard", path: "/user", icon: <RxDashboard /> },
-    { id: 2, name: "Home", path: "/user/home", icon: <FiHome /> },
+    {
+      id: 1,
+      name: "Dashboard",
+      path: "/user",
+      icon: <img className="svgicon" src={dboard} alt="Users Icon" />,
+    },
+    {
+      id: 2,
+      name: "Home",
+      path: "/user/home",
+      icon: <img className="svgicon" src={homeicon} alt="homeicon" />,
+    },
     {
       id: 3,
       name: "Learning Module",
       path: "/user/learning",
-      icon: <MdOutlineMenuBook />,
+      icon: <img className="svgicon" src={learnmod} alt="Users Icon" />,
     },
     {
       id: 4,
       name: "Quickly Revise",
       path: "/user/revise",
-      icon: <IoIosInformationCircleOutline />,
+      icon: <img className="svgicon" src={quick} alt="quick" />,
     },
     {
       id: 5,
       name: "Question Bank",
       path: "/user/questionBank",
-      icon: <TbDeviceIpadQuestion />,
+      icon: <img className="svgicon" src={question} alt="question" />,
     },
     {
       id: 6,
       name: "Challenges",
       path: "/user/challenges",
-      icon: <MdOutlineLockClock />,
+      icon: <img className="svgicon" src={challenge} alt="Users Icon" />,
     },
-    { id: 7, name: "Interview", path: "/user/interview", icon: <CiMobile1 /> },
     {
       id: 8,
       name: "Subscription",
@@ -85,6 +103,21 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
             </li>
           ))}
         </ul>
+      </div>
+      <div className="mock-card">
+        <div className="mock-card-icon">
+          <PiVideoConference />
+        </div>
+        <h2 className="mock-card-title">Take a Mock Interview</h2>
+        <p className="mock-card-description">
+          Take a Mock interview to understand whether you are Interview Ready!
+        </p>
+        <button
+          className="mock-card-button"
+          onClick={() => navigate("/user/interview")}
+        >
+          Start interview
+        </button>
       </div>
     </SideBarwrapper>
   );

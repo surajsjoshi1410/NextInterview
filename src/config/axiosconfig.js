@@ -1,22 +1,22 @@
-import axios from "axios";''
+import axios from "axios";
+("");
 import { useAuth } from "@clerk/clerk-react";
 // const { getToken } = useAuth();
 
 // Create an Axios instance with the base URL and common configurations
 const api = axios.create({
-    // baseURL: "https://next-interview-backend.vercel.app/", // production/main-branch
-    // baseURL: "https://next-interview-backend-develop.vercel.app/",// production/development-branch
-    baseURL: "http://localhost:3000/",     //
+  // baseURL: "https://next-interview-backend.vercel.app/", // production/main-branch
+  baseURL: "https://next-interview-backend-develop.vercel.app/", // production/development-branch
+  // baseURL: "http://localhost:3000/",     //
 
-    timeout: 30000, // Optional: Timeout after 10 seconds
-    headers: {
-        "Content-Type": "application/json",
-    },
+  timeout: 30000, // Optional: Timeout after 10 seconds
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 // Optional: Add a request interceptor to attach authorization token
 // api.interceptors.request.use(
 //      (config) => {
-
 
 //         // const token = await getToken()
 //         // if (token) {

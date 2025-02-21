@@ -72,7 +72,7 @@ const Dropdown = ({
     borderRadius: "8px",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
     zIndex: 1000,
-    width: "200px",
+    width: "180px",
     padding: "10px 0",
     cursor: "pointer",
   };
@@ -82,9 +82,10 @@ const Dropdown = ({
     fontWeight: "500",
     color: theme.colors.textgray,
     listStyle: "none",
+    padding: "0 20px",
   };
   const listLIStyles = {
-    marginBottom: "10px",
+    marginBottom: "8px",
   };
 
   return ReactDOM.createPortal(
@@ -112,6 +113,7 @@ const Dropdown = ({
           <CgProfile /> FAQ's
         </li>
         <li
+          style={listLIStyles}
           onClick={() => {
             onOpenQueryModal();
             onClose();
@@ -142,35 +144,22 @@ const UserHeader = ({ title }) => {
   const [userAvatar, setUserAvatar] = useState("");
   const navigate = useNavigate();
 
-
-
-
-
-
   const [notificationCount, setNotificationCount] = useState([]);
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-// const {userId} = useParams();
-const handleNotifyClick = async () => {
-  setLoading(true);
-  const cleanedUserId = user.id.replace(/^user_/, ''); // Remove 'user_' prefix
-  console.log("Cleaned User Id:", cleanedUserId);
- const userData = await getUserByClerkId(user.id);
- console.log("User data",userData); 
-  const notifications = await getNotificationByUser(userData.data?.user?._id);
-  console.log("Notification Data",notifications.data);
-  setNotificationCount(notifications.data);
-  setLoading(false);
-  setIsNotificationOpen(!isNotificationOpen);
-};
-
-
-
-
-
-
-
-
+  // const {userId} = useParams();
+  const handleNotifyClick = async () => {
+    setLoading(true);
+    const cleanedUserId = user.id.replace(/^user_/, ""); // Remove 'user_' prefix
+    console.log("Cleaned User Id:", cleanedUserId);
+    const userData = await getUserByClerkId(user.id);
+    console.log("User data", userData);
+    const notifications = await getNotificationByUser(userData.data?.user?._id);
+    console.log("Notification Data", notifications.data);
+    setNotificationCount(notifications.data);
+    setLoading(false);
+    setIsNotificationOpen(!isNotificationOpen);
+  };
 
   const handleAvatarClick = (event) => {
     const rect = event.target.getBoundingClientRect();
@@ -192,7 +181,6 @@ const handleNotifyClick = async () => {
     };
     apiCaller();
   }, [navigate, isSignedIn, isLoaded, user]);
-
 
   const NotificationDropdown = ({ notifications }) => {
     return (
@@ -217,7 +205,10 @@ const handleNotifyClick = async () => {
           <p>No new notifications</p>
         ) : (
           notifications.map((notification, index) => (
-            <div key={index} style={{ padding: "8px 16px", borderBottom: "1px solid #ddd" }}>
+            <div
+              key={index}
+              style={{ padding: "8px 16px", borderBottom: "1px solid #ddd" }}
+            >
               <p>{notification.message}</p>
             </div>
           ))
@@ -225,7 +216,6 @@ const handleNotifyClick = async () => {
       </div>
     );
   };
-  
 
   return (
     <>
@@ -237,9 +227,7 @@ const handleNotifyClick = async () => {
           <HeaderRight>
             <IconWrapper>
               <Icon>
-                <BsBell
-                onClick={handleNotifyClick}
-                title="Notifications" />
+                <BsBell onClick={handleNotifyClick} title="Notifications" />
               </Icon>
               <Icon>
                 <PiLineVertical title="Vertical Line" />
@@ -304,7 +292,9 @@ const handleNotifyClick = async () => {
             </div>
           </div>
         )}
-          {isNotificationOpen && <NotificationDropdown notifications={notificationCount} />}
+        {isNotificationOpen && (
+          <NotificationDropdown notifications={notificationCount} />
+        )}
         <SupportQuery
           isOpen={isRaiseQueryOpen}
           onClose={() => setIsRaiseQueryOpen(false)}

@@ -43,7 +43,7 @@ export default function UserDashboard() {
                 <p>Challenges completed</p>
               </div>
               <div className="UserDashboard-statsbox-value">
-                0<span>/10</span>
+                0<span>/0</span>
               </div>
             </div>
           </div>

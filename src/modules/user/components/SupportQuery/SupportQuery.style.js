@@ -25,24 +25,21 @@ export const Modal = styled.div`
 export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
-  
   font-family: ${theme.fonts.body};
-  gap: 15px;
-  margin-top: 10px;
 `;
 
 export const Dropdown = styled.select`
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  
+
   font-family: ${theme.fonts.body};
   border-radius: 5px;
   font-size: 16px;
   background: #f9f9f9;
   cursor: pointer;
   &:focus {
-    border-color:${theme.colors.backgray};
+    border-color: ${theme.colors.backgray};
     outline: none;
   }
 `;
@@ -56,7 +53,7 @@ export const TextBox = styled.textarea`
   font-size: 16px;
   resize: none;
   background: ${theme.colors.light};
-  
+  box-sizing: border-box;
   font-family: ${theme.fonts.body};
   &:focus {
     border-color: #007bff;
@@ -70,24 +67,21 @@ export const Button = styled.button`
   border: none;
   font-family: ${theme.fonts.body};
   border-radius: 5px;
-//   background-color: #007bff;
   color: white;
   cursor: pointer;
   transition: background 0.3s;
- 
 `;
 
 export const CloseButton = styled.button`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 13px;
+  right: 20px;
   border: none;
-  font-size: 24px;
+  font-size: 30px;
   cursor: pointer;
   color: ${theme.colors.black};
-  background-color:${theme.colors.light};
+  background-color: ${theme.colors.light};
   font-family: ${theme.fonts.body};
- 
 `;
 
 export const Title = styled.h2`
@@ -95,6 +89,4 @@ export const Title = styled.h2`
   font-weight: 600;
   color: ${theme.colors.text};
   font-family: ${theme.fonts.body};
-
-  margin-bottom: 10px;
 `;
