@@ -11,7 +11,7 @@ import {
   Footer,
   Signupage,
 } from "../SignUp/SignUp.styles";
-import signup from "../../assets/signup.png";
+import signup from "../../assets/login&signupimage.svg";
 import google from "../../assets/google.png";
 import { Link, useNavigate } from "react-router";
 import { FaEye, FaEyeSlash, FaLinkedin, FaMobileAlt } from "react-icons/fa";
@@ -102,10 +102,10 @@ const SignUpPage = () => {
     e.preventDefault();
     try {
       // console.log("handleGoogleSignUp");
-      const data= await signUp.authenticateWithRedirect({
-        strategy: 'oauth_google',
-        redirectUrl: window.location.origin + '/signup',  // Optional
-        redirectUrlComplete: window.location.origin + '/verification', // Where to go after successful sign-up
+      const data = await signUp.authenticateWithRedirect({
+        strategy: "oauth_google",
+        redirectUrl: window.location.origin + "/signup", // Optional
+        redirectUrlComplete: window.location.origin + "/verification", // Where to go after successful sign-up
       });
       console.log("data", data);
     } catch (err) {
@@ -120,9 +120,9 @@ const SignUpPage = () => {
       //  })
       // const popup = window.open('', 'linkedinPopup', 'width=600,height=600');
       const data = await signUp.authenticateWithRedirect({
-        strategy: 'oauth_linkedin_oidc',
-        redirectUrl: window.location.origin + '/signup',
-        redirectUrlComplete: window.location.origin + '/verification',
+        strategy: "oauth_linkedin_oidc",
+        redirectUrl: window.location.origin + "/signup",
+        redirectUrlComplete: window.location.origin + "/verification",
       });
       console.log("data", data);
     } catch (err) {
@@ -156,16 +156,22 @@ const SignUpPage = () => {
               <label>Phone Number</label>
               <input
                 type="tel"
-                style={{ width: "93%" }}
+                inputMode="numeric"
+                pattern="\d{10}"
                 placeholder="Enter your Phone Number"
                 value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                maxLength={10}
+                onChange={(e) => {
+                  const onlyNumbers = e.target.value
+                    .replace(/\D/g, "")
+                    .slice(0, 10);
+                  setPhoneNumber(onlyNumbers);
+                }}
               />
             </Input>
             <Input>
               <label>Email ID</label>
               <input
-                style={{ width: "93%" }}
                 type="email"
                 placeholder="Enter your email"
                 value={email}
@@ -176,7 +182,6 @@ const SignUpPage = () => {
               <label>Password</label>
               <div style={{ position: "relative" }}>
                 <input
-                  style={{ width: "93%" }}
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   value={password}
@@ -223,22 +228,26 @@ const SignUpPage = () => {
             <Button type="submit">Sign Up</Button>
 
             <AlternativeLogin>
-            {/* <Link to="/loginPhone" state={{flow: "SIGN_UP"}}>
+              {/* <Link to="/loginPhone" state={{flow: "SIGN_UP"}}>
               <button>
                 <FaMobileAlt /> SignUp in with Mobile
               </button>
             </Link> */}
-          </AlternativeLogin>
-          <AlternativeLogin>
-            <button onClick={handleGoogleSignUp}>
-              <img src={google} alt="Google Logo" style={{ height: '20px', marginRight: '10px' }} />
-              SignUp in with Google
-            </button>
-
+            </AlternativeLogin>
+            <AlternativeLogin>
+              <button onClick={handleGoogleSignUp}>
+                <img
+                  src={google}
+                  alt="Google Logo"
+                  style={{ height: "20px", marginRight: "10px" }}
+                />
+                SignUp in with Google
+              </button>
 
               <LinkedInButton>
                 <button onClick={handleLinkedInSignUp}>
-                  <FaLinkedin /> SignUp in with LinkedIn
+                  <FaLinkedin style={{ color: "#0076B2" }} /> SignUp in with
+                  LinkedIn
                 </button>
               </LinkedInButton>
             </AlternativeLogin>

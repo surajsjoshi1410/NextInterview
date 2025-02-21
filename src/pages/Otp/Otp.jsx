@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSignIn, useSignUp } from "@clerk/clerk-react";
@@ -11,12 +11,76 @@ import {
   BackIcon,
   OTPMessage,
   OTPInputContainer,
-  OTPInput,
   SubmitButton,
   ResendMessage,
 } from "./Otp.styles";
 
 const Otp = () => {
+  const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [hiddenOtp, setHiddenOtp] = useState(new Array(6).fill(""));
+  const inputRefs = useRef([]);
+
+  const handleChange = (index, e) => {
+    const value = e.target.value;
+    if (isNaN(value)) return;
+
+    let newOtp = [...otp];
+    newOtp[index] = value.substring(value.length - 1);
+    setOtp(newOtp);
+    setHiddenOtp((prev) => {
+      let newHidden = [...prev];
+      newHidden[index] = value.substring(value.length - 1);
+      return newHidden;
+    });
+
+    setTimeout(() => {
+      setHiddenOtp((prev) => {
+        let newHidden = [...prev];
+        if (newOtp[index] !== "") newHidden[index] = "●";
+        return newHidden;
+      });
+    }, 500);
+
+    if (value && index < 5) {
+      inputRefs.current[index + 1].focus();
+    }
+  };
+
+  const handleKeyDown = (index, e) => {
+    if (e.key === "Backspace") {
+      let newOtp = [...otp];
+      let newHiddenOtp = [...hiddenOtp];
+      newOtp[index] = "";
+      newHiddenOtp[index] = "";
+      setOtp(newOtp);
+      setHiddenOtp(newHiddenOtp);
+      if (index > 0) {
+        inputRefs.current[index - 1].focus();
+      }
+    }
+  };
+
+  const [countdown, setCountdown] = useState(15);
+  const [canResend, setCanResend] = useState(false);
+
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    } else {
+      setCanResend(true);
+    }
+  }, [countdown]);
+
+  const handleResend = () => {
+    if (canResend) {
+      setCountdown(15);
+      setCanResend(false);
+    }
+  };
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,7 +98,7 @@ const Otp = () => {
   const [otpCode, setOtpCode] = useState("");
   const [flow, setFlow] = useState(""); // "SIGN_IN" or "SIGN_UP"
   const [phoneNumber, setPhoneNumber] = useState("");
-  const[email, setEmail] = useState("");
+  const [email, setEmail] = useState("");
 
   // Extract flow + phoneNumber from react-router location.state
   useEffect(() => {
@@ -52,7 +116,7 @@ const Otp = () => {
 
   const handleGoBack = () => {
     // If user wants to change phone number, navigate back
-    navigate("/loginPhone",{state:{flow:location.state.flow}});
+    navigate("/loginPhone", { state: { flow: location.state.flow } });
   };
 
   // Only allow digits in the OTP field
@@ -73,7 +137,6 @@ const Otp = () => {
     try {
       console.log("flow", flow);
       if (flow === "SIGN_IN") {
-
         // Attempt signIn
         const result = await signIn.attemptFirstFactor({
           strategy: "phone_code",
@@ -94,26 +157,22 @@ const Otp = () => {
         const attempt = await signUp.attemptPhoneNumberVerification({
           code: otpCode,
         });
-        console.log("attempt", attempt);  
+        console.log("attempt", attempt);
 
         const { verifications, status, createdSessionId } = attempt;
 
         // Check if signUp is complete
-        if (
-          verifications?.phoneNumber?.status === "verified"
-        ) {
+        if (verifications?.phoneNumber?.status === "verified") {
           // Successfully signed up & automatically signed in
           await setSignUpActive({ session: createdSessionId });
           alert("You Phone Number hasbeen successfully verified!");
-          navigate("/otpEmail",
-            {
-              state: {
-                flow: "SIGN_UP",
-                phoneNumber: phoneNumber,
-                email: email,
-              },
-            }
-          );
+          navigate("/otpEmail", {
+            state: {
+              flow: "SIGN_UP",
+              phoneNumber: phoneNumber,
+              email: email,
+            },
+          });
         } else {
           alert("Incorrect OTP. Please try again. one");
         }
@@ -146,32 +205,40 @@ const Otp = () => {
 
           <OTPInputContainer>
             <label htmlFor="otp">Enter OTP</label>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                gap: "10px",
-                width: "100%",
-              }}
-            >
-              {/* Single input for OTP or multiple inputs – up to you */}
-              <OTPInput
-                id="otp"
-                type="text"
-                maxLength="6"
-                placeholder="6-digit OTP"
-                onKeyPress={handleKeyPress}
-                onChange={(e) => setOtpCode(e.target.value)}
-                style={{ width: "100%" }}
-              />
-              <SubmitButton onClick={handleVerifyOTP}>Submit</SubmitButton>
+            <div style={{ display: "flex", gap: "30px" }}>
+              {otp.map((_, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  maxLength="1"
+                  value={hiddenOtp[index]}
+                  onChange={(e) => handleChange(index, e)}
+                  onKeyDown={(e) => handleKeyDown(index, e)}
+                  ref={(el) => (inputRefs.current[index] = el)}
+                  style={{
+                    width: "45px",
+                    height: "45px",
+                    textAlign: "center",
+                    fontSize: "20px",
+                    border: "1px solid #1A1C1E",
+                    borderRadius: "5px",
+                  }}
+                />
+              ))}
             </div>
           </OTPInputContainer>
 
-          <ResendMessage>
-            Resend OTP in <span>12 secs</span>{" "}
-            {/* Implement your countdown or resend flow */}
+          <ResendMessage onClick={handleResend} disabled={!canResend}>
+            {canResend ? (
+              <a className="resendotp">Resend OTP</a>
+            ) : (
+              <>
+                Resend OTP in <span>{countdown} secs</span>
+              </>
+            )}
           </ResendMessage>
+
+          <SubmitButton onClick={handleVerifyOTP}>Submit</SubmitButton>
         </Section>
       </Container>
     </>

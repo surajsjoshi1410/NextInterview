@@ -11,7 +11,7 @@ import {
   Footer,
   Signupage,
 } from "../SignUp/SignUp.styles";
-import signup from "../../assets/signup.png";
+import signup from "../../assets/login&signupimage.svg";
 import google from "../../assets/google.png";
 import { Link, useNavigate } from "react-router";
 import { FaEye, FaEyeSlash, FaLinkedin, FaMobileAlt } from "react-icons/fa";
@@ -23,6 +23,10 @@ import {
   UserProfile,
   UserButton,
 } from "@clerk/clerk-react";
+
+import { PiEyeLight } from "react-icons/pi";
+import { IoEyeOffOutline } from "react-icons/io5";
+import { CiMobile1 } from "react-icons/ci";
 
 // Import the new header component
 import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
@@ -160,7 +164,7 @@ const SignUp = () => {
               <label>Email ID</label>
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -180,7 +184,7 @@ const SignUp = () => {
                   aria-label={showPassword ? "Hide password" : "Show password"}
                   style={{
                     position: "absolute",
-                    right: "10px",
+                    right: "6px",
                     top: "50%",
                     transform: "translateY(-50%)",
                     background: "none",
@@ -188,7 +192,15 @@ const SignUp = () => {
                     cursor: "pointer",
                   }}
                 >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  {showPassword ? (
+                    <IoEyeOffOutline
+                      style={{ fontSize: "20px", marginTop: "5px" }}
+                    />
+                  ) : (
+                    <PiEyeLight
+                      style={{ fontSize: "20px", marginTop: "5px" }}
+                    />
+                  )}
                 </button>
               </div>
             </Input>
@@ -208,16 +220,20 @@ const SignUp = () => {
                 to="/forgotpassword"
                 style={{ color: "#007bff", fontSize: "0.9rem" }}
               >
-                Forgot Password
+                Forgot Password ?
               </Link>
             </div>
 
             <Button type="submit">Log In</Button>
 
             <AlternativeLogin>
-              <Link to="/loginPhone" state={{ flow: "SIGN_IN" }}>
+              <Link
+                to="/loginPhone"
+                state={{ flow: "SIGN_IN" }}
+                style={{ textDecoration: "none" }}
+              >
                 <button>
-                  <FaMobileAlt /> Log in with Mobile
+                  <CiMobile1 /> Log in with Mobile
                 </button>
               </Link>
               <button onClick={handleGoogleSignIn}>
@@ -232,7 +248,7 @@ const SignUp = () => {
 
             <LinkedInButton>
               <button onClick={handleLinkedInSignIn}>
-                <FaLinkedin /> Log in with LinkedIn
+                <FaLinkedin style={{ color: "#0076B2" }} /> Log in with LinkedIn
               </button>
             </LinkedInButton>
           </Form>
@@ -240,7 +256,6 @@ const SignUp = () => {
           <Footer>
             By signing in, I agree to Next Interview's{" "}
             <a href="/privacy-policy">Privacy Policy</a>
-            <br />
             and <a href="/terms">Terms of Service</a>.
           </Footer>
         </FormSection>
