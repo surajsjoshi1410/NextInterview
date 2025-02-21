@@ -19,7 +19,7 @@ import { PiLineVertical } from "react-icons/pi";
 import { BsBell } from "react-icons/bs";
 import { MdOutlineInfo } from "react-icons/md";
 import { UserButton } from "@clerk/clerk-react";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate, useParams } from "react-router-dom";
 import theme from "../../theme/Theme";
 import { list } from "firebase/storage";
 import { CgProfile } from "react-icons/cg";
@@ -31,6 +31,7 @@ import SupportQuery from "../../modules/user/components/SupportQuery/SupportQuer
 import { useUser } from "@clerk/clerk-react";
 import { useClerk } from "@clerk/clerk-react";
 import { getUserByClerkId } from "../../api/userApi";
+import { getNotificationByUser } from "../../api/notificationApi";
 // **Logout Confirmation Modal Component**
 
 // **Dropdown Component**
@@ -83,9 +84,6 @@ const Dropdown = ({
     listStyle: "none",
   };
   const listLIStyles = {
-    // border: "1px solid #ddd",
-    // borderRadius: "8px",
-    // boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
     marginBottom: "10px",
   };
 
@@ -143,6 +141,37 @@ const UserHeader = ({ title }) => {
   const { signOut } = useClerk();
   const [userAvatar, setUserAvatar] = useState("");
   const navigate = useNavigate();
+
+
+
+
+
+
+  const [notificationCount, setNotificationCount] = useState([]);
+  const [loading,setLoading] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+// const {userId} = useParams();
+const handleNotifyClick = async () => {
+  setLoading(true);
+  const cleanedUserId = user.id.replace(/^user_/, ''); // Remove 'user_' prefix
+  console.log("Cleaned User Id:", cleanedUserId);
+ const userData = await getUserByClerkId(user.id);
+ console.log("User data",userData); 
+  const notifications = await getNotificationByUser(userData.data?.user?._id);
+  console.log("Notification Data",notifications.data);
+  setNotificationCount(notifications.data);
+  setLoading(false);
+  setIsNotificationOpen(!isNotificationOpen);
+};
+
+
+
+
+
+
+
+
+
   const handleAvatarClick = (event) => {
     const rect = event.target.getBoundingClientRect();
     setAvatarPosition({ top: rect.top + window.scrollY, left: rect.left });
@@ -164,6 +193,40 @@ const UserHeader = ({ title }) => {
     apiCaller();
   }, [navigate, isSignedIn, isLoaded, user]);
 
+
+  const NotificationDropdown = ({ notifications }) => {
+    return (
+      <div
+        style={{
+          position: "absolute",
+          top: "60px", // Adjust the position below the bell icon
+          right: "10px",
+          background: "white",
+          border: "1px solid #ddd",
+          borderRadius: "8px",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          zIndex: 1000,
+          width: "250px",
+          padding: "10px 0",
+          cursor: "pointer",
+          maxHeight: "300px",
+          overflowY: "auto",
+        }}
+      >
+        {notifications.length === 0 ? (
+          <p>No new notifications</p>
+        ) : (
+          notifications.map((notification, index) => (
+            <div key={index} style={{ padding: "8px 16px", borderBottom: "1px solid #ddd" }}>
+              <p>{notification.message}</p>
+            </div>
+          ))
+        )}
+      </div>
+    );
+  };
+  
+
   return (
     <>
       <UserHeaderWrapper>
@@ -174,7 +237,9 @@ const UserHeader = ({ title }) => {
           <HeaderRight>
             <IconWrapper>
               <Icon>
-                <BsBell title="Notifications" />
+                <BsBell
+                onClick={handleNotifyClick}
+                title="Notifications" />
               </Icon>
               <Icon>
                 <PiLineVertical title="Vertical Line" />
@@ -239,6 +304,7 @@ const UserHeader = ({ title }) => {
             </div>
           </div>
         )}
+          {isNotificationOpen && <NotificationDropdown notifications={notificationCount} />}
         <SupportQuery
           isOpen={isRaiseQueryOpen}
           onClose={() => setIsRaiseQueryOpen(false)}
