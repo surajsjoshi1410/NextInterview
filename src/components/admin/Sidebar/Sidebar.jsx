@@ -9,6 +9,8 @@ import squerry from "../../../assets/Support_Query.svg";
 import fcard from "../../../assets/Flash_Cards.svg";
 import faq from "../../../assets/FAQ's.svg";
 import challenge from "../../../assets/Challenges.svg";
+import Settings from "../../../assets/Settings.svg";
+import Notification from "../../../assets/Notifications.svg";
 
 const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
   const location = useLocation();
@@ -98,9 +100,15 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
       icon: <img className="svgicon" src={challenge} alt="Users Icon" />,
     },
 
-    // { id: 8, name: "Notifications", path: "/admin/notifications", icon: <MdNotificationsNone /> },
+    { id: 8, name: "Notifications", path: "/admin/notifications",
+      //  icon: <MdNotificationsNone /> 
+      icon : <img className="svgicon" src ={Settings} alt="Users Icon" />,
+      },
 
-    // { id: 9, name: "Settings", path: "/admin/settings", icon: <IoSettingsOutline /> },
+    { id: 9, name: "Settings", path: "/admin/settings",
+      //  icon: <IoSettingsOutline /> 
+      icon : <img className="svgicon" src={Notification} alt="Users Icon" />,
+      },
   ];
 
   return (
