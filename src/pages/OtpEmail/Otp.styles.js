@@ -8,7 +8,7 @@ export const Container = styled.div`
   height: 80vh;
   background-color: ${theme.colors.light};
   font-family: Arial, sans-serif;
-``
+
   padding: 0 15px; 
   @media (max-width: 480px) {
     padding: 0 10px;
