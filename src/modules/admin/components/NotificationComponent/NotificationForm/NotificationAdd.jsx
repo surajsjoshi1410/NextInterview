@@ -48,8 +48,13 @@ const NotificationAdd = ({ isOpen, onClose, onSave }) => {
     e.preventDefault();
 
     // Validate the form data before submitting
-    if (formData.trigger === "Schedule" && (!formData.timeZone || !formData.frequency)) {
-      alert("Please select both time zone and frequency when trigger is 'Schedule'.");
+    if (
+      formData.trigger === "Schedule" &&
+      (!formData.timeZone || !formData.frequency)
+    ) {
+      alert(
+        "Please select both time zone and frequency when trigger is 'Schedule'."
+      );
       return;
     }
 
@@ -67,6 +72,7 @@ const NotificationAdd = ({ isOpen, onClose, onSave }) => {
       console.log(response); // Log the response for debugging
 
       onSave(response); // Optionally call onSave to handle response
+      window.location.reload();
       onClose(); // Close the modal after successful submission
     } catch (error) {
       console.error("Error sending notification:", error);
@@ -184,7 +190,9 @@ const NotificationAdd = ({ isOpen, onClose, onSave }) => {
                 type="radio"
                 name="notificationType"
                 value="Both notification and e-mail"
-                checked={formData.notificationType === "Both notification and e-mail"}
+                checked={
+                  formData.notificationType === "Both notification and e-mail"
+                }
                 onChange={handleInputChange}
               />
               <RadioLabel>Both notification and e-mail</RadioLabel>

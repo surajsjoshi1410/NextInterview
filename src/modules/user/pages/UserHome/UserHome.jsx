@@ -17,8 +17,8 @@ export default function UserHome() {
       topics: 3,
       duration: "Less than 2 hrs",
       imgSrc: [
-        "https://via.placeholder.com/50",
-        "https://via.placeholder.com/50",
+        "https://th.bing.com/th/id/OIP.hfNK8S7ywtaPVr8WGTV4-wHaE7?rs=1&pid=ImgDetMain",
+        "https://th.bing.com/th/id/OIP.hfNK8S7ywtaPVr8WGTV4-wHaE7?rs=1&pid=ImgDetMain",
       ],
     },
     {
@@ -27,9 +27,9 @@ export default function UserHome() {
       topics: 4,
       duration: "2 to 3 hrs",
       imgSrc: [
-        "https://via.placeholder.com/50",
-        "https://via.placeholder.com/50",
-        "https://via.placeholder.com/50",
+        "https://th.bing.com/th/id/OIP.hfNK8S7ywtaPVr8WGTV4-wHaE7?rs=1&pid=ImgDetMain",
+        "https://th.bing.com/th/id/OIP.hfNK8S7ywtaPVr8WGTV4-wHaE7?rs=1&pid=ImgDetMain",
+        "https://th.bing.com/th/id/OIP.hfNK8S7ywtaPVr8WGTV4-wHaE7?rs=1&pid=ImgDetMain",
       ],
     },
     {
@@ -38,7 +38,9 @@ export default function UserHome() {
         "Master the art of designing systems that handle growth seamlessly.",
       topics: 5,
       duration: "3+ hrs",
-      imgSrc: ["https://via.placeholder.com/50"],
+      imgSrc: [
+        "https://th.bing.com/th/id/OIP.hfNK8S7ywtaPVr8WGTV4-wHaE7?rs=1&pid=ImgDetMain",
+      ],
     },
   ];
 

@@ -14,6 +14,10 @@ import {
   UserEmail,
   Avatar,
   UserHeaderWrapper,
+  ModalContainer,
+  ModalCard,
+  CloseIcon,
+  Overlay,
 } from "./UserHeader.styles";
 import { PiLineVertical } from "react-icons/pi";
 import { BsBell } from "react-icons/bs";
@@ -32,6 +36,7 @@ import { useUser } from "@clerk/clerk-react";
 import { useClerk } from "@clerk/clerk-react";
 import { getUserByClerkId } from "../../api/userApi";
 import { getNotificationByUser } from "../../api/notificationApi";
+import { IoClose } from "react-icons/io5";
 // **Logout Confirmation Modal Component**
 
 // **Dropdown Component**
@@ -133,6 +138,7 @@ const Dropdown = ({
 
 // **Main Header Component**
 const UserHeader = ({ title }) => {
+  const [issopen, setIssopen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [avatarPosition, setAvatarPosition] = useState({ top: 0, left: 0 });
@@ -147,6 +153,7 @@ const UserHeader = ({ title }) => {
   const [notificationCount, setNotificationCount] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const notify = [];
   // const {userId} = useParams();
   const handleNotifyClick = async () => {
     setLoading(true);
@@ -159,6 +166,20 @@ const UserHeader = ({ title }) => {
     setNotificationCount(notifications.data);
     setLoading(false);
     setIsNotificationOpen(!isNotificationOpen);
+  };
+  const handleNotifyClickk = () => {
+    setIssopen(true);
+  };
+
+  const handleClose = () => {
+    setIssopen(false);
+  };
+
+  // Function to close the modal when clicking outside of it
+  const handleOutsideClickk = (e) => {
+    if (e.target.id === "modal-overlay") {
+      handleClose();
+    }
   };
 
   const handleAvatarClick = (event) => {
@@ -229,6 +250,29 @@ const UserHeader = ({ title }) => {
               <Icon>
                 <BsBell onClick={handleNotifyClick} title="Notifications" />
               </Icon>
+
+              {issopen &&
+                ReactDOM.createPortal(
+                  <Overlay id="modal-overlay" onClick={handleOutsideClickk}>
+                    <ModalContainer>
+                      <ModalCard>
+                        <CloseIcon onClick={handleClose}>
+                          <IoClose />
+                        </CloseIcon>
+                        <h3>Notifications</h3>
+                        {notify.length > 0 ? (
+                          notify.map((notification, index) => (
+                            <p key={index}>{notification}</p>
+                          ))
+                        ) : (
+                          <p>No notifications found</p>
+                        )}
+                      </ModalCard>
+                    </ModalContainer>
+                  </Overlay>,
+                  document.body
+                )}
+
               <Icon>
                 <PiLineVertical title="Vertical Line" />
               </Icon>

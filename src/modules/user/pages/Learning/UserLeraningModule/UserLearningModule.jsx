@@ -12,48 +12,7 @@ import { FaCircleChevronRight } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
 import { getModuleById } from "../../../../../api/addNewModuleApi";
 import { Link } from "react-router-dom";
-// const courseData = {
-//     title: "Diagnosing and Investigating the userMetrics",
-//     topics: 5,
-//     duration: "Less than 2 hours",
-//     lastUpdated: "5 Jun 2024",
-//     description:
-//         "In this course, you’ll learn how to tackle data analytics problems that show up case studies, SQL questions, and different business scenarios. Additionally, we’ll cover theoretical frameworks for visualizing data and communicating your findings to stakeholders in a clear and effective manner. The course for this learning path is an introduction to understanding the various types of data analytics interview questions.",
-//     learningGoals: [
-//         "How to approach data analytics interviews",
-//         "Understand the different types of analytics interview questions",
-//         "Core concepts of causality, significance, and analyzing data",
-//         "Overview of causal inference concepts",
-//         "Investigating metrics for product intuition",
-//     ],
-//     topicsList: [
-//         {
-//             title: "Topic 1 - Introduction to Data Analytics",
-//             subtopics: [
-//                 "Overview of Data Analytics",
-//                 "How Does Data Analytics Get Tested in the Interview?",
-//                 "Types of Data Analytics Interview Questions",
-//             ]
-//         },
-//         {
-//             title: "Topic 2 - Data Analytics Fundamentals: Causal Inference",
-//             subtopics: []
-//         },
-//         {
-//             title: "Topic 3 - Diagnosing and Investigating Metrics",
-//             subtopics: []
-//         },
-//         {
-//             title: "Topic 4 - A/B Testing & Experiment Design",
-//             subtopics: []
-//         },
-//         {
-//             title: "Topic 5 - Business Health Metrics",
-//             subtopics: []
-//         },
-//     ],
-//     imageUrl: "https://th.bing.com/th/id/OIP.GPgOs_sd9nF8fsKDOJe9dQHaEo?rs=1&pid=ImgDetMain",  // Course Image URL
-// };
+
 const UserLearningModule = () => {
   const [expandedTopic, setExpandedTopic] = useState(null);
   const moduleId = useParams().id;

@@ -13,6 +13,8 @@ export const InterviewFavoriteCardWrapper = styled.div`
   .card {
     display: flex;
     flex-direction: column;
+    position: relative;
+    height: 40vh;
   }
 
   .card-image {
@@ -36,6 +38,7 @@ export const InterviewFavoriteCardWrapper = styled.div`
     font-weight: 700;
     color: ${({ theme }) => theme.colors.black};
     margin-bottom: 8px;
+    margin: 0;
   }
 
   .card-subtitle {
@@ -45,6 +48,7 @@ export const InterviewFavoriteCardWrapper = styled.div`
     font-style: normal;
     color: ${({ theme }) => theme.colors.textgray};
     margin-bottom: 16px;
+    margin: 0;
   }
 
   .topic {
@@ -57,6 +61,9 @@ export const InterviewFavoriteCardWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: absolute;
+    bottom: 10px;
+    gap: 10px;
   }
 
   .learn-btn {

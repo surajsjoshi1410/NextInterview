@@ -17,6 +17,71 @@ import {
 } from "./Otp.styles";
 
 const OtpEmail = () => {
+  const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [hiddenOtp, setHiddenOtp] = useState(new Array(6).fill(""));
+  const inputRefs = useRef([]);
+
+  const handleChange = (index, e) => {
+    const value = e.target.value;
+    if (isNaN(value)) return;
+
+    let newOtp = [...otp];
+    newOtp[index] = value.substring(value.length - 1);
+    setOtp(newOtp);
+    setHiddenOtp((prev) => {
+      let newHidden = [...prev];
+      newHidden[index] = value.substring(value.length - 1);
+      return newHidden;
+    });
+
+    setTimeout(() => {
+      setHiddenOtp((prev) => {
+        let newHidden = [...prev];
+        if (newOtp[index] !== "") newHidden[index] = "●";
+        return newHidden;
+      });
+    }, 500);
+
+    if (value && index < 5) {
+      inputRefs.current[index + 1].focus();
+    }
+  };
+
+  const handleKeyDown = (index, e) => {
+    if (e.key === "Backspace") {
+      let newOtp = [...otp];
+      let newHiddenOtp = [...hiddenOtp];
+      newOtp[index] = "";
+      newHiddenOtp[index] = "";
+      setOtp(newOtp);
+      setHiddenOtp(newHiddenOtp);
+      if (index > 0) {
+        inputRefs.current[index - 1].focus();
+      }
+    }
+  };
+
+  const [countdown, setCountdown] = useState(15);
+  const [canResend, setCanResend] = useState(false);
+
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    } else {
+      setCanResend(true);
+    }
+  }, [countdown]);
+
+  const handleResend = () => {
+    if (canResend) {
+      setCountdown(15);
+      setCanResend(false);
+    }
+  };
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,7 +99,7 @@ const OtpEmail = () => {
   const [otpCode, setOtpCode] = useState("");
   const [flow, setFlow] = useState(""); // "SIGN_IN" or "SIGN_UP"
   const [phoneNumber, setPhoneNumber] = useState("");
-  const[emailAddress, setEmailAddress] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
 
   // Extract flow + phoneNumber from react-router location.state
   useEffect(() => {
@@ -97,7 +162,7 @@ const OtpEmail = () => {
 
         // Check if signUp is complete
         if (
-          verifications?.emailAddress?.status === "verified" 
+          verifications?.emailAddress?.status === "verified"
           // && status === "complete"
         ) {
           // Successfully signed up & automatically signed in
@@ -136,32 +201,39 @@ const OtpEmail = () => {
 
           <OTPInputContainer>
             <label htmlFor="otp">Enter OTP</label>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                gap: "10px",
-                width: "100%",
-              }}
-            >
-              {/* Single input for OTP or multiple inputs – up to you */}
-              <OTPInput
-                id="otp"
-                type="text"
-                maxLength="6"
-                placeholder="6-digit OTP"
-                onKeyPress={handleKeyPress}
-                onChange={(e) => setOtpCode(e.target.value)}
-                style={{ width: "100%" }}
-              />
-              <SubmitButton onClick={handleVerifyOTP}>Submit</SubmitButton>
+            <div style={{ display: "flex", gap: "30px" }}>
+              {otp.map((_, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  maxLength="1"
+                  value={hiddenOtp[index]}
+                  onChange={(e) => handleChange(index, e)}
+                  onKeyDown={(e) => handleKeyDown(index, e)}
+                  ref={(el) => (inputRefs.current[index] = el)}
+                  style={{
+                    width: "45px",
+                    height: "45px",
+                    textAlign: "center",
+                    fontSize: "20px",
+                    border: "1px solid #1A1C1E",
+                    borderRadius: "5px",
+                  }}
+                />
+              ))}
             </div>
           </OTPInputContainer>
 
-          <ResendMessage>
-            Resend OTP in <span>12 secs</span>{" "}
-            {/* Implement your countdown or resend flow */}
+          <ResendMessage onClick={handleResend} disabled={!canResend}>
+            {canResend ? (
+              <a className="resendotp">Resend OTP</a>
+            ) : (
+              <>
+                Resend OTP in <span>{countdown} secs</span>
+              </>
+            )}
           </ResendMessage>
+          <SubmitButton onClick={handleVerifyOTP}>Submit</SubmitButton>
         </Section>
       </Container>
     </>

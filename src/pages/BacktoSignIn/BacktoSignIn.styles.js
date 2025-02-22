@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import theme from "../../theme/Theme";
 
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  margin-top: -2rem;
+  max-height: 100vh;
+  height: 70vh;
   background-color: ${theme.colors.light};
   padding: ${theme.spacing(3)};
 
@@ -42,7 +41,7 @@ export const Message = styled.p`
   font-size: 1rem;
   color: ${theme.colors.text};
   text-align: center;
-  margin-bottom: ${theme.spacing(3)};
+  margin-bottom: ${theme.spacing(7)};
   line-height: 1.5;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
@@ -57,7 +56,7 @@ export const Message = styled.p`
 `;
 
 export const Button = styled.button`
-  width: 25%;
+  width: 20%;
   padding: ${theme.spacing(1)};
   font-size: 1rem;
   color: ${theme.colors.text};

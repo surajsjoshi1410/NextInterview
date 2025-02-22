@@ -8,7 +8,6 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 20px;
   background-color: ${({ theme }) => theme.colors.light};
-
 `;
 
 export const NotificationCard = styled.div`
@@ -23,7 +22,7 @@ export const NotificationCard = styled.div`
   position: relative;
   width: 40%;
   margin-left: 2px;
-gap: 10px;
+  gap: 10px;
 
   &:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
@@ -32,11 +31,10 @@ gap: 10px;
   @media (max-width: 768px) {
     width: 90%;
   }
-    @media (max-width: 480px) {
-      width: 90%;
-    }
+  @media (max-width: 480px) {
+    width: 90%;
+  }
 `;
-
 
 export const NotificationHeader = styled.div`
   display: flex;
@@ -47,11 +45,7 @@ export const NotificationHeader = styled.div`
     margin: 0;
     font-size: 14px;
     color: ${({ theme }) => theme.colors.textgray};
-
   }
-
-  
- 
 `;
 
 export const ToggleSwitch = styled.div`
@@ -106,7 +100,6 @@ export const NotificationBody = styled.div`
   }
 `;
 
-
 export const ActionButton = styled.button`
   background: ${({ theme }) => theme.colors.light};
   border: 1px solid ${({ theme }) => theme.colors.textgray};
@@ -136,20 +129,49 @@ export const AddButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 20px;
-//   width: 20%;
+  //   width: 20%;
   float: right;
   display: flex;
-    margin-left: auto; /* Ensures it aligns to the right */
-//   justify-content: flex-end;
-
+  margin-left: auto; /* Ensures it aligns to the right */
+  //   justify-content: flex-end;
 
   &:hover {
     background: ${({ theme }) => theme.colors.secondary};
   }
 `;
 
-
 export const Actions = styled.div`
   display: flex;
   gap: 10px;
+`;
+
+export const NotificationContainer = styled.div`
+  font-family: ${({ theme }) => theme.fonts.body};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  gap: 20px;
+  background-color: ${({ theme }) => theme.colors.light};
+
+  .bellicon {
+    height: 200px;
+    width: 200px;
+  }
+
+  .nonotifications {
+    font-size: 20px;
+    color: ${({ theme }) => theme.colors.textgray};
+    margin: 0;
+  }
+`;
+
+export const CreatedNotification = styled.div`
+  margin-left: 40px;
+
+  .createButton {
+    display: flex;
+    justify-content: flex-end;
+  }
 `;
