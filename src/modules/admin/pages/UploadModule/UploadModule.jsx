@@ -319,7 +319,7 @@ const UploadModule = () => {
                 <TextArea
                   id="description"
                   rows={2}
-                  maxLength={50}
+                  maxLength={5000}
                   placeholder="Enter a short description..."
                   value={description}
                   onChange={handleDescriptionChange}

@@ -5,33 +5,29 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
- background-color: ${theme.colors.light};
+  max-height: 100vh;
+  background-color: ${theme.colors.light};
   padding: 1rem;
+  height: 70vh;
 
- @media (max-width: 768px) {
+  @media (max-width: 768px) {
     padding: 0.5rem;
+  }
 
- }
-
- @media (max-width: 480px) {
+  @media (max-width: 480px) {
     padding: 0.5rem;
- }
+  }
 `;
 
-
-
-
-
 export const FormContainer = styled.div`
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
   max-width: 500px;
   width: 100%;
   padding: 2rem;
   border-radius: 8px;
-  background-color:${theme.colors.light};
+  background-color: ${theme.colors.light};
   // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
   @media (max-width: 768px) {
@@ -58,6 +54,7 @@ export const Title = styled.h1`
 export const InputGroup = styled.div`
   margin-bottom: 1.2rem;
   margin-right: 20px;
+  width: 100%;
 
   @media (max-width: 480px) {
     margin-bottom: 1rem;
@@ -83,6 +80,8 @@ export const InputField = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
+  box-sizing: border-box;
+
   &:focus {
     border-color: ${theme.colors.textgray};
   }
@@ -99,14 +98,15 @@ export const SubmitButton = styled.button`
   font-size: 1rem;
   font-weight: bold;
   color: #fff;
-  background-color: ${theme.colors.primary};
+  background-color: ${theme.colors.bluetext}45;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 10px;
 
   &:hover {
-    background-color: ${theme.colors.success};
+    background-color: ${theme.colors.bluetext};
   }
 
   @media (max-width: 480px) {
@@ -126,23 +126,23 @@ export const SkipButton = styled.button`
   padding: 0.75rem;
   font-size: 1rem;
   font-weight: bold;
-color:${theme.colors.text};
+  color: ${theme.colors.text};
   background-color: transparent;
   border: 1px solid ${theme.colors.textgray};
   margin-top: 1rem;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  `;
+`;
 
-  export const BackIcon = styled.div`
+export const BackIcon = styled.div`
   /* Let the icon be placed at the top of the form */
-  align-self: flex-start;  
-justify-content:center;
+  align-self: flex-start;
+  justify-content: center;
   font-size: 16px;
   color: ${theme.colors.text};
   cursor: pointer;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 
   @media (max-width: 768px) {
     font-size: 24px;

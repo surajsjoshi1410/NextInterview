@@ -10,8 +10,6 @@ import { getModule } from "../../../../api/addNewModuleApi";
 const LearningModules = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  //rajatgit
-
   return (
     <div style={{ display: "flex" }}>
       {/* Sidebar */}

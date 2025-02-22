@@ -1,12 +1,13 @@
-import styled from 'styled-components';
-import theme from '../../theme/Theme';
+import styled from "styled-components";
+import theme from "../../theme/Theme";
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh; 
+  max-height: 100vh;
+  height: 80vh;
   background-color: ${theme.colors.light};
   padding: ${theme.spacing(3)};
   box-sizing: border-box; /* Ensure padding is included in the height calculation */
@@ -18,9 +19,8 @@ export const Container = styled.div`
   @media (max-width: ${theme.breakpoints.mobile}) {
     padding: ${theme.spacing(3)};
     margin-bottom: 5rem;
-    }
+  }
 `;
-
 
 export const FormSection = styled.div`
   display: flex;
@@ -43,18 +43,13 @@ export const FormSection = styled.div`
 
 export const BackIcon = styled.div`
   align-self: flex-start;
-  font-size: 1.5rem; /* Use rem for consistency */
+  font-size: 16px; /* Use rem for consistency */
   color: ${theme.colors.text};
   cursor: pointer;
-  margin-bottom: ${theme.spacing(2)};
-  padding: ${theme.spacing(1)};
+  margin-bottom: ${theme.spacing(1)};
+  padding: 8px;
   border: 0.1rem solid ${theme.colors.textgray}; /* 1px converted to rem */
   border-radius: 0.25rem; /* 4px converted to rem */
-
-  &:hover {
-    background-color: ${theme.colors.secondary};
-    color: ${theme.colors.light};
-  }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     font-size: 1.2rem;
@@ -85,13 +80,13 @@ export const Subtitle = styled.p`
 `;
 
 export const InputContainer = styled.div`
-  margin-bottom: ${theme.spacing(3)};
+  margin-bottom: ${theme.spacing(8)};
 `;
 
 export const Label = styled.label`
   font-size: 1rem;
   color: ${theme.colors.text};
-  margin-bottom: ${theme.spacing(0.5)};
+  margin-bottom: ${theme.spacing(1)};
   display: block;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
@@ -123,7 +118,7 @@ export const Button = styled.button`
   padding: ${theme.spacing(1.5)};
   font-size: 1rem;
   color: ${theme.colors.light};
-  background-color: ${theme.colors.primary};
+  background-color: ${theme.colors.primary}45;
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;

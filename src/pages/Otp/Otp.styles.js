@@ -22,6 +22,7 @@ export const BackIcon = styled.div`
 
   display: flex;
   justify-content: flex-start;
+  align-items: flex-start;
 
   @media (max-width: 768px) {
     font-size: 14px;
@@ -33,8 +34,8 @@ export const BackIcon = styled.div`
 `;
 
 export const OTPMessage = styled.p`
-  //   margin-top: 60px;
-  font-size: 24px;
+  font-size: 26px;
+  width: 100%;
   font-weight: bold;
   color: ${theme.colors.text};
   text-align: left;
@@ -52,6 +53,7 @@ export const OTPInputContainer = styled.div`
   flex-direction: column;
   gap: 10px;
   margin: 20px 0;
+  width: 100%;
   justify-content: center; /* Center inputs for better layout */
 
   @media (max-width: 768px) {
@@ -68,8 +70,7 @@ export const OTPInputContainer = styled.div`
 `;
 
 export const OTPInput = styled.input`
-  width: 50px; /* Increased width for better accessibility */
-  height: 50px;
+  height: 30px;
   text-align: center;
   font-size: 18px;
   border: 1px solid ${theme.colors.textgray};
@@ -95,11 +96,10 @@ export const OTPInput = styled.input`
   }
 `;
 
-export const ResendMessage = styled.p`
-  font-size: 16x;
+export const ResendMessage = styled.div`
+  font-size: 16px;
   padding: 10px 0 20px 0;
   color: ${theme.colors.black};
-  text-align: left;
 
   span {
     color: #007bff;
@@ -115,7 +115,7 @@ export const ResendMessage = styled.p`
   resendotp:hover {
     text-decoration: underline;
     color: #007bff;
-    cursor: poiner;
+    cursor: pointer;
   }
 
   @media (max-width: 768px) {

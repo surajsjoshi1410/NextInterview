@@ -85,7 +85,7 @@ const Dropdown = ({
     borderRadius: "8px",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
     zIndex: 1000,
-    width: "200px",
+    width: "180px",
     padding: "10px 0",
     cursor: "pointer",
   };
@@ -95,11 +95,9 @@ const Dropdown = ({
     fontWeight: "500",
     color: theme.colors.textgray,
     listStyle: "none",
+    padding: "0 20px",
   };
   const listLIStyles = {
-    // border: "1px solid #ddd",
-    // borderRadius: "8px",
-    // boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
     marginBottom: "10px",
   };
 
@@ -169,17 +167,6 @@ const Header = ({ title }) => {
             <Title>{title}</Title> {/* Dynamic title with fallback */}
           </div>
           <HeaderRight>
-            <IconWrapper>
-              <Icon>
-                <img src={noti} alt="notifications" />
-              </Icon>
-              <Icon>
-                <PiLineVertical title="Vertical Line" />
-              </Icon>
-              <Icon>
-                <img src={settings} alt="settings" />
-              </Icon>
-            </IconWrapper>
             <UserProfile>
               <UserDetails>
                 <UserName>{userName}</UserName>

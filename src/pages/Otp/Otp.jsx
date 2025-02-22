@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FaArrowLeft } from "react-icons/fa";
+import { RxArrowLeft } from "react-icons/rx";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSignIn, useSignUp } from "@clerk/clerk-react";
 import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
@@ -129,8 +129,9 @@ const Otp = () => {
 
   // Verify OTP
   const handleVerifyOTP = async () => {
+    const otpCode = otp.join("");
     if (otpCode.trim().length === 0) {
-      alert("Please enter the OTP code you received.");
+      alert("Please enter the OTP code you received");
       return;
     }
 
@@ -142,12 +143,15 @@ const Otp = () => {
           strategy: "phone_code",
           code: otpCode,
         });
-
+        console.log("result", result);
+        localStorage.setItem("session", result.createdSessionId);
         if (result.status === "complete") {
           // Successfully signed in
           await setSignInActive({ session: result.createdSessionId });
           alert("You have successfully signed in!");
-          navigate("/validation");
+          navigate("/validation", {state: {
+            sessionId: result.createdSessionId,
+          },});
         } else {
           alert("Incorrect OTP. Please try again.");
         }
@@ -165,7 +169,7 @@ const Otp = () => {
         if (verifications?.phoneNumber?.status === "verified") {
           // Successfully signed up & automatically signed in
           await setSignUpActive({ session: createdSessionId });
-          alert("You Phone Number hasbeen successfully verified!");
+          alert("You Phone Number has been successfully verified!");
           navigate("/otpEmail", {
             state: {
               flow: "SIGN_UP",
@@ -198,14 +202,14 @@ const Otp = () => {
               padding: "8px",
             }}
           >
-            <FaArrowLeft className="back-icon" />
+            <RxArrowLeft className="back-icon" />
           </BackIcon>
 
-          <OTPMessage>OTP has been sent to {phoneNumber}.</OTPMessage>
+          <OTPMessage>OTP has been sent to {phoneNumber}</OTPMessage>
 
           <OTPInputContainer>
             <label htmlFor="otp">Enter OTP</label>
-            <div style={{ display: "flex", gap: "30px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               {otp.map((_, index) => (
                 <input
                   key={index}

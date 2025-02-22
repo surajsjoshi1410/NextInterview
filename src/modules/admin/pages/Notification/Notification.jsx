@@ -8,18 +8,24 @@ import {
   ActionButton,
   ToggleSwitch,
   AddButton,
+  NotificationContainer,
 } from "../Notification/Notification.styles";
 import { MdEdit, MdDelete } from "react-icons/md";
 import NotificationAdd from "../../components/NotificationComponent/NotificationForm/NotificationAdd";
 import DeleteModule from "../../components/DeleteModule/DeleteModule";
-import { deleteNotification, getAllNotifications } from "../../../../api/notificationApi"; // Import the API functions
+import bellicon from "../../../../assets/BellIcon.svg";
+import {
+  deleteNotification,
+  getAllNotifications,
+} from "../../../../api/notificationApi"; // Import the API functions
 
 const Notifications = () => {
   const [selectedNotificationId, setSelectedNotificationId] = useState(null);
   const [notifications, setNotifications] = useState([]); // Already initialized to an empty array
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [selectedNotificationIndex, setSelectedNotificationIndex] = useState(null);
+  const [selectedNotificationIndex, setSelectedNotificationIndex] =
+    useState(null);
   const [editData, setEditData] = useState(null);
 
   // Fetch notifications when the component mounts
@@ -41,7 +47,9 @@ const Notifications = () => {
       // Update existing notification
       setNotifications((prev) =>
         prev.map((notification, index) =>
-          index === selectedNotificationIndex ? { ...formData, createdOn: notification.createdOn } : notification
+          index === selectedNotificationIndex
+            ? { ...formData, createdOn: notification.createdOn }
+            : notification
         )
       );
     } else {
@@ -64,7 +72,9 @@ const Notifications = () => {
     if (selectedNotificationId !== null) {
       try {
         await deleteNotification(selectedNotificationId);
-        setNotifications((prev) => prev.filter((_, i) => i !== selectedNotificationIndex));
+        setNotifications((prev) =>
+          prev.filter((_, i) => i !== selectedNotificationIndex)
+        );
         setSelectedNotificationIndex(null);
         setSelectedNotificationId(null); // Reset ID after deletion
         setIsDeleteModalOpen(false);
@@ -77,81 +87,108 @@ const Notifications = () => {
   const handleToggleSwitch = (index) => {
     setNotifications((prevNotifications) =>
       prevNotifications.map((notification, i) =>
-        i === index ? { ...notification, isActive: !notification.isActive } : notification
+        i === index
+          ? { ...notification, isActive: !notification.isActive }
+          : notification
       )
     );
   };
 
   return (
     <Container>
-      <AddButton
-        onClick={() => {
-          setEditData(null); // Reset edit data
-          setIsModalOpen(true);
-        }}
-      >
-        Create new notification
-      </AddButton>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "40px",
-        }}
-      >
+      <>
+        <AddButton
+          onClick={() => {
+            setEditData(null); // Reset edit data
+            setIsModalOpen(true);
+          }}
+        >
+          Create new notification
+        </AddButton>
+
         {notifications && notifications.length > 0 ? (
-          notifications.map((notification, index) => (
-            <NotificationCard key={index}>
-              <NotificationHeader>
-                <p>
-                  <strong>Created On</strong> – {new Date(notification.created_on).toLocaleDateString()}
-                </p>
-                <ToggleSwitch
-                  checked={notification.isActive} // controlled state
-                  onChange={() => handleToggleSwitch(index)} // toggle on/off
-                />
-              </NotificationHeader>
-              <NotificationBody>
-                <h3>{notification.heading}</h3>
-                <p style={{ color: "black" }}>{notification.subText}</p>
-                <p className="highlight">
-                  <strong>Trigger</strong> – {notification.trigger}
-                </p>
-                {notification.trigger === "Schedule" && (
-                  <>
-                    <p>
-                      <strong>Time Zone</strong> – {notification.timeZone}
-                    </p>
-                    <p>
-                      <strong>Time</strong> – {notification.time}
-                    </p>
-                    <p>
-                      <strong>Frequency</strong> – {notification.frequency}
-                    </p>
-                  </>
-                )}
-                <p className="small-text">{notification.notificationType}</p>
-              </NotificationBody>
-              <Actions>
-                <ActionButton onClick={() => handleEditNotification(index)}>
-                  <MdEdit />
-                </ActionButton>
-                <ActionButton
-                  onClick={() => {
-                    setSelectedNotificationId(notification._id); // Set the notification ID for deletion
-                    setSelectedNotificationIndex(index);
-                    setIsDeleteModalOpen(true);
-                  }}
-                >
-                  <MdDelete />
-                </ActionButton>
-              </Actions>
-            </NotificationCard>
-          ))
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "40px",
+            }}
+          >
+            {notifications.map((notification, index) => (
+              <NotificationCard key={index}>
+                <NotificationHeader>
+                  <p>
+                    <strong>Created On</strong> –   
+                    {new Date(notification.created_on).toLocaleDateString()}
+                  </p>
+                  <ToggleSwitch
+                    checked={notification.isActive} // controlled state
+                    onChange={() => handleToggleSwitch(index)} // toggle on/off
+                  />
+                </NotificationHeader>
+                <NotificationBody>
+                  <h3>{notification.heading}</h3>
+                  <p style={{ color: "black" }}>{notification.subText}</p>
+                  <p className="highlight">
+                    <strong>Trigger</strong> – {notification.trigger}
+                  </p>
+                  {notification.trigger === "Schedule" && (
+                    <>
+                      <p>
+                        <strong>Time Zone</strong> – {notification.timeZone}
+                      </p>
+                      <p>
+                        <strong>Time</strong> – {notification.time}
+                      </p>
+                      <p>
+                        <strong>Frequency</strong> – {notification.frequency}
+                      </p>
+                    </>
+                  )}
+                  <p className="small-text">{notification.notificationType}</p>
+                </NotificationBody>
+                <Actions>
+                  <ActionButton onClick={() => handleEditNotification(index)}>
+                    <MdEdit />
+                  </ActionButton>
+                  <ActionButton
+                    onClick={() => {
+                      setSelectedNotificationId(notification._id); // Set the notification ID for deletion
+                      setSelectedNotificationIndex(index);
+                      setIsDeleteModalOpen(true);
+                    }}
+                  >
+                    <MdDelete />
+                  </ActionButton>
+                </Actions>
+              </NotificationCard>
+            ))}
+          </div>
         ) : (
-          <p>No notifications found</p>
+          <>
+            <NotificationContainer>
+              <img className="bellicon" src={bellicon} alt="Bell Icon" />
+              <p className="nonotifications">No notifications created yet</p>
+              {/* <AddButton
+                onClick={() => {
+                  setEditData(null); // Reset edit data
+                  setIsModalOpen(true);
+                }}
+              >
+                Create new notification
+              </AddButton> */}
+            </NotificationContainer>
+          </>
         )}
-      </div>
+
+        {isDeleteModalOpen && (
+          <DeleteModule
+            onDelete={handleDeleteNotification}
+            onCancel={() => setIsDeleteModalOpen(false)}
+          />
+        )}
+      </>
+
       <NotificationAdd
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -161,13 +198,6 @@ const Notifications = () => {
         }}
         initialValues={editData} // Pass initial values for editing
       />
-
-      {isDeleteModalOpen && (
-        <DeleteModule
-          onDelete={handleDeleteNotification}
-          onCancel={() => setIsDeleteModalOpen(false)}
-        />
-      )}
     </Container>
   );
 };

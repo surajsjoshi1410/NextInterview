@@ -33,7 +33,8 @@ export const SideBarwrapper = styled.div`
   }
 
   .menu-link {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
     align-items: center;
     padding: 0 10px 0 10px;
     color: ${(props) => props.theme.colors.sidebarTextColor || "grey"};
