@@ -34,7 +34,7 @@ export default function ValidationPage() {
             
             navigate("/admin");
           }
-          console.log(data.data.user.user_role ,"mslksk");
+          // console.log(data.data.user.user_role ,"mslksk");
 
         } catch (error) {
           console.error("Error fetching user data:", error);
