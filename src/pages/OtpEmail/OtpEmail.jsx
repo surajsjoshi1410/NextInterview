@@ -130,6 +130,7 @@ const OtpEmail = () => {
 
   // Verify OTP
   const handleVerifyOTP = async () => {
+    const otpCode = otp.join("");
     if (otpCode.trim().length === 0) {
       alert("Please enter the OTP code you received.");
       return;
