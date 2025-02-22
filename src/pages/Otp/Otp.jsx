@@ -143,12 +143,15 @@ const Otp = () => {
           strategy: "phone_code",
           code: otpCode,
         });
-
+        console.log("result", result);
+        localStorage.setItem("session", result.createdSessionId);
         if (result.status === "complete") {
           // Successfully signed in
           await setSignInActive({ session: result.createdSessionId });
           alert("You have successfully signed in!");
-          navigate("/validation");
+          navigate("/validation", {state: {
+            sessionId: result.createdSessionId,
+          },});
         } else {
           alert("Incorrect OTP. Please try again.");
         }
