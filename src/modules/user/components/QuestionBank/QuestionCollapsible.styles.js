@@ -180,3 +180,5 @@ export const Companies1 = styled.span`
   padding: 4px;
   line-height: 20px;
 `;
+
+
