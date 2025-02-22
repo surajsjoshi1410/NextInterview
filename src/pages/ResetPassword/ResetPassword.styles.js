@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import theme from '../../theme/Theme';
+import styled from "styled-components";
+import theme from "../../theme/Theme";
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 90vh;
   margin-top: -2rem;
   background-color: ${theme.colors.light};
   padding: ${theme.spacing(3)};
@@ -101,11 +101,12 @@ export const Button = styled.button`
   padding: ${theme.spacing(1.5)};
   font-size: 1rem;
   color: ${theme.colors.light};
-  background-color: ${theme.colors.primary};
+  background-color: ${theme.colors.primary}45;
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-top: 20px;
 
   &:hover {
     background-color: ${theme.colors.success};
@@ -123,4 +124,3 @@ export const Error = styled.p`
   font-size: 0.875rem;
   margin-top: ${theme.spacing(0.5)};
 `;
-
