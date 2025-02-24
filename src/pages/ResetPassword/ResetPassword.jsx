@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoEyeOffOutline } from "react-icons/io5";
 import { PiEyeLight } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +19,7 @@ import {
 } from "./ResetPassword.styles";
 import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
 import { useSignIn, SignedOut } from "@clerk/clerk-react";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -163,11 +163,15 @@ const ResetPassword = () => {
                     cursor: "pointer",
                   }}
                 >
-                  {showNewPassword ? <IoEyeOffOutline /> : <PiEyeLight />}
+                  {showNewPassword ? (
+                    <IoEyeOffOutline size={18} />
+                  ) : (
+                    <PiEyeLight size={18} />
+                  )}
                 </button>
                 {password && (
                   <ValidationIcon>
-                    <IoEyeOffOutline color="green" />
+                    <AiOutlineCheckCircle color="green" />
                   </ValidationIcon>
                 )}
               </div>
@@ -198,14 +202,18 @@ const ResetPassword = () => {
                     cursor: "pointer",
                   }}
                 >
-                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                  {showConfirmPassword ? (
+                    <IoEyeOffOutline size={18} />
+                  ) : (
+                    <PiEyeLight size={18} />
+                  )}
                 </button>
                 {confirmPassword && (
                   <ValidationIcon>
                     {passwordsMatch ? (
-                      <IoEyeOffOutline color="green" />
+                      <AiOutlineCheckCircle color="green" />
                     ) : (
-                      <PiEyeLight color="red" />
+                      <AiOutlineCloseCircle color="red" />
                     )}
                   </ValidationIcon>
                 )}

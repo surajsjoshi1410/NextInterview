@@ -136,11 +136,11 @@ const CompaniesPlan = () => {
 
       <Container>
         <BackIcon onClick={handleGoBack}>
-          <RxArrowLeft />
+          <RxArrowLeft className="BackIcon" />
         </BackIcon>
 
         <FormSection>
-          <Title>Tell us about your interview schedule</Title>
+          <Title>Tell us about your Interview Schedule</Title>
 
           <Form>
             <FormField>
@@ -157,7 +157,7 @@ const CompaniesPlan = () => {
             </FormField>
 
             <FormField>
-              <Label>Date of interview (Optional)</Label>
+              <Label>Date of Interview (Optional)</Label>
               <Input
                 type="date"
                 value={interviewDate}

@@ -4,7 +4,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  max-height: 100vh;
+  height: 80vh;
+
   background-color: ${theme.colors.light};
 
   @media (max-width: 768px) {
@@ -21,9 +23,12 @@ export const SkipButton = styled.button`
   margin-top: 30px;
   width: 100%;
   height: 50px;
-  background-color: ${(props) => (props.disabled ? `${theme.colors.primary}`:`${theme.colors.light}` )} !important;
+  background-color: ${(props) =>
+    props.disabled
+      ? `${theme.colors.primary}`
+      : `${theme.colors.light}`} !important;
   // background-color:${theme.colors.light}!important;
-  color: ${theme.colors.black}; 
+  color: ${theme.colors.black};
   border: 1px solid ${theme.colors.black} !important;
   font-size: 16px;
   font-weight: bold;
@@ -45,16 +50,14 @@ export const SkipButton = styled.button`
   @media (max-width: 480px) {
     height: 40px;
     font-size: 12px;
-  }`
-  ;
+  }
+`;
 
 export const BackIcon = styled.div`
-  //  position: absolute;
-  //   top: 190px; /* Adjust to place it near the top on mobile */
-  //   left: 635px;
-
+  display: flex;
+  justify-content: center;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 16px;
   color: ${theme.colors.text};
 
   @media (max-width: 768px) {
@@ -94,8 +97,7 @@ export const Option = styled.div`
   border-radius: 8px;
   cursor: pointer;
   background-color: ${(props) => (props.$isSelected ? "#e8f5e9" : "#ffffff")};
-  //   transition: all 0.3s ease;
-
+  box-sizing: border-box;
   &:hover {
     border-color: ${theme.colors.primary};
   }
@@ -164,7 +166,7 @@ export const NextButton = styled.button`
   margin-top: 30px;
   width: 100%;
   height: 50px;
-  background-color: ${(props) => (props.disabled ? "#68c184" : "#28a745")};
+  background-color: ${(props) => (props.disabled ? "#2290ac" : "#2290ac")}45;
   color: ${theme.colors.light};
   font-size: 16px;
   font-weight: bold;
@@ -174,7 +176,7 @@ export const NextButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${(props) => (props.disabled ? "#f8f9fa" : "#28a745")};
+    background-color: ${(props) => (props.disabled ? "#cccccc" : "#2290ac")};
   }
 
   @media (max-width: 768px) {

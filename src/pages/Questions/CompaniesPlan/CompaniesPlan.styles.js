@@ -9,17 +9,26 @@ export const Container = styled.div`
   position: relative;
   max-height: 100vh; /* Full height to center the form */
   height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const BackIcon = styled.div`
-  cursor: pointer;
-  font-size: 16px;
-  border: 1px solid grey;
-  padding: 8px;
-  border-radius: 10%;
-  width: 20px;
+  width: 470px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
-  color: #000;
+  .BackIcon {
+    cursor: pointer;
+    font-size: 16px;
+    border: 1px solid grey;
+    padding: 8px;
+    border-radius: 10%;
+    width: 20px;
+    color: #000;
+  }
 
   @media (max-width: 768px) {
     top: 10px;
@@ -39,7 +48,7 @@ export const Title = styled.h2`
 export const FormSection = styled.section`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   height: 80vh; /* To center form */
 `;
 
@@ -120,7 +129,7 @@ export const Icon = styled.div`
 
 export const Button = styled.button`
   padding: 10px;
-  background-color: ${(props) => (props.secondary ? "#f5f5f5" : "#008cba")};
+  background-color: ${(props) => (props.secondary ? "#2290ac" : "#2290ac")}45;
   color: ${(props) => (props.secondary ? "#333" : "#fff")};
   border: none;
   border-radius: 5px;
@@ -129,7 +138,7 @@ export const Button = styled.button`
   font-size: 1rem;
 
   &:hover {
-    background-color: ${(props) => (props.secondary ? "#e0e0e0" : "#005f73")};
+    background-color: ${(props) => (props.secondary ? "#cccccc" : "#2290ac")};
   }
 `;
 

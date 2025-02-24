@@ -127,7 +127,7 @@ const PersonalInfo = () => {
               <InputField
                 type="text"
                 name="userName"
-                placeholder="Enter your name"
+                placeholder="Enter your full name"
                 value={formValues.userName}
                 onChange={handleInputChange}
               />
@@ -144,9 +144,9 @@ const PersonalInfo = () => {
                 value={formValues.linkedIn}
                 onChange={handleInputChange}
               />
-              {errors.linkedIn && (
+              {/* {errors.linkedIn && (
                 <ErrorMessage>{errors.linkedIn}</ErrorMessage>
-              )}
+              )} */}
             </InputGroup>
             <SubmitButton type="submit">Next</SubmitButton>
           </form>

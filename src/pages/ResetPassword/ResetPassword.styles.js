@@ -35,8 +35,10 @@ export const FormSection = styled.form`
 `;
 
 export const BackIcon = styled.div`
+  display: flex;
+  justify-content: center;
   align-self: flex-start;
-  font-size: 1.5rem;
+  font-size: 16px;
   color: ${theme.colors.text};
   cursor: pointer;
   margin-bottom: ${theme.spacing(2)};
@@ -51,15 +53,15 @@ export const BackIcon = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 1.5rem;
+  font-size: 23px;
   font-weight: bold;
   margin-bottom: ${theme.spacing(1)};
   color: ${theme.colors.text};
 `;
 
 export const Subtitle = styled.p`
-  font-size: 1rem;
-  color: ${theme.colors.text};
+  font-size: 14px;
+  color: ${theme.colors.sidebarTextColor}60;
   margin-bottom: ${theme.spacing(4)};
 `;
 
@@ -69,17 +71,18 @@ export const InputContainer = styled.div`
 `;
 
 export const Label = styled.label`
-  font-size: 1rem;
+  font-size: 14px;
   color: ${theme.colors.text};
   margin-bottom: ${theme.spacing(0.5)};
   display: block;
 `;
 
 export const Input = styled.input`
-  width: 95%;
-  padding: ${theme.spacing(1)};
-  font-size: 1rem;
-  border: 0.1rem solid ${theme.colors.textgray};
+  width: 100%;
+  box-sizing: border-box;
+  padding: ${theme.spacing(1.25)};
+  font-size: 14px;
+  border: 0.1rem solid ${theme.colors.bluetext}45;
   border-radius: 0.25rem;
   outline: none;
   transition: border 0.3s;
@@ -101,7 +104,7 @@ export const Button = styled.button`
   padding: ${theme.spacing(1.5)};
   font-size: 1rem;
   color: ${theme.colors.light};
-  background-color: ${theme.colors.primary}45;
+  background-color: ${theme.colors.bluetext}45;
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
@@ -109,7 +112,7 @@ export const Button = styled.button`
   margin-top: 20px;
 
   &:hover {
-    background-color: ${theme.colors.success};
+    background-color: ${theme.colors.bluetext};
   }
 `;
 

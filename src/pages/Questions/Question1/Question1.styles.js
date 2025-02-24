@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import theme from  "../../../theme/Theme";
-
+import theme from "../../../theme/Theme";
 
 export const Container = styled.div`
   display: flex;
@@ -8,7 +7,8 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-  min-height: 80vh;
+  max-height: 100vh;
+  height: 70vh;
   background-color: ${theme.colors.light};
 
   @media (max-width: 768px) {
@@ -17,7 +17,8 @@ export const Container = styled.div`
 `;
 
 export const BackIcon = styled.div`
-
+display: flex;
+justify-content: center;
   cursor: pointer;
   font-size: 16px;
   @media (max-width: 768px) {   
@@ -29,18 +30,17 @@ export const BackIcon = styled.div`
     font-size: 12px;
 `;
 
-
 export const Title = styled.h1`
   font-size: 24px;
-  color:${theme.colors.text};
+  color: ${theme.colors.text};
 
-@media (max-width: 768px) {
-  font-size: 20px;
-}
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 
-@media (max-width: 480px) {
-  font-size: 16px;
-}
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
   @media (max-width: 320px) {
     font-size: 14px;
   }
@@ -79,7 +79,7 @@ export const CirclePointer = styled.div`
   width: 20px;
   height: 20px;
   margin-right: 20px;
-  border: 2px solid ${(props) => (props.$isSelected ? "#68c184" : "#f8f9fa")};
+  border: 2px solid ${(props) => (props.$isSelected ? "#00b894" : "#cccccc")};
   border-radius: 50%;
   background-color: #ffffff;
   display: flex;
@@ -91,7 +91,8 @@ export const CirclePointer = styled.div`
     content: "";
     width: ${(props) => (props.$isSelected ? "10px" : "0")};
     height: ${(props) => (props.$isSelected ? "10px" : "0")};
-    background-color: ${(props) => (props.$isSelected ? "#68c184" : "transparent")};
+    background-color: ${(props) =>
+      props.$isSelected ? "#68c184" : "transparent"};
     border-radius: 50%;
     transition: all 0.3s ease;
   }
@@ -126,17 +127,17 @@ export const NextButton = styled.button`
   margin-top: 30px;
   width: 100%;
   height: 50px;
-  background-color: ${(props) => (props.disabled ? "#28a745" : "#68c184")};
+  background-color: ${(props) => (props.disabled ? "#2290ac" : "##2290ac")}45;
   color: #ffffff;
   font-size: 16px;
   font-weight: bold;
-  border: none!important;
+  border: none !important;
   border-radius: 8px;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${(props) => (props.disabled ? "#cccccc" : "#28a745")};
+    background-color: ${(props) => (props.disabled ? "#cccccc" : "#2290AC")};
   }
 
   @media (max-width: 768px) {
@@ -155,9 +156,12 @@ export const SkipButton = styled.button`
   margin-top: 30px;
   width: 100%;
   height: 50px;
-  background-color: ${(props) => (props.disabled ? `${theme.colors.primary}`:`${theme.colors.light}` )} !important;
+  background-color: ${(props) =>
+    props.disabled
+      ? `${theme.colors.primary}`
+      : `${theme.colors.light}`} !important;
   // background-color:${theme.colors.light}!important;
-  color: ${theme.colors.black}; 
+  color: ${theme.colors.black};
   border: 1px solid ${theme.colors.black} !important;
   font-size: 16px;
   font-weight: bold;
@@ -179,8 +183,8 @@ export const SkipButton = styled.button`
   @media (max-width: 480px) {
     height: 40px;
     font-size: 12px;
-  }`
-  ;
+  }
+`;
 export const Section = styled.div`
   display: flex;
   flex-direction: column;
@@ -189,11 +193,10 @@ export const Section = styled.div`
   height: 100vh;
   background-color: ${theme.colors.light};
   font-family: Arial, sans-serif;
-  padding: 0 15px; 
+  padding: 0 15px;
   @media (max-width: 480px) {
     padding: 0 10px;
     justify-content: unset;
-    
   }
   /* Added padding for better responsiveness */
-`;      
+`;

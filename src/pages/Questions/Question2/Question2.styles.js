@@ -6,8 +6,9 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-height: 100vh;
-  background-color:${theme.colors.light};
+  max-height: 100vh;
+  height: 70vh;
+  background-color: ${theme.colors.light};
 
   @media (max-width: 768px) {
     padding: 10px;
@@ -21,9 +22,12 @@ export const SkipButton = styled.button`
   margin-top: 30px;
   width: 100%;
   height: 50px;
-  background-color: ${(props) => (props.disabled ? `${theme.colors.primary}`:`${theme.colors.light}` )} !important;
+  background-color: ${(props) =>
+    props.disabled
+      ? `${theme.colors.primary}`
+      : `${theme.colors.light}`} !important;
   // background-color:${theme.colors.light}!important;
-  color: ${theme.colors.black}; 
+  color: ${theme.colors.black};
   border: 1px solid ${theme.colors.black} !important;
   font-size: 16px;
   font-weight: bold;
@@ -45,8 +49,8 @@ export const SkipButton = styled.button`
   @media (max-width: 480px) {
     height: 40px;
     font-size: 12px;
-  }`
-  ;
+  }
+`;
 
 export const Header = styled.header`
   position: absolute;
@@ -60,7 +64,7 @@ export const Header = styled.header`
   @media (max-width: 768px) {
     padding: 1rem;
   }
-    @media (max-width: 480px) {
+  @media (max-width: 480px) {
     padding: 1rem;
   }
 `;
@@ -82,32 +86,31 @@ export const Logo = styled.div`
 `;
 
 export const BackIcon = styled.div`
-
   cursor: pointer;
   font-size: 16px;
-//  color: ${theme.colors.text};
+  display: flex;
+  justify-content: center;
 
   @media (max-width: 768px) {
     font-size: 14px;
   }
 
-  @media (max-width: 480px) {   
+  @media (max-width: 480px) {
     font-size: 12px;
   }
 `;
-
 
 export const Title = styled.h1`
   font-size: 24px;
   font-weight: bold;
   oolor: ${theme.colors.text};
-//   margin: 80px 0 20px 0;
-//   margin-right: 10px;
+  //   margin: 80px 0 20px 0;
+  //   margin-right: 10px;
 
   @media (max-width: 768px) {
     font-size: 20px;
     margin: 60px 0 15px 0;
-//     margin-right: 130px !important;
+    //     margin-right: 130px !important;
   }
 
   @media (max-width: 480px) {
@@ -161,7 +164,8 @@ export const CirclePointer = styled.div`
     content: "";
     width: ${(props) => (props.$isSelected ? "10px" : "0")};
     height: ${(props) => (props.$isSelected ? "10px" : "0")};
-    background-color: ${(props) => (props.$isSelected ? "#00b894" : "transparent")};
+    background-color: ${(props) =>
+      props.$isSelected ? "#00b894" : "transparent"};
     border-radius: 50%;
     transition: all 0.3s ease;
   }
@@ -194,10 +198,10 @@ export const OptionLabel = styled.span`
 
 export const NextButton = styled.button`
   margin-top: 30px;
-//   width: 400px;
+  //   width: 400px;
   height: 50px;
-width: 100%;
-  background-color: ${(props) => (props.disabled ? "#68c184" : "#28a745")};
+  width: 100%;
+  background-color: ${(props) => (props.disabled ? "#2290ac" : "#2290ac")}45;
   color: ${theme.colors.light};
   font-size: 16px;
   font-weight: bold;
@@ -207,7 +211,7 @@ width: 100%;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${(props) => (props.disabled ? "#68c184" : "#28a745")};
+    background-color: ${(props) => (props.disabled ? "#cccccc" : "#2290ac")};
   }
 
   @media (max-width: 768px) {
@@ -224,27 +228,23 @@ width: 100%;
   }
 `;
 
-
 export const Section = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;              
+  justify-content: center;
   height: 80vh;
-  background-color:${theme.colors.light};
+  background-color: ${theme.colors.light};
   font-family: Arial, sans-serif;
-  padding: 0 15px; 
+  padding: 0 15px;
 
   @media (max-width: 480px) {
     padding: 0 10px;
     justify-content: unset;
-    
   }
 
   @media (max-width: 768px) {
     padding: 0 10px;
-
-
   }
   /* Added padding for better responsiveness */
 `;

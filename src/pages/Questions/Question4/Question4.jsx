@@ -8,13 +8,13 @@ import {
   CirclePointer,
   BackIcon,
   Section,
-  SkipButton
+  SkipButton,
 } from "../../Questions/Question4/Question4.styles";
 import logo from "../../../assets/Logo.png";
 import { useNavigate } from "react-router";
-import { FaArrowLeft } from "react-icons/fa";
+import { RxArrowLeft } from "react-icons/rx";
 import HeaderWithLogo from "../../../components/HeaderWithLogo/HeaderWithLogo";
-import { useUser } from '@clerk/clerk-react'
+import { useUser } from "@clerk/clerk-react";
 import { getJobById, getJobs } from "../../../api/jobApi";
 import { createUserProfile, getUserByClerkId } from "../../../api/userApi";
 
@@ -30,15 +30,15 @@ const QuestionPage4 = () => {
     console.log("selectedOption", selectedOption);
     const data = await getUserByClerkId(user.id);
     console.log("data", data);
-    const submissionData = {  
+    const submissionData = {
       user_id: data.data.user._id,
       data_scheduled_interview_response: selectedOption,
       // profile_status:true
     };
     await createUserProfile(submissionData);
-    if(selectedOption === "true") {
+    if (selectedOption === "true") {
       navigate("/question5");
-    }else{
+    } else {
       navigate("/question6");
     }
   };
@@ -52,18 +52,20 @@ const QuestionPage4 = () => {
 
       <Container>
         <Section>
-
-          <BackIcon onClick={handleGoBack}
+          <BackIcon
+            onClick={handleGoBack}
             style={{
-              borderRadius: '10%',
-              border: '1px solid grey',
-              padding: '8px',
+              borderRadius: "10%",
+              border: "1px solid grey",
+              padding: "8px",
             }}
           >
-            <FaArrowLeft />
+            <RxArrowLeft />
           </BackIcon>
 
-          <Title>Do you have interview scheduled <br /> currently?</Title>
+          <Title>
+            Do you have interview scheduled <br /> currently?
+          </Title>
 
           <Option
             $isSelected={selectedOption === "true"}
@@ -85,11 +87,10 @@ const QuestionPage4 = () => {
             </OptionLabel>
           </Option>
 
-          <NextButton disabled={!selectedOption} onClick={handleOnlClick}>Next</NextButton>
-           <SkipButton onClick={() => navigate("/question5")}>Skip</SkipButton>
-
+          <NextButton disabled={!selectedOption} onClick={handleOnlClick}>
+            Next
+          </NextButton>
         </Section>
-
       </Container>
     </div>
   );

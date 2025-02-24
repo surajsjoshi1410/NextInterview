@@ -204,7 +204,7 @@ export const LinkedInButton = styled.div`
 
 export const Footer = styled.p`
   margin-top: 0.2rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   gap: 0.5rem;
   color: #666;
   text-align: center;

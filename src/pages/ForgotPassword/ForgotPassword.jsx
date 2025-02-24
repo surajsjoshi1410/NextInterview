@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { RxArrowLeft } from "react-icons/rx";
+import { RxArrowLeft, RxFontSize } from "react-icons/rx";
 import {
   Container,
   BackIcon,
@@ -60,7 +60,7 @@ const ForgotPassword = () => {
           <BackIcon onClick={handleGoBack}>
             <RxArrowLeft />
           </BackIcon>
-          <Title>Forgot Password?</Title>
+          <Title>Forgot Password ?</Title>
           <Subtitle>
             Reset instructions will be sent to your registered email.
           </Subtitle>
