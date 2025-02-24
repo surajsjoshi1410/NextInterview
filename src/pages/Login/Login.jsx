@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSignIn, useSignUp, useAuth } from "@clerk/clerk-react";
-import { IoIosArrowRoundBack, IoMdArrowBack } from "react-icons/io";
+import { RxArrowLeft } from "react-icons/rx";
 import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
 // import { IoIosArrowRoundBack } from "react-icons/io";
 
@@ -113,7 +113,7 @@ const Login = () => {
         <HeaderWithLogo />
         <div className="Container">
           <div className="BackIcon" onClick={handleGoBack}>
-            <IoIosArrowRoundBack />
+            <RxArrowLeft />
           </div>
 
           <div className="Title">Login with Mobile Number</div>

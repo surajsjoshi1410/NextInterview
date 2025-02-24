@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { FaArrowLeft } from "react-icons/fa";
+import React, { useRef, useState, useEffect } from "react";
+import { RxArrowLeft } from "react-icons/rx";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSignIn, useSignUp } from "@clerk/clerk-react";
 import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
@@ -195,14 +195,14 @@ const OtpEmail = () => {
               padding: "8px",
             }}
           >
-            <FaArrowLeft className="back-icon" />
+            <RxArrowLeft className="back-icon" />
           </BackIcon>
 
           <OTPMessage>OTP has been sent to {emailAddress}.</OTPMessage>
 
           <OTPInputContainer>
             <label htmlFor="otp">Enter OTP</label>
-            <div style={{ display: "flex", gap: "30px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               {otp.map((_, index) => (
                 <input
                   key={index}
