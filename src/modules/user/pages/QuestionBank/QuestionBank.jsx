@@ -48,13 +48,15 @@ const QuestionBank = () => {
     const fetchQuestions = async () => {
       try {
         const response = await getQuestionBank();
+        console.log("Question data:", response.data);
         setFilteredQuestions(response.data);
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
+    
     };
 
-    // Fetch the module codes and difficulty levels
+    // Fetch the module codes
     const fetchModuleCodes = async () => {
       try {
         const response = await getModuleCode();
@@ -69,7 +71,7 @@ const QuestionBank = () => {
       try {
         const response = await getQuestionBank();
         console.log("Question data:", response.data);
-        // Assuming difficulty levels are a part of the question data, like ["Easy", "Medium", "Hard"]
+        // Assuming difficulty levels are part of the question data
         const levels = response.data.map((question) => question.level);
         const uniqueLevels = [...new Set(levels)]; // Remove duplicate levels
         setDifficultyLevels(uniqueLevels);
@@ -98,31 +100,67 @@ const QuestionBank = () => {
 
   const applyFilters = async () => {
     const filters = {
-      level: [],
-      topics: [],
+      module_code: "",        // module_code should be a single string
+      level: [],              // Filter by level
+      topic_code: "",         // Filter by topic_code if needed
+      question_type: "",      // If applicable
+      subtopic_code: "",      // If applicable
     };
+  
+    // Log to verify the structure of selectedFilters
+    console.log("selectedFilters:", selectedFilters);
   
     // Add levels to filters
     if (selectedFilters.easy) filters.level.push("easy");
     if (selectedFilters.medium) filters.level.push("medium");
     if (selectedFilters.hard) filters.level.push("hard");
   
-    // Add topics to filters
+    // Add selected topic to the module_code filter
     Object.keys(selectedFilters.topics).forEach((topic) => {
-      if (selectedFilters.topics[topic]) filters.topics.push(topic);
+
+      if (selectedFilters.topics[topic]) {
+        moduleCodes.map((module) => {
+          if(module.module_name===topic){
+            filters.module_code = module.module_code;
+          }
+          });
+       };
     });
   
+    // Check if subtopic_code and other values are set in selectedFilters
+    if (selectedFilters.topic_code) filters.topic_code = selectedFilters.topic_code;
+    if (selectedFilters.subtopic_code) filters.subtopic_code = selectedFilters.subtopic_code;
+    if (selectedFilters.question_type) filters.question_type = selectedFilters.question_type;
+  
+
+  
+    // Ensure level is passed as a comma-separated string
+    const levelFilter = filters.level.length ? filters.level.join(',') : "";
+  
     try {
-      // Send the filters as query parameters
-      const response = await getQuestionBank(filters.level, filters.topics);
-      setFilteredQuestions(response.data);
-      setIsDropdownOpen(false);
+      console.log("updated filters", filters);
+      const response = await getQuestionBank(
+        filters.module_code, 
+        filters.topic_code,   // Pass topic_code if needed
+        filters.subtopic_code, // Pass subtopic_code if needed
+        filters.question_type, // Pass question_type if needed
+        levelFilter           // Pass level as a comma-separated string
+      );
+  
+      // Update the filtered questions
+      setFilteredQuestions(response.data);  
+      setIsDropdownOpen(false);               // Close dropdown after applying filters
     } catch (error) {
       console.error("Error applying filters:", error);
     }
   };
   
-  const clearFilters = () => {
+  
+  
+  
+  
+
+  const clearFilters = async () => {
     setSelectedFilters({
       solved: false,
       unsolved: false,
@@ -131,14 +169,20 @@ const QuestionBank = () => {
       hard: false,
       topics: {},
     });
-    setFilteredQuestions([]); 
-    fetchQuestions(); // Refetch all questions
+  
+    // Refetch all questions after clearing filters
+    try {
+      const response = await getQuestionBank(); // Fetch all questions again
+      setFilteredQuestions(response.data); // Set all questions to the state
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+    }
   };
+  
 
-  // Function to get the module name from module code
   const getModuleName = (moduleCode) => {
     const module = moduleCodes.find((module) => module.module_code === moduleCode);
-    return module ? module.module_name : "Unknown Module"; // Return the module name or a fallback value
+    return module ? module.module_name : "Unknown Module";
   };
 
   return (
@@ -206,6 +250,7 @@ const QuestionBank = () => {
                   <CheckboxLabel key={module.module_code}>
                     <input
                       type="checkbox"
+                      value={module.module_code}
                       checked={selectedFilters.topics[module.module_name]}
                       onChange={() =>
                         handleCheckboxChange("topics", module.module_name)
@@ -232,7 +277,7 @@ const QuestionBank = () => {
         {filteredQuestions.length > 0 ? (
           filteredQuestions.map((item, index) => (
             <Link
-              to={`/user/questionBank/${item.id}`}
+              to={`/user/questionBank/${item._id}`}
               key={index}
               style={{
                 textDecoration: "none",

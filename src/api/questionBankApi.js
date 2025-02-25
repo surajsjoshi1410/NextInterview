@@ -2,7 +2,8 @@ import api from "../config/axiosconfig";
 
 
 export const getQuestionBank = async (module_code, topic_code, subtopic_code, question_type,level) => {
-    try {
+  console.log("Everything",module_code, topic_code, subtopic_code, question_type,level); 
+  try {
       const params = {};
   
       if (module_code) {
