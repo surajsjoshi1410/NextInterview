@@ -132,7 +132,10 @@ function App() {
             />
 
             <Route path="/admin/addnewmodule" element={<AddNewModule />} />
-            <Route path="/admin/moduleFileUpload" element={<ModuleFileUpload/>} />
+            <Route
+              path="/admin/moduleFileUpload"
+              element={<ModuleFileUpload />}
+            />
             <Route path="/admin/challenges" element={<Challenges />} />
             <Route path="/admin/viewanalytics" element={<Analytics />} />
             <Route path="/admin/SupportQuery" element={<SupportQuery />} />
