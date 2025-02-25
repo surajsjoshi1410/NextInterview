@@ -6,20 +6,39 @@ export const Container = styled.div`
   color: ${({ theme }) => theme.colors.text};
   font-family: ${({ theme }) => theme.fonts.body};
   padding: ${({ theme }) => theme.spacing(4)};
-//   border: 1px solid ${({ theme }) => theme.colors.borderblue};
-//   border-radius: 8px;
+  //   border: 1px solid ${({ theme }) => theme.colors.borderblue};
+  //   border-radius: 8px;
   margin-left: 40px;
-    transition: margin-left 0.3s ease-in-out; /* Smooth transition */
+  transition: margin-left 0.3s ease-in-out; /* Smooth transition */
+`;
+
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+export const ModalContent = styled.div`
+  padding: 20px;
+  width: 500px;
+  border-radius: 10px;
 `;
 
 export const Title = styled.h2`
   font-family: ${({ theme }) => theme.fonts.body};
   color: ${({ theme }) => theme.colors.text};
   font-size: 20px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-letter-spacing: -0.4px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.4px;
 `;
 
 export const SectionTitle = styled.h3`
@@ -32,11 +51,11 @@ export const Text = styled.p`
   color: ${({ theme }) => theme.colors.text};
   margin-top: ${({ theme }) => theme.spacing(1)};
   font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 24px; /* 150% */
-letter-spacing: -0.32px;
-overflow: hidden;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  letter-spacing: -0.32px;
+  overflow: hidden;
 `;
 
 export const Image = styled.img`
@@ -55,13 +74,11 @@ export const Button = styled.button`
   font-family: ${({ theme }) => theme.fonts.body};
   cursor: pointer;
   margin-right: ${({ theme }) => theme.spacing(1)};
-  
+
   &:hover {
     background-color: ${({ theme }) => theme.colors.secondary};
   }
 `;
-
-
 
 export const SummaryContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.light};
@@ -91,9 +108,9 @@ export const SummaryText = styled.p`
 `;
 
 export const ButtonGroup = styled.div`
-//   display: flex;
-//   justify-content: flex-end;
-// //   align-items: center;
-//   margin-top: ${({ theme }) => theme.spacing(3)};
-// //   gap: 12px;
+  //   display: flex;
+  //   justify-content: flex-end;
+  // //   align-items: center;
+  //   margin-top: ${({ theme }) => theme.spacing(3)};
+  // //   gap: 12px;
 `;
