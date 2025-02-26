@@ -12,6 +12,30 @@ export const Container = styled.div`
   transition: margin-left 0.3s ease-in-out; /* Smooth transition */
 `;
 
+export const TryItYourself = styled.div`
+  padding: 20px 0 ;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+`;
+
+export const TryButton = styled.button`
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.bluetext};
+  padding: ${({ theme }) => theme.spacing(1)} ${({ theme }) => theme.spacing(2)};
+  border: 1px solid ${({ theme }) => theme.colors.bluetext};
+  border-radius: 4px;
+  font-family: ${({ theme }) => theme.fonts.body};
+  cursor: pointer;
+  margin-right: ${({ theme }) => theme.spacing(1)};
+  font-size: 16px;
+  
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.bluetext};
+    color: ${({ theme }) => theme.colors.white};
+  }
+`;
+
 export const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -29,6 +53,7 @@ export const ModalContent = styled.div`
   padding: 20px;
   width: 500px;
   border-radius: 10px;
+  margin: 0 auto;
 `;
 
 export const Title = styled.h2`
@@ -113,4 +138,15 @@ export const ButtonGroup = styled.div`
   // //   align-items: center;
   //   margin-top: ${({ theme }) => theme.spacing(3)};
   // //   gap: 12px;
+`;
+
+
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 230px;
+  right: 510px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
 `;
