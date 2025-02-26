@@ -11,11 +11,14 @@ import {
   ButtonGroup,
   ModalOverlay,
   ModalContent,
+  // CloseButton,
+  TryItYourself,
+  TryButton
 } from "./UserModuleTopic.style";
 import { SlLike } from "react-icons/sl";
 import { SlDislike } from "react-icons/sl";
 import { getModuleById } from "../../../../../api/addNewModuleApi";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { summariseTopic } from "../../../../../api/gptApi";
 import SkillAssessment from "../SkillAssessment/SkillAssessment";
 
@@ -86,6 +89,10 @@ const UserModuleTopic = () => {
   const [delayedText, setDelayedText] = useState([]);
   const [selectedCheetSheetURL, setSelectedCheetSheetURL] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [moduleName, setModuleName] = useState("");
+  const navigate = useNavigate();
+  // const [selectedCheatSheetURL, setSelectedCheatSheetURL] = useState("");
+
   const delayPara = (index, nextWord) => {
     setTimeout(() => {
       setDelayedText((prevText) => [...prevText, nextWord]);
@@ -104,6 +111,7 @@ const UserModuleTopic = () => {
     const apiCaller = async () => {
       try {
         const response = await getModuleById(moduleId);
+        setModuleName(response.data.moduleName);
         console.log("RR", response.data);
         const data = {
           title: response.data.moduleName,
@@ -133,43 +141,14 @@ const UserModuleTopic = () => {
           ),
         };
         setCourseData(data);
+        
       } catch (error) {
         console.log(error);
       }
     };
     apiCaller();
   }, []);
-  // useEffect(() => {
-  //     console.log("location Data=> 111", location.state);
-  //     console.log("courseData", courseData);
-  //     setDelayedText([]);
-  //     setShowSummary(false);
-  //     courseData.topicsList?.map((item, index) => {
-  //         item.subtopics?.map((topic, subindex) => {
-  //             if (index === location.state.topicIndex && subindex === location.state.subtopicIndex) {
-  //                 console.log("dfghj",)
-  //                 console.log(location.state.topicIndex, "   ", location.state.subtopicIndex);
-  //                 setTopicData([{
-  //                     title: topic.title,
-  //                     description: topic.subtopicContent,
-  //                     summary: topic.subtopicSummary,
-  //                     gptSummary: topic.gptSummary,
-  //                     cheatSheetURL: topic.cheatSheetURL || ""
-  //                 }])
-  //                 setSelectedCheetSheetURL(topic.cheatSheetURL || "");
-  //                 setGptSummaryText(topic.gptSummary);
-  //                 console.log("dfghj", {
-  //                     title: topic.title,
-  //                     description: topic.subtopicContent,
-  //                     summary: topic.subtopicSummary,
-  //                     gptSummary: topic.gptSummary,
-  //                     cheatSheetURL: topic.cheatSheetURL || ""
-  //                 })
-  //             }
-  //         })
-  //     })
 
-  // }, [location.state]);
   useEffect(() => {
     setDelayedText([]);
     setShowSummary(false);
@@ -254,13 +233,84 @@ const UserModuleTopic = () => {
     setShowDownloadButton(false); // Hide the "Download Cheat Sheet" button after clicking "Summarize for me"
   };
 
-  const handleMarkAsCompleted = () => {
-    setShowModal(true); // Hide summary section
+  const [assessmentParams, setAssessmentParams] = useState({});
+  const handleMarkAsCompleted = async () => {
+    try {
+      console.log("Fetching module_code...");
+      
+      const moduleResponse = await getModuleById(moduleId);
+      console.log("🛠 moduleResponse Full Data:", moduleResponse);
+  
+      if (!moduleResponse || !moduleResponse.data || !moduleResponse.data.module_code) {
+        console.error(" Module data missing!", moduleResponse);
+        return;
+      }
+      const module_code = moduleResponse.data.module_code;
+      console.log("module_code fetched:", module_code);
+  
+    
+      if (!moduleResponse.data.topicData || moduleResponse.data.topicData.length === 0) {
+        console.error("No topics found for module_code:", module_code);
+        return;
+      }
+      console.log(" Available Topics:", moduleResponse.data.topicData);
+  
+      const topicIndex = location.state?.topicIndex ?? 0;
+      const topicData = moduleResponse.data.topicData[topicIndex];
+  
+      if (!topicData || !topicData.topic_code) {
+        console.error(" topic_code not found. Available Topics:", moduleResponse.data.topicData);
+        return;
+      }
+      const topic_code = topicData.topic_code;
+      console.log("topic_code fetched:", topic_code);
+  
+      // 3️⃣ Ensure subtopicData exists
+      if (!topicData.subtopicData || topicData.subtopicData.length === 0) {
+        console.error(" No subtopics found for topic_code:", topic_code);
+        return;
+      }
+      
+      console.log(" Available Subtopics:", topicData.subtopicData);
+  
+      const subtopicIndex = location.state?.subtopicIndex ?? 0;
+      const subtopicData = topicData.subtopicData[subtopicIndex];
+  
+      if (!subtopicData || !subtopicData.subtopic_code) {
+        console.error(" subtopic_code not found. Available Subtopics:", topicData.subtopicData);
+        return;
+      }
+      const subtopic_code = subtopicData.subtopic_code;
+      console.log("subtopic_code fetched:", subtopic_code);
+  
+      const params = {
+        module_code,
+        topic_code,
+        subtopic_code,
+        question_type: subtopicData.question_type,
+        level: subtopicData.level,
+      };
+  
+      console.log("Final Skill Assessment Params:", params);
+      setAssessmentParams(params);
+      setShowModal(true);
+    } catch (error) {
+      console.error(" Error in fetching data:", error);
+    }
   };
 
+  const handleTryButton = () => {
+        
+    navigate(`/user/learning/${moduleName}/topic/tryityourself`);
+    };
+  
+  
   return (
     <Container>
       {/* Render topics and buttons */}
+      <TryItYourself>
+        <TryButton onClick={handleTryButton}>Try it yourself</TryButton>
+      </TryItYourself>
       <div>
         {console.log("topicData inner", topicData)}
         {topicData && (
@@ -339,14 +389,6 @@ const UserModuleTopic = () => {
           <SummaryTitle>Summary</SummaryTitle>
 
           <SummaryText>{delayedText}</SummaryText>
-
-          {/* {summaryText.map((text, index) => (
-                        <SummaryText key={index}
-                            dangerouslySetInnerHTML={{
-                                __html: parseJSONContent(topicData[0].summary),
-                            }}
-                        ></SummaryText>
-                    ))} */}
 
           <ButtonGroup
             style={{
@@ -435,8 +477,10 @@ const UserModuleTopic = () => {
       {showModal && (
         <ModalOverlay>
           <ModalContent>
-            <SkillAssessment oncloseModal={handleCloseModal} />
+          <SkillAssessment {...assessmentParams} onCloseModal={handleCloseModal} />
+            {/* <CloseButton onClick={handleCloseModal}>X</CloseButton> */}
           </ModalContent>
+          
         </ModalOverlay>
       )}
     </Container>
