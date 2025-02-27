@@ -27,7 +27,6 @@ import {
 import { PiEyeLight } from "react-icons/pi";
 import { IoEyeOffOutline } from "react-icons/io5";
 import { CiMobile1 } from "react-icons/ci";
-
 // Import the new header component
 import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
 import { getUserByClerkId, getUserBySessionId } from "../../api/userApi";
@@ -106,6 +105,9 @@ const SignUp = () => {
         // } catch (error) {
         //   console.log("error otp", error);
         // }
+      }else if(data.status === "needs_second_factor"){
+        
+        navigate("/verifytotp");
       }
     } catch (error) {
       console.log("Sign-in error:", error);
@@ -145,7 +147,7 @@ const SignUp = () => {
       alert("LinkedIn sign-up failed. Check console for details.");
     }
   };
-
+ 
   return (
     <Container>
       <HeaderWithLogo />
