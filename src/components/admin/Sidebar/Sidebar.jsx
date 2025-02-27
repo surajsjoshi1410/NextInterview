@@ -115,6 +115,13 @@ const Sidebar = ({ isExpanded, setIsExpanded, setTitle }) => {
     //   //  icon: <IoSettingsOutline />
     //   icon: <img className="svgicon" src={Settings} alt="Users Icon" />,
     // },
+    {
+      id: 10,
+      name: "MultiFactor Authentication",
+      path: "/admin/manage-mfa/add",
+      //  icon: <MdNotificationsNone />
+      icon: <img className="svgicon" src={Notification} alt="Users Icon" />,
+    },
   ];
 
   return (

@@ -68,6 +68,10 @@ import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import ModuleFileUpload from "./modules/admin/pages/ModuleFileUpload/ModuleFileUpload";
 import NewChallenge from "./modules/user/components/UserChallenegesinfo/NewChallenges";
+import ManageMFA from "./modules/admin/pages/ManageMFA/ManageMFA";
+import AddTOTP from "./modules/admin/pages/AddTOTP/AddTOTP";
+import VerifyTOTP from "./pages/VerifyTOTP/VerifyTOTP";
+import PublicRoutes from "./utils/PublicRoutes";
 
 function App() {
   return (
@@ -75,9 +79,10 @@ function App() {
       <Router>
         <GlobalStyle />
         <Routes>
+         
           <Route path="/" element={<SignUp />} />
           <Route path="/loginPhone" element={<Login />} />
-          <Route path="/login" element={<SignUp />} />
+          <Route path="/login" element={ <PublicRoutes Component={SignUp }/>} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/personalinfo" element={<PersonalInfo />} />
           <Route path="/question1" element={<QuestionPage1 />} />
@@ -94,6 +99,7 @@ function App() {
           <Route path="/validation" element={<ValidationPage />} />
           <Route path="/testing" element={<MainWindow />} />
           <Route path="/learning" element={<LearningModules />} />
+          <Route path="/verifytotp" element={<VerifyTOTP/>} />
 
           {/* <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} /> */}
 
@@ -111,8 +117,8 @@ function App() {
           {/* <Route path="/question-bank" element={<QuestionBank />} /> */}
           {/* <Route path="/challenges" element={<Challenges />} /> */}
 
-          {/* <Route path="/admin" element={<ProtectedRoute component={BaseLayout} roles={["admin"]} />}> */}
-          <Route path="/admin" element={<BaseLayout />}>
+          <Route path="/admin" element={<ProtectedRoute component={BaseLayout} roles={["admin"]} />}>
+          {/* <Route path="/admin" element={<BaseLayout />}> */}
             <Route index element={<AdminDashboard />} />
             <Route path="/admin/learning" element={<LearningModules />} />
             <Route
@@ -132,7 +138,7 @@ function App() {
             />
 
             <Route path="/admin/addnewmodule" element={<AddNewModule />} />
-            <Route path="/admin/moduleFileUpload" element={<ModuleFileUpload/>} />
+            <Route path="/admin/moduleFileUpload" element={<ModuleFileUpload />} />
             <Route path="/admin/challenges" element={<Challenges />} />
             <Route path="/admin/viewanalytics" element={<Analytics />} />
             <Route path="/admin/SupportQuery" element={<SupportQuery />} />
@@ -158,10 +164,13 @@ function App() {
             />
             <Route path="/admin/userProfile" element={<UserProfile />} />
             <Route path="/admin/profile" element={<ProfileInfo />} />
+            <Route path="/admin/manage-mfa" element={<ManageMFA />} />
+            <Route path="/admin/manage-mfa/add" element={<AddTOTP />} />
+
           </Route>
 
-          {/* <Route path="/user" element={<ProtectedRoute component={BaseLayout} roles={["user"]} />}> */}
-          <Route path="/user" element={<BaseLayout />}>
+          <Route path="/user" element={<ProtectedRoute component={BaseLayout} roles={["user"]} />}>
+          {/* <Route path="/user" element={<BaseLayout />}> */}
             <Route index element={<UserDashboard />} />
             <Route path="/user/revise" element={<QuicklyRevise />} />
             <Route path="/user/revise/:id" element={<QuicklyByModule />} />

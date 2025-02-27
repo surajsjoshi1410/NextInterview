@@ -122,6 +122,7 @@ const ModuleFileUpload = () => {
             >
               {moduleOptions.map(option => (
                 <Option key={option.module_code} value={option.module_code}>
+                  {console.log(option)} 
                   {option.module_code + ' -- ' + option.module_name}
                 </Option>
               ))}
