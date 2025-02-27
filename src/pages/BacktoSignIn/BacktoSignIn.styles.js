@@ -39,7 +39,7 @@ export const Image = styled.img`
 
 export const Message = styled.p`
   font-size: 1rem;
-  color: ${theme.colors.text};
+  color: ${theme.colors.sidebarTextColor}60;
   text-align: center;
   margin-bottom: ${theme.spacing(7)};
   line-height: 1.5;

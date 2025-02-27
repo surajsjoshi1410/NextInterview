@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getModuleById } from "../../../../../api/addNewModuleApi";
+import { Link } from "react-router-dom";
 import {
   Container,
   ModuleCard,
@@ -83,7 +84,10 @@ const QuicklyByModule = () => {
                         style={{ margin: "0" }}
                       ></p>
                     </div>
-                    <Button
+                   <Link
+                   to={`/user/learning/${moduleId}/topic`}
+                   >
+                   <Button
                       style={{
                         position: "absolute",
                         right: "10px",
@@ -94,6 +98,7 @@ const QuicklyByModule = () => {
                     >
                       Revisit Subtopic
                     </Button>
+                   </Link>
                   </div>
                 ))}
               </div>

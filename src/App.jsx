@@ -72,6 +72,7 @@ import ManageMFA from "./modules/admin/pages/ManageMFA/ManageMFA";
 import AddTOTP from "./modules/admin/pages/AddTOTP/AddTOTP";
 import VerifyTOTP from "./pages/VerifyTOTP/VerifyTOTP";
 import PublicRoutes from "./utils/PublicRoutes";
+import TryItYourself from "./modules/user/components/TryItYourselfComponent/TryItYourself";
 
 function App() {
   return (
@@ -200,6 +201,7 @@ function App() {
               path="/user/learning/:id/topic/sampleInterview"
               element={<UserSampleInterview />}
             />
+            <Route path="/user/learning/:module_name/topic/tryityourself" element={<TryItYourself />} />
             <Route path="/user/userfaq" element={<UserFAQ />} />
             <Route path="/user/subscription" element={<UserSubscription />} />
             <Route path="/user/interview" element={<InterviewPage />} />

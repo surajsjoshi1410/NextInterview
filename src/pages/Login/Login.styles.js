@@ -33,7 +33,7 @@ export const Loginmobilewrapper = styled.div`
 
   .BackIcon {
     cursor: pointer;
-    font-size: 24px;
+    font-size: 16px;
     color: ${(props) => props.theme.colors.text};
     display: flex;
     align-items: center;
@@ -41,7 +41,7 @@ export const Loginmobilewrapper = styled.div`
     border: 1px solid grey;
     border-radius: 10%;
     padding: 8px;
-    margin-bottom: 5px;
+    margin-bottom: 30px;
   }
   .Title {
     font-size: 24px;

@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import theme from "../../../theme/Theme";
 
 export const Question6Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  max-height: 100vh;
+  height: 70vh;
   background-color: ${(props) => props.theme.colors.light};
 
   .Container {
@@ -20,7 +22,7 @@ export const Question6Wrapper = styled.div`
 
   .BackIcon {
     cursor: pointer;
-    font-size: 24px;
+    font-size: 16px;
     color: ${(props) => props.theme.colors.text};
     display: flex;
     align-items: center;
@@ -29,6 +31,8 @@ export const Question6Wrapper = styled.div`
     border-radius: 10%;
     padding: 8px;
     margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
   }
 
   .Title {
@@ -40,6 +44,8 @@ export const Question6Wrapper = styled.div`
 
   .Form {
     width: 100%;
+    display: grid;
+    gap: 12px;
   }
 
   .Label {
@@ -94,7 +100,7 @@ export const Question6Wrapper = styled.div`
   .NextButton {
     width: 100%;
     padding: 12px;
-    background-color: ${(props) => props.theme.colors.primary};
+    background-color: ${(props) => props.theme.colors.bluetext}45;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -104,7 +110,7 @@ export const Question6Wrapper = styled.div`
   }
 
   .NextButton:hover {
-    background-color: ${(props) => props.theme.colors.info};
+    background-color: ${(props) => props.theme.colors.bluetext};
   }
 
   .SkipButton {
@@ -125,5 +131,23 @@ export const Question6Wrapper = styled.div`
   .image {
     border-radius: 50%;
     height: 30px;
+  }
+
+  .anotherCompany {
+    width: 100%;
+    background-color: transparent;
+    margin-top: 12px;
+    color: #151e28;
+    border-radius: 4px;
+    font-family: "DM Sans";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 160% */
+    border: none;
+    text-align: center !important;
+    border: 1px solid #1a1c1e;
+    padding: 8px;
+    cursor: pointer;
   }
 `;

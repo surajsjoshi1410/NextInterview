@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import {
-  PageContainer,
-  Sidebar,
   Content,
   QuestionHeader,
   Option,
@@ -17,98 +14,112 @@ import {
   Topic1,
   Difficulty1,
   Type1,
-} from "./QuestionCollapsible.styles";
+  ExploreButton,
+  ExploreSubtitle,
+  ExploreTitle,
+  ExploreQuestionsContainer
+} from "./TryItYourself.styles";
 import MainWindow from "../CodeEditorWindow/MainWindow"; // Importing the code editor component
 import { FcOk } from "react-icons/fc";
 import { GoThumbsup, GoThumbsdown, GoX } from "react-icons/go";
-
-import { getQuestionBank, getQuestionBankById } from "../../../../api/questionBankApi";
-
-const QuestionCollapsible = () => {
-  const { id } = useParams();
+ 
+// import { getQuestionBank, getQuestionBankById } from "../../../../api/questionBankApi";
+import { gettiy } from "../../../../api/tiyApi"; 
+import { getModuleCode } from "../../../../api/addNewModuleApi";
+const TryItYourself = () => {
+ 
+    const { module_name } = useParams();
   const navigate = useNavigate();
-  
+ 
   const [allQuestions, setAllQuestions] = useState([]); // Store all questions for the sidebar
   const [selectedQuestion, setSelectedQuestion] = useState(null); // For storing the selected question
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [userAnswer, setUserAnswer] = useState("");  // To store answer for single-line, multi-line, approach questions
   const [showSolution, setShowSolution] = useState(false);
+  const [moduleCodes, setModuleCodes] = useState([]);
+//   import { useParams } from "react-router-dom";
 
-  useEffect(() => {
-    // Fetch all questions to display in the sidebar
+useEffect(() => {
     const fetchAllQuestions = async () => {
-      try {
-        const response = await getQuestionBank();  // API call to get all questions
-        if (response && response.data) {
-          setAllQuestions(response.data);  // Set the all questions data for sidebar
-          if (!selectedQuestion  && response.data.length > 0) {
-            setSelectedQuestion(response.data[0]);  // Set the first question as the default selected question
-            navigate(`/user/questionBank/${response.data[0]._id}`);  // Redirect to the first question
-          }
-        } else {
-          console.error("No questions found");
+        try {
+            const response = await gettiy();  // Fetch all questions
+            console.log("Question data:", response.data);
+            if (response && response.success && response.data) {
+                setAllQuestions(response.data);
+            } else {
+                console.error("No questions found");
+            }
+        } catch (error) {
+            console.error("Error fetching all questions:", error);
         }
-      } catch (error) {
-        console.error("Error fetching all questions:", error);
-      }
+    };
+
+    const fetchModuleCodes = async () => {
+        try {
+            const response = await getModuleCode(); // Fetch module codes
+            console.log("Module Codes:", response.data);
+            if (response && response.success && response.data) {
+                setModuleCodes(response.data);
+            } else {
+                console.error("No module codes found");
+            }
+        } catch (error) {
+            console.error("Error fetching module codes:", error);
+        }
     };
 
     fetchAllQuestions();
-  }, []);
+    fetchModuleCodes();
+}, []);
+ 
+useEffect(() => {
+    if (allQuestions.length > 0 && moduleCodes.length > 0) {
+        // Find the module code for the selected module
+        const currentModuleCode = moduleCodes.find(m => m.module_name === module_name)?.module_code;
 
-  useEffect(() => {
-    // Fetch the question by ID when it changes
-    const fetchQuestion = async () => {
-      try {
-        const response = await getQuestionBankById(id);  // API call to get question by ID
-        if (response && response.data) {
-          setSelectedQuestion(response.data);  // Set the selected question data
-        } else {
-          console.error("No data found for this question");
+        if (!currentModuleCode) {
+            console.warn("No module code found for this module ID");
+            return;
         }
-      } catch (error) {
-        console.error("Error fetching question:", error);
-      }
-    };
 
-    fetchQuestion();
-    setSelectedAnswer(null);  // Reset answer
-    setUserAnswer("");  // Reset user input
-    setShowSolution(false);  // Reset solution visibility
-  }, [id]);
+        // Filter questions based on the module code
+        const filteredQuestions = allQuestions.filter(q => q.module_code === currentModuleCode);
+        console.log("Filtered Questions:", filteredQuestions);
 
+        // Set the first question as the selected question
+        if (filteredQuestions.length > 0) {
+            setSelectedQuestion(filteredQuestions[0]);
+        } else {
+            setSelectedQuestion(null);
+        }
+    }
+}, [allQuestions, moduleCodes, module_name]); // Keep the dependencies minimal to avoid infinite loop
+
+
+
+
+  
   const handleNextQuestion = () => {
     const currentIndex = allQuestions.findIndex(
       (q) => q._id === selectedQuestion._id
     );
-  
+ 
     const nextIndex = currentIndex + 1;
     if (nextIndex < allQuestions.length) {
       const nextQuestion = allQuestions[nextIndex];
-      navigate(`/user/questionBank/${nextQuestion._id}`);
+      navigate(`/user/learning/${nextQuestion._id}/topic/tryityourself`);
     } else {
       console.log("No more questions available.");
     }
   };
 
+  const handleExploreButtonClick = () => {
+    navigate(`/user/questionBank`)
+  }
+ 
   return (
-    <PageContainer>
-      <Sidebar>
-        <h3 style={{ paddingLeft: "10px" }}>Questions</h3>
-        {/* Render the questions list */}
-        {allQuestions.map((question, index) => (
-          <Link
-            key={index}
-            to={`/user/questionBank/${question._id}`} // Navigate to child page with the selected question ID
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <div style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>
-              {index + 1}. {question.question}
-            </div>
-          </Link>
-        ))}
-      </Sidebar>
-
+    <div style={{display: "flex",}}>
+     
       <Content>
         {selectedQuestion ? (
           <>
@@ -117,10 +128,10 @@ const QuestionCollapsible = () => {
               <Difficulty1>Difficulty: {selectedQuestion.level}</Difficulty1>
               <Type1>Type: {selectedQuestion.question_type}</Type1>
             </MetaInfo1>
-
+ 
             <QuestionContainer>
               <QuestionHeader>{selectedQuestion.question}</QuestionHeader>
-
+ 
               {selectedQuestion.question_type === "mcq" ? (
                 <>
                   <form>
@@ -194,7 +205,7 @@ const QuestionCollapsible = () => {
                         {selectedAnswer === selectedQuestion.correct_option ? (
                           <FcOk />
                         ) : (
-                          <GoX style={{ color: "red", fontSize: "24px", marginTop: "5px" }} />
+                          <GoX style={{ color: "red", fontSize: "24px" }} />
                         )}
                       </Icon>
                       {selectedAnswer === selectedQuestion.correct_option
@@ -206,7 +217,7 @@ const QuestionCollapsible = () => {
                     <SolutionBox>
                       <p style={{ fontWeight: "700", color: "#4CAF50" }}>Solution</p>
                       <div className="correction">
-                        <p>{selectedQuestion.answer}</p>
+                        <p style={{margin: "2px"}}>{selectedQuestion.answer}</p>
                         <div className="thumbsup">
                           <span>
                             <GoThumbsup />
@@ -249,7 +260,7 @@ const QuestionCollapsible = () => {
                         {userAnswer.trim() === selectedQuestion.answer.trim() ? (
                           <FcOk />
                         ) : (
-                          <GoX style={{ color: "red", fontSize: "24px", marginTop: "5px" }} />
+                          <GoX style={{ color: "red", fontSize: "24px",  }} />
                         )}
                       </Icon>
                       {userAnswer.trim() === selectedQuestion.answer.trim()
@@ -261,7 +272,7 @@ const QuestionCollapsible = () => {
                     <SolutionBox>
                       <p style={{ fontWeight: "700", color: "#4CAF50" }}>Solution</p>
                       <div className="correction">
-                        <p>{selectedQuestion.answer}</p>
+                        <p style={{margin: "2px"}}>{selectedQuestion.answer}</p>
                         <div className="thumbsup">
                           <span>
                             <GoThumbsup />
@@ -285,8 +296,8 @@ const QuestionCollapsible = () => {
                       placeholder="Your answer"
                       rows="5"
                       style={{
-                        width: "100%",
-                        // padding: "10px",
+                        width: "98%",
+                        padding: "10px",
                         borderRadius: "5px",
                         // border: "1px solid #ddd",
                         backgroundColor: "white",
@@ -295,6 +306,7 @@ const QuestionCollapsible = () => {
                         lineHeight: "1.5",
                         fontFamily: "Arial, sans-serif",
                         resize: "vertical",
+                        outline: "none",
                       }}
                     />
                   </SolutionBox>
@@ -307,7 +319,7 @@ const QuestionCollapsible = () => {
                         {userAnswer.trim() === selectedQuestion.answer.trim() ? (
                           <FcOk />
                         ) : (
-                          <GoX style={{ color: "red", fontSize: "24px", marginTop: "5px" }} />
+                          <GoX style={{ color: "red", fontSize: "24px" }} />
                         )}
                       </Icon>
                       {userAnswer.trim() === selectedQuestion.answer.trim()
@@ -319,7 +331,7 @@ const QuestionCollapsible = () => {
                     <SolutionBox>
                       <p style={{ fontWeight: "700", color: "#4CAF50" }}>Solution</p>
                       <div className="correction">
-                        <p>{selectedQuestion.answer}</p>
+                        <p style={{margin: "2px"}}>{selectedQuestion.answer}</p>
                         <div className="thumbsup">
                           <span>
                             <GoThumbsup />
@@ -336,7 +348,7 @@ const QuestionCollapsible = () => {
                 </>
               ) : selectedQuestion.question_type === "approach" ? (
                 <>
-                  <SolutionBox 
+                  <SolutionBox
                   style={{
                     marginTop: "10px",
                   }}
@@ -348,14 +360,13 @@ const QuestionCollapsible = () => {
                       rows="5"
                       style={{
                         width: "100%",
-                        // marginTop: "10px",
-                        // padding: "10px",
                         borderRadius: "5px",
                         border: "none",
                         backgroundColor: "white",
                         fontSize: "16px",
                         lineHeight: "1.5",
                         resize: "vertical",
+                        outline: "none",
                       }}
                     />
                   </SolutionBox>
@@ -368,7 +379,7 @@ const QuestionCollapsible = () => {
                         {userAnswer.trim() === selectedQuestion.answer.trim() ? (
                           <FcOk />
                         ) : (
-                          <GoX style={{ color: "red", fontSize: "24px", marginTop: "5px" }} />
+                          <GoX style={{ color: "red", fontSize: "24px" }} />
                         )}
                       </Icon>
                       {userAnswer.trim() === selectedQuestion.answer.trim()
@@ -380,7 +391,7 @@ const QuestionCollapsible = () => {
                     <SolutionBox>
                       <p style={{ fontWeight: "700", color: "#4CAF50" }}>Solution</p>
                       <div className="correction">
-                        <p>{selectedQuestion.answer}</p>
+                        <p style={{margin: "2px"}}>{selectedQuestion.answer}</p>
                         <div className="thumbsup">
                           <span>
                             <GoThumbsup />
@@ -398,8 +409,8 @@ const QuestionCollapsible = () => {
               ) : (
                 <MainWindow />
               )}
-
-              {showSolution && (
+ 
+             {showSolution && (
                 <NextButton onClick={handleNextQuestion}>
                   Next Question
                 </NextButton>
@@ -410,8 +421,15 @@ const QuestionCollapsible = () => {
           <p>Question not found</p>
         )}
       </Content>
-    </PageContainer>
-  );
-};
-
-export default QuestionCollapsible;
+        <div style={{width: "25%"}}>
+      <ExploreQuestionsContainer>
+        <ExploreTitle>Explore Questions</ExploreTitle>
+        <ExploreSubtitle>Dive into the question bank to find and solve more exercises like this, expanding your skills even further.</ExploreSubtitle>
+        <ExploreButton onClick={handleExploreButtonClick}>Question Back</ExploreButton>
+      </ExploreQuestionsContainer>
+      </div>
+    </div>
+  )
+}
+ 
+export default TryItYourself

@@ -14,7 +14,9 @@ import {
 import signup from "../../assets/login&signupimage.svg";
 import google from "../../assets/google.png";
 import { Link, useNavigate } from "react-router";
-import { FaEye, FaEyeSlash, FaLinkedin, FaMobileAlt } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { PiEyeLight } from "react-icons/pi";
+import { IoEyeOffOutline } from "react-icons/io5";
 
 // Import the new header component
 import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
@@ -158,7 +160,7 @@ const SignUpPage = () => {
                 type="tel"
                 inputMode="numeric"
                 pattern="\d{10}"
-                placeholder="Enter your Phone Number"
+                placeholder="Enter your phone number"
                 value={phoneNumber}
                 maxLength={10}
                 onChange={(e) => {
@@ -173,7 +175,7 @@ const SignUpPage = () => {
               <label>Email ID</label>
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -201,7 +203,15 @@ const SignUpPage = () => {
                     cursor: "pointer",
                   }}
                 >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  {showPassword ? (
+                    <IoEyeOffOutline
+                      style={{ fontSize: "20px", marginTop: "5px" }}
+                    />
+                  ) : (
+                    <PiEyeLight
+                      style={{ fontSize: "20px", marginTop: "5px" }}
+                    />
+                  )}
                 </button>
               </div>
             </Input>
@@ -209,31 +219,26 @@ const SignUpPage = () => {
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "flex-end",
                 alignItems: "center",
                 marginBottom: "1rem",
               }}
             >
-              <label htmlFor="rememberMe" style={{ fontSize: "0.9rem" }}>
-                <input id="rememberMe" type="checkbox" /> Remember Me
-              </label>
               <Link
                 to="/forgot-password"
-                style={{ color: "#007bff", fontSize: "0.9rem" }}
+                style={{
+                  color: "#007bff",
+                  fontSize: "0.9rem",
+                  textDecoration: "none",
+                }}
               >
-                Forgot Password
+                Forgot Password ?
               </Link>
             </div>
 
             <Button type="submit">Sign Up</Button>
 
-            <AlternativeLogin>
-              {/* <Link to="/loginPhone" state={{flow: "SIGN_UP"}}>
-              <button>
-                <FaMobileAlt /> SignUp in with Mobile
-              </button>
-            </Link> */}
-            </AlternativeLogin>
+            <AlternativeLogin></AlternativeLogin>
             <AlternativeLogin>
               <button onClick={handleGoogleSignUp}>
                 <img
@@ -241,12 +246,12 @@ const SignUpPage = () => {
                   alt="Google Logo"
                   style={{ height: "20px", marginRight: "10px" }}
                 />
-                SignUp in with Google
+                Sign up with Google
               </button>
 
               <LinkedInButton>
                 <button onClick={handleLinkedInSignUp}>
-                  <FaLinkedin style={{ color: "#0076B2" }} /> SignUp in with
+                  <FaLinkedin style={{ color: "#0076B2" }} /> Sign up with
                   LinkedIn
                 </button>
               </LinkedInButton>
@@ -255,8 +260,7 @@ const SignUpPage = () => {
 
           <Footer>
             By signing in, I agree to Next Interview's{" "}
-            <a href="/privacy-policy">Privacy Policy</a>
-            <br />
+            <a href="/privacy-policy">Privacy Policy </a>
             and <a href="/terms">Terms of Service</a>.
           </Footer>
         </FormSection>

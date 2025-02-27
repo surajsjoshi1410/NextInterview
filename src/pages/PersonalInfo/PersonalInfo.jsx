@@ -9,11 +9,11 @@ import {
   SubmitButton,
   ErrorMessage,
   BackIcon,
-  SkipButton
+  SkipButton,
 } from "../PersonalInfo/PersonalInfo.styles";
 import HeaderWithLogo from "../../components/HeaderWithLogo/HeaderWithLogo";
 import { IoMdArrowBack } from "react-icons/io";
-import { useUser } from '@clerk/clerk-react'
+import { useUser } from "@clerk/clerk-react";
 import { createUserProfile, getUserByClerkId } from "../../api/userApi";
 import { useNavigate } from "react-router-dom";
 
@@ -29,8 +29,8 @@ const PersonalInfo = () => {
     linkedIn: "",
     phoneNumber: "",
   });
-  const { isSignedIn, user, isLoaded } = useUser()
-  const navigate=useNavigate();
+  const { isSignedIn, user, isLoaded } = useUser();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -85,7 +85,7 @@ const PersonalInfo = () => {
         user_id: data.data.user._id,
         user_name: formValues.userName,
         user_linkedin_profile_link: formValues.linkedIn,
-      }
+      };
       // console.log("submissionData", submissionData);
       await createUserProfile(submissionData);
       console.log("Form submitted successfully:", formValues);
@@ -98,12 +98,11 @@ const PersonalInfo = () => {
   };
 
   return (
-
-    <div><HeaderWithLogo />
+    <div>
+      <HeaderWithLogo />
       <Container>
         <FormContainer>
-
-{/* 
+          {/* 
           <BackIcon onClick={handleGoBack}
             style={{
               border: '1px solid grey',
@@ -118,19 +117,23 @@ const PersonalInfo = () => {
             <IoMdArrowBack />
           </BackIcon> */}
 
-
           <Title>Enter your details</Title>
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={handleSubmit}
+            style={{ display: "grid", gap: "30px" }}
+          >
             <InputGroup>
               <InputLabel>User name</InputLabel>
               <InputField
                 type="text"
                 name="userName"
-                placeholder="Enter your name"
+                placeholder="Enter your full name"
                 value={formValues.userName}
                 onChange={handleInputChange}
               />
-              {errors.userName && <ErrorMessage>{errors.userName}</ErrorMessage>}
+              {errors.userName && (
+                <ErrorMessage>{errors.userName}</ErrorMessage>
+              )}
             </InputGroup>
             <InputGroup>
               <InputLabel>LinkedIn profile link</InputLabel>
@@ -141,24 +144,11 @@ const PersonalInfo = () => {
                 value={formValues.linkedIn}
                 onChange={handleInputChange}
               />
-              {errors.linkedIn && <ErrorMessage>{errors.linkedIn}</ErrorMessage>}
+              {/* {errors.linkedIn && (
+                <ErrorMessage>{errors.linkedIn}</ErrorMessage>
+              )} */}
             </InputGroup>
-            {/* <InputGroup>
-            <InputLabel>Phone number</InputLabel>
-            <InputField
-            style={{
-                backgroundColor: "#d2d5d9",
-            }}
-              type="tel"
-              name="phoneNumber"
-              placeholder="Enter your phone number"
-              value={formValues.phoneNumber}
-              onChange={handleInputChange}
-            />
-            {errors.phoneNumber && <ErrorMessage>{errors.phoneNumber}</ErrorMessage>}
-          </InputGroup> */}
             <SubmitButton type="submit">Next</SubmitButton>
-            <SkipButton type="submit" onClick={(e) =>{e.preventDefault(); navigate("/question1")}}>Skip</SkipButton>
           </form>
         </FormContainer>
       </Container>

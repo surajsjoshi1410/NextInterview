@@ -21,7 +21,7 @@ export const Question7Wrapper = styled.div`
 
   .BackIcon {
     cursor: pointer;
-    font-size: 24px;
+    font-size: 16px;
     color: ${(props) => props.theme.colors.text};
     display: flex;
     align-items: center;
@@ -30,6 +30,8 @@ export const Question7Wrapper = styled.div`
     border-radius: 10%;
     padding: 8px;
     margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
   }
 
   .Title {
@@ -100,7 +102,7 @@ export const Question7Wrapper = styled.div`
   .NextButton {
     width: 100%;
     padding: 12px;
-    background-color: ${(props) => props.theme.colors.primary};
+    background-color: ${(props) => props.theme.colors.bluetext}45;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -111,7 +113,7 @@ export const Question7Wrapper = styled.div`
   }
 
   .NextButton:hover {
-    background-color: ${(props) => props.theme.colors.info};
+    background-color: ${(props) => props.theme.colors.bluetext};
   }
 
   .SkipButton {
@@ -147,6 +149,7 @@ export const Question7Wrapper = styled.div`
     border-radius: 4px;
     font-size: 14px;
     color: #555;
+    box-sizing: border-box;
   }
   .anotherCompany {
     width: 100%;

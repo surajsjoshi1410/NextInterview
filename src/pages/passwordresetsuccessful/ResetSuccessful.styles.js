@@ -6,8 +6,8 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  margin-top: -2rem;
+  height: 70vh;
+  max-height: 100vh;
   background-color: ${theme.colors.light};
   padding: ${theme.spacing(2)};
 
@@ -23,7 +23,7 @@ export const Container = styled.div`
   }
 `;
 export const Image = styled.img`
-  width:8rem;
+  width: 8rem;
   height: auto;
   margin-bottom: ${theme.spacing(2)};
 
@@ -37,10 +37,10 @@ export const Image = styled.img`
 `;
 
 export const Message = styled.p`
-  font-size: 1rem;
+  font-size: 18px;
   color: ${theme.colors.text};
   text-align: center;
-  margin-bottom: ${theme.spacing(3)};
+  margin-bottom: ${theme.spacing(6)};
   line-height: 1.5;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
@@ -55,7 +55,7 @@ export const Message = styled.p`
 `;
 
 export const Button = styled.button`
-  width: 25%;
+  width: 20%;
   padding: ${theme.spacing(1)};
   font-size: 1rem;
   color: ${theme.colors.text};

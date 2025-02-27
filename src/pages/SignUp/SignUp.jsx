@@ -220,7 +220,11 @@ const SignUp = () => {
               </label> */}
               <Link
                 to="/forgotpassword"
-                style={{ color: "#007bff", fontSize: "0.9rem" }}
+                style={{
+                  color: "#007bff",
+                  fontSize: "0.9rem",
+                  textDecoration: "none",
+                }}
               >
                 Forgot Password ?
               </Link>
@@ -257,7 +261,7 @@ const SignUp = () => {
 
           <Footer>
             By signing in, I agree to Next Interview's{" "}
-            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/privacy-policy">Privacy Policy </a>
             and <a href="/terms">Terms of Service</a>.
           </Footer>
         </FormSection>

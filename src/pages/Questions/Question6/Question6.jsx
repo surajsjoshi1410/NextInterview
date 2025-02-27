@@ -2,23 +2,23 @@ import React, { useEffect, useState } from "react";
 import HeaderWithLogo from "../../../components/HeaderWithLogo/HeaderWithLogo";
 import { Question6Wrapper } from "./Question6.Styles";
 import { useNavigate } from "react-router";
-import { IoIosArrowRoundBack } from "react-icons/io";
-import { useUser } from '@clerk/clerk-react'
+import { RxArrowLeft } from "react-icons/rx";
+import { useUser } from "@clerk/clerk-react";
 import { getJobById, getJobs } from "../../../api/jobApi";
 import { createUserProfile, getUserByClerkId } from "../../../api/userApi";
-import { getCompanies } from '../../../api/comapniesApi';
-import { getDesignations } from '../../../api/designationApi';
-import { getInterviewRounds } from '../../../api/interviewRoundApi';
-import Select from 'react-select';
+import { getCompanies } from "../../../api/comapniesApi";
+import { getDesignations } from "../../../api/designationApi";
+import { getInterviewRounds } from "../../../api/interviewRoundApi";
+import Select from "react-select";
 
 function Question6() {
   const [comapnyData, setCompanyData] = useState([]);
   const [designationData, setDesignationData] = useState([]);
   const [interviewData, setInterviewData] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState([]);
-  const [selectedDesignation, setSelectedDesignation] = useState('');
+  const [selectedDesignation, setSelectedDesignation] = useState("");
   const [companyImageList, setCompanyImageList] = useState([]);
-  const { isSignedIn, user, isLoaded } = useUser()
+  const { isSignedIn, user, isLoaded } = useUser();
 
   useEffect(() => {
     const apiCaller = async () => {
@@ -39,55 +39,54 @@ function Question6() {
     navigate("/question4");
   };
   const handleCompanySelect = (companies) => {
-    setSelectedCompany(companies.map(company => company.value));
+    setSelectedCompany(companies.map((company) => company.value));
     const datad = companies.map((company) => {
-      return (
-        comapnyData.find((copm) => {
-          if (copm._id === company.value) {
-            return copm
-          }
-
-        })
-
-      );
-    })
+      return comapnyData.find((copm) => {
+        if (copm._id === company.value) {
+          return copm;
+        }
+      });
+    });
     setCompanyImageList(datad);
     console.log("datad", datad);
-
   };
   const handleDesignationSelect = (designation) => {
     setSelectedDesignation(designation.value);
   };
 
-  const companyOptions = comapnyData.map(company => ({
+  const companyOptions = comapnyData.map((company) => ({
     value: company._id,
     label: (
-      <div style={{ display: 'flex', alignItems: 'center', color: 'black' }}>
-        <img src={company.company_image_url} alt={company.company_name} style={{ width: 20, height: 20, marginRight: 10 }} />
+      <div style={{ display: "flex", alignItems: "center", color: "black" }}>
+        <img
+          src={company.company_image_url}
+          alt={company.company_name}
+          style={{ width: 20, height: 20, marginRight: 10 }}
+        />
         {company.company_name}
       </div>
     ),
   }));
-  const designationOptions = designationData.map(desgnation => ({
+  const designationOptions = designationData.map((desgnation) => ({
     value: desgnation._id,
     label: desgnation.designation_name,
   }));
   const customStyles = {
     control: (base) => ({
       ...base,
-      backgroundColor: 'white',
-      borderColor: '#ccc',
-      borderRadius: '4px',
+      backgroundColor: "white",
+      borderColor: "#ccc",
+      borderRadius: "4px",
     }),
     singleValue: (base) => ({
       ...base,
-      color: 'black', // Change text color of selected value
+      color: "black", // Change text color of selected value
     }),
     option: (base, state) => ({
       ...base,
-      backgroundColor: state.isSelected ? '#3399cc' : 'white',
-      color: state.isSelected ? 'white' : 'black', // Change text color of options
-      padding: '10px',
+      backgroundColor: state.isSelected ? "#3399cc" : "white",
+      color: state.isSelected ? "white" : "black", // Change text color of options
+      padding: "10px",
     }),
     menu: (base) => ({
       ...base,
@@ -100,31 +99,31 @@ function Question6() {
       user_id: data.data.user._id,
       data_planned_interview_response: {
         companies: selectedCompany,
-        designations: selectedDesignation
-      }
-    }
+        designations: selectedDesignation,
+      },
+    };
     const responseData = await createUserProfile(submissionData);
     console.log("data", responseData);
     navigate("/question7");
-  }
+  };
 
   return (
     <Question6Wrapper>
       <HeaderWithLogo />
       <div className="Container">
         <div className="BackIcon" onClick={handleGoBack}>
-          <IoIosArrowRoundBack />
+          <RxArrowLeft />
         </div>
-        <div className="Title">
-          Companies you are planning to interview with
-        </div>
+        <div className="Title">Companies you plan to interview with</div>
         <div className="Form">
           <label className="Label">Company Name</label>
           <Select
             options={companyOptions}
             onChange={handleCompanySelect}
             placeholder="Select Company Name"
-            value={companyOptions.find(option => option.value === selectedCompany)}
+            value={companyOptions.find(
+              (option) => option.value === selectedCompany
+            )}
             styles={customStyles}
             isMulti
           />
@@ -139,10 +138,9 @@ function Question6() {
 
           <div className="Selected">
             Selected – {selectedCompany ? selectedCompany.length : 0}
-
             <div className="SelectedList">
-              {
-                companyImageList && companyImageList.map((company) => {
+              {companyImageList &&
+                companyImageList.map((company) => {
                   return (
                     <img
                       className="image"
@@ -151,15 +149,23 @@ function Question6() {
                       alt="Amazon"
                       height="30px"
                     />
-                  )
-                })
-              }
-
+                  );
+                })}
             </div>
           </div>
 
-          <button className="NextButton" onClick={handleNext}>Next</button>
-          <button className="SkipButton" onClick={()=>{navigate("/question7")}}>Skip</button>
+          <button className="NextButton" onClick={handleNext}>
+            Next
+          </button>
+
+          <button
+            className="anotherCompany"
+            onClick={() => {
+              navigate("/question7");
+            }}
+          >
+            Not sure yet
+          </button>
         </div>
       </div>
     </Question6Wrapper>

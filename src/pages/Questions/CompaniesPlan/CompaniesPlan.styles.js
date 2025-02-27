@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   max-width: 600px;
@@ -7,40 +7,28 @@ export const Container = styled.div`
   font-family: Arial, sans-serif;
   color: rgb(255, 255, 255) !important;
   position: relative;
-  height: 100vh; /* Full height to center the form */
-`;
-
-export const Header = styled.header`
-  position: absolute;
-  top: 15px;
-  left: 50px;
+  max-height: 100vh; /* Full height to center the form */
+  height: 70vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-`;
-
-export const Logo = styled.div`
-  img {
-    height: 50px;
-    margin-left: -550px;
-  }
-
-  @media (max-width: 768px) {
-    img {
-      height: 70px;
-    }
-  }
 `;
 
 export const BackIcon = styled.div`
-  position: absolute;
-  top: 45px; /* Adjusted to position it at the top of the form */
-  left: 80px;
-  cursor: pointer;
-  font-size: 25px;
-  
-  color: #000;
+  width: 470px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .BackIcon {
+    cursor: pointer;
+    font-size: 16px;
+    border: 1px solid grey;
+    padding: 8px;
+    border-radius: 10%;
+    width: 20px;
+    color: #000;
+  }
 
   @media (max-width: 768px) {
     top: 10px;
@@ -50,7 +38,7 @@ export const BackIcon = styled.div`
 `;
 
 export const Title = styled.h2`
-  text-align:   center;
+  text-align: center;
   margin: 20px 0;
   font-size: 1.5rem;
   color: #333;
@@ -61,8 +49,7 @@ export const FormSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh; /* To center form */
+  height: 80vh; /* To center form */
 `;
 
 export const Form = styled.form`
@@ -72,8 +59,6 @@ export const Form = styled.form`
   width: 90%;
   max-width: 450px;
 `;
-
-
 
 export const Input = styled.input`
   padding: 10px;
@@ -122,7 +107,11 @@ export const Icon = styled.div`
     props.selected &&
     css`
       border-color: #68c184; /* Highlight color for the selected icon */
-      background-color:rgb(226, 238, 230); /* Slight background for selection */
+      background-color: rgb(
+        226,
+        238,
+        230
+      ); /* Slight background for selection */
     `}
 
   img {
@@ -140,8 +129,8 @@ export const Icon = styled.div`
 
 export const Button = styled.button`
   padding: 10px;
-  background-color: ${(props) => (props.secondary ? '#f5f5f5' : '#008cba')};
-  color: ${(props) => (props.secondary ? '#333' : '#fff')};
+  background-color: ${(props) => (props.secondary ? "#2290ac" : "#2290ac")}45;
+  color: ${(props) => (props.secondary ? "#333" : "#fff")};
   border: none;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -149,7 +138,7 @@ export const Button = styled.button`
   font-size: 1rem;
 
   &:hover {
-    background-color: ${(props) => (props.secondary ? '#e0e0e0' : '#005f73')};
+    background-color: ${(props) => (props.secondary ? "#cccccc" : "#2290ac")};
   }
 `;
 

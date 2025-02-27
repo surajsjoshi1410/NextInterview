@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import theme from "../../../../theme/Theme";
 import { Link } from "react-router-dom";
@@ -10,11 +10,8 @@ import {
   Topic,
   Difficulty,
   Type,
-  Companies,
   Status,
-  Tag,
   MoreFilters,
-  CloseButton,
   DropdownContainer,
   FilterSection,
   ApplyButton,
@@ -27,77 +24,69 @@ import {
 } from "../QuestionBank/QuestionBank.styles";
 import { IoClose } from "react-icons/io5"; // Close icon
 import { RiArrowDropDownLine } from "react-icons/ri";
-
-const allQuestions = [
-  {
-    question: "What is AI?",
-    topic: "Machine Learning",
-    level: "Easy",
-    type: "MCQ",
-    companies: ["Amazon", "Google"],
-    status: "Completed",
-  },
-  {
-    question: "What is Deep Learning?",
-    topic: "Deep Learning",
-    level: "Medium",
-    type: "MCQ",
-    companies: ["Facebook", "Flipkart"],
-    status: "Pending",
-  },
-  {
-    question: "What is Python?",
-    topic: "Python",
-    level: "Hard",
-    type: "MCQ",
-    companies: ["Amazon"],
-    status: "Completed",
-  },
-  {
-    question: "What is SQL?",
-    topic: "SQL",
-    level: "Easy",
-    type: "MCQ",
-    companies: ["Google"],
-    status: "Pending",
-  },
-  {
-    question: "How does backpropagation work?",
-    topic: "Deep Learning",
-    level: "Hard",
-    type: "MCQ",
-    companies: ["Amazon", "Flipkart"],
-    status: "Completed",
-  },
-];
-
-const filtersList = [
-  { name: "Top 50 coding questions", removable: true },
-  { name: "Machine Learning 75", removable: false },
-];
+import { getQuestionBank } from "../../../../api/questionBankApi"; // Adjust the API path
+import { getModuleCode } from "../../../../api/addNewModuleApi"; // Adjust the API path
 
 const QuestionBank = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [filterSearchQuery, setFilterSearchQuery] = useState("");
   const [selectedFilters, setSelectedFilters] = useState({
     solved: false,
-    unsolved: true,
+    unsolved: false,
     easy: false,
-    medium: true,
-    hard: true,
-    topics: {
-      SQL: false,
-      "Machine Learning": false,
-      "Deep Learning": true,
-      Python: true,
-    },
-    companies: { Google: false, Facebook: false, Amazon: true, Flipkart: true },
+    medium: false,
+    hard: false,
+    topics: {},
   });
 
-  const [filteredQuestions, setFilteredQuestions] = useState(allQuestions);
+  const [filteredQuestions, setFilteredQuestions] = useState([]);
+  const [moduleCodes, setModuleCodes] = useState([]);
+  const [difficultyLevels, setDifficultyLevels] = useState([]);
+
+  useEffect(() => {
+    // Fetch the questions on load
+    const fetchQuestions = async () => {
+      try {
+        const response = await getQuestionBank();
+        console.log("Question data:", response.data);
+        setFilteredQuestions(response.data);
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+      }
+    
+    };
+
+    // Fetch the module codes
+    const fetchModuleCodes = async () => {
+      try {
+        const response = await getModuleCode();
+        setModuleCodes(response.data); // Set the module codes
+        console.log("Fetching Modules:", response.data);
+      } catch (error) {
+        console.error("Error fetching modules:", error);
+      }
+    };
+
+    const fetchDifficultyLevels = async () => {
+      try {
+        const response = await getQuestionBank();
+        console.log("Question data:", response.data);
+        // Assuming difficulty levels are part of the question data
+        const levels = response.data.map((question) => question.level);
+        const uniqueLevels = [...new Set(levels)]; // Remove duplicate levels
+        setDifficultyLevels(uniqueLevels);
+      } catch (error) {
+        console.error("Error fetching difficulty levels:", error);
+      }
+    };
+
+    fetchQuestions();
+    fetchModuleCodes();
+    fetchDifficultyLevels();
+  }, []);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
-  const closeDropdown = () => setIsDropdownOpen(false); // Close button action
+  const closeDropdown = () => setIsDropdownOpen(false);
 
   const handleCheckboxChange = (category, key) => {
     setSelectedFilters((prevFilters) => ({
@@ -108,82 +97,100 @@ const QuestionBank = () => {
       },
     }));
   };
-  const handleSearchChange = (event) => {
-    const query = event.target.value.toLowerCase();
-    setSearchQuery(query);
-    const filtered = allQuestions.filter((q) =>
-      q.question.toLowerCase().includes(query)
-    );
-    setFilteredQuestions(filtered);
-  };
 
-  const applyFilters = () => {
-    let filtered = allQuestions.filter((q) => {
-      return (
-        (selectedFilters.easy && q.level === "Easy") ||
-        (selectedFilters.medium && q.level === "Medium") ||
-        (selectedFilters.hard && q.level === "Hard")
-      );
+  const applyFilters = async () => {
+    const filters = {
+      module_code: "",        // module_code should be a single string
+      level: [],              // Filter by level
+      topic_code: "",         // Filter by topic_code if needed
+      question_type: "",      // If applicable
+      subtopic_code: "",      // If applicable
+    };
+  
+    // Log to verify the structure of selectedFilters
+    console.log("selectedFilters:", selectedFilters);
+  
+    // Add levels to filters
+    if (selectedFilters.easy) filters.level.push("easy");
+    if (selectedFilters.medium) filters.level.push("medium");
+    if (selectedFilters.hard) filters.level.push("hard");
+  
+    // Add selected topic to the module_code filter
+    Object.keys(selectedFilters.topics).forEach((topic) => {
+
+      if (selectedFilters.topics[topic]) {
+        moduleCodes.map((module) => {
+          if(module.module_name===topic){
+            filters.module_code = module.module_code;
+          }
+          });
+       };
     });
+  
+    // Check if subtopic_code and other values are set in selectedFilters
+    if (selectedFilters.topic_code) filters.topic_code = selectedFilters.topic_code;
+    if (selectedFilters.subtopic_code) filters.subtopic_code = selectedFilters.subtopic_code;
+    if (selectedFilters.question_type) filters.question_type = selectedFilters.question_type;
+  
 
-    filtered = filtered.filter((q) =>
-      Object.keys(selectedFilters.topics).some(
-        (key) => selectedFilters.topics[key] && q.topic.includes(key)
-      )
-    );
-
-    filtered = filtered.filter((q) =>
-      Object.keys(selectedFilters.companies).some(
-        (key) => selectedFilters.companies[key] && q.companies.includes(key)
-      )
-    );
-
-    setFilteredQuestions(filtered);
-    setIsDropdownOpen(false);
+  
+    // Ensure level is passed as a comma-separated string
+    const levelFilter = filters.level.length ? filters.level.join(',') : "";
+  
+    try {
+      console.log("updated filters", filters);
+      const response = await getQuestionBank(
+        filters.module_code, 
+        filters.topic_code,   // Pass topic_code if needed
+        filters.subtopic_code, // Pass subtopic_code if needed
+        filters.question_type, // Pass question_type if needed
+        levelFilter           // Pass level as a comma-separated string
+      );
+  
+      // Update the filtered questions
+      setFilteredQuestions(response.data);  
+      setIsDropdownOpen(false);               // Close dropdown after applying filters
+    } catch (error) {
+      console.error("Error applying filters:", error);
+    }
   };
+  
+  
+  
+  
+  
 
-  const clearFilters = () => {
+  const clearFilters = async () => {
     setSelectedFilters({
       solved: false,
-      unsolved: true,
+      unsolved: false,
       easy: false,
-      medium: true,
-      hard: true,
-      topics: {
-        SQL: false,
-        "Machine Learning": false,
-        "Deep Learning": true,
-        Python: true,
-      },
-      companies: {
-        Google: false,
-        Facebook: false,
-        Amazon: true,
-        Flipkart: true,
-      },
+      medium: false,
+      hard: false,
+      topics: {},
     });
-    setFilteredQuestions(allQuestions);
+  
+    // Refetch all questions after clearing filters
+    try {
+      const response = await getQuestionBank(); // Fetch all questions again
+      setFilteredQuestions(response.data); // Set all questions to the state
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+    }
+  };
+  
+
+  const getModuleName = (moduleCode) => {
+    const module = moduleCodes.find((module) => module.module_code === moduleCode);
+    return module ? module.module_name : "Unknown Module";
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Container>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          {/* <div style={{ display: "flex", gap: "10px" }}>
-                        {filtersList.map((filter, index) => (
-                            <Tag key={index} removable={filter.removable}>
-                                {filter.name}
-                                {filter.removable && <CloseButton>&times;</CloseButton>}
-                            </Tag>
-                        ))}
-                    </div> */}
           <MoreFilters onClick={toggleDropdown}>
-            More filters{" "}
-            <RiArrowDropDownLine
-              style={{
-                fontSize: "25px",
-              }}
-            />
+            More filters <RiArrowDropDownLine style={{ fontSize: "25px" }} />
           </MoreFilters>
         </div>
 
@@ -194,9 +201,7 @@ const QuestionBank = () => {
                 type="text"
                 placeholder="Search filters..."
                 value={filterSearchQuery}
-                onChange={(e) =>
-                  setFilterSearchQuery(e.target.value.toLowerCase())
-                }
+                onChange={(e) => setFilterSearchQuery(e.target.value.toLowerCase())}
               />
               <CloseFilterButton onClick={closeDropdown}>
                 <IoClose size={22} />
@@ -225,60 +230,33 @@ const QuestionBank = () => {
 
             <FilterSection>
               <SubText>Difficulty Level</SubText>
-              <CheckboxLabel>
-                <input
-                  type="checkbox"
-                  checked={selectedFilters.easy}
-                  onChange={() => handleCheckboxChange("easy", "easy")}
-                />{" "}
-                Easy
-              </CheckboxLabel>
-              <CheckboxLabel>
-                <input
-                  type="checkbox"
-                  checked={selectedFilters.medium}
-                  onChange={() => handleCheckboxChange("medium", "medium")}
-                />{" "}
-                Medium
-              </CheckboxLabel>
-              <CheckboxLabel>
-                <input
-                  type="checkbox"
-                  checked={selectedFilters.hard}
-                  onChange={() => handleCheckboxChange("hard", "hard")}
-                />{" "}
-                Hard
-              </CheckboxLabel>
+              {difficultyLevels.map((level) => (
+                <CheckboxLabel key={level}>
+                  <input
+                    type="checkbox"
+                    checked={selectedFilters[level.toLowerCase()]}
+                    onChange={() => handleCheckboxChange(level.toLowerCase(), level.toLowerCase())}
+                  />{" "}
+                  {level}
+                </CheckboxLabel>
+              ))}
             </FilterSection>
 
             <FilterSection>
               <SubText>Topics</SubText>
-              {Object.keys(selectedFilters.topics)
-                .filter((key) => key.toLowerCase().includes(filterSearchQuery))
-                .map((key) => (
-                  <CheckboxLabel key={key}>
+              {moduleCodes
+                .filter((module) => module.module_name.toLowerCase().includes(filterSearchQuery))
+                .map((module) => (
+                  <CheckboxLabel key={module.module_code}>
                     <input
                       type="checkbox"
-                      checked={selectedFilters.topics[key]}
-                      onChange={() => handleCheckboxChange("topics", key)}
+                      value={module.module_code}
+                      checked={selectedFilters.topics[module.module_name]}
+                      onChange={() =>
+                        handleCheckboxChange("topics", module.module_name)
+                      }
                     />{" "}
-                    {key}
-                  </CheckboxLabel>
-                ))}
-            </FilterSection>
-
-            <FilterSection>
-              <SubText>Similar to Questions Asked</SubText>
-              {Object.keys(selectedFilters.companies)
-                .filter((key) => key.toLowerCase().includes(filterSearchQuery))
-                .map((key) => (
-                  <CheckboxLabel key={key}>
-                    <input
-                      type="checkbox"
-                      checked={selectedFilters.companies[key]}
-                      onChange={() => handleCheckboxChange("companies", key)}
-                    />{" "}
-                    {key}
+                    {module.module_name}
                   </CheckboxLabel>
                 ))}
             </FilterSection>
@@ -299,28 +277,21 @@ const QuestionBank = () => {
         {filteredQuestions.length > 0 ? (
           filteredQuestions.map((item, index) => (
             <Link
-              to={`/user/questionBank/${item.id}`}
+              to={`/user/questionBank/${item._id}`}
               key={index}
               style={{
                 textDecoration: "none",
               }}
             >
-              <QuestionCard
-                key={index}
-                style={{ display: "flex", justifyContent: "space-between" }}
-              >
+              <QuestionCard key={index} style={{ display: "flex", justifyContent: "space-between" }}>
                 <div>
                   <QuestionText>
                     {index + 1}. {item.question}
                   </QuestionText>
                   <MetaInfo>
-                    <Topic>Topic - {item.topic}</Topic>
+                    <Topic>Module Name - {getModuleName(item.module_code)}</Topic> {/* Get module name */}
                     <Difficulty>Level - {item.level}</Difficulty>
-                    <Type>Type - {item.type}</Type>
-                    <Companies>
-                      Companies this question asked -{" "}
-                      {item.companies.join(", ")}
-                    </Companies>
+                    <Type>Type - {item.question_type}</Type>
                   </MetaInfo>
                 </div>
                 <Status>{item.status}</Status>

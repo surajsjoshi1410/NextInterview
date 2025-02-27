@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import HeaderWithLogo from "../../../components/HeaderWithLogo/HeaderWithLogo";
 import { Question7Wrapper } from "./Question7.styles";
 import { useNavigate } from "react-router";
-import { IoIosArrowRoundBack } from "react-icons/io";
+import { RxArrowLeft } from "react-icons/rx";
 import { useUser } from "@clerk/clerk-react";
 import { getCompanies } from "../../../api/comapniesApi";
 import { getDesignations } from "../../../api/designationApi";
@@ -39,7 +39,7 @@ function Question7() {
 
   const navigate = useNavigate();
   const handleGoBack = () => {
-    navigate("/question2");
+    navigate("/question6");
   };
 
   const handleCompanySelect = (company, index) => {
@@ -126,7 +126,7 @@ function Question7() {
       <HeaderWithLogo />
       <div className="Container">
         <div className="BackIcon" onClick={handleGoBack}>
-          <IoIosArrowRoundBack />
+          <RxArrowLeft />
         </div>
         <div className="Title">Tell me about past interview experience</div>
 
@@ -262,9 +262,7 @@ function Question7() {
         <button className="NextButton" onClick={handleNext}>
           Next
         </button>
-        <button className="SkipButton" onClick={() => { navigate("/question8", { state: { backLink: "/question7" } })}}>
-          skip
-        </button>
+
         <button className="anotherCompany" onClick={handleAddAnotherCompany}>
           Add Another Company
         </button>

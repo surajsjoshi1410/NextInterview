@@ -1,8 +1,10 @@
 import styled from "styled-components";
+import theme from "../../../theme/Theme";
 export const FinalQuestionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  max-height: 100vh;
+  height: 80vh;
   background-color: ${(props) => props.theme.colors.light};
 
   .Container {
@@ -61,7 +63,7 @@ export const FinalQuestionWrapper = styled.div`
       border: 2px solid ${(props) => props.theme.colors.primary}; /* Default border color */
       background-color: ${(props) => props.theme.colors.primary}!important;
       //   background-color: transparent; /* Default background color */
-    //   border-radius: 50%; /* Make it circular */
+      //   border-radius: 50%; /* Make it circular */
       outline: none;
       cursor: pointer;
       margin-right: 10px;
@@ -72,17 +74,17 @@ export const FinalQuestionWrapper = styled.div`
     }
 
     input:checked {
-      background-color: ${(props) =>
-        props.theme.colors.primary}!important; /* Change background to primary color */
-        color: ${(props) => props.theme.colors.primary}!important;
+      background-color: #68c184 !important; /* Change background to primary color */
+      color: ${(props) => props.theme.colors.primary}!important;
       border-color: ${(props) =>
-        props.theme.colors.primary}!important; /* Match border color with primary color */
-        accent-color: green;
+        props.theme.colors
+          .primary}!important; /* Match border color with primary color */
+      accent-color: green;
     }
+
     input:checked + span {
       color: ${(props) => props.theme.colors.primary}!important;
-    }    
-    
+    }
 
     span {
       font-size: 16px;
@@ -94,16 +96,19 @@ export const FinalQuestionWrapper = styled.div`
       background-color: ${(props) => props.theme.colors.primaryLight};
       border-color: ${(props) => props.theme.colors.primary};
     }
-
+    ${
+      "" /* 
     &:hover {
       border-color: ${(props) => props.theme.colors.primaryDark};
+      background-color: ${(props) => props.theme.colors.primaryLight};
+    } */
     }
   }
 
   .NextButton {
     width: 100%;
     padding: 12px;
-    background-color: ${(props) => props.theme.colors.primary};
+    background-color: ${(props) => props.theme.colors.bluetext}45;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -113,7 +118,7 @@ export const FinalQuestionWrapper = styled.div`
   }
 
   .NextButton:hover {
-    background-color: ${(props) => props.theme.colors.info};
+    background-color: ${(props) => props.theme.colors.bluetext};
   }
 
   .SkipButton {

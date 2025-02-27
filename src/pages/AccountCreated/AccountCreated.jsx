@@ -18,7 +18,7 @@ function AccountCreated() {
         />
         <div className="Heading">Account Created Successfully</div>
         <div className="SubHeading">
-          You can now access our vast data science Library
+          You can now access our vast Data Science Library
         </div>{" "}
         <div className="Button">Go to Homepage</div>
       </div>
