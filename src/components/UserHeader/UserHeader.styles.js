@@ -109,7 +109,7 @@ export const IconWrapper = styled.div`
 `;
 
 export const Icon = styled.div`
-  font-size: 16px;
+  font-size: 20px;
   cursor: pointer;
 
   @media (max-width: ${theme.breakpoints.mobile}) {

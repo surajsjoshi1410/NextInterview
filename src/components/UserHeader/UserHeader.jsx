@@ -278,7 +278,7 @@ const UserHeader = ({ title }) => {
                 <PiLineVertical title="Vertical Line" />
               </Icon>
               <Icon>
-                <MdOutlineInfo title="Information" />
+                <MdOutlineInfo title="Information" onClick={()=>navigate("/user/userfaq")}/>
               </Icon>
             </IconWrapper>
             <UserProfile>

@@ -6,7 +6,7 @@ export const FAQContainer = styled.div`
   color: ${({ theme }) => theme.colors.textPrimary};
   border-radius: 8px;
   // max-width: 1000px;
-  margin-left: 60px;
+  margin-left: 40px;
 `;
 
 export const FAQTitle = styled.h2`
@@ -56,7 +56,7 @@ export const FAQAnswer = styled.p`
 `;
 
 export const ToggleButton = styled.span`
-  font-size: 20px;
+  font-size: 24px;
   color: ${({ theme }) => theme.colors.accent};
   cursor: pointer;
 `;
@@ -78,7 +78,7 @@ letter-spacing: -0.28px;
   margin-top: 20px;
   display: block;
   width: fit-content;
-  margin-right: 60px;
+  margin-right: 10px;
 
  &:hover {
  background-color:${theme.colors.secondary};

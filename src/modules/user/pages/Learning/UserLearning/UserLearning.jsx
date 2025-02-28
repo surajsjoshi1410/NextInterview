@@ -85,7 +85,7 @@ export default function UserLearning() {
                         {/* <div className="searchContainer"> */}
                         <input
                             type="text"
-                            placeholder={` Search`}
+                            placeholder={`Search`}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="search-input"
@@ -111,11 +111,12 @@ export default function UserLearning() {
                         <div key={index} className={isGridView ? "course-card" : "course-card-list"}>
                             <img src={course.image} alt={course.title} className={isGridView ? "course-image" : "course-image-list"} />
                             <div className={isGridView ? "course-details" : "course-details-list"}>
-                                <h3 className='course-title'>{course.title}</h3>
+                                <h3 style={{margin:"0px"}} className='course-title'>{course.title}</h3>
 
                                 <p className={isGridView?'course-description':'course-description-list'}>{course.description}</p>
                                 <div className={isGridView?"course-info":"course-info-list"}>
                                     <span>{course.topics} topics</span>
+                                    <div style={{width:"10px" , height:"10px", backgroundColor:'#F0F8F1', borderRadius:"50%" }}></div>
                                     <span>Less than {course.duration} hrs</span>
                                 </div>
                             </div>

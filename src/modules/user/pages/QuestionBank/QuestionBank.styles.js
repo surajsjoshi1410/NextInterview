@@ -25,6 +25,7 @@ export const QuestionText = styled.h2`
   color: ${({ theme }) => theme.colors.text};
   margin-bottom: ${({ theme }) => theme.spacing(1)};
   font-weight: normal;
+  margin-top: 0;
 `;
 
 export const MetaInfo = styled.div`
@@ -82,12 +83,19 @@ export const Companies = styled.span`
 export const Status = styled.div`
   font-size: 14px;
   font-weight: 600;
-  color: ${({ theme }) => theme.colors.success};
+  // color: ${({ theme }) => theme.colors.success};
+  color: ${({ theme, status }) =>
+    status === "Completed" ? theme.colors.success : "#ffc107"};
   margin-top: 10px;
-  background: ${({ theme }) => theme.colors.lightgreen};
+  // background: ${({ theme }) => theme.colors.lightgreen};
+    background: ${({ theme, status }) =>
+    status === "Completed" ? theme.colors.lightgreen : "#fff3cd"};
   padding: 4px 8px;
   height: 20px;
   justify-content: center;
+  // border:1px solid ${({ theme }) => theme.colors.greenborder};
+      border: 1px solid ${({ theme, status }) =>
+    status === "Completed" ? theme.colors.greenborder : "#ffc107"};
   
   border-radius: 8px;
   display: inline-block;
@@ -207,6 +215,8 @@ export const MoreFilters = styled.div`
   align-items: center;
   gap: 10px;
 //   justify-content: center;
+border:1px solid ${({ theme }) => theme.colors.backgray};
+border-radius: 4px;
 `;
 
 export const FilterHeader = styled.div`

@@ -24,15 +24,20 @@ background-color: ${(props) => props.theme.colors.light};
   border-radius: 10px;
   margin-left: 60px;
   position: relative;
-  
+
+`;
+
+export const Heading = styled.h2`
+font-family: ${theme.fonts.heading};
+color:${theme.colors.text};
+margin-bottom:${theme.spacing(1)};
+text-align:left;
 `;
 
 export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 10px;
-  padding: 50px;
 `;
 
 export const Dropdown = styled.select`
@@ -53,6 +58,7 @@ export const RadioOption = styled.label`
   display: flex;
   align-items: center;
   gap: 5px;
+  accent-color:${theme.colors.bluetext};
 `;
 
 export const Button = styled.button`
@@ -63,7 +69,7 @@ export const Button = styled.button`
   border-radius: 4px;
   cursor: pointer;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   font-family: ${theme.fonts.body};
   margin-top: 15px;
   display: flex;
@@ -76,11 +82,11 @@ margin-left: auto;
 
 export const CloseButton = styled.button`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 28px;
   cursor: pointer;
   color: ${theme.colors.textgray};
 `;

@@ -129,6 +129,7 @@ background-color: white;
   border: 1px solid #EBEBEB;
   overflow: hidden;
    width: 100%;
+   height: 100px;
   margin-bottom: 20px;
   transition: transform 0.3s;
   cursor: pointer;
@@ -149,8 +150,8 @@ height: 278px;
   
 }
   .course-image-list{
- width: 104.5px;
-height: 65.015px;
+ width: 114.5px;
+height: 75.015px;
   border-radius: 15px ;
   object-fit: cover;
   margin:24px;
@@ -208,6 +209,8 @@ display:none;
 .course-info-list{
 gap: 10px;
 padding-left: 10px;
+display: flex;
+align-items: center;
 }
 .course-info-list span{
      font-family: "DM Sans";
@@ -245,7 +248,7 @@ color:${({ theme }) => theme.colors.textgray};
 
 .start-btn {
   width: 96px;
-height: 34px;
+// height: 34px;
   padding: 10px;
   background-color: ${({ theme }) => theme.colors.secondary};
   color: white;

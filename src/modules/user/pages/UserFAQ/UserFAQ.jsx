@@ -60,6 +60,8 @@ const UserFAQ = () => {
           flexDirection: "row",
           alignItems: "center",
           alignContent: "flex-end",
+          width: "95%",
+          margin: " auto",
         }}
       >
         <FAQTitle>Frequently asked questions</FAQTitle>
@@ -72,7 +74,8 @@ const UserFAQ = () => {
           display: "flex",
           justifyContent: "space-between",
           flexDirection: "column",
-          maxWidth: "90%",
+          width: "93%",
+          margin: "auto",
         }}
       >
         <FAQSubtitle>

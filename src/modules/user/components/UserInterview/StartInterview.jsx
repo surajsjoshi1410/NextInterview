@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   Container,
+  Heading,
   Modal,
   ModalContent,
   Dropdown,
@@ -10,9 +11,20 @@ import {
   CloseButton
 } from "../../components/UserInterview/StartInterview.style";
 
-const StartInterview = ({ isOpen, onClose }) => {
+import { useNavigate } from "react-router-dom";
+
+const StartInterview = ({ isOpen, onClose, title }) => {
   const [module, setModule] = useState("Deep Learning");
-  const [mode, setMode] = useState("voice");
+  const [mode, setMode] = useState("chat");
+  const navigate = useNavigate();
+ 
+  const handleStartInterview = () => {
+    if (mode === "voice") {
+      navigate("/voicemode");
+    } else {
+      navigate("/chatmode");
+    }
+  };
 
   return (
     <Container isOpen={isOpen}>
@@ -20,14 +32,21 @@ const StartInterview = ({ isOpen, onClose }) => {
         <h2>Start a New Interview</h2>
         <small>Uses AI</small>
         <ModalContent>
-          <label>Select Module</label>
-          <Dropdown value={module} onChange={(e) => setModule(e.target.value)}>
-            <option value="Deep Learning">Deep Learning</option>
-            <option value="Machine Learning">Machine Learning</option>
-            <option value="Data Science">Data Science</option>
-          </Dropdown>
+          <Heading>
+            {title}
+          </Heading>
+
           <label>Select Interview Mode</label>
           <RadioGroup>
+          <RadioOption>
+              <input
+                type="radio"
+                value="chat"
+                checked={mode === "chat"}
+                onChange={() => setMode("chat")}
+              />
+              Chat Mode
+            </RadioOption>
             <RadioOption>
               <input
                 type="radio"
@@ -37,17 +56,9 @@ const StartInterview = ({ isOpen, onClose }) => {
               />
               Voice Mode
             </RadioOption>
-            <RadioOption>
-              <input
-                type="radio"
-                value="chat"
-                checked={mode === "chat"}
-                onChange={() => setMode("chat")}
-              />
-              Chat Mode
-            </RadioOption>
+
           </RadioGroup>
-          <Button onClick={() => alert(`Starting ${module} interview in ${mode} mode`)}>
+          <Button onClick={handleStartInterview}>
             + Start Interview
           </Button>
         </ModalContent>

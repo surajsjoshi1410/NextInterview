@@ -112,6 +112,11 @@ const TakeChallenge = () => {
     { src: flipkart, alt: "" },
     { src: google, alt: "" },
   ];
+
+  
+    const handleClick = () => {
+      navigate('/user/TakeChallengeQuestionType');
+    };
   return (
     <Card>
       <small
@@ -144,7 +149,7 @@ const TakeChallenge = () => {
       </Tags>
       <MarginButton>
         <Buttons>
-          <Button
+          <Button onClick={handleClick}
             primary
             style={{
               color: "#fff",

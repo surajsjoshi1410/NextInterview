@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Three cards in a row */
-  gap: 20px;
+  gap: 30px;
   padding: ${({ theme }) => theme.spacing(3)};
   background-color: ${({ theme }) => theme.colors.light};
   margin-left: 40px;
@@ -31,7 +31,7 @@ export const Card = styled.div`
   // box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.3s ease-in-out;
-  width: 320px; /* Adjusted to fit image and text neatly */
+  // width: 320px; /* Adjusted to fit image and text neatly */
   display: flex;
   flex-direction: column;
   // align-items: center;
@@ -44,14 +44,17 @@ export const Card = styled.div`
 
 export const ImageWrapper = styled.div`
   width: 100%;
-  height: 200px;
+  height: 300px;
   overflow: hidden;
-  border-radius: 8px 8px 0 0;
+  border-radius: 18px;
 `;
 
 export const Image = styled.img`
   width: 100%;
   display: block;
+  // height: 300px; /* Adjusted to fit image and text neatly */
+  height: 100%;
+
   
 `;
 

@@ -74,6 +74,8 @@ import VerifyTOTP from "./pages/VerifyTOTP/VerifyTOTP";
 import PublicRoutes from "./utils/PublicRoutes";
 import TryItYourself from "./modules/user/components/TryItYourselfComponent/TryItYourself";
 import JDoodleEditor from "./modules/user/components/JDoodleEditor/JDoodleEditor";
+import MockInterviewChat from "./modules/user/components/MockInterviewChat/MockInterviewChat";
+import MockInterviewVoice from "./modules/user/components/MockInterviewVoice/MockInterviewVoice";
 
 function App() {
   return (
@@ -102,6 +104,10 @@ function App() {
           <Route path="/testing" element={<JDoodleEditor/>} />
           <Route path="/learning" element={<LearningModules />} />
           <Route path="/verifytotp" element={<VerifyTOTP/>} />
+          <Route path="/chatmode" element={<MockInterviewChat/>}/>
+          <Route path="/voicemode" element={<MockInterviewVoice/>}/>
+          <Route path="/tryityourself" element={<TryItYourself />} />
+ 
 
           {/* <Route path="/Diagnosing-and-Investigating-Metrics" element={<Userdetails />} /> */}
 
@@ -207,6 +213,7 @@ function App() {
             <Route path="/user/subscription" element={<UserSubscription />} />
             <Route path="/user/interview" element={<InterviewPage />} />
             <Route path="/user/challengeInfo" element={<NewChallenge />} />
+            {/* <Route path="/user/TakeChallengeQuestionType" element={<TakeChallengeQuestionType />} /> */}
           </Route>
         </Routes>
       </Router>

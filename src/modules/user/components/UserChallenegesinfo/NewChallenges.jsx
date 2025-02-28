@@ -2,6 +2,7 @@ import React from "react";
 import amazon from "../../../../assets/Avatar.svg";
 import flipkart from "../../../../assets/PersonPhoto.svg";
 import google from "../../../../assets/image.svg";
+import { useNavigate } from 'react-router-dom';
 
 import {
   Card,
@@ -22,6 +23,11 @@ const NewChallenge = () => {
     { src: flipkart, alt: "" },
     { src: google, alt: "" },
   ];
+
+  const navigate = useNavigate();
+  const handleTakeChallenge = () => {
+    navigate('/user/TakeChallengeQuestionType');
+  };
 
   return (
     <Card>
@@ -51,7 +57,9 @@ const NewChallenge = () => {
       <hr className="hrtag" />
 
       <Footer>
-        <Button>Take Challenge</Button>
+        <Button 
+        onClick={handleTakeChallenge}
+        >Take Challenge</Button>
         <Icons>
           <div className="icons-container">
             <span>Previously Asked In</span>
