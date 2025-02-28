@@ -73,6 +73,7 @@ import AddTOTP from "./modules/admin/pages/AddTOTP/AddTOTP";
 import VerifyTOTP from "./pages/VerifyTOTP/VerifyTOTP";
 import PublicRoutes from "./utils/PublicRoutes";
 import TryItYourself from "./modules/user/components/TryItYourselfComponent/TryItYourself";
+import JDoodleEditor from "./modules/user/components/JDoodleEditor/JDoodleEditor";
 
 function App() {
   return (
@@ -81,7 +82,7 @@ function App() {
         <GlobalStyle />
         <Routes>
          
-          <Route path="/" element={<SignUp />} />
+          <Route path="/" element={ <PublicRoutes Component={SignUp }/>} />
           <Route path="/loginPhone" element={<Login />} />
           <Route path="/login" element={ <PublicRoutes Component={SignUp }/>} />
           <Route path="/signup" element={<SignUpPage />} />
@@ -98,7 +99,7 @@ function App() {
           <Route path="/profileComplete" element={<AccountCreated />} />
           <Route path="/otpEmail" element={<OtpEmail />} />
           <Route path="/validation" element={<ValidationPage />} />
-          <Route path="/testing" element={<MainWindow />} />
+          <Route path="/testing" element={<JDoodleEditor/>} />
           <Route path="/learning" element={<LearningModules />} />
           <Route path="/verifytotp" element={<VerifyTOTP/>} />
 
