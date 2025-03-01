@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import theme from "../../../../theme/Theme";
 
 export const UserHomeWrapper = styled.div`
   margin-left: 60px;
@@ -24,6 +25,7 @@ export const UserHomeWrapper = styled.div`
 `;
 
 export const InterviewFavoriteCardContainer = styled.div`
+width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
@@ -41,14 +43,38 @@ export const InterviewFavoriteCardContainer = styled.div`
 `;
 
 export const ArrowButton = styled.button`
-  background-color: #007bff;
-  color: white;
+  background-color: ${theme.colors.white};
+  opacity: 0.5;
+  color: ${theme.colors.black};
   border: none;
   padding: 10px;
   cursor: pointer;
   border-radius: 50%;
-
-  &:hover {
-    background-color: #0056b3;
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  z-index: 10;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+   &:first-of-type {
+    left: 0px; // Adjust as needed
+  }
+ 
+  &:last-of-type {
+    right: 0px; // Adjust as needed
+  }
+ 
+  @media (max-width: 768px) {
+    &:first-of-type {
+      left: -20px;
+    }
+    &:last-of-type {
+      right: -20px;
+    }
   }
 `;
+ 
+ 

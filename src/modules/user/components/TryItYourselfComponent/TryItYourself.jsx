@@ -99,19 +99,41 @@ useEffect(() => {
 
 
   
-  const handleNextQuestion = () => {
-    const currentIndex = allQuestions.findIndex(
-      (q) => q._id === selectedQuestion._id
-    );
+const handleNextQuestion = () => {
+  if (!selectedQuestion) return;
+
+  const currentModuleCode = moduleCodes.find(m => m.module_name === module_name)?.module_code;
+
+  if (!currentModuleCode) {
+    console.warn("No module code found for this module");
+    return;
+  }
+
+  const filteredQuestions = allQuestions.filter(q => q.module_code === currentModuleCode);
+  const currentIndex = filteredQuestions.findIndex(q => q._id === selectedQuestion._id);
+
+  if (currentIndex + 1 < filteredQuestions.length) {
+    console.log("Condition is true: Moving to the next question.");
+    setSelectedQuestion(filteredQuestions[currentIndex + 1]);
+    setSelectedAnswer(null);
+    setUserAnswer("");
+    setShowSolution(false);
+  } else {
+    console.log("Condition is false: Navigating to the learning module.");
+    navigate(`/user/learning`);
+  }
+};
+
+const isLastQuestion = (() => {
+  if (!selectedQuestion) return true;
+  const currentModuleCode = moduleCodes.find(m => m.module_name === module_name)?.module_code;
+  if (!currentModuleCode) return true;
  
-    const nextIndex = currentIndex + 1;
-    if (nextIndex < allQuestions.length) {
-      const nextQuestion = allQuestions[nextIndex];
-      navigate(`/user/learning/${nextQuestion._id}/topic/tryityourself`);
-    } else {
-      console.log("No more questions available.");
-    }
-  };
+  const filteredQuestions = allQuestions.filter(q => q.module_code === currentModuleCode);
+  return filteredQuestions.length > 0 && selectedQuestion._id === filteredQuestions[filteredQuestions.length - 1]._id;
+
+})();
+
 
   const handleExploreButtonClick = () => {
     navigate(`/user/questionBank`)
@@ -412,7 +434,7 @@ useEffect(() => {
  
              {showSolution && (
                 <NextButton onClick={handleNextQuestion}>
-                  Next Question
+                  {isLastQuestion ? "Submit" : "Next Question"}
                 </NextButton>
               )}
             </QuestionContainer>

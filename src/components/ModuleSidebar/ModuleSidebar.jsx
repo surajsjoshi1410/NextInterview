@@ -121,7 +121,7 @@ export default function ModuleSidebar({
         {courseData.topicsList?.map((topic, index) => (
           <div key={index} className="topic">
             <div className="topic-title" onClick={() => toggleExpand(index)}>
-              <span>{topic.title}</span>
+              <span className="topic-name">{topic.title}</span>
               <span>
                 {expandedTopic === index ? <MdExpandLess /> : <MdExpandMore />}
               </span>{" "}
@@ -148,6 +148,7 @@ export default function ModuleSidebar({
                               subtopicIndex: subIndex,
                             }}
                           >
+                            <div style={{display: "flex", alignItems: "flex-start", gap:"5px"}}>
                             {" "}
                             <span>
                               {subtopic.completed ? (
@@ -160,6 +161,7 @@ export default function ModuleSidebar({
                               {" "}
                               {subtopic.title}
                             </span>
+                            </div>
                           </Link>
                         </span>
                         {/* <span className="time">{subtopic.time}</span> */}

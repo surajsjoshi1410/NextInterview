@@ -229,7 +229,7 @@ const SignUp = () => {
                 Forgot Password ?
               </Link>
             </div>
-
+                <p style={{ margin:"0", textAlign: "center"}}>Invalid email or password</p>
             <Button type="submit">Log In</Button>
 
             <AlternativeLogin>

@@ -9,6 +9,31 @@ export const Container = styled.div`
   padding: ${theme.spacing(3)};
   background: ${theme.colors.light};
   margin-left: 40px;
+  .like-button {
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background: white;
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  padding: 5px;
+  border-radius: 50%;
+}
+ 
+.heart-icon.liked {
+  color: red;
+  fill: red;
+}
+ 
+.course-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     grid-template-columns: repeat(2, 1fr);
@@ -31,12 +56,6 @@ export const Card = styled.div`
   &:hover {
     transform: translateY(-5px);
   }
-`;
-
-export const Image = styled.img`
-  width: 100%;
-  height: 250px;
-  border-radius: 18px;
 `;
 
 export const CardContent = styled.div`

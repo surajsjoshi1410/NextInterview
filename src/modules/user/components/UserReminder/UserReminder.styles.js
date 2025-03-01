@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import theme from "../../../../theme/Theme";
 
 export const UserReminderWrapper = styled.div`
   background-color: #fff;
@@ -78,10 +79,13 @@ export const UserReminderWrapper = styled.div`
     flex: 1 0 0;
     border-radius: 16px;
     border: 1px solid white !important;
+    font-size: 14px;
+    font-family: "DM Sans";
+    cursor: pointer;
   }
 
   .thanks-button:hover {
-    background-color: #0056b3;
+    background: ${theme.colors.bluetext};
   }
   .thanks-message {
     display: flex;

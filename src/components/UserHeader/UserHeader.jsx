@@ -37,6 +37,7 @@ import { useClerk } from "@clerk/clerk-react";
 import { getUserByClerkId } from "../../api/userApi";
 import { getNotificationByUser } from "../../api/notificationApi";
 import { IoClose } from "react-icons/io5";
+import notification from "../../assets/BellIcon.svg";
 // **Logout Confirmation Modal Component**
 
 // **Dropdown Component**
@@ -205,39 +206,109 @@ const UserHeader = ({ title }) => {
   }, [navigate, isSignedIn, isLoaded, user]);
 
   const NotificationDropdown = ({ notifications }) => {
+    const [localNotifications, setLocalNotifications] = useState(notifications);
+ 
+    const handleCloseNotification = (index) => {
+      setLocalNotifications(
+        (prevNotifications) => prevNotifications.filter((_, i) => i !== index) // Remove the clicked notification
+      );
+    };
+ 
     return (
+      <>
+      <div style={{              position: "absolute",
+        right: "14.6%",
+        top: "6.4%",
+        zIndex: "20",
+        border: "2px solid #ddd",
+        width: "15px",
+        height: "15px",
+        transform: "translate(-50%) rotate(45deg)",
+        background: "white",
+        }}></div>
       <div
         style={{
           position: "absolute",
-          top: "60px", // Adjust the position below the bell icon
-          right: "10px",
+          top: "70px", // Adjust the position below the bell icon
+          right: "14%",
           background: "white",
-          border: "1px solid #ddd",
+          border: "1px solid #ddd ",
+          borderTop: "none",
           borderRadius: "8px",
-          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Top-only shadow
+ 
           zIndex: 1000,
-          width: "250px",
-          padding: "10px 0",
+          width: "400px",
           cursor: "pointer",
-          maxHeight: "300px",
+          height: "400px",
           overflowY: "auto",
+          scrollbarWidth: "none",
         }}
       >
-        {notifications.length === 0 ? (
-          <p>No new notifications</p>
+        {localNotifications.length === 0 ? (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <img src={notification} alt="notification" />
+            <p style={{ fontSize: "16px"}}>No New Notifications </p>
+          </div>
         ) : (
-          notifications.map((notification, index) => (
+          localNotifications.map((notification, index) => (
             <div
               key={index}
-              style={{ padding: "8px 16px", borderBottom: "1px solid #ddd" }}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "8px 16px",
+                border: "1px solid #ddd",
+                position: "relative",
+                margin: "10px",
+                borderRadius: "20px",
+                // boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.5)",  
+              }}
             >
-              <p>{notification.message}</p>
+              <p
+                style={{
+                  margin: "0",
+                  fontSize: "14px",
+                  display: "-webKit-box",
+                  // WebkitLineClamp: "1",
+                  // WebkitBoxOrient: "vertical",
+                  // overflow: "hidden",
+                  width: "90%",
+                }}
+              >
+                {notification.message}
+              </p>
+              <span
+                onClick={() => handleCloseNotification(index)}
+                style={{
+                  cursor: "pointer",
+                  fontSize: "20px",
+                  color: "red",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                &times;
+              </span>
             </div>
           ))
         )}
       </div>
+      </>
     );
   };
+ 
+ 
 
   return (
     <>

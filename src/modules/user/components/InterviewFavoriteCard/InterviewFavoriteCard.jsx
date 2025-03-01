@@ -1,18 +1,26 @@
 import React from "react";
 import { InterviewFavoriteCardWrapper } from "./InterviewFavoriteCard.styles";
 
-const imgS = [
-  "https://th.bing.com/th/id/OIP.hfNK8S7ywtaPVr8WGTV4-wHaE7?rs=1&pid=ImgDetMain",
-  "https://th.bing.com/th/id/OIP.hfNK8S7ywtaPVr8WGTV4-wHaE7?rs=1&pid=ImgDetMain",
-  "https://th.bing.com/th/id/OIP.hfNK8S7ywtaPVr8WGTV4-wHaE7?rs=1&pid=ImgDetMain",
-  "https://th.bing.com/th/id/OIP.hfNK8S7ywtaPVr8WGTV4-wHaE7?rs=1&pid=ImgDetMain",
-];
+import amazon from "../../../../assets/Avatar.svg";
+import flipkart from "../../../../assets/PersonPhoto.svg";
+import google from "../../../../assets/image.svg";
+ 
+  const iconList = [
+    { src: amazon, alt: "" },
+    { src: flipkart, alt: "" },
+    { src: google, alt: "" },
+  ];
 
 const InterviewFavoriteCard = ({ title, topics, imgSrc }) => {
   return (
     <InterviewFavoriteCardWrapper>
       <div className="card">
+        <div className="card-overlay">
         <img className="card-image" src={imgSrc} alt="Topic Thumbnail" />
+        </div>
+        <div className="overlay">
+          <span className="overlay-text">Machine Learning</span>
+        </div>
         <div className="card-content">
           <h3 className="card-title">{title}</h3>
           <p className="card-subtitle">
@@ -22,23 +30,18 @@ const InterviewFavoriteCard = ({ title, topics, imgSrc }) => {
           <div className="card-footer">
             <button className="learn-btn">Learn</button>
             <div className="tags">
-              {imgS.map((imgSrc, index) => {
-                if (index < 3) {
-                  return (
-                    <img
-                      className="card-companylogo"
-                      src={imgSrc}
-                      alt="Topic Thumbnail"
-                    />
-                  );
-                }
-              })}
-
-              {imgS.length > 3 && (
-                <span className="tag">+{imgS.length - 3}</span>
-              )}
-
-              <span className="tag-interview">In Interviews</span>
+              <div className="icons-container">
+              {iconList.map((icon, index) => (
+              <img
+                key={index}
+                src={icon.src}
+                alt={icon.alt}
+                style={{ right: `${index * 10}px` }} // Adjust overlap dynamically
+                className="icon"
+              />
+            ))}
+              <span>In Interviews</span>
+              </div>
             </div>
           </div>
         </div>

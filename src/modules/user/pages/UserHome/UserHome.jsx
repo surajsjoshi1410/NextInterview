@@ -7,7 +7,7 @@ import {
 import TakeChallenge from "../../components/UserChalleneges/TakeChallenge";
 import UserReminder from "../../components/UserReminder/UserReminder";
 import InterviewFavoriteCard from "../../components/InterviewFavoriteCard/InterviewFavoriteCard";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
 
 export default function UserHome() {
   const interviewFavoriteCardData = [
@@ -89,9 +89,9 @@ export default function UserHome() {
         <div className="interviewFav-title">
           <h3>Interview Favourites</h3>
         </div>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{position: "relative" ,display: "flex", alignItems: "center" }}>
           <ArrowButton onClick={handlePrev}>
-            <FaChevronLeft />
+            <FaAngleLeft />
           </ArrowButton>
           <InterviewFavoriteCardContainer>
             {visibleCards.map((cardData, index) => (
@@ -106,7 +106,7 @@ export default function UserHome() {
             ))}
           </InterviewFavoriteCardContainer>
           <ArrowButton onClick={handleNext}>
-            <FaChevronRight />
+            <FaAngleRight />
           </ArrowButton>
         </div>
       </div>

@@ -96,6 +96,9 @@ export const ModuleSidebarContainer = styled.div`
 .course-topics {
 padding: 10px;
   margin-bottom: 30px;
+  overflowy: scroll;
+  height: 70vh;
+  scrollbar-width: none;
 }
 
 .course-topics-title {
@@ -104,7 +107,7 @@ font-family: "DM Sans";
 font-size: 16px;
 font-style: normal;
 font-weight: 600;
-oerflow: hidden;
+overflow: hidden;
 color:${({ theme }) => theme.colors.black};
   margin-bottom: 10px;
 }
@@ -118,9 +121,7 @@ color:${({ theme }) => theme.colors.black};
   display: flex;
   justify-content: space-between;
   align-items: center;
-overflow: hidden;
 color: ${({ theme }) => theme.colors.black};
-text-overflow: ellipsis;
 font-family: "DM Sans";
 font-size: 12px;
 font-style: normal;
@@ -135,12 +136,19 @@ line-height: normal;
   background-color: #e0e0e0;
 }
 
+.topic-name{
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+overflow: hidden;
+width: 90%;
+}
+
 .subtopics {
   padding-left: 20px;
   margin-top: 10px;
   overflow: hidden;
 color: ${({ theme }) => theme.colors.black};
-text-overflow: ellipsis;
 font-family: "DM Sans";
 font-size: 10px;
 font-style: normal;
@@ -178,11 +186,15 @@ gap: 4px;
 .subtopic-title{
 overflow: hidden;
 color: ${({ theme }) => theme.colors.black};
-text-overflow: ellipsis;
 font-family: "DM Sans";
 font-size: 10px;
 font-style: normal;
 font-weight: 400;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+overflow: hidden;
+width: 100%;
 }
 
 .module-sidebar-topic-title{

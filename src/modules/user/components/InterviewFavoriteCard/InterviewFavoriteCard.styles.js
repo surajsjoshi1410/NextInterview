@@ -41,6 +41,33 @@ export const InterviewFavoriteCardWrapper = styled.div`
     margin: 0;
   }
 
+    .card-overlay{
+    position: relative;
+ 
+  }
+  .overlay{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    float: right;
+  }
+ 
+  .overlay-text{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.bluetext};
+    background-color:${({ theme }) => theme.colors.white};
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid ${({ theme }) => theme.colors.bluetext};
+    float: right;
+  }
+ 
   .card-subtitle {
     text-overflow: ellipsis;
     font-family: "DM Sans";
@@ -57,6 +84,7 @@ export const InterviewFavoriteCardWrapper = styled.div`
   .info {
     font-weight: 600;
   }
+
   .card-footer {
     display: flex;
     justify-content: space-between;
@@ -64,11 +92,10 @@ export const InterviewFavoriteCardWrapper = styled.div`
     position: absolute;
     bottom: 10px;
     gap: 10px;
+    width: 100%;
   }
 
   .learn-btn {
-    width: 96px;
-    height: 34px;
     flex-shrink: 0;
     text-align: center;
     /* Body Text/Small/Body Small (Medium) */
@@ -80,6 +107,7 @@ export const InterviewFavoriteCardWrapper = styled.div`
     color: #fff;
     border: none;
     border-radius: 4px;
+    paddimg: 10px 20px;
   }
   .card-companylogo {
     width: 30px;
@@ -93,8 +121,29 @@ export const InterviewFavoriteCardWrapper = styled.div`
 
   .tags {
     display: flex;
-    gap: 8px;
-    font-size: 0.875rem;
+    align-items: center;
+  justify-content: flex-end;
+  }
+ 
+ 
+  span {
+    font-size: 14px;
+    color: #777;
+    padding-right: 30px;
+  }
+ 
+  .icon {
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    position: relative;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    top: 10px;
+ 
+    &:first-child {
+      left: 0;
+    }
   }
 
   .tag {

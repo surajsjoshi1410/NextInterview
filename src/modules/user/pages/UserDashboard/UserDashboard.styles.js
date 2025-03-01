@@ -64,8 +64,6 @@ color:${({ theme }) => theme.colors.black};
 font-size: 20px;
 }
 .UserDashboard-statsContainer-row-two{
- position:relative;
- top: 200px;
  width: 100%;
 }
  .UserDashboard-Charts-container{
@@ -79,7 +77,7 @@ font-weight: 700;
 color:${({ theme }) => theme.colors.black};
  }
 .UserDashboard-charts{
-postion:relative;
+position:relative;
 margin-top: 40px;
 display: flex;
 justify-content: space-between;
@@ -106,5 +104,92 @@ flex: 1 1 100%;
 .UserDashboard-statsContainer-row-two{
 
 top: 750px;}
+}
+
+
+/* ContinueLearning.css */
+ 
+.container {
+  width: 100%;
+  margin-top: 150px;
+}
+ 
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  padding: 0 20px;
+  font-family: 'DM Sans';
+  display: flex;
+  align-items: center;
+}
+ 
+.carousel-wrapper {
+  display: flex;
+  align-items: center;
+  /* position: relative; */
+}
+ 
+.card-container {
+  display: flex;
+  /* overflow: hidden; */
+  gap: 15px;
+  width: 100%;
+}
+ 
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 25%;
+  cursor: pointer;
+}
+ 
+.continue-Learning-Header{
+    display: flex;
+    justify-content: space-between;
+}
+ 
+.card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+ 
+.progress {
+  margin-top: 10px;
+  text-align: center;
+}
+ 
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 5px 0;
+}
+ 
+.progress-fill {
+  height: 100%;
+  background-color: #4caf50;
+  transition: width 0.3s ease-in-out;
+}
+ 
+.arrow-button {
+  background-color: white;
+  border: 1px solid #F5F5F5;
+  color: #68C184;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 16px;
+}
+ 
+.arrow-button:disabled {
+  color: #68C1844D;
+  cursor: not-allowed;
 }
 `;

@@ -215,26 +215,8 @@ const SignUpPage = () => {
                 </button>
               </div>
             </Input>
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                marginBottom: "1rem",
-              }}
-            >
-              <Link
-                to="/forgot-password"
-                style={{
-                  color: "#007bff",
-                  fontSize: "0.9rem",
-                  textDecoration: "none",
-                }}
-              >
-                Forgot Password ?
-              </Link>
-            </div>
+            
+            <p style={{ margin:"0", textAlign: "center"}}>Invalid email or password</p>
 
             <Button type="submit">Sign Up</Button>
 

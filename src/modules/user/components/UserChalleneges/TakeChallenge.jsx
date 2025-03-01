@@ -10,7 +10,7 @@ const Card = styled.div`
   //   border: 1px solid ${(props) => props.theme.colors.borderblue};
   border-radius: 12px;
   padding: ${(props) => props.theme.spacing(2)};
-  box-shadow: 0 8px 12px #7090B018
+  box-shadow: 0 8px 12px #7090B018;
   font-family: ${(props) => props.theme.fonts.body};
   // margin-left: 60px;
 `;
@@ -38,8 +38,7 @@ const Tags = styled.div`
 const Tag = styled.span`
   background-color: ${(props) => props.theme.colors.backgray};
   color: ${(props) => props.theme.colors.borderblue};
-  padding: ${(props) => props.theme.spacing(0.2)}
-    ${(props) => props.theme.spacing(1)};
+  padding: ${(props) => props.theme.spacing(0.2)} ${(props) => props.theme.spacing(1)};
   border-radius: 4px;
   font-size: 11px;
 `;
@@ -52,12 +51,11 @@ const Buttons = styled.div`
 const Button = styled.button`
   background-color: ${(props) =>
     props.primary ? props.theme.colors.secondary : props.theme.colors.light};
-  //   color: ${(props) =>
+  color: ${(props) =>
     props.secondary ? props.theme.colors.secondary : props.theme.colors.white};
   border: ${(props) =>
     props.secondary ? "none" : `1px solid ${props.theme.colors.secondary}`};
-  padding: ${(props) => props.theme.spacing(1)}
-    ${(props) => props.theme.spacing(2)};
+  padding: ${(props) => props.theme.spacing(1)} ${(props) => props.theme.spacing(2)};
   border-radius: 8px;
   font-family: ${(props) => props.theme.fonts.body};
   font-size: 14px;
